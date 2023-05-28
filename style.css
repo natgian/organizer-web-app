@@ -66,34 +66,130 @@ svg {
 /*-------------------------------*/
 :root {
   /* Colors */
-  --dark-bg-color: #232231;
-  --medium-bg-color: #3F3B58;
-  --light-bg-color: #8B85AD;
-  --primary-text-color: #fff;
+  --dark-color: #232231;
+  --medium-color: #3F3B58;
+  --light-color: #8B85AD;
+  --secondary-color: #5EC1B4;
+  --light-text-color: #fff;
   --dark-text-color: #000;
 
   /* Fonts*/
   --main-font: 'Montserrat', sans-serif;
+
+  /* Font-Weight*/ 
+  /* --light:  
+  --regular: 
+  --medium:
+  --bold: */
 }
-
-
 
 /*--------*/
 /* GLOBAL */
 /*--------*/
 
 body {
-  background-color: var(--dark-bg-color);
-  color: var(--primary-text-color);
+  background-color: var(--dark-color);
+  color: var(--light-text-color);
   font-family: var(--main-font);
   font-size: 100%;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
 
+a {
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: var(--light-color);
+}
+
+/*--------*/
+/* LOGIN */
+/*--------*/
 
 .form-container {
-  background-color: var(--medium-bg-color);
+  position: relative;
+  background-color: var(--medium-color);
+  width: 95%;
+  max-width: 500px;
+  margin: 2em auto;
+  padding: 1em;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.form-container h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  padding-bottom: 0.5em;
+}
+
+.user-svg {
+  color: var(--light-color);
+  padding: 0.5em 0;
+}
+
+.input-container {
+  position: relative;
+  margin: 1.25em 0;
+}
+
+.form-label {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.login-form {
+  width: 100%;
+  padding: 0 1em;
+  text-align: center;
+}
+
+.input-container input {
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.625em;
+}
+
+.input-container svg {
+  display: inline-block;
+}
+
+.form-btn {
+  width: 100%;
+  background-color: var(--secondary-color);
+  color: var(--dark-text-color);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.625em;
+  border: none;
+  border-radius: 5px;
+  margin: 1.25em 0;
+}
+
+input[type=email]:not(:placeholder-shown):invalid {
+  color: red;
+  }
+
+button#toggle-password {
+  position: absolute;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--light-color);
+   bottom: 5px;
+    right: 10px;
+
+}
+
 
 
