@@ -98,17 +98,23 @@ body {
 
 a {
   color: inherit;
+  color: var(--secondary-color);
 }
 
 a:hover,
 a:focus {
-  color: var(--secondary-color);
+  color: rgb(94, 193, 180, 0.7);
 }
 
 /*---------*/
 /* UTILITY */
 /*---------*/
 
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 .mb-05 {
   margin-bottom: 0.5em;
@@ -118,10 +124,36 @@ a:focus {
   margin-bottom: 1em;
 }
 
+/*------*/
+/* MAIN */
+/*------*/
 
-/*--------*/
-/* LOGIN */
-/*--------*/
+.main_header {
+    margin: 2em;  
+}
+
+.main_nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main_nav li {
+  list-style: none;
+}
+.main_nav li a {
+  text-decoration: none;
+  color: var(--secondary-color);
+
+}
+
+.logout {
+  display: inline;
+  vertical-align: middle;
+}
+
+/*-----------------*/
+/* LOGIN & SIGN UP */
+/*-----------------*/
 
 .login-page {
   display: flex;
