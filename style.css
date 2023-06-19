@@ -116,6 +116,10 @@ a:focus {
     margin: 0 auto;
 }
 
+.flex {
+  display: flex;
+}
+
 .mb-05 {
   margin-bottom: 0.5em;
 }
