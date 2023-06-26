@@ -5,8 +5,10 @@ const path = require("path");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.static("./public"));
+
 app.get("/", (req, res) => {
-  res.render("test");
+  res.render("index");
 });
 
 app.listen(3000, () => {
