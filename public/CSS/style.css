@@ -71,6 +71,7 @@ svg {
   --light-color: #8B85AD;
   --secondary-color: #5EC1B4;
   --light-text-color: #fff;
+  --muted-text-color: #e0e0e0a4;
   --dark-text-color: #000;
 
   /* Fonts*/
@@ -97,7 +98,6 @@ body {
 }
 
 a {
-  color: inherit;
   color: var(--secondary-color);
 }
 
@@ -109,6 +109,13 @@ a:focus {
 /*---------*/
 /* UTILITY */
 /*---------*/
+
+.main-layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
 
 .container {
   width: 80%;
@@ -265,8 +272,9 @@ button#toggle-password {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
-  padding-top: 2em;
+  padding-top: 4em;
   justify-content: center;
+  align-items: center;
 }
 
 .home-btn {
@@ -293,6 +301,22 @@ button#toggle-password {
 .home-btn svg {
   width: 50px;
   height: 50px;
+}
+
+/*---------------*/
+/* FOOTER */
+/*---------------*/
+
+.footer-container {
+  width: 100%;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 4em 0 2em 0;
+  color: var(--muted-text-color);  
+}
+
+footer a {
+  text-decoration:none;
 }
 
 
