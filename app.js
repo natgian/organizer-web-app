@@ -1,7 +1,17 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const mongoose = require("mongoose");
 
+// Connecting Mongoose to MongoDB database
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect("mongodb://127.0.0.1:27017/taskmanagerApp");
+  console.log("Connected to MongoDB database");
+}
+
+// Setting the view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
