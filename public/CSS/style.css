@@ -272,14 +272,14 @@ button#toggle-password {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
-  padding-top: 4em;
+  margin: 3em auto;
   justify-content: center;
   align-items: center;
 }
 
 .home-btn {
-  min-width: 8rem;
-  min-height: 8rem;
+  min-width: 6rem;
+  min-height: 6rem;
   background-color: var(--medium-color);
   color: var(--secondary-color);
   border: none;
@@ -299,9 +299,146 @@ button#toggle-password {
 }
 
 .home-btn svg {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
+
+
+/*-------*/
+/* TIMER */
+/*-------*/
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 2em;
+  background-color: var(--medium-color);
+  max-width: 500px;
+  margin: 3em auto;
+  border-radius: 15px;
+  padding: 2em;
+}
+
+/* .timer-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: var(--dark-color);
+  border-radius: 50%;
+  margin: 0 auto;
+} */
+
+
+/* .time {
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 2em;
+}
+
+.timer-controls {
+  margin-top: 1em;
+}
+
+
+/* TEST */
+
+.base-timer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+  color: orange;
+}
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+/* .timer-buttons {
+  display: flex;
+  justify-content: center;
+} */
+
+.timer-btn {
+  background-color: var(--secondary-color);
+  color: var(--dark-text-color);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.625em 0.8em;
+  border: none;
+  border-radius: 5px;
+  margin-right: 0.8em;
+}
+
+.timer-btn svg {
+  color: var(--dark-text-color);
+}
+
+.timer-btn:last-child {
+  margin-right: 0;
+}
+
+.settings {
+  margin-top: 20px;
+}
+
+.settings label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.settings input[type="number"] {
+  width: 50px;
+}
+
+/* TEST END */
+
+
 
 /*---------------*/
 /* FOOTER */
@@ -312,11 +449,11 @@ button#toggle-password {
   font-size: 0.875rem;
   text-align: center;
   padding: 4em 0 2em 0;
-  color: var(--muted-text-color);  
+  color: var(--muted-text-color);
 }
 
 footer a {
-  text-decoration:none;
+  text-decoration: none;
 }
 
 
@@ -324,12 +461,25 @@ footer a {
 /* MEDIA QUERIES */
 /*---------------*/
 
-@media only screen and (min-width:640px) {
+@media only screen and (min-width:400px) {
   .home-btn {
-    width: 15rem;
-    height: 15rem;
+    width: 8rem;
+    height: 8rem;
   }
 }
 
+@media only screen and (min-width:640px) {
+  .home-btn {
+    width: 14rem;
+    height: 14rem;
+  }
 
+  .home-container {
+    gap: 4em;
+  }
 
+  .home-btn svg {
+    width: 60px;
+    height: 60px;
+  }
+}

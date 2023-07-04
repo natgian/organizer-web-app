@@ -27,6 +27,10 @@ app.get("/home", (req, res) => {
   res.render("pages/home");
 })
 
+app.get("/timer", (req, res) => {
+  res.render("pages/timer");
+})
+
 app.get("/registration", (req, res) => {
   res.render("pages/registration");
 })
