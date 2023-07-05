@@ -17,7 +17,7 @@ const COLOR_CODES = {
 };
 
 const timerDurationInput = document.getElementById("timer-duration");
-const shortBreakDurationInput = document.getElementById("short-break-duration");
+const breakDurationInput = document.getElementById("break-duration");
 const startButton = document.getElementById("start-button");
 const pauseButton = document.getElementById("pause-button");
 const resetButton = document.getElementById("reset-button");
@@ -83,12 +83,14 @@ function pauseTimer() {
       }
     }, 1000);
 
-    pauseButton.innerHTML = "Pause";
+    pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M14 19h4V5h-4M6 19h4V5H6v14Z" />
+  </svg>`;
     isTimerPaused = false;
   } else {
     // Pause the timer
     clearInterval(timerInterval);
-    pauseButton.innerHTML = "Resume";
+    pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.14v14l11-7l-11-7Z"/></svg>`;
     isTimerPaused = true;
   }
 }
@@ -103,6 +105,9 @@ function resetTimer() {
   document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
   setCircleDasharray();
   setRemainingPathColor(timeLeft);
+  pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M14 19h4V5h-4M6 19h4V5H6v14Z" />
+              </svg>`;
 }
 
 function formatTime(time) {
@@ -143,12 +148,12 @@ function calculateTimeFraction() {
 
 function disableInputFields() {
   timerDurationInput.disabled = true;
-  shortBreakDurationInput.disabled = true;
+  breakDurationInput.disabled = true;
 }
 
 function enableInputFields() {
   timerDurationInput.disabled = false;
-  shortBreakDurationInput.disabled = false;
+  breakDurationInput.disabled = false;
 }
 
 function onTimesUp() {
@@ -158,22 +163,22 @@ function onTimesUp() {
   pauseButton.disabled = true;
   resetButton.disabled = false;
   playSound();
-  startShortBreak();
+  startBreak();
 }
 
 function playSound() {
-  const audio = new Audio("sound/bell.mp3");
+  const audio = new Audio("/audio/bell.mp3");
   audio.play();
 }
 
-function startShortBreak() {
+function startBreak() {
   disableInputFields();
 
-  const shortBreakDuration = parseInt(shortBreakDurationInput.value, 10);
-  const shortBreakTime = shortBreakDuration * 60;
+  const breakDuration = parseInt(breakDurationInput.value, 10);
+  const breakTime = breakDuration * 60;
 
   timePassed = 0;
-  timeLeft = shortBreakTime;
+  timeLeft = breakTime;
   remainingPathColor = COLOR_CODES.info.color;
 
   document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
@@ -182,19 +187,19 @@ function startShortBreak() {
 
   timerInterval = setInterval(() => {
     timePassed += 1;
-    timeLeft = shortBreakTime - timePassed;
+    timeLeft = breakTime - timePassed;
 
     document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
     if (timeLeft === 0) {
-      onShortBreakTimesUp();
+      onBreakTimesUp();
     }
   }, 1000);
 }
 
-function onShortBreakTimesUp() {
+function onBreakTimesUp() {
   clearInterval(timerInterval);
   enableInputFields();
   startButton.disabled = false;

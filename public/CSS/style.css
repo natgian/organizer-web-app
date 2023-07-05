@@ -272,7 +272,7 @@ button#toggle-password {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
-  margin: 3em auto;
+  margin: 2em auto;
   justify-content: center;
   align-items: center;
 }
@@ -311,45 +311,23 @@ button#toggle-password {
 .timer-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  gap: 2em;
+  gap: 1em;
   background-color: var(--medium-color);
   max-width: 500px;
-  margin: 3em auto;
+  margin: 2em auto;
   border-radius: 15px;
   padding: 2em;
 }
-
-/* .timer-circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 200px;
-  background-color: var(--dark-color);
-  border-radius: 50%;
-  margin: 0 auto;
-} */
-
-
-/* .time {
-  font-size: 3rem;
-  font-weight: bold;
-  padding: 2em;
-}
-
-.timer-controls {
-  margin-top: 1em;
-}
-
 
 /* TEST */
 
 .base-timer {
   position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
+  width: 220px;
+  height: 220px;
 }
 
 .base-timer__svg {
@@ -362,12 +340,12 @@ button#toggle-password {
 }
 
 .base-timer__path-elapsed {
-  stroke-width: 7px;
+  stroke-width: 5px;
   stroke: grey;
 }
 
 .base-timer__path-remaining {
-  stroke-width: 7px;
+  stroke-width: 5px;
   stroke-linecap: round;
   transform: rotate(90deg);
   transform-origin: center;
@@ -377,7 +355,7 @@ button#toggle-password {
 }
 
 .base-timer__path-remaining.green {
-  color: rgb(65, 184, 131);
+  color: var(--secondary-color);
 }
 
 .base-timer__path-remaining.orange {
@@ -390,19 +368,20 @@ button#toggle-password {
 
 .base-timer__label {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48px;
+  font-size: 3rem;
 }
 
-/* .timer-buttons {
+.timer-buttons {
   display: flex;
   justify-content: center;
-} */
+  margin: 2em 0;
+}
 
 .timer-btn {
   background-color: var(--secondary-color);
@@ -423,17 +402,23 @@ button#toggle-password {
   margin-right: 0;
 }
 
-.settings {
-  margin-top: 20px;
+.timer-settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
 }
 
-.settings label {
-  display: block;
-  margin-bottom: 5px;
+.timer-settings label {
+  display: inline-block;
+  margin: 0 0.5em 0 0;
 }
 
-.settings input[type="number"] {
-  width: 50px;
+.timer-settings input[type="number"] {
+  width: 3rem;
+  text-align: center;
+  font-size: 1rem;
 }
 
 /* TEST END */
