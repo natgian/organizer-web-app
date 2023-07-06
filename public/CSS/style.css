@@ -319,10 +319,9 @@ button#toggle-password {
   max-width: 500px;
   margin: 2em auto;
   border-radius: 15px;
-  padding: 2em;
+  padding: 2em 0;
+  font-size: 1.125rem;
 }
-
-/* TEST */
 
 .base-timer {
   position: relative;
@@ -330,21 +329,24 @@ button#toggle-password {
   height: 220px;
 }
 
-.base-timer__svg {
+.base-timer-svg {
   transform: scaleX(-1);
+  color: var(--secondary-color);
+  filter: drop-shadow(3px 10px 10px rgb(0 0 0 / 0.5));
+  
 }
 
-.base-timer__circle {
+.base-timer-circle {
   fill: none;
   stroke: none;
 }
 
-.base-timer__path-elapsed {
+.base-timer-path-elapsed {
   stroke-width: 5px;
   stroke: grey;
 }
 
-.base-timer__path-remaining {
+.base-timer-path-remaining {
   stroke-width: 5px;
   stroke-linecap: round;
   transform: rotate(90deg);
@@ -354,19 +356,19 @@ button#toggle-password {
   stroke: currentColor;
 }
 
-.base-timer__path-remaining.green {
+.base-timer-path-remaining.green {
   color: var(--secondary-color);
 }
 
-.base-timer__path-remaining.orange {
+.base-timer-path-remaining.orange {
   color: orange;
 }
 
-.base-timer__path-remaining.red {
+.base-timer-path-remaining.red {
   color: red;
 }
 
-.base-timer__label {
+.base-timer-label {
   position: absolute;
   width: 220px;
   height: 220px;
@@ -381,6 +383,7 @@ button#toggle-password {
   display: flex;
   justify-content: center;
   margin: 2em 0;
+  gap: 0.5em;
 }
 
 .timer-btn {
@@ -410,7 +413,7 @@ button#toggle-password {
   gap: 1em;
 }
 
-.timer-settings label {
+/* .timer-settings label {
   display: inline-block;
   margin: 0 0.5em 0 0;
 }
@@ -419,10 +422,12 @@ button#toggle-password {
   width: 3rem;
   text-align: center;
   font-size: 1rem;
+} */
+
+.control-timer,
+.control-break {
+  display: flex;
 }
-
-/* TEST END */
-
 
 
 /*---------------*/

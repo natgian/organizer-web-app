@@ -20,15 +20,15 @@
 
         <div class="timer-container">
 
-          <div id="app" class="base-timer">
-            <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <g class="base-timer__circle">
-                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-                <path id="base-timer-path-remaining" stroke-dasharray="283" class="base-timer__path-remaining"
+          <div class="base-timer">
+            <svg class="base-timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <g class="base-timer-circle">
+                <circle class="base-timer-path-elapsed" cx="50" cy="50" r="45"></circle>
+                <path id="base-timer-path-remaining" stroke-dasharray="283" class="base-timer-path-remaining"
                   d="M 50, 50 m -45, 0 a 45,45 0 1,0 90,0 a 45,45 0 1,0 -90,0"></path>
               </g>
             </svg>
-            <span id="base-timer-label" class="base-timer__label">00:00</span>
+            <span id="base-timer-label" class="base-timer-label">00:00</span>
           </div>
 
           <div class="timer-buttons">
@@ -47,6 +47,39 @@
           </div>
 
           <div class="timer-settings">
+
+            <div class="control-timer">
+              <span>Timer:&nbsp;</span>
+              <svg id="timer-minus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M17 13H7v-2h10m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z" />
+              </svg>
+              &nbsp;
+              <span id="timer-duration">25</span>
+              &nbsp;
+              <svg id="timer-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z" />
+              </svg>
+            </div>
+
+            <div class="control-break">
+              <span>Pause:&nbsp;</span>
+              <svg id="break-minus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M17 13H7v-2h10m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z" />
+              </svg>
+              &nbsp;
+              <span id="break-duration">5</span>
+              &nbsp;
+              <svg id="break-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2Z" />
+              </svg>
+            </div>
+
+
+<!-- 
             <div>
               <label for="timer-duration">Timer:</label>
               <input type="number" id="timer-duration" min="1" value="25">
@@ -54,9 +87,12 @@
             <div>
               <label for="short-duration">Pause:</label>
               <input type="number" id="break-duration" min="1" value="5">
-            </div>
+            </div> -->
+
           </div>
         </div>
+
+
 
 
 

@@ -1,6 +1,6 @@
-const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 10;
-const ALERT_THRESHOLD = 5;
+const fullCirclePath = 283;
+const WARNING_THRESHOLD = 55;
+const ALERT_THRESHOLD = 50;
 
 const COLOR_CODES = {
   info: {
@@ -16,8 +16,8 @@ const COLOR_CODES = {
   }
 };
 
-const timerDurationInput = document.getElementById("timer-duration");
-const breakDurationInput = document.getElementById("break-duration");
+const timerDurationSpan = document.getElementById("timer-duration");
+const breakDurationSpan = document.getElementById("break-duration");
 const startButton = document.getElementById("start-button");
 const pauseButton = document.getElementById("pause-button");
 const resetButton = document.getElementById("reset-button");
@@ -33,10 +33,10 @@ pauseButton.addEventListener("click", pauseTimer);
 resetButton.addEventListener("click", resetTimer);
 
 function startTimer() {
-  timeLimit = parseInt(timerDurationInput.value, 10) * 60;
+  timeLimit = parseInt(timerDurationSpan.textContent, 10) * 60;
   disableInputFields();
 
-  const timerDuration = parseInt(timerDurationInput.value, 10);
+  const timerDuration = parseInt(timerDurationSpan.textContent, 10);
   const timerTime = timerDuration * 60;
 
   timePassed = 0;
@@ -101,7 +101,7 @@ function resetTimer() {
   startButton.disabled = false;
   pauseButton.disabled = true;
   resetButton.disabled = true;
-  timeLeft = parseInt(timerDurationInput.value, 10) * 60;
+  timeLeft = parseInt(timerDurationSpan.textContent, 10) * 60;
   document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
   setCircleDasharray();
   setRemainingPathColor(timeLeft);
@@ -137,23 +137,23 @@ function setRemainingPathColor(timeLeft) {
 }
 
 function setCircleDasharray() {
-  const circleDasharray = `${(calculateTimeFraction() * FULL_DASH_ARRAY).toFixed(0)} 283`;
+  const circleDasharray = `${(calculateTimeFraction() * fullCirclePath).toFixed(0)} 283`;
   document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
 }
 
 function calculateTimeFraction() {
-  const rawTimeFraction = timeLeft / (parseInt(timerDurationInput.value, 10) * 60);
-  return rawTimeFraction - (1 / (parseInt(timerDurationInput.value, 10) * 60)) * (1 - rawTimeFraction);
+  const rawTimeFraction = timeLeft / (parseInt(timerDurationSpan.textContent, 10) * 60);
+  return rawTimeFraction - (1 / (parseInt(timerDurationSpan.textContent, 10) * 60)) * (1 - rawTimeFraction);
 }
 
 function disableInputFields() {
-  timerDurationInput.disabled = true;
-  breakDurationInput.disabled = true;
+  timerDurationSpan.disabled = true;
+  breakDurationSpan.disabled = true;
 }
 
 function enableInputFields() {
-  timerDurationInput.disabled = false;
-  breakDurationInput.disabled = false;
+  timerDurationSpan.disabled = false;
+  breakDurationSpan.disabled = false;
 }
 
 function onTimesUp() {
@@ -174,7 +174,7 @@ function playSound() {
 function startBreak() {
   disableInputFields();
 
-  const breakDuration = parseInt(breakDurationInput.value, 10);
+  const breakDuration = parseInt(breakDurationSpan.textContent, 10);
   const breakTime = breakDuration * 60;
 
   timePassed = 0;
