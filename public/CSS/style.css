@@ -70,6 +70,8 @@ svg {
   --medium-color: #3F3B58;
   --light-color: #8B85AD;
   --secondary-color: #5EC1B4;
+  --secondary-color-hover: #329A8E;
+  --secondary-color-disabled: #007469;
   --light-text-color: #fff;
   --muted-text-color: #e0e0e0a4;
   --dark-text-color: #000;
@@ -319,7 +321,7 @@ button#toggle-password {
   max-width: 500px;
   margin: 2em auto;
   border-radius: 15px;
-  padding: 2em 0;
+  padding: 2em 1em;
   font-size: 1.125rem;
 }
 
@@ -333,7 +335,6 @@ button#toggle-password {
   transform: scaleX(-1);
   color: var(--secondary-color);
   filter: drop-shadow(3px 10px 10px rgb(0 0 0 / 0.5));
-  
 }
 
 .base-timer-circle {
@@ -368,7 +369,7 @@ button#toggle-password {
   color: red;
 }
 
-.base-timer-label {
+.base-timer-indicator {
   position: absolute;
   width: 220px;
   height: 220px;
@@ -383,7 +384,7 @@ button#toggle-password {
   display: flex;
   justify-content: center;
   margin: 2em 0;
-  gap: 0.5em;
+  gap: 0.7em;
 }
 
 .timer-btn {
@@ -391,10 +392,14 @@ button#toggle-password {
   color: var(--dark-text-color);
   font-weight: bold;
   cursor: pointer;
-  padding: 0.625em 0.8em;
+  padding: 0.625em 1em;
   border: none;
   border-radius: 5px;
-  margin-right: 0.8em;
+}
+
+.timer-btn:hover,
+.timer-btn:focus {
+  background-color: var(--secondary-color-hover);
 }
 
 .timer-btn svg {
@@ -405,29 +410,54 @@ button#toggle-password {
   margin-right: 0;
 }
 
+.timer-btn:disabled {
+  background-color: var(--secondary-color-disabled);
+}
+
+#start-button {
+  font-size: 0.9rem;
+}
+
+.timer-state {
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
 .timer-settings {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1em;
+  gap: 2em;
 }
 
-/* .timer-settings label {
-  display: inline-block;
-  margin: 0 0.5em 0 0;
-}
-
-.timer-settings input[type="number"] {
-  width: 3rem;
-  text-align: center;
-  font-size: 1rem;
-} */
-
-.control-timer,
-.control-break {
+.duration-control-container {
   display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
+
+.duration-buttons-container {
+  display: flex;
+  gap: 0.2em;
+  padding-top: 0.5em;
+}
+
+.settings-btn {
+  background-color: var(--medium-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.settings-btn:disabled {
+  color: var(--secondary-color-disabled);
+}
+
+
 
 
 /*---------------*/
