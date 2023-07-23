@@ -46,6 +46,8 @@ let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
 let timeLimit = 0;
 let isTimerPaused = false;
+let currentCycle = 0;
+let isFocusSession = true;
 
 // Variables for timer and break duration settings
 const timerDurationIndicator = document.getElementById("timer-duration");
@@ -67,15 +69,14 @@ breakPlusButton.addEventListener("click", increaseBreakDuration);
 
 // Function to start the timer
 function startTimer() {
-  timeLimit = parseInt(timerDurationIndicator.textContent, 10) * 60;
+
   disableSettings();
 
-  const timerDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const timerTime = timerDuration * 60;
-
+  timeLimit = parseInt(timerDurationIndicator.textContent, 10) * 60;
   timePassed = 0;
-  timeLeft = timerTime;
+  timeLeft = timeLimit;
   remainingPathColor = COLOR_CODES.info.color;
+  currentCycle += 1;
 
   document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
   setCircleDasharray();
@@ -102,11 +103,11 @@ function startTimer() {
 // Function to decrease the timer duration
 function decreaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const step = currentDuration === 5 ? 4 : 5; 
+  const step = currentDuration === 5 ? 4 : 5;
 
   if (currentDuration > 1) {
     currentDuration -= step;
-    if(currentDuration < 1) {
+    if (currentDuration < 1) {
       currentDuration = 1;
     }
     timerDurationIndicator.textContent = currentDuration;
@@ -124,11 +125,12 @@ function decreaseTimerDuration() {
 // Function to increase the timer duration
 function increaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const step = currentDuration === 1 ? 4 : 5;
-  
+  // const step = currentDuration === 1 ? 4 : 5;
+  const step = 1;
+
   currentDuration += step;
   timerDurationIndicator.textContent = currentDuration;
-  
+
   if (timeLeft !== 0) {
     timePassed = 0;
     timeLeft = currentDuration * 60;
@@ -141,7 +143,7 @@ function increaseTimerDuration() {
 // Function to decrease the break duration
 function decreaseBreakDuration() {
   let currentDuration = parseInt(breakDurationIndicator.textContent, 10);
-  const step = currentDuration === 5 ? 4 : 5; 
+  const step = currentDuration === 5 ? 4 : 5;
 
   if (currentDuration > 1) {
     currentDuration -= step;
@@ -158,8 +160,7 @@ function increaseBreakDuration() {
   breakDurationIndicator.textContent = currentDuration;
 }
 
-
-
+// Function to pause the timer
 function pauseTimer() {
   if (isTimerPaused) {
     // Resume the timer
@@ -186,6 +187,7 @@ function pauseTimer() {
   }
 }
 
+// Function to reset the timer
 function resetTimer() {
   clearInterval(timerInterval);
   enableSettings();
@@ -199,18 +201,19 @@ function resetTimer() {
   pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M14 19h4V5h-4M6 19h4V5H6v14Z" />
               </svg>`;
-  isTimerPaused = false; 
+  isTimerPaused = false;
+  currentCycle = 0;
 }
 
-
-
+// Function to format the time
 function formatTime(time) {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
 
-function setRemainingPathColor(timeLeft) {
+// Function to set the color on the circle for the remaining time
+function setRemainingPathColor() {
   const { alert, warning, info } = COLOR_CODES;
   if (timeLeft <= alert.threshold) {
     document.getElementById("base-timer-path-remaining").classList.remove(warning.color);
@@ -225,15 +228,19 @@ function setRemainingPathColor(timeLeft) {
   }
 }
 
-function setCircleDasharray() {
-  const circleDasharray = `${(calculateTimeFraction() * FULL_DASHARRAY).toFixed(0)} 283`;
-  document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
-}
-
-function calculateTimeFraction() {
+// Function to calculate the time progress (calculates the fraction of time that has already passed)
+function calculateTimePassed() {
   return timeLeft / (parseInt(timerDurationIndicator.textContent, 10) * 60);
 }
 
+// Function to calculate the appropriate stroke-dasharray value for the SVG circle representing the timer 
+function setCircleDasharray() {
+  const calculateTimeLeft = timeLeft / timeLimit;
+  const circleDasharray = `${(calculateTimeLeft * FULL_DASHARRAY).toFixed(0)} 283`;
+  document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
+}
+
+// Function to disable settings buttons
 function disableSettings() {
   timerMinusButton.disabled = true;
   timerPlusButton.disabled = true;
@@ -241,6 +248,7 @@ function disableSettings() {
   breakPlusButton.disabled = true;
 }
 
+// Function to enable settings buttons
 function enableSettings() {
   timerMinusButton.disabled = false;
   timerPlusButton.disabled = false;
@@ -248,6 +256,7 @@ function enableSettings() {
   breakPlusButton.disabled = false;
 }
 
+// Function to manage actions when the timer reaches 0
 function onTimesUp() {
   clearInterval(timerInterval);
   enableSettings();
@@ -255,9 +264,21 @@ function onTimesUp() {
   pauseButton.disabled = true;
   resetButton.disabled = false;
   playSound();
-  startBreak();
+
+  if(currentCycle < 3) {
+    startBreak();
+  } else {
+    timePassed = 0;
+    timeLeft = parseInt(timerDurationIndicator.textContent, 10) * 60;
+    remainingPathColor = COLOR_CODES.info.color;
+    document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
+    setCircleDasharray();
+    setRemainingPathColor(timeLeft);
+    currentCycle = 0;
+  }
 }
 
+// Function to manage actions when the break timer reaches 0
 function onBreaksUp() {
   clearInterval(timerInterval);
   enableSettings();
@@ -266,44 +287,40 @@ function onBreaksUp() {
   resetButton.disabled = true;
   playSound();
 
-  timePassed = 0;
-  timeLeft = parseInt(timerDurationIndicator.textContent, 10) * 60;
-  remainingPathColor = COLOR_CODES.info.color;
-  document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
-  setCircleDasharray();
-  setRemainingPathColor(timeLeft);
-
-  timerState.innerHTML = "Focus";
+  timerState.innerHTML = "Fokus";
   timerState.style.color = "#fff";
+
+  if (currentCycle < 3) {
+    startTimer();
+  } 
 }
 
+// Function to play "bing" sound
 function playSound() {
   const audio = new Audio("/audio/bell.mp3");
   audio.play();
 }
 
+// Function to manage actions for break time
 function startBreak() {
-  timeLimit = parseInt(breakDurationIndicator.textContent, 10) * 60;
   disableSettings();
 
-  const timerDuration = parseInt(breakDurationIndicator.textContent, 10);
-  const timerTime = timerDuration * 60;
-
+  timeLimit = parseInt(breakDurationIndicator.textContent, 10) * 60;
   timePassed = 0;
-  timeLeft = timerTime;
   remainingPathColor = COLOR_CODES.info.color;
+  timeLeft = timeLimit;
 
   document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
   setCircleDasharray();
-  setRemainingPathColor(timeLeft);
-
+  setRemainingPathColor();
+  
   timerInterval = setInterval(() => {
     timePassed += 1;
     timeLeft = timeLimit - timePassed;
 
     document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
     setCircleDasharray();
-    setRemainingPathColor(timeLeft);
+    setRemainingPathColor();
 
     timerState.innerHTML = "Pause";
     timerState.style.color = "red";
@@ -316,6 +333,8 @@ function startBreak() {
   startButton.disabled = true;
   pauseButton.disabled = false;
   resetButton.disabled = false;
+
+  isFocusSession = false;
 }
 
 
