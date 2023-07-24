@@ -69,7 +69,6 @@ breakPlusButton.addEventListener("click", increaseBreakDuration);
 
 // Function to start the timer
 function startTimer() {
-
   disableSettings();
 
   timeLimit = parseInt(timerDurationIndicator.textContent, 10) * 60;
@@ -103,13 +102,10 @@ function startTimer() {
 // Function to decrease the timer duration
 function decreaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const step = currentDuration === 5 ? 4 : 5;
+  const minimumDuration = 15;
 
-  if (currentDuration > 1) {
-    currentDuration -= step;
-    if (currentDuration < 1) {
-      currentDuration = 1;
-    }
+  if (currentDuration > minimumDuration) {
+    currentDuration -= 5;
     timerDurationIndicator.textContent = currentDuration;
 
     if (timeLeft !== 0) {
@@ -125,8 +121,7 @@ function decreaseTimerDuration() {
 // Function to increase the timer duration
 function increaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  // const step = currentDuration === 1 ? 4 : 5;
-  const step = 1;
+  const step = currentDuration === 1 ? 4 : 5;
 
   currentDuration += step;
   timerDurationIndicator.textContent = currentDuration;
@@ -228,7 +223,7 @@ function setRemainingPathColor() {
   }
 }
 
-// Function to calculate the time progress (calculates the fraction of time that has already passed)
+//THIS FUNCTION IS CURRENTLY NOT IN USE ANYWHERE !!
 function calculateTimePassed() {
   return timeLeft / (parseInt(timerDurationIndicator.textContent, 10) * 60);
 }
