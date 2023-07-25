@@ -105,10 +105,10 @@ function startTimer() {
 // Function to DECREASE TIMER DURATION
 function decreaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const minimumDuration = 15;
+  const minimumDuration = 1;
 
   if (currentDuration > minimumDuration) {
-    currentDuration -= 5;
+    currentDuration -= 1;
     timerDurationIndicator.textContent = currentDuration;
     timeLeft = currentDuration * 60;
     document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
@@ -131,10 +131,10 @@ function increaseTimerDuration() {
 // Function to DECREASE BREAK DURATION
 function decreaseBreakDuration() {
   let currentDuration = parseInt(breakDurationIndicator.textContent, 10);
-  const minimumDuration = 5;
+  const minimumDuration = 1;
 
   if (currentDuration > minimumDuration) {
-    currentDuration -= 5;
+    currentDuration -= 1;
     breakDurationIndicator.textContent = currentDuration;
   }
 }
@@ -292,6 +292,9 @@ function startBreak() {
   setCircleDasharray();
   setRemainingPathColor();
 
+    timerState.innerHTML = "Pause";
+    timerState.style.color = "red";
+
   timerInterval = setInterval(() => {
     timePassed += 1;
     timeLeft = timeLimit - timePassed;
@@ -300,8 +303,8 @@ function startBreak() {
     setCircleDasharray();
     setRemainingPathColor();
 
-    timerState.innerHTML = "Pause";
-    timerState.style.color = "red";
+    // timerState.innerHTML = "Pause";
+    // timerState.style.color = "red";
 
     if (timeLeft === 0) {
       onBreaksUp();
