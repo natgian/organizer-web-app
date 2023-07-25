@@ -105,10 +105,10 @@ function startTimer() {
 // Function to DECREASE TIMER DURATION
 function decreaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const minimumDuration = 1;
+  const minimumDuration = 15;
 
   if (currentDuration > minimumDuration) {
-    currentDuration -= 1;
+    currentDuration -= 5;
     timerDurationIndicator.textContent = currentDuration;
     timeLeft = currentDuration * 60;
     document.getElementById("base-timer-indicator").textContent = formatTime(timeLeft);
@@ -131,10 +131,10 @@ function increaseTimerDuration() {
 // Function to DECREASE BREAK DURATION
 function decreaseBreakDuration() {
   let currentDuration = parseInt(breakDurationIndicator.textContent, 10);
-  const minimumDuration = 1;
+  const minimumDuration = 5;
 
   if (currentDuration > minimumDuration) {
-    currentDuration -= 1;
+    currentDuration -= 5;
     breakDurationIndicator.textContent = currentDuration;
   }
 }
