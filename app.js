@@ -21,6 +21,8 @@ app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
 
 
+
+
 // ROUTES
 app.get("/", (req, res) => {
   res.render("index");
@@ -51,6 +53,18 @@ app.get("/listen/:id", async (req, res) => {
   const {id} = req.params;
   const foundList = await List.findById(id);
   res.render("lists/show", { foundList });
+});
+
+// ERROR HANDLING
+// General Error Handler for undefined routes
+app.use((req, res, next) => {
+  res.status(404).render("pages/404");
+});
+
+// Error Handler for other errors (e.g., server errors)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("pages/error");
 });
 
 
