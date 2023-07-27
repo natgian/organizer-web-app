@@ -101,11 +101,26 @@ body {
 
 a {
   color: var(--secondary-color);
+  text-decoration: none;
 }
 
 a:hover,
 a:focus {
   color: rgb(94, 193, 180, 0.7);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1em 0 0.5em 0;
+}
+
+.sub-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 1em;
 }
 
 /*---------*/
@@ -131,6 +146,15 @@ a:focus {
 
 .mb-1 {
   margin-bottom: 1em;
+}
+
+.link-svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.navigation-link {
+color: var(--light-text-color);
 }
 
 /*------*/
@@ -283,7 +307,7 @@ button#toggle-password {
   min-width: 6rem;
   min-height: 6rem;
   background-color: var(--medium-color);
-  color: var(--secondary-color);
+  color: var(--light-text-color);
   border: none;
   border-radius: 5px;
   display: flex;
@@ -292,6 +316,10 @@ button#toggle-password {
   align-items: center;
   gap: 0.5em;
   text-decoration: none;
+}
+
+.home-btn svg {
+  color: var(--secondary-color);
 }
 
 .home-btn:hover,
@@ -397,8 +425,7 @@ button#toggle-password {
   border-radius: 5px;
 }
 
-.timer-btn:hover,
-.timer-btn:focus {
+.timer-btn:hover {
   background-color: var(--secondary-color-hover);
 }
 
@@ -457,12 +484,114 @@ button#toggle-password {
   color: var(--secondary-color-disabled);
 }
 
+/*--------*/
+/* Listen */
+/*--------*/
 
+.listen-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--medium-color);
+  max-width: 500px;
+  margin: 2em auto;
+  border-radius: 15px;
+  padding: 2em;
+  font-size: 1.125rem;
+}
 
+.listen-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* background-color: rgb(63, 59, 88, 0.4); */
+  background-color:var(--dark-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 0.875em;
+  border: none;
+  border-radius: 8px;
+  margin: 1.25em 0;
+}
+.listen-btn:hover,
+.listen-btn:focus {
+color: var(--secondary-color-hover);
+}
 
-/*---------------*/
+.btn-svg {
+  margin-right: 0.25em;
+}
+
+.add-btn {
+  display: flex;
+  width: 100%;
+  font-size: 1rem;
+  background-color: var(--medium-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 0.875em;
+  border: none;
+  border-radius: 8px;
+  margin: 1.25em 0;
+}
+
+.add-btn:hover,
+.add-btn:focus {
+color: var(--secondary-color-hover);
+}
+
+.items-ul {
+  padding: 1em 0 1em 0;
+}
+
+.listen-name {
+  list-style: none;
+  padding-bottom: 0.5em;
+  display: flex;
+  gap: 1em;
+  width: 100%;
+  background-color: var(--medium-color);
+  cursor: pointer;
+  padding: 0.75em;
+  border: none;
+  border-radius: 8px;
+  margin: 1.25em 0 1.75em 0;
+}
+
+.listen-name a {
+  color: var(--light-text-color);
+}
+
+.listen-name svg {
+  margin: 0 0.5em;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.listen-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1rem;
+  list-style: none;
+  padding: 1.25em 0;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.delete-btn {
+  color: var(--secondary-color);
+  background-color: var(--medium-color);
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+color: var(--secondary-color-hover);
+}
+
+/*--------*/
 /* FOOTER */
-/*---------------*/
+/*--------*/
 
 .footer-container {
   width: 100%;

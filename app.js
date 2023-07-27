@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
+const List = require("./models/list");
 
 // Connecting Mongoose to MongoDB database
 main().catch(err => console.log(err));
@@ -11,11 +12,13 @@ async function main() {
   console.log("Connected to MongoDB database");
 }
 
-// Setting the view engine
+// Setting the view engine and path
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// Middlewares and static files
 app.use(express.static("./public"));
+app.use(express.urlencoded({ extended: true }));
 
 
 // ROUTES
@@ -39,6 +42,20 @@ app.get("/login", (req, res) => {
   res.render("pages/login");
 })
 
+app.get("/listen", async (req, res) => {
+  const lists = await List.find({});
+  res.render("pages/listen", { lists });
+});
+
+app.get("/listen/:id", async (req, res) => {
+  const {id} = req.params;
+  const foundList = await List.findById(id);
+  res.render("lists/show", { foundList });
+});
+
+
+
+// SERVER
 app.listen(3000, () => {
   console.log("SERVING ON PORT 3000");
 });
