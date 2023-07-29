@@ -4,6 +4,9 @@ const path = require("path");
 const mongoose = require("mongoose");
 const List = require("./models/list");
 
+// Requiring routes
+const lists = require("./routes/lists");
+
 // Connecting Mongoose to MongoDB database
 main().catch(err => console.log(err));
 
@@ -19,7 +22,6 @@ app.set("views", path.join(__dirname, "views"));
 // Middlewares and static files
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
-
 
 
 
@@ -44,24 +46,44 @@ app.get("/login", (req, res) => {
   res.render("pages/login");
 })
 
-app.get("/listen", async (req, res) => {
-  const lists = await List.find({});
-  res.render("pages/listen", { lists });
-});
+// Using required routes
+app.use("/listen", lists);
 
-app.get("/listen/:id", async (req, res) => {
-  const {id} = req.params;
-  const foundList = await List.findById(id);
-  res.render("lists/show", { foundList });
-});
+
+// app.get("/listen", async (req, res) => {
+//   const lists = await List.find({});
+//   res.render("pages/listen", { lists });
+// });
+
+// app.get("/listen/:id", async (req, res) => {
+//   const {id} = req.params;
+//   try {
+//     const foundList = await List.findById(id);
+//     if(!foundList) {
+//       res.status(404).render("pages/404");
+//     }
+//     else {
+//       res.render("lists/show", { foundList});
+//     }
+//   }
+//   catch (err) {
+//     if(err.name === "CastError") {
+//       res.status(404).render("pages/404");
+//     } 
+//     else {
+//       res.status(500).render("pages/error");
+//     }
+//   }
+// });
 
 // ERROR HANDLING
+
 // General Error Handler for undefined routes
 app.use((req, res, next) => {
   res.status(404).render("pages/404");
 });
 
-// Error Handler for other errors (e.g., server errors)
+// Error Handler for other errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render("pages/error");

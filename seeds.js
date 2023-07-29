@@ -12,19 +12,19 @@ async function main() {
 const seedLists = [
   { name: "Einkaufsliste",
     items: ["Äpfel", "Eier", "Brot", "Joghurt"],
-    color: "blue"
+    color: "#da7cb4"
   }, 
   { name: "Bücher zum Lesen",
   items: ["Das blaue vom...", "Figaro", "Tralalal", "Weisheiten aus dem All"],
-  color: "green"
+  color: "#d5966c"
   }, 
   { name: "Interessante Künstler",
   items: ["Bingbong Joes", "Mozart", "Haaaa", "The Broos", "The Sistaas", "Nevermind"],
-  color: "pink"
+  color: "#a0d058"
   }, 
   { name: "Wandertipps",
   items: ["Bündnerland", "Tessin", "Wallis"],
-  color: "yellow"
+  color: "#549ecf"
   },
 ];
 

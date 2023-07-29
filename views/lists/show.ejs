@@ -17,10 +17,12 @@
 
     <main>
       <div class="container">
-        <div class="listen-container">
+
+        <div class="wrapper medium-dark-wrapper">
           
-         
-          <h1 class="sub-title"><%= foundList.name %></h1>
+          <h1 class="subtitle"><%= foundList.name %></h1>
+
+          <button class="round-btn"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z"/></svg></button>
 
           <ul class="items-ul">
             <% foundList.items.forEach((item) => { %>
@@ -31,11 +33,10 @@
             <% }); %>
           </ul>
 
-          <button class="add-btn"><svg class="btn-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/></svg>Eintrag hinzufügen</button>
-
         </div>        
 
-        <a href="/listen" class="navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="link-svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg> zurück</a>
+        <a href="/listen" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="link-svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg> zurück</a>
+
       </div>
     </main>
 

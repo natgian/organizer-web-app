@@ -16,9 +16,12 @@
     <%- include("../partials/header") %>
 
     <div class="container">
-      <h1>FEHLER - Etwas ist schiefgelaufen...</h1>
-      <br>
-      <p><%=err.message%></p>
+
+      <div class="wrapper">
+        <h1 class="bold">FEHLER - Etwas ist schiefgelaufen...</h1>
+        <br>
+        <p><%=err.message%></p>
+      </div>
 
     </div>
     <%- include("../partials/footer") %>
@@ -26,7 +29,3 @@
 </body>
 
 </html>
-
-
-
-

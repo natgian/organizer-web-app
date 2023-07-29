@@ -266,7 +266,7 @@ function onBreaksUp() {
   playSound();
 
   timerState.innerHTML = "Fokus";
-  timerState.style.color = "#fff";
+  timerState.style.color = "var(--title-text-color)";
 
   if (currentCycle < 3) {
     startTimer();
@@ -293,7 +293,7 @@ function startBreak() {
   setRemainingPathColor();
 
     timerState.innerHTML = "Pause";
-    timerState.style.color = "red";
+    timerState.style.color = "var(--comp-color-one)";
 
   timerInterval = setInterval(() => {
     timePassed += 1;
