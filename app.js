@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
-const List = require("./models/list");
+const methodOverride = require("method-override");
 
 // Requiring routes
-const lists = require("./routes/lists");
+const listenRoutes = require("./routes/listen");
 
 // Connecting Mongoose to MongoDB database
 main().catch(err => console.log(err));
@@ -22,59 +22,38 @@ app.set("views", path.join(__dirname, "views"));
 // Middlewares and static files
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: true }));
-
-
+app.use(methodOverride("_method"));
 
 // ROUTES
+
+// General routes
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/404", (req, res) => {
+  res.status(404).render("pages/404");
+});
+
 app.get("/home", (req, res) => {
   res.render("pages/home");
-})
+});
 
 app.get("/timer", (req, res) => {
   res.render("pages/timer");
-})
+});
 
 app.get("/registration", (req, res) => {
   res.render("pages/registration");
-})
+});
 
 app.get("/login", (req, res) => {
   res.render("pages/login");
-})
+});
 
-// Using required routes
-app.use("/listen", lists);
+// Required routes
+app.use("/listen", listenRoutes);
 
-
-// app.get("/listen", async (req, res) => {
-//   const lists = await List.find({});
-//   res.render("pages/listen", { lists });
-// });
-
-// app.get("/listen/:id", async (req, res) => {
-//   const {id} = req.params;
-//   try {
-//     const foundList = await List.findById(id);
-//     if(!foundList) {
-//       res.status(404).render("pages/404");
-//     }
-//     else {
-//       res.render("lists/show", { foundList});
-//     }
-//   }
-//   catch (err) {
-//     if(err.name === "CastError") {
-//       res.status(404).render("pages/404");
-//     } 
-//     else {
-//       res.status(500).render("pages/error");
-//     }
-//   }
-// });
 
 // ERROR HANDLING
 
@@ -86,10 +65,8 @@ app.use((req, res, next) => {
 // Error Handler for other errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).render("pages/error");
+  res.status(500).render("pages/error", {err: err});
 });
-
-
 
 // SERVER
 app.listen(3000, () => {

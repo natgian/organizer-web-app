@@ -70,15 +70,16 @@ svg {
   --dark-color: #121212;
   --medium-dark-color: #2A2A2A;
   --light-color: #777777;
+  --error-message: #e76e7a;
   /* Primary */
   --primary-color: #03dac5;
   --primary-color-hover: rgb(3, 218, 197, 0.6);
   --primary-color-disabled: rgb(3, 218, 197, 0.3);
   /* Complementary */
-  --comp-color-one: #6a556f;
-  --comp-color-two: #d5966c;
-  --comp-color-three: #a0d058;
-  --comp-color-four: #549ecf;
+  --comp-color-one: #F9F871;
+  --comp-color-two: #fda76d;
+  --comp-color-three: #6ae79c;
+  --comp-color-four: #3a9ddf;
   /* Text */
   --main-text-color: #dbdbdb;
   --muted-text-color: #999999;
@@ -140,12 +141,37 @@ li {
   max-width: 500px;
   margin: 2em auto;
   border-radius: 15px;
-  padding: 2em;
+  padding: 2em 1.25em;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  padding: 1em 0;
+
 }
 
 .link-svg {
   display: inline-block;
   vertical-align: middle;
+}
+
+.inline-block-svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.error-message {
+  background-color: var(--error-message);
+  color: var(--dark-color);
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 5px;
 }
 
 /*----------*/
@@ -168,25 +194,32 @@ li {
   color: var(--subtitle-text-color);
 }
 
-/*-----------------*/
-/* BUTTONS & LINKS */
-/*-----------------*/
+/*-------------------------*/
+/* BUTTONS, LINKS & INPUTS */
+/*-------------------------*/
 
 .round-btn {
   display: flex;
   justify-content: center;
-  width: 100%;
+  /* width: 100%; */
   color: var(--primary-color);
   background-color: transparent;
   cursor: pointer;
   border: none;
-  padding: 0.875em;
+  /* padding: 0.875em; */
+}
+
+.delete-edit-btn {
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .round-btn:hover,
 .round-btn:focus,
-.delete-btn:hover,
-.delete-btn:focus {
+.delete-edit-btn:hover,
+.delete-edit-btn:focus {
   color: var(--primary-color-hover);
 }
 
@@ -218,13 +251,6 @@ button#toggle-password {
   right: 10px;
 }
 
-.delete-btn {
-  color: var(--primary-color);
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
 .page-navigation-link {
   color: var(--navigation-color);
 }
@@ -232,6 +258,51 @@ button#toggle-password {
 .page-navigation-link:hover,
 .page-navigation-link:focus {
   color: var(--main-text-color);
+}
+
+/* Style for the colored squares */
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.color-options-color-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+/* Style for the selected color option */
+.color-option input[type="radio"]:checked+div {
+  border: 2px solid var(--title-text-color);
+}
+
+/* CSS classes for different colors */
+.comp-color-one {
+  background-color: var(--comp-color-one);
+}
+
+.comp-color-two {
+  background-color: var(--comp-color-two);
+}
+
+.comp-color-three {
+  background-color: var(--comp-color-three);
+}
+
+.comp-color-four {
+  background-color: var(--comp-color-four);
+}
+
+.input {
+  width: 100%;
+  border-radius: 15px;
+  padding: 0.625em;
+  margin: 1.25em 0;
+  text-align: center;
+  color: var(--dark-color);
 }
 
 /*---------*/
@@ -264,7 +335,7 @@ button#toggle-password {
   color: var(--navigation-color);
 }
 
-.logout {
+.inline-block-svg {
   display: inline;
   vertical-align: middle;
 }
@@ -333,9 +404,9 @@ button#toggle-password {
   background-repeat: no-repeat;
 }
 
-input[type=email]:not(:placeholder-shown):invalid {
+/* input[type=email]:not(:placeholder-shown):invalid {
   color: red;
-}
+} */
 
 /*------*/
 /* HOME */
@@ -553,7 +624,7 @@ input[type=email]:not(:placeholder-shown):invalid {
   padding: 0.875em;
   border: none;
   border-radius: 15px;
-  margin: 1.25em 0 1.75em 0;
+  margin: 1em 0;
 }
 
 .listen-name a {
@@ -566,15 +637,32 @@ input[type=email]:not(:placeholder-shown):invalid {
   vertical-align: bottom;
 }
 
+.listen {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875em;
+}
+
 .listen-item {
   display: flex;
   flex-direction: row;
   gap: 0.5em;
   justify-content: space-between;
-  font-size: 1rem;
   list-style: none;
   padding: 1.25em 0;
   border-bottom: 1px solid var(--light-color);
+}
+
+.color-options-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.25em 0;
+  border: none;
+}
+
+.list-icon {
+  margin-bottom: 1.5em;
 }
 
 /*--------*/
