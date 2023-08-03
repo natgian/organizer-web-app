@@ -29,7 +29,7 @@ router.get("/:id/bearbeiten", catchAsync(listen.renderEditList));
 router.put("/:id", catchAsync(listen.editList));
 
 // -- Delete a list
-
+router.delete("/:id", catchAsync(listen.deleteList));
 
 
 module.exports = router;

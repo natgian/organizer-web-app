@@ -54,5 +54,12 @@ module.exports.editList = async (req, res) => {
   res.redirect(`/listen/${list._id}`);
 }
 
+// Delete a List
+module.exports.deleteList = async (req, res) => {
+  const {id} = req.params;
+  await List.findByIdAndDelete(id);
+  res.redirect("/listen");
+}
+
 
 

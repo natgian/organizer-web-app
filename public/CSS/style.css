@@ -166,6 +166,10 @@ li {
   text-align: center;
 }
 
+.flex {
+  display: flex;
+}
+
 .flex-right {
   display: flex;
   justify-content: flex-end;
@@ -215,12 +219,12 @@ li {
 .round-btn {
   display: flex;
   justify-content: center;
-  /* width: 100%; */
+  width: 100%;
   color: var(--primary-color);
   background-color: transparent;
   cursor: pointer;
   border: none;
-  /* padding: 0.875em; */
+  padding: 0.875em;
 }
 
 .delete-edit-btn {
@@ -619,6 +623,12 @@ button#toggle-password {
 /* Listen */
 /*--------*/
 
+.listen {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875em;
+}
+
 .medium-dark-wrapper {
   background-color: var(--medium-dark-color);
 }
@@ -627,34 +637,43 @@ button#toggle-password {
   padding: 1em 0 1em 0;
 }
 
+.list-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 15px;
+  background-color: var(--medium-dark-color);
+}
+
 .listen-name {
   list-style: none;
-  padding-bottom: 0.5em;
-  display: flex;
   gap: 1em;
-  width: 100%;
-  background-color: var(--medium-dark-color);
   cursor: pointer;
-  padding: 0.875em;
   border: none;
-  border-radius: 15px;
-  margin: 1em 0;
 }
 
 .listen-name a {
   color: var(--main-text-color);
+  font-size: 0.875rem;
+}
+
+.listen-name a:hover,
+.listen-name a:focus {
+  color: var(--primary-color);
+}
+
+.listen-buttons-wrapper {
+  display: flex;
+  gap: 0.75em;
 }
 
 .listen-name svg {
   margin: 0 0.5em;
   display: inline-block;
   vertical-align: bottom;
-}
-
-.listen {
-  display: flex;
-  flex-direction: row;
-  gap: 0.875em;
 }
 
 .listen-item {
