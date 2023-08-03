@@ -166,6 +166,11 @@ li {
   text-align: center;
 }
 
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .error-message {
   background-color: var(--error-message);
   color: var(--dark-color);
@@ -191,6 +196,15 @@ li {
   font-weight: bold;
   text-align: center;
   padding: 0.5em;
+  color: var(--subtitle-text-color);
+}
+
+.subtitle-specific {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5em;
+  margin: 1em 0 0.5em 0;
   color: var(--subtitle-text-color);
 }
 
