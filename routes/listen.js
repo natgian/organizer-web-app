@@ -35,6 +35,8 @@ router.delete("/:id", catchAsync(listen.deleteList));
 router.post("/:id", catchAsync(listen.addNewListItem));
 
 // -- DELETE ITEM FROM A LIST
+router.delete("/:listId/items/:itemId", catchAsync(listen.deleteItemFromList));
+
 
 
 
