@@ -9,7 +9,7 @@ module.exports.index = async (req, res, next) => {
 // Render New List Page
 module.exports.renderNewList = (req, res) => {
   res.render("lists/new");
-}
+};
 
 // Create a New List
 module.exports.createList = async (req, res) => {
@@ -45,14 +45,14 @@ module.exports.renderEditList = async (req, res) => {
   const { id } = req.params;
   const foundList = await List.findById(id);
   res.render("lists/edit", { foundList });
-}
+};
 
 // Edit a List
 module.exports.editList = async (req, res) => {
   const { id } = req.params;
   const list = await List.findByIdAndUpdate(id, req.body, { runValidators: true });
   res.redirect(`/listen/${list._id}`);
-}
+};
 
 // Delete a List
 module.exports.deleteList = async (req, res) => {
@@ -62,7 +62,7 @@ module.exports.deleteList = async (req, res) => {
   await Item.deleteMany({ _id: { $in: itemIds } });
   await List.findByIdAndDelete(id);
   res.redirect("/listen");
-}
+};
 
 // Add new item to a list
 module.exports.addNewListItem = async (req, res) => {
@@ -86,12 +86,12 @@ module.exports.deleteItemFromList = async (req, res) => {
   if (itemIndex !== -1) {
     // Remove the item from the list's items array
     foundList.items.splice(itemIndex, 1);
-  }
+  };
 
   await foundList.save();
   await Item.findByIdAndDelete(itemId);
   res.redirect(`/listen/${listId}`);
-}
+};
 
 
 
