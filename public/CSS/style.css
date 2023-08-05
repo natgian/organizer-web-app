@@ -255,7 +255,25 @@ li {
 
 .rectangle-btn:hover,
 .rectangle-btn:focus {
-  opacity: 0.7;
+  background-color: var(--primary-color-hover);
+  color: var(--medium-dark-color);
+}
+
+.rectangle-secondary-btn {
+  width: 100%;
+  background-color: var(--dark-color);
+  color: var(--primary-color);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.625em;
+  border: 1px solid var(--primary-color);
+  border-radius: 15px;
+  margin: 1em 0 1.25em 0;
+}
+
+.rectangle-secondary-btn:hover,
+.rectangle-secondary-btn:focus {
+  background-color: var(--medium-dark-color);
 }
 
 button#toggle-password {
@@ -270,7 +288,9 @@ button#toggle-password {
 }
 
 .page-navigation-link {
+  display: inline-block;
   color: var(--navigation-color);
+  margin: 0.5em 0;
 }
 
 .page-navigation-link:hover,
@@ -333,6 +353,14 @@ button#toggle-password {
 
 .mb-1 {
   margin-bottom: 1em;
+}
+
+.mt-05 {
+  margin-top: 0.5em;
+}
+
+.mt-1 {
+  margin-top: 1em;
 }
 
 .bold {

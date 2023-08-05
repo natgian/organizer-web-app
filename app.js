@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const PORT = 3000 || process.env.PORT;
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -19,8 +20,11 @@ async function main() {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Middlewares and static files
+// Static files
 app.use(express.static("./public"));
+
+// Middleware
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
@@ -69,8 +73,8 @@ app.use((err, req, res, next) => {
 });
 
 // SERVER
-app.listen(3000, () => {
-  console.log("SERVING ON PORT 3000");
+app.listen(PORT, () => {
+  console.log(`SERVING ON PORT ${PORT}`);
 });
 
 
