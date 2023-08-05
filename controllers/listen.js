@@ -61,5 +61,17 @@ module.exports.deleteList = async (req, res) => {
   res.redirect("/listen");
 }
 
+// Add new item to a list
+module.exports.addNewListItem = async (req, res) => {
+  const {id} = req.params;
+  const foundList = await List.findById(id);
+  foundList.items.push(req.body.items);
+  await foundList.save();
+  res.redirect(`/listen/${foundList._id}`);
+}
+
+// Delete item from a list
+
+
 
 

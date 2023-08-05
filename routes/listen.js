@@ -10,26 +10,32 @@ const catchAsync = require("../utilities/catchAsync");
 
 // Routes
 
-// -- Route LISTEN Page
+// -- ROUTE LISTEN PAGE
 router.get("/", catchAsync(listen.index));
 
-// -- Render NEUE LISTE page to create a new list
+// -- RENDER NEUE LISTE page to create a new list
 router.get("/neue-Liste", listen.renderNewList);
 
-// -- Create a new list
+// -- CREATE A NEW LIST
 router.post("/", catchAsync(listen.createList));
 
-// -- Render SHOW page
+// -- RENDER SHOW PAGE
 router.get("/:id", catchAsync(listen.showList));
 
-// -- Render EDIT page
+// -- RENDER EDIT PAGE
 router.get("/:id/bearbeiten", catchAsync(listen.renderEditList));
 
-// -- Edit a list
+// -- EDIT A LIST
 router.put("/:id", catchAsync(listen.editList));
 
-// -- Delete a list
+// -- DELETE A LIST
 router.delete("/:id", catchAsync(listen.deleteList));
+
+// -- ADD NEW ITEM TO A LIST
+router.post("/:id", catchAsync(listen.addNewListItem));
+
+// -- DELETE ITEM FROM A LIST
+
 
 
 module.exports = router;

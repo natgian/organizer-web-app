@@ -250,7 +250,7 @@ li {
   padding: 0.625em;
   border: none;
   border-radius: 15px;
-  margin: 1.25em 0 1.75em 0;
+  margin: 1em 0 1.25em 0;
 }
 
 .rectangle-btn:hover,
@@ -318,7 +318,7 @@ button#toggle-password {
   width: 100%;
   border-radius: 15px;
   padding: 0.625em;
-  margin: 1.25em 0;
+  margin: 0.5em 0;
   text-align: center;
   color: var(--dark-color);
 }
@@ -403,7 +403,7 @@ button#toggle-password {
   text-align: center;
 }
 
-.input-container input {
+.login-input {
   width: 100%;
   border-radius: 15px;
   font-size: 1rem;
@@ -696,6 +696,10 @@ button#toggle-password {
 
 .list-icon {
   margin-bottom: 1.5em;
+}
+
+.new-item-container {
+  display: none;
 }
 
 /*--------*/
