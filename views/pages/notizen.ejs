@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Notizen</title>
+</head>
+
+<body>
+
+  <div class="main-layout">
+
+    <%- include("../partials/header") %>
+
+    <main>
+      <div class="container">
+
+        <h1 class="title">Notizen</h1>
+
+        <!-- Searchbar -->
+        <form action="/notizen/suchen" role="search" method="POST">
+          <input type="search" name="searchTerm" placeholder="Suchen..." class="input" aria-label="Search">
+        </form>
+
+        <!-- New note button -->
+        <button class="round-btn mb-05"><a href="/notizen/neue-Notiz"><svg xmlns="http://www.w3.org/2000/svg" width="30"
+          height="30" viewBox="0 0 20 20">
+          <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+        </svg></a></button>
+
+      </div>
+    </main>
+
+    <%- include("../partials/footer") %>
+  </div>
+
+
+</body>
+
+</html>

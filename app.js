@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
 // Requiring routes
-const listenRoutes = require("./routes/listen");
+const listenRoutes = require("./routes/listenRoutes");
+const notizenRoutes = require("./routes/notizenRoutes");
 
 // Connecting Mongoose to MongoDB database
 main().catch(err => console.log(err));
@@ -35,10 +36,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/404", (req, res) => {
-  res.status(404).render("pages/404");
-});
-
 app.get("/home", (req, res) => {
   res.render("pages/home");
 });
@@ -55,8 +52,13 @@ app.get("/login", (req, res) => {
   res.render("pages/login");
 });
 
+app.get("/404", (req, res) => {
+  res.status(404).render("pages/404");
+});
+
 // Required routes
 app.use("/listen", listenRoutes);
+app.use("/notizen", notizenRoutes);
 
 
 // ERROR HANDLING
@@ -74,7 +76,7 @@ app.use((err, req, res, next) => {
 
 // SERVER
 app.listen(PORT, () => {
-  console.log(`SERVING ON PORT ${PORT}`);
+  console.log(`LISTENING ON PORT ${PORT}`);
 });
 
 
