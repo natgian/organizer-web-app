@@ -1,25 +1,20 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  }, 
-  password: {
-    type: String,
-    required: true
-  },
-  lists: [{
-    type: Schema.Types.ObjectId,
+const UserSchema = new mongoose.Schema({
+    lists: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: "List"
   }],
   notes: [{
-    type: Schema.Types.ObjecId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Note"
   }]
 });
 
-const User = mongoose.model("User", userSchema);
+// Adding a field for username/email and password to the schema
+UserSchema.plugin(passportLocalMongoose);
+
+const User = mongoose.model("User", UserSchema);
 
 module.exports = User;

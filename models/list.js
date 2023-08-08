@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-const itemSchema = new mongoose.Schema({
+const ItemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   }
 });
 
-const listSchema = new mongoose.Schema({
+const ListSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -22,12 +22,12 @@ const listSchema = new mongoose.Schema({
     type: String,
   },
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }
 });
 
-const Item = mongoose.model("Item", itemSchema);
-const List = mongoose.model("List", listSchema);
+const Item = mongoose.model("Item", ItemSchema);
+const List = mongoose.model("List", ListSchema);
 
 module.exports = { Item, List};
