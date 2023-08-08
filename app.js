@@ -4,6 +4,10 @@ const PORT = 3000 || process.env.PORT;
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
@@ -22,12 +26,33 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Static files
-app.use(express.static("./public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+// Sessions
+const sessionConfig = {
+  secret: "thisismysecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+}
+app.use(session(sessionConfig));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session()); // must be used AFTER sessions
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 // ROUTES
 
