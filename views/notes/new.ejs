@@ -1,11 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neue Notiz</title>
+  <link rel="stylesheet" href="/CSS/style.css">
+  <title>Neue Notiz erstellen</title>
 </head>
+
 <body>
-  <h1>TEST</h1>
+
+  <div class="main-layout">
+
+    <%- include("../partials/header") %>
+
+    <main>
+      <div class="container">
+
+        <div class="wrapper medium-dark-wrapper">
+          <h1 class="subtitle">Notiz erstellen</h1>
+
+          <form action="#" method="POST" autocomplete="off">
+
+            <label for="title">
+              <input type="text" name="title" placeholder="Titel" class="input" required>
+            </label>
+
+          
+
+            <button class="rectangle-btn">Speichern</button>
+          </form>
+        </div>
+
+        <a href="/notizen" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 512 512" class="link-svg">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+              d="M328 112L184 256l144 144" />
+          </svg> zurück</a>
+
+      </div>
+    </main>
+
+    <%- include("../partials/footer") %>
+  </div>
+  
 </body>
+
 </html>
