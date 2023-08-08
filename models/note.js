@@ -12,6 +12,10 @@ const noteSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now()
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
   }
 });
 
