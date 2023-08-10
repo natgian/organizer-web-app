@@ -5,6 +5,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
@@ -12,6 +13,7 @@ const User = require("./models/user");
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
 const notizenRoutes = require("./routes/notizenRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Connecting Mongoose to MongoDB database
 main().catch(err => console.log(err));
@@ -32,6 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+const { isLoggedIn } = require("./middleware");
 
 // Sessions
 const sessionConfig = {
@@ -46,13 +49,20 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 
+// Flash
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+})
+
 // Passport
 app.use(passport.initialize());
 app.use(passport.session()); // must be used AFTER sessions
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy({ usernameField: "email" }, User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 // ROUTES
 
@@ -61,20 +71,12 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/home", (req, res) => {
+app.get("/home", isLoggedIn, (req, res) => {
   res.render("pages/home");
 });
 
-app.get("/timer", (req, res) => {
+app.get("/timer", isLoggedIn, (req, res) => {
   res.render("pages/timer");
-});
-
-app.get("/registration", (req, res) => {
-  res.render("pages/registration");
-});
-
-app.get("/login", (req, res) => {
-  res.render("pages/login");
 });
 
 app.get("/404", (req, res) => {
@@ -84,6 +86,7 @@ app.get("/404", (req, res) => {
 // Required routes
 app.use("/listen", listenRoutes);
 app.use("/notizen", notizenRoutes);
+app.use("/", userRoutes);
 
 
 // ERROR HANDLING

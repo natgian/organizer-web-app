@@ -1,4 +1,4 @@
-const { Note } = require("../models/note");
+const Note = require("../models/note");
 
 // Render Listen Index Page
 module.exports.index = async (req, res) => {
