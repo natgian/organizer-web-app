@@ -13,7 +13,8 @@ const userController = require("../controllers/userController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const isLoggedIn = require("../middleware");
+const { isLoggedIn } = require("../middleware");
+const { storeReturnTo } = require("../middleware");
 
 // Routes
 // -- RENDER REGISTRATION PAGE
@@ -26,7 +27,7 @@ router.post("/registration", catchAsync(userController.registerUser));
 router.get("/login", userController.renderLoginPage);
 
 // -- LOGIN A USER
-router.post("/login", passport.authenticate("local", { failureFlash: true, failureRedirect: "/login", failureMessage: true }), userController.loginUser);
+router.post("/login", storeReturnTo, passport.authenticate("local", { failureFlash: true, failureRedirect: "/login", failureMessage: true }), userController.loginUser);
 
 // -- LOGOUT A USER
 router.get('/logout', userController.logoutUser);

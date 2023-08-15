@@ -15,7 +15,7 @@ module.exports.registerUser = async (req, res, next) => {
     const registeredUser = await User.register(newUser, password);
     req.login(registeredUser, err => {
       if(err) return next(err);
-      req.flash("success", "Erfolgreich registriert!");
+      // req.flash("success", "Erfolgreich registriert!");
       res.redirect("/home");
     });
   } catch (e) {
@@ -31,7 +31,8 @@ module.exports.renderLoginPage = (req, res) => {
 
 // Login a user
 module.exports.loginUser = (req, res) => {
-    res.redirect("/home");
+  const redirectUrl = res.locals.returnTo || "/home"; 
+    res.redirect(redirectUrl);
 };
 
 // Logout a user
