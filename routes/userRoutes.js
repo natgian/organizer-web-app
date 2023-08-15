@@ -25,8 +25,11 @@ router.post("/registration", catchAsync(userController.registerUser));
 // -- RENDER LOGIN PAGE
 router.get("/login", userController.renderLoginPage);
 
-// -- LOGIN THE USER
+// -- LOGIN A USER
 router.post("/login", passport.authenticate("local", { failureFlash: true, failureRedirect: "/login", failureMessage: true }), userController.loginUser);
+
+// -- LOGOUT A USER
+router.get('/logout', userController.logoutUser);
 
 
 module.exports = router;

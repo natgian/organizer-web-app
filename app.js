@@ -34,7 +34,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-const { isLoggedIn } = require("./middleware");
 
 // Sessions
 const sessionConfig = {
@@ -49,13 +48,6 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 
-// Flash
-app.use(flash());
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
-})
 
 // Passport
 app.use(passport.initialize());
@@ -64,7 +56,24 @@ passport.use(new LocalStrategy({ usernameField: "email" }, User.authenticate()))
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Custom Middleware
+const { isLoggedIn } = require("./middleware");
+
+// Flash
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.loggedInUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 // ROUTES
+
+// Required routes
+app.use("/listen", listenRoutes);
+app.use("/notizen", notizenRoutes);
+app.use("/", userRoutes);
 
 // General routes
 app.get("/", (req, res) => {
@@ -82,11 +91,6 @@ app.get("/timer", isLoggedIn, (req, res) => {
 app.get("/404", (req, res) => {
   res.status(404).render("pages/404");
 });
-
-// Required routes
-app.use("/listen", listenRoutes);
-app.use("/notizen", notizenRoutes);
-app.use("/", userRoutes);
 
 
 // ERROR HANDLING
