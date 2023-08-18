@@ -212,6 +212,11 @@ li {
   color: var(--subtitle-text-color);
 }
 
+.user {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 /*--------*/
 /* ALERTS */
 /*--------*/
@@ -392,6 +397,7 @@ button#toggle-password {
 .main-nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: var(--navigation-color);
 }
 
@@ -460,6 +466,12 @@ button#toggle-password {
 
 .input-container input[id="email"] {
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6m-2 0l-8 5l-8-5h16m0 12H4V8l8 5l8-5v10Z"%2F%3E%3C%2Fsvg%3E');
+  background-position: 12px 10px;
+  background-repeat: no-repeat;
+}
+
+.input-container input[id="username"] {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78A7.893 7.893 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.928 7.928 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.5-1.64 4.83M12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11Z"%2F%3E%3C%2Fsvg%3E');
   background-position: 12px 10px;
   background-repeat: no-repeat;
 }

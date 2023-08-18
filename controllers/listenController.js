@@ -1,33 +1,46 @@
 const { Item, List } = require("../models/list");
+const User = require("../models/user");
 
-// Render Listen Index Page
-module.exports.index = async (req, res, next) => {
-  const lists = await List.find({});
+// RENDER LISTEN PAGE
+module.exports.renderListenPage = async (req, res, next) => {
+  const lists = await List.find({ user: req.user._id }).populate("user");
   res.render("pages/listen", { lists });
 };
 
-// Render New List Page
+// RENDER NEW LIST PAGE
 module.exports.renderNewList = (req, res) => {
   res.render("lists/new");
 };
 
-// Create a New List
+// CREATE A NEW LIST
 module.exports.createList = async (req, res) => {
   const newList = new List(req.body);
+  newList.user = req.user._id;
   await newList.save();
+  req.user.lists.push(newList._id);
+  await req.user.save();
   res.redirect(`/listen/${newList._id}`);
 };
 
-// Render Listen Show Page
+// RENDER LISTEN SHOW PAGE
 module.exports.showList = async (req, res) => {
-  const { id } = req.params;
+  const { listId } = req.params;
   try {
-    const foundList = await List.findById(id).populate("items");
+    const foundList = await List.findById(listId)
+      .populate("items")
+      .populate({
+        path: "user",
+        populate: { path: "lists" }
+      });
     if (!foundList) {
       res.status(404).render("pages/404");
     }
     else {
-      res.render("lists/show", { foundList });
+      if (req.user && req.user._id.equals(foundList.user._id)) {
+        res.render("lists/show", { foundList });
+      } else {
+        res.status(403).render("pages/403");
+      }      
     }
   }
   catch (err) {
@@ -40,57 +53,61 @@ module.exports.showList = async (req, res) => {
   }
 };
 
-// Render Listen Edit Page
-module.exports.renderEditList = async (req, res) => {
-  const { id } = req.params;
-  const foundList = await List.findById(id);
+// RENDER LISTEN EDIT PAGE
+module.exports.renderEditList = async (req, res, next) => {
+  const { listId } = req.params;
+  const foundList = await List.findById(listId);
   res.render("lists/edit", { foundList });
 };
 
-// Edit a List
+// EDIT A LIST
 module.exports.editList = async (req, res) => {
-  const { id } = req.params;
-  const list = await List.findByIdAndUpdate(id, req.body, { runValidators: true });
+  const { listId } = req.params;
+  const list = await List.findByIdAndUpdate(listId, req.body, { runValidators: true });
   res.redirect(`/listen/${list._id}`);
 };
 
-// Delete a List
+// DELETE A LIST
 module.exports.deleteList = async (req, res) => {
-  const { id } = req.params;
-  const foundList = await List.findById(id);
+  const { listId } = req.params;
+
+  const foundList = await List.findById(listId);
   const itemIds = foundList.items;
+
   await Item.deleteMany({ _id: { $in: itemIds } });
-  await List.findByIdAndDelete(id);
+  await List.findByIdAndDelete(listId);
+  await User.findByIdAndUpdate(req.user._id, { $pull: { lists: listId } });
   res.redirect("/listen");
 };
 
-// Add new item to a list
+// ADD NEW ITEM TO A LIST
 module.exports.addNewListItem = async (req, res) => {
-  const { id } = req.params;
+  const { listId } = req.params;
   const newItem = new Item({ name: req.body.name });
   const savedItem = await newItem.save();
-  const foundList = await List.findById(id);
+  const foundList = await List.findById(listId);
   foundList.items.push(savedItem);
   await foundList.save();
   res.redirect(`/listen/${foundList._id}`);
 }
 
-// Delete item from a list
+// DELETE ITEM FROM A LIST
 module.exports.deleteItemFromList = async (req, res) => {
   const { listId, itemId } = req.params;
-  const foundList = await List.findById(listId);
 
-  // Check if the item exists in the list's items array
-  const itemIndex = foundList.items.indexOf(itemId);
+    const foundList = await List.findById(listId);
+    const itemIndex = foundList.items.indexOf(itemId); // Check if the item exists in the list's items array
 
-  if (itemIndex !== -1) {
-    // Remove the item from the list's items array
-    foundList.items.splice(itemIndex, 1);
-  };
+    if (itemIndex !== -1) {
+      foundList.items.splice(itemIndex, 1);// Remove the item from the list's items array
+      await foundList.save();
+      await Item.findByIdAndDelete(itemId);
+      await User.findByIdAndUpdate(req.user._id, { $pull: { lists: listId } });
 
-  await foundList.save();
-  await Item.findByIdAndDelete(itemId);
-  res.redirect(`/listen/${listId}`);
+      res.redirect(`/listen/${listId}`);
+    } else {
+      res.status(404).render("pages/404");
+    }
 };
 
 

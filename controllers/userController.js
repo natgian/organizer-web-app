@@ -1,17 +1,18 @@
 const User = require("../models/user");
+const List = require("../models/list");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
-// Render registration page
+// RENDER REGISTRATION PAGE
 module.exports.renderRegisterPage = (req, res) => {
   res.render("users/registration");
 }
 
-// Register a new user
+// REGISTER A NEW USER
 module.exports.registerUser = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const newUser = new User({ email });
+    const { username, email, password } = req.body;
+    const newUser = new User({ email, username });
     const registeredUser = await User.register(newUser, password);
     req.login(registeredUser, err => {
       if(err) return next(err);
@@ -24,18 +25,18 @@ module.exports.registerUser = async (req, res, next) => {
   }
 };
 
-// Render login page
+// RENDER LOGIN PAGE
 module.exports.renderLoginPage = (req, res) => {
   res.render("users/login");
 };
 
-// Login a user
+// LOGIN
 module.exports.loginUser = (req, res) => {
   const redirectUrl = res.locals.returnTo || "/home"; 
     res.redirect(redirectUrl);
 };
 
-// Logout a user
+// LOGOUT
 module.exports.logoutUser = (req, res, next) => {
   req.logout(function (err) {
       if (err) {
