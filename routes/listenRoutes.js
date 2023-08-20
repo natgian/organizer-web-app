@@ -20,7 +20,7 @@ router.get("/neue-Liste", isLoggedIn, listenController.renderNewList);
 router.post("/", isLoggedIn, catchAsync(listenController.createList));
 
 // -- RENDER SHOW PAGE
-router.get("/:listId", isLoggedIn, catchAsync(listenController.showList));
+router.get("/:listId", isLoggedIn, listenController.showList);
 
 // -- RENDER EDIT PAGE
 router.get("/:listId/bearbeiten", isLoggedIn, isAuthor, catchAsync(listenController.renderEditList));
