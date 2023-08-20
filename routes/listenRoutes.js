@@ -7,7 +7,7 @@ const listenController = require("../controllers/listenController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, isAuthor } = require("../middleware");
+const { isLoggedIn, isAuthor, validateList } = require("../middleware");
 
 // Routes
 // -- RENDER LISTEN PAGE
@@ -17,10 +17,10 @@ router.get("/", isLoggedIn, catchAsync(listenController.renderListenPage));
 router.get("/neue-Liste", isLoggedIn, listenController.renderNewList);
 
 // -- CREATE A NEW LIST
-router.post("/", isLoggedIn, catchAsync(listenController.createList));
+router.post("/", isLoggedIn, validateList, catchAsync(listenController.createList));
 
 // -- RENDER SHOW PAGE
-router.get("/:listId", isLoggedIn, listenController.showList);
+router.get("/:listId", isLoggedIn, catchAsync(listenController.showList));
 
 // -- RENDER EDIT PAGE
 router.get("/:listId/bearbeiten", isLoggedIn, isAuthor, catchAsync(listenController.renderEditList));
@@ -29,7 +29,7 @@ router.get("/:listId/bearbeiten", isLoggedIn, isAuthor, catchAsync(listenControl
 router.delete("/:listId/items/:itemId", isLoggedIn, isAuthor, catchAsync(listenController.deleteItemFromList));
 
 // -- EDIT A LIST
-router.put("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.editList));
+router.put("/:listId", isLoggedIn, isAuthor, validateList, catchAsync(listenController.editList));
 
 // -- DELETE A LIST
 router.delete("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.deleteList));

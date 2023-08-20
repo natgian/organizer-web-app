@@ -14,7 +14,12 @@
   <div class="main-layout">
 
     <%- include("../partials/header") %>
-
+    
+    <% if(error && error.length) {%>
+      <div class="alert alert-error" role="alert">
+      <%= error %>
+    </div>
+    <% } %>
     <main>
       <div class="container">
 

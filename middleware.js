@@ -1,4 +1,5 @@
 const { List } = require("./models/list");
+const {listSchema} = require("./validationSchemas");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -24,6 +25,16 @@ module.exports.isAuthor = async (req, res, next) => {
     return res.status(403).render("pages/403");
   }  
   next();
+};
+
+module.exports.validateList = async(req, res, next) => {
+ const {error} = listSchema.validate(req.body);
+ if(error) {
+  const msg = error.details.map(element => element.message).join(",");
+  req.flash("error", msg);
+  return res.redirect("/listen/neue-Liste");
+ }
+ next();
 };
 
 
