@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+};
+
 const express = require("express");
 const app = express();
 const PORT = 3000 || process.env.PORT;
@@ -10,6 +14,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
+const catchAsync = require("./utilities/catchAsync");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
@@ -39,11 +44,13 @@ app.use(mongoSanitize());
 
 // Sessions
 const sessionConfig = {
+  name: "session",
   secret: "thisismysecret",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    // secure: true --> this says that this cookie should only work over https. ACTIVE IT FOR DEPLOYMENT (not before, since localhost is not https)
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
@@ -93,7 +100,6 @@ app.get("/timer", isLoggedIn, (req, res) => {
 app.get("/404", (req, res) => {
   res.status(404).render("pages/404");
 });
-
 
 // ERROR HANDLING
 

@@ -21,6 +21,9 @@
         <h1 class="bold">FEHLER</h1>
         <p>Etwas ist schiefgelaufen...</p>
         <p class="error-message"><%= msg %></p>
+        <% if (process.env.NODE_ENV !== "production") { %>
+          <p><%= err.stack %></p>
+          <% } %>
       </div>
 
     </div>

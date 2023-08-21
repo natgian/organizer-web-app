@@ -11,9 +11,13 @@
             </g>
           </svg></a></li>
 
-          <li><a href="#" class="page-navigation-link user"><%= loggedInUser.username %></a></li>
-
-        
+          <li>
+            <% if (loggedInUser) { %>
+              <a href="#" class="page-navigation-link user"><%= loggedInUser.username %></a>
+            <% } else { %>
+              <a href="/login" class="page-navigation-link">Login</a>
+            <% } %>
+          </li>        
    
       <li> <a href="/home" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
             <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z" />
