@@ -17,6 +17,11 @@
 
     <main>
       <div class="container">
+        <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } %>
 
         <div class="wrapper medium-dark-wrapper">
 
@@ -49,7 +54,7 @@
 
             <form action="/listen/<%= foundList._id %>" method="POST" autocomplete="off">
               <div class="new-item-container">
-                <input type="text" name="name" placeholder="Hier eingeben..." class="input" required>
+                <input type="text" name="text" placeholder="Hier eingeben..." class="input" required>
                 <button class="rectangle-btn">Hinzufügen</button>
               </div>
             </form>
@@ -59,7 +64,7 @@
           <ul class="items-ul">
             <% foundList.items.forEach((item) => { %>
             <div class="listen-item">
-              <li><%= item.name %></li>
+              <li><%= item.text %></li>
               <form action="/listen/<%=foundList._id%>/items/<%=item._id%>?_method=DELETE" method="POST" class="flex">
                 <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                     viewBox="0 0 24 24">

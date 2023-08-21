@@ -13,7 +13,7 @@ const userController = require("../controllers/userController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, validateUser } = require("../middleware");
 const { storeReturnTo } = require("../middleware");
 
 // Routes
@@ -21,7 +21,7 @@ const { storeReturnTo } = require("../middleware");
 router.get("/registration", userController.renderRegisterPage);
 
 // -- REGISTER A NEW USER
-router.post("/registration", catchAsync(userController.registerUser));
+router.post("/registration", validateUser, catchAsync(userController.registerUser));
 
 // -- RENDER LOGIN PAGE
 router.get("/login", userController.renderLoginPage);

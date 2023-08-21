@@ -83,7 +83,7 @@ module.exports.deleteList = async (req, res) => {
 // ADD NEW ITEM TO A LIST
 module.exports.addNewListItem = async (req, res) => {
   const { listId } = req.params;
-  const newItem = new Item({ name: req.body.name });
+  const newItem = new Item({ text: req.body.text });
   const savedItem = await newItem.save();
   const foundList = await List.findById(listId);
   foundList.items.push(savedItem);

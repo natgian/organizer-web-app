@@ -225,6 +225,8 @@ li {
   display: flex;
   justify-content: center;
   padding: 1em;
+  height: fit-content;
+  
 }
 
 .alert-error {

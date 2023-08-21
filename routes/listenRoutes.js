@@ -7,7 +7,7 @@ const listenController = require("../controllers/listenController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, isAuthor, validateList } = require("../middleware");
+const { isLoggedIn, isAuthor, validateList, validateItem } = require("../middleware");
 
 // Routes
 // -- RENDER LISTEN PAGE
@@ -35,7 +35,7 @@ router.put("/:listId", isLoggedIn, isAuthor, validateList, catchAsync(listenCont
 router.delete("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.deleteList));
 
 // -- ADD NEW ITEM TO A LIST
-router.post("/:listId", isLoggedIn, catchAsync(listenController.addNewListItem));
+router.post("/:listId", isLoggedIn, validateItem, catchAsync(listenController.addNewListItem));
 
 
 

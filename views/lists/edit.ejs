@@ -17,6 +17,12 @@
 
     <main>
       <div class="container">
+        <div class="container">
+          <% if(error && error.length) {%>
+            <div class="alert alert-error" role="alert">
+            <%= error %>
+          </div>
+          <% } %>
 
         <div class="wrapper medium-dark-wrapper">
           <h1 class="subtitle">Liste bearbeiten</h1>

@@ -15,13 +15,14 @@
 
     <%- include("../partials/header") %>
     
-    <% if(error && error.length) {%>
-      <div class="alert alert-error" role="alert">
-      <%= error %>
-    </div>
-    <% } %>
+ 
     <main>
       <div class="container">
+        <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } %>
 
         <div class="wrapper medium-dark-wrapper">
           <h1 class="subtitle">Liste erstellen</h1>
