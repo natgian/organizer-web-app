@@ -10,7 +10,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
-const Joi = require("joi");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");

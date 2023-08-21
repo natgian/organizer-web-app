@@ -39,9 +39,7 @@ module.exports.validateList = async(req, res, next) => {
 
 module.exports.validateItem = async(req, res, next) => {
   const listId = req.params.listId;
-  console.log(listId);
   const {error} = itemSchema.validate(req.body);
-  console.log(error);
   if(error) {
    const msg = error.details.map(element => element.message).join(",");
    req.flash("error", msg);
