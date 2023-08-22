@@ -395,9 +395,9 @@ button#toggle-password {
 
 .main-header {
   border-bottom: 1px solid var(--medium-dark-color);
-  box-shadow: 0 1px 10px -5px var(--navigation-color);
-  padding: 2em 0;
-  margin-bottom: 2.5em;
+  box-shadow: 0 1px 30px -5px var(--navigation-color);
+  padding: 1em 0;
+  margin-bottom: 1.5em;
 }
 
 .main-nav {
