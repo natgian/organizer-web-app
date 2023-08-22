@@ -312,6 +312,7 @@ button#toggle-password {
 .page-navigation-link {
   display: inline-block;
   color: var(--navigation-color);
+  font-size: 0.8rem;
   margin: 0.5em 0;
 }
 
@@ -393,12 +394,16 @@ button#toggle-password {
 /*------------*/
 
 .main-header {
-  margin: 2em 0;
+  border-bottom: 1px solid var(--medium-dark-color);
+  box-shadow: 0 1px 10px -5px var(--navigation-color);
+  padding: 2em 0;
+  margin-bottom: 2.5em;
 }
 
 .main-nav {
   display: flex;
   justify-content: space-between;
+  justify-self: flex-start;
   align-items: center;
   color: var(--navigation-color);
 }
@@ -407,6 +412,16 @@ button#toggle-password {
   display: inline;
   vertical-align: middle;
 }
+
+.main-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--navigation-color);
+  font-size: 0.625rem;
+  margin: 0.5em 0;
+}
+
 
 /*-----------------*/
 /* LOGIN & SIGN UP */

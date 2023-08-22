@@ -46,5 +46,34 @@ module.exports.logoutUser = (req, res, next) => {
   });
 };
 
+// -- RENDER USER PROFILE PAGE
+module.exports.renderUserAccount = async (req, res) => {
+  const { userId } = req.params;
+  const foundUser = await User.findById(userId);
+
+  if(!foundUser) {
+    res.status(404).render("pages/404");
+  } else {
+    res.render("users/profile", {foundUser});
+  }
+
+  // try {
+  //   const foundUser = await User.findById(userId);
+  //   if (!foundUser) {
+  //     res.status(404).render("pages/404");
+  //   }
+  //   else {
+  //     if (req.user && req.user._id.equals(foundUser.user._id)) {
+  //       res.render("users/profile", { foundUser });
+  //     } else {
+  //       res.status(403).render("pages/403");
+  //     }      
+  //   }
+  // }
+  // catch (err) {
+  //     res.status(500).render("pages/error");
+  //   }
+  };
+
 
 

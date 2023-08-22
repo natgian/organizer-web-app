@@ -30,7 +30,10 @@ router.get("/login", userController.renderLoginPage);
 router.post("/login", storeReturnTo, passport.authenticate("local", { failureFlash: true, failureRedirect: "/login", failureMessage: true }), userController.loginUser);
 
 // -- LOGOUT A USER
-router.get('/logout', userController.logoutUser);
+router.get("/logout", userController.logoutUser);
+
+// -- RENDER USER PROFILE PAGE
+router.get("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.renderUserAccount));
 
 
 module.exports = router;

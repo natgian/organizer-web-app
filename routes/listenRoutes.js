@@ -29,7 +29,7 @@ router.get("/:listId/bearbeiten", isLoggedIn, isAuthor, catchAsync(listenControl
 router.delete("/:listId/items/:itemId", isLoggedIn, isAuthor, catchAsync(listenController.deleteItemFromList));
 
 // -- EDIT A LIST
-router.put("/:listId", isLoggedIn, isAuthor, validateList, catchAsync(listenController.editList));
+router.put("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.editList));
 
 // -- DELETE A LIST
 router.delete("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.deleteList));
