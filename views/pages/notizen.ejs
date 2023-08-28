@@ -22,14 +22,33 @@
 
         <!-- Searchbar -->
         <form action="/notizen/suchen" role="search" method="POST">
-          <input type="search" name="searchTerm" placeholder="Suchen..." class="input" aria-label="Search">
+          <input type="search" name="searchTerm" placeholder="Suchen..." class="search-input" aria-label="Search">
         </form>
 
         <!-- New note button -->
         <button class="round-btn mb-05"><a href="/notizen/neue-Notiz"><svg xmlns="http://www.w3.org/2000/svg" width="30"
-          height="30" viewBox="0 0 20 20">
-          <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-        </svg></a></button>
+              height="30" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+            </svg></a></button>
+
+        <div class="notes-container">
+          <div class="note-wrapper">
+            <h2 class="subtitle-specific">Notiz 1</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae atque veritatis, tenetur labore fugiat numquam?</p>
+          </div>
+          <div class="note-wrapper">
+            <h2 class="subtitle-specific">Notiz 1</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit enim recusandae rerum provident soluta consequuntur aspernatur, quisquam nihil iusto accusamus quo magnam deleniti fugit cupiditate.</p>
+          </div>
+          <div class="note-wrapper">
+            <h2 class="subtitle-specific">Notiz 1</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur obcaecati necessitatibus quibusdam quas harum aliquid nostrum blanditiis assumenda! Placeat enim earum quisquam tempora deserunt odit. Magni pariatur molestiae quaerat repellendus!</p>
+          </div>
+          <div class="note-wrapper">
+            <h2 class="subtitle-specific">Notiz 1</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate, sint.</p>
+          </div>  
+        </div>
 
       </div>
     </main>

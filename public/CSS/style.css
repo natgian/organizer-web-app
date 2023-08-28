@@ -377,6 +377,16 @@ button#toggle-password {
   color: var(--dark-color);
 }
 
+.search-input {
+  width: 100%;
+  display: block;
+  margin: 1em auto;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0.625em 0.875em;  
+  color: var(--dark-color);
+}
+
 /*---------*/
 /* UTILITY */
 /*---------*/
@@ -717,7 +727,7 @@ button#toggle-password {
 }
 
 /*--------*/
-/* Listen */
+/* LISTEN */
 /*--------*/
 
 .listen {
@@ -795,6 +805,24 @@ button#toggle-password {
   display: none;
 }
 
+/*---------*/
+/* NOTIZEN */
+/*---------*/
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+
+}
+
+.note-wrapper {
+  background-color: var(--medium-dark-color);
+  border-radius: 15px;
+  padding: 2em 1.25em;
+}
+
 /*--------*/
 /* FOOTER */
 /*--------*/
@@ -831,5 +859,18 @@ button#toggle-password {
   .home-btn svg {
     width: 60px;
     height: 60px;
+  }
+
+  .notes-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .note-wrapper {
+    flex-basis: 300px;
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+  .search-input {
+    width: 60%;
   }
 }
