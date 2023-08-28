@@ -35,6 +35,12 @@ router.get("/logout", userController.logoutUser);
 // -- RENDER USER PROFILE PAGE
 router.get("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.renderUserAccount));
 
+// -- RENDER USER EDIT PAGE
+router.get("/benutzerkonto/:userId/bearbeiten", isLoggedIn, catchAsync(userController.renderEditUser));
+
+// -- EDIT A USER
+router.put("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.editUser));
+
 
 module.exports = router;
 

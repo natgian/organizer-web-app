@@ -15,7 +15,7 @@ module.exports.registerUser = async (req, res, next) => {
     const newUser = new User({ email, username });
     const registeredUser = await User.register(newUser, password);
     req.login(registeredUser, err => {
-      if(err) return next(err);
+      if (err) return next(err);
       // req.flash("success", "Erfolgreich registriert!");
       res.redirect("/home");
     });
@@ -32,48 +32,57 @@ module.exports.renderLoginPage = (req, res) => {
 
 // LOGIN
 module.exports.loginUser = (req, res) => {
-  const redirectUrl = res.locals.returnTo || "/home"; 
-    res.redirect(redirectUrl);
+  const redirectUrl = res.locals.returnTo || "/home";
+  res.redirect(redirectUrl);
 };
 
 // LOGOUT
 module.exports.logoutUser = (req, res, next) => {
   req.logout(function (err) {
-      if (err) {
-          return next(err);
-      }
-      res.redirect("/login");
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
   });
 };
 
 // -- RENDER USER PROFILE PAGE
 module.exports.renderUserAccount = async (req, res) => {
   const { userId } = req.params;
-  const foundUser = await User.findById(userId);
+  const loggedInUser = req.user._id;
 
-  if(!foundUser) {
-    res.status(404).render("pages/404");
-  } else {
-    res.render("users/profile", {foundUser});
-  }
-
-  // try {
-  //   const foundUser = await User.findById(userId);
-  //   if (!foundUser) {
-  //     res.status(404).render("pages/404");
-  //   }
-  //   else {
-  //     if (req.user && req.user._id.equals(foundUser.user._id)) {
-  //       res.render("users/profile", { foundUser });
-  //     } else {
-  //       res.status(403).render("pages/403");
-  //     }      
-  //   }
-  // }
-  // catch (err) {
-  //     res.status(500).render("pages/error");
-  //   }
+  if (userId !== loggedInUser.toString()) {
+    // User is not authorized to view this profile
+    return res.status(403).render("pages/403"); //
   };
+
+  const foundUser = await User.findById(userId);
+  if (!foundUser) {
+    return res.status(404).render("pages/404");
+  };
+  res.render("users/profile", { foundUser });
+};
+
+// -- RENDER EDIT USER PROFILE
+module.exports.renderEditUser = async (req, res, next) => {
+  const { userId } = req.params;
+  const foundUser = await User.findById(userId);
+  res.render("users/edit", { foundUser });
+};
+
+// EDIT USER PROFILE
+module.exports.editUser = async (req, res) => {
+  const { userId } = req.params;
+  const loggedInUser = req.user._id;
+
+  if (userId !== loggedInUser.toString()) {
+    // User is not authorized to view this profile
+    return res.status(403).render("pages/403"); //
+  };
+
+  const foundUser = await User.findByIdAndUpdate(userId, req.body, { runValidators: true });
+  res.redirect(`/benutzerkonto/${foundUser._id}`);
+};
 
 
 

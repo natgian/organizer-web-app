@@ -90,7 +90,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", isLoggedIn, (req, res) => {
-  res.render("pages/home");
+  const user = req.user;
+  res.render("pages/home", { user });
 });
 
 app.get("/timer", isLoggedIn, (req, res) => {

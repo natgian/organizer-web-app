@@ -130,7 +130,7 @@ li {
 }
 
 .container {
-  width: 80%;
+  width: 85%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -139,9 +139,20 @@ li {
   display: flex;
   flex-direction: column;
   max-width: 500px;
-  margin: 2em auto;
+  margin: 1.25em auto;
   border-radius: 15px;
   padding: 2em 1.25em;
+}
+
+.no-bg-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 1.25em auto;
+}
+
+.medium-dark-wrapper {
+  background-color: var(--medium-dark-color);
 }
 
 .btn-wrapper {
@@ -188,10 +199,9 @@ li {
 /*----------*/
 
 .title {
-  font-size: 2rem;
+  font-size: 1.875rem;
   font-weight: bold;
   text-align: center;
-  padding: 0.5em;
   color: var(--title-text-color);
 }
 
@@ -208,7 +218,6 @@ li {
   font-weight: bold;
   text-align: center;
   padding: 0.5em;
-  margin: 1em 0 0.5em 0;
   color: var(--subtitle-text-color);
 }
 
@@ -311,8 +320,11 @@ button#toggle-password {
 
 .page-navigation-link {
   display: inline-block;
+  justify-content: center;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
   color: var(--navigation-color);
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin: 0.5em 0;
 }
 
@@ -397,7 +409,7 @@ button#toggle-password {
   border-bottom: 1px solid var(--medium-dark-color);
   box-shadow: 0 1px 30px -5px var(--navigation-color);
   padding: 1em 0;
-  margin-bottom: 1.5em;
+  margin-bottom: 3.5em;
 }
 
 .main-nav {
@@ -422,6 +434,15 @@ button#toggle-password {
   margin: 0.5em 0;
 }
 
+.main-nav-link a {
+  color: var(--navigation-color);
+  padding-bottom: 0.5em;
+}
+
+.main-nav-link a:hover,
+.main-nav-link a:focus {
+  color: var(--main-text-color);
+}
 
 /*-----------------*/
 /* LOGIN & SIGN UP */
@@ -459,7 +480,7 @@ button#toggle-password {
   display: flex;
   justify-content: flex-start;
   gap: 0.5em;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.8em;
 }
 
 .login-form-wrapper {
@@ -472,7 +493,7 @@ button#toggle-password {
   width: 100%;
   border-radius: 10px;
   font-size: 1rem;
-  padding: 0.625em 0.625em 0.625em 2.5em;
+  padding: 0.625em 0.625em 0.625em 2.8em;
 }
 
 .input-container input[id="password"] {
@@ -496,6 +517,17 @@ button#toggle-password {
 /* input[type=email]:not(:placeholder-shown):invalid {
   color: red;
 } */
+
+/*---------*/
+/* PROFILE */
+/*---------*/
+
+.profile-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 
 /*------*/
 /* HOME */
@@ -545,18 +577,12 @@ button#toggle-password {
 /* TIMER */
 /*-------*/
 
-.timer-container {
-  display: flex;
-  flex-direction: column;
+.timer-wrapper {
   justify-content: center;
   align-items: center;
   text-align: center;
   gap: 1em;
   background-color: var(--medium-dark-color);
-  max-width: 500px;
-  margin: 2em auto;
-  border-radius: 15px;
-  padding: 2em 1em;
   font-size: 1.125rem;
 }
 
@@ -698,10 +724,6 @@ button#toggle-password {
   display: flex;
   flex-direction: row;
   gap: 0.875em;
-}
-
-.medium-dark-wrapper {
-  background-color: var(--medium-dark-color);
 }
 
 .items-ul {
