@@ -22,5 +22,11 @@ router.post("/neue-Notiz", isLoggedIn, catchAsync(notizenController.createNote))
 // -- RENDER NOTE SHOW PAGE
 router.get("/:noteId", isLoggedIn, catchAsync(notizenController.showNote));
 
+// TODO: RENDER NOTE EDIT PAGE
+
+// TODO: EDIT A NOTE
+
+// TODO: DELETE A NOTE
+
 
 module.exports = router;

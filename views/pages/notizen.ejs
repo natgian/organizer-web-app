@@ -25,7 +25,7 @@
           <input type="search" name="searchTerm" placeholder="Suchen..." class="search-input" aria-label="Search">
         </form>
 
-        <!-- New note button -->
+        <!-- Add new note button -->
         <button class="round-btn mb-05"><a href="/notizen/neue-Notiz"><svg xmlns="http://www.w3.org/2000/svg" width="30"
               height="30" viewBox="0 0 20 20">
               <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
@@ -34,20 +34,32 @@
         <div class="notes-container">
 
           <% notes.forEach(note => { %>
+          <a href="/notizen/<%=note._id %>" class="note-link">
           <div class="note-wrapper">
-            <h2 class="subtitle-specific"><%= note.title %></h2>
+            <h2 class="subtitle-specific-notcentered"><%= note.title %></h2>
             <p><%= note.body %></p>
-          </div> 
+          </div>
+        </a> 
 
           <% }); %>
         </div>
+
+              <!-- Pagination Links -->
+  <div class="pagination mt-1">
+    <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage - 1 %>" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="link-svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>zurück</a>
+    <% } %>
+    <% if (currentPage < pages) { %>
+      <a href="?page=<%= currentPage + 1 %>" class="page-navigation-link">nächste<svg class="link-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></svg></a>
+    <% } %>
+  </div>
+
 
       </div>
     </main>
 
     <%- include("../partials/footer") %>
   </div>
-
 
 </body>
 

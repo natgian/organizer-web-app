@@ -2,8 +2,20 @@ const Note = require("../models/note");
 
 // RENDER NOTIZEN INDEX PAGE
 module.exports.index = async (req, res, next) => {
-  const notes = await Note.find({ user: req.user._id }).populate("user");
-  res.render("pages/notizen", { notes });
+  // Get the requested page number from query parameter:
+  const currentPage = parseInt(req.query.page) || 1; 
+  // Number of notes per page:
+  const notesPerPage = 4;
+  // Calculate the starting index for the query:
+  const startIndex = (currentPage - 1) * notesPerPage;
+  // Get total notes count:
+  const totalNotes = await Note.countDocuments({ user: req.user._id });
+
+  const notes = await Note.find({ user: req.user._id })
+    .skip(startIndex) // skips the number of documents equal to the startIndex
+    .limit(notesPerPage) // limits the number of returned documents to notesPerPage
+    .populate("user"); // populate the user field in each note document with the associated user object
+  res.render("pages/notizen", { notes, currentPage, pages: Math.ceil(totalNotes / notesPerPage) });
 };
 
 // RENDER NEW NOTE PAGE
@@ -21,7 +33,7 @@ module.exports.createNote = async (req, res) => {
   res.redirect(`/notizen/${newNote._id}`);
 };
 
-// RENDER NOTIZ SHOW PAGE
+// RENDER SINGLE NOTE SHOW PAGE
 module.exports.showNote = async (req, res) => {
   const { noteId } = req.params;
   try {

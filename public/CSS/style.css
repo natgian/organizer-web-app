@@ -220,6 +220,12 @@ li {
   padding: 0.5em;
   color: var(--subtitle-text-color);
 }
+.subtitle-specific-notcentered {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.5em 0;
+  color: var(--subtitle-text-color);
+}
 
 .user {
   font-size: 1.25rem;
@@ -385,6 +391,16 @@ button#toggle-password {
   border-radius: 10px;
   padding: 0.625em 0.875em;  
   color: var(--dark-color);
+}
+
+.note-link {
+  color: var(--main-color);
+}
+.note-link:hover,
+.note-link:focus {
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  color: var(--main-text-color);
 }
 
 /*---------*/
