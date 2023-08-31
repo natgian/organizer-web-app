@@ -1,4 +1,5 @@
 const { List } = require("./models/list");
+const Note = require("./models/note");
 const {listSchema, itemSchema, userSchema} = require("./validationSchemas");
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -17,15 +18,32 @@ module.exports.storeReturnTo = (req, res, next) => {
   next();
 };
 
-module.exports.isAuthor = async (req, res, next) => {
-  const { listId } = req.params;
-  const foundList = await List.findById(listId);
+module.exports.isAuthor = (resourceType) => {
+  return async (req, res, next) => {
+    const resourceId = req.params[`${resourceType}Id`];
+    
+    let foundResource;
+    switch (resourceType) {
+      case "list":
+        foundResource = await List.findById(resourceId);
+        break;
+      case "note":
+        foundResource = await Note.findById(resourceId);
+        break;
+      case "project":
+        foundResource = await Project.findById(resourceId);
+        break;
+      default:
+        break;
+    }
 
-  if (!foundList || !foundList.user.equals(req.user._id)) {
-    return res.status(403).render("pages/403");
-  }  
-  next();
+    if (!foundResource || !foundResource.user.equals(req.user._id)) {
+      return res.status(403).render("pages/403");
+    }
+     next();
+  };
 };
+
 
 module.exports.validateList = async(req, res, next) => {
  const {error} = listSchema.validate(req.body);

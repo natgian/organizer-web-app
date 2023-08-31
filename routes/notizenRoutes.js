@@ -7,7 +7,7 @@ const notizenController = require("../controllers/notizenController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, isAuthor } = require("../middleware");
 
 // Routes
 // -- RENDER NOTIZEN PAGE
@@ -20,11 +20,13 @@ router.get("/neue-Notiz", isLoggedIn, notizenController.renderNewNote);
 router.post("/neue-Notiz", isLoggedIn, catchAsync(notizenController.createNote));
 
 // -- RENDER NOTE SHOW PAGE
-router.get("/:noteId", isLoggedIn, catchAsync(notizenController.showNote));
+router.get("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.showNote));
 
 // TODO: RENDER NOTE EDIT PAGE
+router.get("/:noteId/bearbeiten", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));
 
 // TODO: EDIT A NOTE
+router.put("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));
 
 // TODO: DELETE A NOTE
 

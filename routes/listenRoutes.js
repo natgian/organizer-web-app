@@ -23,16 +23,16 @@ router.post("/", isLoggedIn, validateList, catchAsync(listenController.createLis
 router.get("/:listId", isLoggedIn, catchAsync(listenController.showList));
 
 // -- RENDER EDIT PAGE
-router.get("/:listId/bearbeiten", isLoggedIn, isAuthor, catchAsync(listenController.renderEditList));
+router.get("/:listId/bearbeiten", isLoggedIn, isAuthor("list"), catchAsync(listenController.renderEditList));
 
 // -- DELETE ITEM FROM A LIST
-router.delete("/:listId/items/:itemId", isLoggedIn, isAuthor, catchAsync(listenController.deleteItemFromList));
+router.delete("/:listId/items/:itemId", isLoggedIn, isAuthor("list"), catchAsync(listenController.deleteItemFromList));
 
 // -- EDIT A LIST
-router.put("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.editList));
+router.put("/:listId", isLoggedIn, isAuthor("list"), catchAsync(listenController.editList));
 
 // -- DELETE A LIST
-router.delete("/:listId", isLoggedIn, isAuthor, catchAsync(listenController.deleteList));
+router.delete("/:listId", isLoggedIn, isAuthor("list"), catchAsync(listenController.deleteList));
 
 // -- ADD NEW ITEM TO A LIST
 router.post("/:listId", isLoggedIn, validateItem, catchAsync(listenController.addNewListItem));

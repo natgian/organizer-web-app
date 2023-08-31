@@ -63,8 +63,8 @@ module.exports.renderEditList = async (req, res, next) => {
 // EDIT A LIST
 module.exports.editList = async (req, res) => {
   const { listId } = req.params;
-  const list = await List.findByIdAndUpdate(listId, req.body, { runValidators: true });
-  res.redirect(`/listen/${list._id}`);
+  const foundList = await List.findByIdAndUpdate(listId, req.body, { runValidators: true });
+  res.redirect(`/listen/${foundList._id}`);
 };
 
 // DELETE A LIST
