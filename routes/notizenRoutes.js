@@ -29,6 +29,6 @@ router.get("/:noteId/bearbeiten", isLoggedIn, isAuthor("note"), catchAsync(notiz
 router.put("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));
 
 // TODO: DELETE A NOTE
-
+router.delete("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.deleteNote));
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const Note = require("../models/note");
+const User = require("../models/user");
 
 // RENDER NOTIZEN INDEX PAGE
 module.exports.index = async (req, res, next) => {
@@ -36,6 +37,7 @@ module.exports.createNote = async (req, res) => {
 // RENDER SINGLE NOTE SHOW PAGE
 module.exports.showNote = async (req, res) => {
   const { noteId } = req.params;
+
   try {
     const foundNote = await Note.findById(noteId)
       .populate("title")
@@ -70,6 +72,13 @@ module.exports.showNote = async (req, res) => {
 // TODO: EDIT A NOTE
 
 // TODO: DELETE A NOTE
+module.exports.deleteNote = async (req, res) => {
+  const { noteId } = req.params;
+
+  await Note.findByIdAndDelete(noteId);
+  await User.findByIdAndUpdate(req.user._id, { $pull: { notes: noteId } });
+  res.redirect("/notizen");
+};
 
 
 
