@@ -22,13 +22,13 @@ router.post("/neue-Notiz", isLoggedIn, catchAsync(notizenController.createNote))
 // -- RENDER NOTE SHOW PAGE
 router.get("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.showNote));
 
-// TODO: RENDER NOTE EDIT PAGE
-router.get("/:noteId/bearbeiten", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));
+// RENDER NOTE EDIT PAGE
+router.get("/:noteId/bearbeiten", isLoggedIn, isAuthor("note"), catchAsync(notizenController.renderEditNote));
 
-// TODO: EDIT A NOTE
+// EDIT A NOTE
 router.put("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));
 
-// TODO: DELETE A NOTE
+// DELETE A NOTE
 router.delete("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.deleteNote));
 
 module.exports = router;

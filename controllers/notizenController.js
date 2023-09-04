@@ -67,11 +67,21 @@ module.exports.showNote = async (req, res) => {
   }
 };
 
-// TODO: RENDER NOTE EDIT PAGE
+// RENDER NOTE EDIT PAGE
+module.exports.renderEditNote = async (req, res, next) => {
+  const { noteId } = req.params;
+  const foundNote = await Note.findById(noteId);
+  res.render("notes/edit", { foundNote });
+};
 
-// TODO: EDIT A NOTE
+// EDIT A NOTE
+module.exports.editNote = async (req, res) => {
+  const { noteId } = req.params;
+  const foundNote = await Note.findByIdAndUpdate(noteId, req.body, { runValidators: true });
+  res.redirect(`/notizen/${foundNote._id}`);
+};
 
-// TODO: DELETE A NOTE
+// DELETE A NOTE
 module.exports.deleteNote = async (req, res) => {
   const { noteId } = req.params;
 
