@@ -1,6 +1,6 @@
 const { List } = require("./models/list");
 const Note = require("./models/note");
-const {listSchema, itemSchema, userSchema} = require("./validationSchemas");
+const {listSchema, itemSchema, userSchema, noteSchema} = require("./validationSchemas");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -75,5 +75,16 @@ module.exports.validateItem = async(req, res, next) => {
   }
   next();
  };
+
+ module.exports.validateNote = async(req, res, next) => {
+  const {error} = noteSchema.validate(req.body);
+ if(error) {
+  const msg = error.details.map(element => element.message).join(",");
+  req.flash("error", msg);
+  return res.redirect("/notizen/neue-Notiz");
+ }
+ next();
+ };
+
 
 

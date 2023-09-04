@@ -383,6 +383,10 @@ button#toggle-password {
   color: var(--dark-color);
 }
 
+.textarea {
+  white-space: pre-line;
+}
+
 .search-input {
   width: 100%;
   display: block;
@@ -828,12 +832,14 @@ button#toggle-password {
 .notes-container {
   display: flex;
   flex-direction: column;
+
   justify-content: center;
   gap: 2em;
 
 }
 
 .note-wrapper {
+  width: 100%;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
   padding: 2em 1.25em;
@@ -882,11 +888,13 @@ button#toggle-password {
     flex-wrap: wrap;
   }
   .note-wrapper {
-    flex-basis: 300px;
+    width: 500px;
+    height: 200px;
+    /* flex-basis: 300px;
     flex-shrink: 0;
-    flex-grow: 1;
+    flex-grow: 1; */
   }
   .search-input {
-    width: 60%;
+    width: 75%;
   }
 }

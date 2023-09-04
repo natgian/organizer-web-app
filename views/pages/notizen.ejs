@@ -18,6 +18,13 @@
     <main>
       <div class="container">
 
+       
+          <% if(error && error.length) {%>
+            <div class="alert alert-error" role="alert">
+            <%= error %>
+          </div>
+          <% } %>
+
         <h1 class="title">Notizen</h1>
 
         <!-- Searchbar -->
@@ -64,3 +71,4 @@
 </body>
 
 </html>
+

@@ -5,23 +5,28 @@ const User = require("../models/user");
 module.exports.index = async (req, res, next) => {
   // Get the requested page number from query parameter:
   const currentPage = parseInt(req.query.page) || 1; 
-  // Number of notes per page:
   const notesPerPage = 4;
-  // Calculate the starting index for the query:
   const startIndex = (currentPage - 1) * notesPerPage;
-  // Get total notes count:
   const totalNotes = await Note.countDocuments({ user: req.user._id });
+  const noteMaxLength = 150;
 
   const notes = await Note.find({ user: req.user._id })
     .skip(startIndex) // skips the number of documents equal to the startIndex
     .limit(notesPerPage) // limits the number of returned documents to notesPerPage
     .populate("user"); // populate the user field in each note document with the associated user object
+
+ notes.forEach(note => {
+  if(note.body.length > noteMaxLength) {
+    note.body = note.body.substring(0, noteMaxLength) + "...";
+  };
+ })
   res.render("pages/notizen", { notes, currentPage, pages: Math.ceil(totalNotes / notesPerPage) });
 };
 
 // RENDER NEW NOTE PAGE
 module.exports.renderNewNote = (req, res) => {
-  res.render("notes/new");
+  const errorMessage = req.flash("error");
+  res.render("notes/new", {errorMessage});
 };
 
 // CREATE A NEW NOTE
@@ -46,12 +51,13 @@ module.exports.showNote = async (req, res) => {
         path: "user",
         populate: { path: "notes" }
       });
+
     if (!foundNote) {
       res.status(404).render("pages/404");
     }
     else {
       if (req.user && req.user._id.equals(foundNote.user._id)) {
-        res.render("notes/show", { foundNote });
+        res.render("notes/show", { foundNote});
       } else {
         res.status(403).render("pages/403");
       }      
