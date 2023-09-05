@@ -14,7 +14,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
-const catchAsync = require("./utilities/catchAsync");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
@@ -103,16 +102,15 @@ app.get("/404", (req, res) => {
 });
 
 // ERROR HANDLING
-
-// General Error Handler for undefined routes
-app.use((req, res, next) => {
-  res.status(404).render("pages/404");
-});
-
 // Error Handler for other errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render("pages/error", {err: err});
+});
+
+// General Error Handler for undefined routes
+app.use((req, res, next) => {
+  res.status(404).render("pages/404");
 });
 
 // SERVER

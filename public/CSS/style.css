@@ -184,6 +184,12 @@ li {
 .flex-right {
   display: flex;
   justify-content: flex-end;
+  align-content: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
 }
 
 .error-message {
@@ -332,11 +338,18 @@ button#toggle-password {
   color: var(--navigation-color);
   font-size: 1rem;
   margin: 0.5em 0;
+  padding: 0 0.5em;
 }
 
 .page-navigation-link:hover,
 .page-navigation-link:focus {
   color: var(--main-text-color);
+}
+
+.active-page {
+  border-radius: 5px;
+  border: solid 1px var(--main-text-color);
+  padding: 0.5em;
 }
 
 /* Style for the colored squares */
@@ -425,6 +438,9 @@ button#toggle-password {
 
 .mt-1 {
   margin-top: 1em;
+}
+.mt-2 {
+  margin-top: 2em;
 }
 
 .bold {
@@ -832,13 +848,18 @@ button#toggle-password {
 .notes-container {
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   gap: 2em;
-
 }
 
 .note-wrapper {
+  width: 100%;
+  background-color: var(--medium-dark-color);
+  border-radius: 15px;
+  padding: 2em 1.25em;
+}
+
+.show-note-wrapper {
   width: 100%;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
@@ -882,19 +903,18 @@ button#toggle-password {
     width: 60px;
     height: 60px;
   }
+}
 
+@media only screen and (min-width:768px) {
   .notes-container {
     flex-direction: row;
     flex-wrap: wrap;
   }
   .note-wrapper {
-    width: 500px;
-    height: 200px;
-    /* flex-basis: 300px;
-    flex-shrink: 0;
-    flex-grow: 1; */
+    width: 300px;
+    height: 300px;
   }
   .search-input {
-    width: 75%;
+    max-width: 50%;
   }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Notiz suchen</title>
+</head>
+
+<body>
+
+  <div class="main-layout">
+
+    <%- include("../partials/header") %>
+
+    <main>
+      <div class="container">
+
+       
+          <% if(error && error.length) {%>
+            <div class="alert alert-error" role="alert">
+            <%= error %>
+          </div>
+          <% } %>
+
+        <h1 class="title">Suchen</h1>
+
+        <!-- Searchbar -->
+        <form action="/notizen/suchen" role="search" method="POST">
+          <input type="search" name="searchTerm" placeholder="Suchen..." class="search-input container" aria-label="Search">
+        </form>
+
+        <div class="notes-container mt-2">
+          <% if(searchResults.length > 0) { %>
+            <% searchResults.forEach(result => { %>
+              <a href="/notizen/<%=result._id %>" class="note-link">
+                <div class="note-wrapper">
+                  <h2 class="subtitle-specific-notcentered"><%= result.title %></h2>
+                  <p><%= result.body %></p>
+                </div>
+              </a> 
+              <% }) %>
+            <% } else { %>
+              <p>Keine Resultate für diesen Suchbegriff gefunden.</p>
+              <% } %>          
+        </div>
+
+
+      </div>
+    </main>
+
+    <%- include("../partials/footer") %>
+  </div>
+
+</body>
+
+</html>
+
+
