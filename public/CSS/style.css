@@ -404,7 +404,6 @@ button#toggle-password {
   width: 100%;
   display: block;
   margin: 1em auto;
-  justify-content: center;
   border-radius: 10px;
   padding: 0.625em 0.875em;  
   color: var(--dark-color);
@@ -853,10 +852,11 @@ button#toggle-password {
 }
 
 .note-wrapper {
-  width: 100%;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
   padding: 2em 1.25em;
+  overflow-wrap: break-word;
+
 }
 
 .show-note-wrapper {
@@ -881,6 +881,13 @@ button#toggle-password {
 /*---------------*/
 /* MEDIA QUERIES */
 /*---------------*/
+
+@media only screen and (max-width:374px) {
+  .note-wrapper {
+    max-width: 300px;
+    max-height: 250px;
+  }
+}
 
 @media only screen and (min-width:400px) {
   .home-btn {
