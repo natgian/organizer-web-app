@@ -84,7 +84,7 @@ module.exports.renderEditNote = async (req, res, next) => {
 module.exports.editNote = async (req, res) => {
   const { noteId } = req.params;
   const foundNote = await Note.findByIdAndUpdate(noteId, req.body, { runValidators: true });
-  res.redirect("/notizen", { foundNote });
+  res.redirect("/notizen");
 };
 
 // DELETE A NOTE

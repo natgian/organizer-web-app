@@ -17,6 +17,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
+const budgetRoutes = require("./routes/budgetRoutes")
 const notizenRoutes = require("./routes/notizenRoutes");
 const userRoutes = require("./routes/userRoutes");
 
@@ -80,6 +81,7 @@ app.use((req, res, next) => {
 
 // Required routes
 app.use("/listen", listenRoutes);
+app.use("/budget", budgetRoutes);
 app.use("/notizen", notizenRoutes);
 app.use("/", userRoutes);
 
