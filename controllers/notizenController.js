@@ -10,10 +10,8 @@ module.exports.index = async (req, res, next) => {
   const totalNotes = await Note.countDocuments({ user: req.user._id });
   const noteMaxLength = 150;
 
-  const sortCriteria = { createdAt: -1};
-
   const notes = await Note.find({ user: req.user._id })
-    .sort(sortCriteria)
+    .sort({ updatedAt: -1})
     .skip(startIndex) // skips the number of documents equal to the startIndex
     .limit(notesPerPage) // limits the number of returned documents to notesPerPage
     .populate("user"); // populate the user field in each note document with the associated user object
@@ -36,9 +34,14 @@ module.exports.renderNewNote = (req, res) => {
 module.exports.createNote = async (req, res) => {
   const newNote = new Note(req.body);
   newNote.user = req.user._id;
+  newNote.createdAt = new Date();
+  newNote.updatedAt = new Date();
+
   await newNote.save();
+
   req.user.notes.push(newNote._id);
   await req.user.save();
+
   res.redirect("/notizen");
 };
 
@@ -86,7 +89,7 @@ module.exports.renderEditNote = async (req, res, next) => {
 // EDIT A NOTE
 module.exports.editNote = async (req, res) => {
   const { noteId } = req.params;
-  const foundNote = await Note.findByIdAndUpdate(noteId, req.body, { runValidators: true });
+  const foundNote = await Note.findByIdAndUpdate(noteId, {... req.body, updatedAt: Date.now()}, { runValidators: true });
   res.redirect("/notizen");
 };
 
