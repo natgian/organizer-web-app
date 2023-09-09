@@ -18,18 +18,19 @@
     <main>
       <div class="container">
 
-       
-          <% if(error && error.length) {%>
-            <div class="alert alert-error" role="alert">
-            <%= error %>
-          </div>
-          <% } %>
+
+        <% if(error && error.length) {%>
+        <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } %>
 
         <h1 class="title">Notizen</h1>
 
         <!-- Searchbar -->
         <form action="/notizen/suchen" role="search" method="POST">
-          <input type="search" name="searchTerm" placeholder="Suchen..." class="search-input container" aria-label="Search">
+          <input type="search" name="searchTerm" placeholder="Suchen..." class="search-input container"
+            aria-label="Search">
         </form>
 
         <!-- Add new note button -->
@@ -39,33 +40,37 @@
             </svg></a></button>
 
         <div class="notes-container">
-
           <% notes.forEach(note => { %>
           <a href="/notizen/<%=note._id %>" class="note-link">
-          <div class="note-wrapper">
-            <h2 class="subtitle-specific-notcentered"><%= note.title %></h2>
-            <p><%= note.body %></p>
-          </div>
-        </a> 
+            <div class="note-wrapper">
+              <h2 class="subtitle-specific-notcentered"><%= note.title %></h2>
+              <p><%= note.body %></p>
+            </div>
+          </a>
 
           <% }); %>
 
-          
+
         </div>
 
-              <!-- Pagination Links -->
-  <div class="container text-center mt-2">
-    <% if (currentPage === 1) { %> 
-    <span class="active-page"><%= currentPage %></span>
-    <% } %>
-    <% if (currentPage > 1) { %>
-      <a href="?page=<%= currentPage - 1 %>" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="link-svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg> <%= currentPage -1 %></a>
-      <span class="active-page"><%= currentPage %></span>
-    <% } %>
-    <% if (currentPage < pages) { %>
-      <a href="?page=<%= currentPage + 1 %>" class="page-navigation-link"><%= currentPage + 1  %><svg class="link-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></svg></a>
-    <% } %>
-  </div>
+        <!-- Pagination Links -->
+        <div class="container text-center mt-2">
+            <% if (currentPage > 1) { %>
+          <a href="?page=<%= currentPage - 1 %>" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" viewBox="0 0 512 512" class="link-svg">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+                d="M328 112L184 256l144 144" />
+            </svg> <%= currentPage -1 %></a>
+          <span class="active-page"><%= currentPage %></span>
+          <% } %>
+          <% if (currentPage < pages) { %>
+            <span class="active-page"><%= currentPage %></span>
+          <a href="?page=<%= currentPage + 1 %>" class="page-navigation-link"><%= currentPage + 1  %><svg
+              class="link-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
+            </svg></a>
+          <% } %>
+        </div>
 
 
       </div>
@@ -77,5 +82,3 @@
 </body>
 
 </html>
-
-
