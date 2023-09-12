@@ -67,10 +67,10 @@
               </tr>
 
               <tr>
-                  <td class="table-align-left table-align-top table-border">Einkauf Hofladen
-                    <span class="expense-date">1.9.2023</span>
+                  <td class="table-align-left table-border">Einkauf Hofladen
+                   <br><span class="expense-date">1.9.2023</span>
                   </td>
-                  <td class="table-align-right table-align-top table-border">33.90
+                  <td class="table-align-right table-border">33.90
                     <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
                       <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                           viewBox="0 0 24 24">
@@ -81,8 +81,8 @@
                   </td>
               </tr>
               <tr>
-                <td class="table-align-left table-align-top table-border">Einkauf Hofladen
-                  <span class="expense-date">1.9.2023</span>
+                <td class="table-align-left table-align-top table-border">Einkauf Migros
+                  <br><span class="expense-date">12.9.2023</span>
                 </td>
                 <td class="table-align-right table-align-top table-border">33.90
                   <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
@@ -94,8 +94,8 @@
                   </form>
                 </td>
             </tr>           <tr>
-              <td class="table-align-left table-align-top table-border">Einkauf Hofladen
-                <span class="expense-date">1.9.2023</span>
+              <td class="table-align-left table-align-top table-border">Einkauf Coop
+                <br><span class="expense-date">15.9.2023</span>
               </td>
               <td class="table-align-right table-align-top table-border">155.90
                 <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
@@ -118,9 +118,9 @@
 
             <form action="/budget/<%= foundBudget._id %>" method="POST" autocomplete="off">
               <div class="new-item-container">
-                <input type="date" name="expense-date" id="expense-date" class="input">
+                <input type="date" name="expense-date" id="expense-date" class="input" autofocus required>
                 <input type="text" name="expense-description" placeholder="Beschreibung..." id="expense-description" class="input" required>
-                <input type="text" name="expense-amount" id="expense-amount" class="input" placeholder="Betrag...">
+                <input type="number" name="expense-amount" id="expense-amount" class="input" placeholder="Betrag..." step="any" required>
                 <button class="rectangle-btn">Hinzufügen</button>
               </div>
             </form>
