@@ -438,6 +438,9 @@ button#toggle-password {
 .mb-1 {
   margin-bottom: 1em;
 }
+.mb-2 {
+  margin-bottom: 2em;
+}
 
 .mt-05 {
   margin-top: 0.5em;
@@ -874,6 +877,58 @@ button#toggle-password {
   background-color: var(--medium-dark-color);
   border-radius: 15px;
   padding: 2em 1.25em;
+}
+
+/*--------*/
+/* BUDGET */
+/*--------*/
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+th, td {
+  padding: 0.5em;
+}
+
+th {
+  margin-bottom: 1em;
+}
+
+.expense-delete-form {
+  display: inline;
+  vertical-align:top;
+}
+
+.budget-table td {
+  padding-top: 0;
+}
+
+.remaining-budget {
+  color: var(--comp-color-three);
+}
+
+.table-border {
+  border: 1px solid var(--main-text-color);
+}
+
+.table-align-left {
+  text-align: left;
+}
+
+.table-align-right {
+  text-align: right;
+}
+
+.expense-date {
+  font-size: 0.5rem;
+  color: var(--muted-text-color);
+}
+
+.table-align-top {
+  vertical-align: baseline;
 }
 
 /*--------*/

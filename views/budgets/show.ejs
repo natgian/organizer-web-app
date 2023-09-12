@@ -43,10 +43,74 @@
             <%= foundBudget.name %>
           </h1>
 
+          <!-- Budget-Table -->
+          <table class="budget-table mt-2">
+            <tr>
+              <th class="table-align-left bold">Budget</th>
+                  <th class="table-align-right bold">Verbleibend</th>
+            </tr>
+            <tr>
+              <td class="table-align-left"><%= foundBudget.budget %> CHF</td>
+              <td class="table-align-right remaining-budget">39.90 CHF</td>
+            </tr>
+          <tr>
+          
+          </tr>
+        </table>
+                   
+               <!-- Expenses-Table -->
+          <table class="expenses-table mt-1">
+    
+              <tr>
+                  <th class="table-align-left bold">Beschreibung</th>
+                  <th class="table-align-right bold">Betrag</th>
+              </tr>
 
-          <div class="add-item-container">
+              <tr>
+                  <td class="table-align-left table-align-top table-border">Einkauf Hofladen
+                    <span class="expense-date">1.9.2023</span>
+                  </td>
+                  <td class="table-align-right table-align-top table-border">33.90
+                    <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
+                      <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                          viewBox="0 0 24 24">
+                          <path fill="currentColor"
+                            d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                        </svg></button>
+                    </form>
+                  </td>
+              </tr>
+              <tr>
+                <td class="table-align-left table-align-top table-border">Einkauf Hofladen
+                  <span class="expense-date">1.9.2023</span>
+                </td>
+                <td class="table-align-right table-align-top table-border">33.90
+                  <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
+                    <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                          d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                      </svg></button>
+                  </form>
+                </td>
+            </tr>           <tr>
+              <td class="table-align-left table-align-top table-border">Einkauf Hofladen
+                <span class="expense-date">1.9.2023</span>
+              </td>
+              <td class="table-align-right table-align-top table-border">155.90
+                <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
+                  <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                    </svg></button>
+                </form>
+              </td>
+          </tr>
+         
+          </table>
 
-            <button class="round-btn" id="add-item-btn"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+            <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
                 viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
@@ -54,7 +118,9 @@
 
             <form action="/budget/<%= foundBudget._id %>" method="POST" autocomplete="off">
               <div class="new-item-container">
-                <input type="text" name="text" placeholder="Hier eingeben..." class="input" required>
+                <input type="date" name="expense-date" id="expense-date" class="input">
+                <input type="text" name="expense-description" placeholder="Beschreibung..." id="expense-description" class="input" required>
+                <input type="text" name="expense-amount" id="expense-amount" class="input" placeholder="Betrag...">
                 <button class="rectangle-btn">Hinzufügen</button>
               </div>
             </form>
@@ -76,7 +142,7 @@
     <%- include("../partials/footer") %>
   </div>
 
-  <script src="/JS/displayItemInput.js"></script>
+  <script src="/JS/displayExpenseInput.js"></script>
 </body>
 
 </html>
