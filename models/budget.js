@@ -3,35 +3,46 @@ const mongoose = require("mongoose");
 const expenseSchema = new mongoose.Schema({
   date: {
     type: Date,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   expense: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const budgetSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
-  },
-  budget: {
-    type: Number,
     required: true,
   },
-  remainingBudget: {
-    type: Number,
-    required: true
+  color: {
+    type: String
   },
-  expenses: [expenseSchema]   
+  budget: {
+    type: Number
+  },
+  remainingBudget: {
+    type: Number
+  },
+  expenses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Expense"
+    }
+  ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
+  
 });
 
 const Expense = mongoose.model("Expense", expenseSchema);
 const Budget = mongoose.model("Budget", budgetSchema);
 
-module.exports = { Expense, Budget};
+module.exports = { Expense, Budget };
