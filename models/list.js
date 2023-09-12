@@ -1,37 +1,33 @@
 const mongoose = require("mongoose");
 
-const expenseSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: true
-  },
-  description: {
+const ItemSchema = new mongoose.Schema({
+  text: {
     type: String,
-    required: true
-  },
-  expense: {
-    type: Number,
     required: true
   }
 });
 
-const budgetSchema = new mongoose.Schema({
+const ListSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  budget: {
-    type: Number,
-    required: true,
+  items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item"
+    }
+  ],
+  color: {
+    type: String,
   },
-  remainingBudget: {
-    type: Number,
-    required: true
-  },
-  expenses: [expenseSchema]   
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
-const Expense = mongoose.model("Expense", expenseSchema);
-const Budget = mongoose.model("Budget", budgetSchema);
+const Item = mongoose.model("Item", ItemSchema);
+const List = mongoose.model("List", ListSchema);
 
-module.exports = { Expense, Budget};
+module.exports = { Item, List};
