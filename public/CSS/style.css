@@ -914,6 +914,10 @@ th {
   border-bottom: 1px solid var(--light-color);
 }
 
+.table-align-top {
+  vertical-align: baseline;
+}
+
 .table-align-left {
   text-align: left;
 }
@@ -925,10 +929,6 @@ th {
 .expense-date {
   font-size: 0.625rem;
   color: var(--muted-text-color);
-}
-
-.table-align-top {
-  vertical-align: baseline;
 }
 
 /*--------*/
