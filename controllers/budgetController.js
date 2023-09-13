@@ -54,6 +54,20 @@ module.exports.showBudget = async (req, res) => {
   }
 };
 
+// RENDER BUDGET EDIT PAGE
+module.exports.renderEditBudget = async (req, res, next) => {
+  const { budgetId } = req.params;
+  const foundBudget = await Budget.findById(budgetId);
+  res.render("budgets/edit", { foundBudget });
+};
+
+// EDIT A BUDGET
+module.exports.editBudget = async (req, res) => {
+  const { budgetId } = req.params;
+  const foundBudget = await Budget.findByIdAndUpdate(budgetId, req.body, { runValidators: true });
+  res.redirect(`/budget/${foundBudget._id}`);
+};
+
 
 
 

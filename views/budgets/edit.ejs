@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/style.css">
+  <title>Budget bearbeiten</title>
+</head>
+
+<body>
+
+  <div class="main-layout">
+
+    <%- include("../partials/header") %>
+
+    <main>
+      <div class="container">
+ 
+          <% if(error && error.length) {%>
+            <div class="alert alert-error" role="alert">
+            <%= error %>
+          </div>
+          <% } %>
+
+        <div class="wrapper medium-dark-wrapper">
+          <h1 class="subtitle">Budget bearbeiten</h1>
+
+          <form action="/budget/<%=foundBudget._id%>?_method=PUT" method="POST">
+
+            <label for="name">
+              <input type="text" name="name" placeholder="Neuer Listenname" class="input" value="<%=foundBudget.name%>" autofocus required>
+            </label>
+
+            <label for="budget">
+              <input type="number" name="budget" placeholder="Budgetbetrag..." class="input" step="any" value="<%=foundBudget.budget%>" required>
+            </label>
+
+            <fieldset class="color-options-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+              class="inline-block-svg list-icon" id="list-icon">
+              <path fill="<%=foundBudget.color%>"
+                d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5s1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5S5.5 6.83 5.5 6S4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5s1.5-.68 1.5-1.5s-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z">
+              </path>
+            </svg>
+              <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
+              <div class="color-options-color-wrapper">
+                <label class="color-option" >
+                  <input type="radio" name="color" value="#F9F871" hidden>
+                  <div class="color-option comp-color-one"></div>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#fda76d" hidden>
+                  <div class="color-option comp-color-two"></div>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#6ae79c" hidden>
+                  <div class="color-option comp-color-three"></div>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#3a9ddf" hidden>
+                  <div class="color-option comp-color-four"></div>
+                </label>
+              </div>
+            </fieldset>
+
+            <button class="rectangle-btn">Speichern</button>
+          </form>
+        </div>
+
+    
+    </main>
+
+    <%- include("../partials/footer") %>
+  </div>
+
+  <script src="/JS/updateSVGColor.js"></script>
+  
+</body>
+
+</html>

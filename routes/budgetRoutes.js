@@ -22,5 +22,11 @@ router.post("/", isLoggedIn, catchAsync(budgetController.createBudget));
 // -- RENDER BUDGET SHOW PAGE
 router.get("/:budgetId", isLoggedIn, catchAsync(budgetController.showBudget));
 
+// -- RENDER EDIT PAGE
+router.get("/:budgetId/bearbeiten", isLoggedIn, catchAsync(budgetController.renderEditBudget));
+
+// -- EDIT A LIST
+router.put("/:budgetId", isLoggedIn, catchAsync(budgetController.editBudget));
+
 
 module.exports = router;
