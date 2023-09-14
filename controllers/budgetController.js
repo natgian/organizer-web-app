@@ -68,6 +68,19 @@ module.exports.editBudget = async (req, res) => {
   res.redirect(`/budget/${foundBudget._id}`);
 };
 
+// DELETE A BUDGET
+module.exports.deleteBudget = async (req, res) => {
+  const { budgetId } = req.params;
+
+  const foundBudget = await Budget.findById(budgetId);
+  const expenseIds = foundBudget.expenses;
+
+  await Expense.deleteMany({ _id: { $in: expenseIds } });
+  await Budget.findByIdAndDelete(budgetId);
+  await User.findByIdAndUpdate(req.user._id, { $pull: { budgets: budgetId } });
+  res.redirect("/budget");
+};
+
 // ADD NEW EXPENSE TO A BUDGET
 module.exports.addNewExpense = async (req, res) => {
   const { budgetId } = req.params;
@@ -77,7 +90,27 @@ module.exports.addNewExpense = async (req, res) => {
   foundBudget.expenses.push(savedExpense);
   await foundBudget.save();
   res.redirect(`/budget/${foundBudget._id}`);
-}
+};
+
+// DELETE EXPENSE FROM A BUDGET
+module.exports.deleteExpenseFromBudget = async (req, res) => {
+  const { budgetId, expenseId } = req.params;
+
+  const foundBudget = await Budget.findById(budgetId);
+  console.log("foundBudget:", foundBudget);
+  const expenseIndex = foundBudget.expenses.indexOf(expenseId); // Check if the item exists in the list's items array
+  console.log("expenseIndex:", expenseIndex);
+
+  if (expenseIndex !== -1) {
+    foundBudget.expenses.splice(expenseIndex, 1);// Remove the item from the list's items array
+    await foundBudget.save();
+    await Expense.findByIdAndDelete(expenseId);
+    await User.findByIdAndUpdate(req.user._id, { $pull: { budgets: budgetId } });
+    res.redirect(`/budget/${budgetId}`);
+  } else {
+      res.status(404).render("pages/404");
+  }
+};
 
 
 
