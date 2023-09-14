@@ -15,8 +15,11 @@ module.exports.renderNewBudget = (req, res) => {
 
 // CREATE A NEW BUDGET
 module.exports.createBudget = async (req, res) => {
-  const newBudget = new Budget(req.body);
-  newBudget.user = req.user._id;
+  const newBudgetData = req.body;
+  newBudgetData.user = req.user._id;
+  newBudgetData.remainingBudget = newBudgetData.budget;
+
+  const newBudget = new Budget(newBudgetData);
   await newBudget.save();
   req.user.budgets.push(newBudget._id);
   await req.user.save();
