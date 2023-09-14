@@ -1,8 +1,8 @@
 const User = require("../models/user");
-const {Expense, Budget} = require("../models/budget");
+const { Expense, Budget } = require("../models/budget");
+const formatDate  = require("../utilities/formatDate");
 
-
-// RENDER LISTEN PAGE
+// RENDER BUDGET PAGE
 module.exports.renderBudgetPage = async (req, res, next) => {
   const budgets = await Budget.find({ user: req.user._id }).populate("user");
   res.render("pages/budget", { budgets });
@@ -38,7 +38,7 @@ module.exports.showBudget = async (req, res) => {
     }
     else {
       if (req.user && req.user._id.equals(foundBudget.user._id)) {
-        res.render("budgets/show", { foundBudget });
+        res.render("budgets/show", { foundBudget, formatDate });
       } else {
         res.status(403).render("pages/403");
       }      
@@ -67,6 +67,17 @@ module.exports.editBudget = async (req, res) => {
   const foundBudget = await Budget.findByIdAndUpdate(budgetId, req.body, { runValidators: true });
   res.redirect(`/budget/${foundBudget._id}`);
 };
+
+// ADD NEW EXPENSE TO A BUDGET
+module.exports.addNewExpense = async (req, res) => {
+  const { budgetId } = req.params;
+  const newExpense = new Expense({ date: req.body.date, description: req.body.description, expense: req.body.expense });
+  const savedExpense = await newExpense.save();
+  const foundBudget = await Budget.findById(budgetId);
+  foundBudget.expenses.push(savedExpense);
+  await foundBudget.save();
+  res.redirect(`/budget/${foundBudget._id}`);
+}
 
 
 

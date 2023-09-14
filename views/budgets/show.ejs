@@ -17,14 +17,17 @@
 
     <main>
       <div class="container">
+
+        <!-- Error-Alert -->
         <% if(error && error.length) {%>
-          <div class="alert alert-error" role="alert">
+        <div class="alert alert-error" role="alert">
           <%= error %>
         </div>
         <% } %>
 
         <div class="wrapper medium-dark-wrapper">
 
+          <!-- Edit Button -->
           <button class="delete-edit-btn flex-right">
             <a href="/budget/<%=foundBudget._id%>/bearbeiten">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -47,71 +50,71 @@
           <table class="budget-table mt-2">
             <tr>
               <th class="table-align-left bold">Budget</th>
-                  <th class="table-align-right bold">Verbleibend</th>
+              <th class="table-align-right bold">Verbleibend</th>
             </tr>
             <tr>
-              <td class="table-align-left"><%= foundBudget.budget %> CHF</td>
-              <td class="table-align-right remaining-budget">39.90 CHF</td>
+              <td class="table-align-left"><%= foundBudget.budget.toFixed(2) %> CHF</td>
+              <td class="table-align-right remaining-budget"><%= foundBudget.remainingBudget %> CHF</td>
             </tr>
-          <tr>
-          
-          </tr>
-        </table>
-                   
-               <!-- Expenses-Table -->
-          <table class="expenses-table mt-1">
-    
-              <tr>
-                  <th class="table-align-left bold">Beschreibung</th>
-                  <th class="table-align-right bold">Betrag</th>
-              </tr>
-
-              <tr>
-                  <td class="table-align-left table-border">Einkauf Hofladen
-                   <br><span class="expense-date">1.9.2023</span>
-                  </td>
-                  <td class="table-align-right table-align-top table-border">33.90 &nbsp; 
-                    <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
-                      <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path fill="currentColor"
-                            d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                        </svg></button>
-                    </form>
-                  </td>
-              </tr>             
-         
           </table>
 
-            <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                viewBox="0 0 20 20">
-                <path fill="currentColor"
-                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg></button>
+          <!-- Expenses-Table -->
+          <table class="expenses-table mt-1">
+            <tr>
+              <th class="table-align-left bold">Beschreibung</th>
+              <th class="table-align-right bold">Betrag</th>
+            </tr>
 
-            <form action="/budget/<%= foundBudget._id %>" method="POST" autocomplete="off">
-              <div class="new-item-container">
-                <input type="date" name="expense-date" id="expense-date" class="input" autofocus required>
-                <input type="text" name="expense-description" placeholder="Beschreibung..." id="expense-description" class="input" required>
-                <input type="number" name="expense-amount" id="expense-amount" class="input" placeholder="Betrag..." step="any" required>
-                <button class="rectangle-btn">Hinzufügen</button>
-              </div>
-            </form>
+            <% foundBudget.expenses.forEach((expense) => { %>
+            <tr>
+              <td class="table-align-left table-border"><%= expense.description %>
+                <br><span class="expense-date"><%= formatDate(expense.date) %></span>
+              </td>
+              <td class="table-align-right table-align-top table-border"><%= expense.expense.toFixed(2) %> &nbsp;
+                <form action="/budget/<%= foundBudget._id%>?_method=DELETE" method="POST" class="expense-delete-form">
+                  <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                    </svg></button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </table>
 
-          </div>
-  
-          
-          </div>
+          <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26"
+              height="26" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+            </svg></button>
 
-        <div class="text-center">
-        <a href="/budget" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="link-svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>Budgetübersicht</a>
+          <form action="/budget/<%= foundBudget._id %>" method="POST" autocomplete="off">
+            <div class="new-item-container">
+              <input type="date" name="date" id="expense-date" class="input" autofocus required>
+              <input type="text" name="description" placeholder="Beschreibung..." id="expense-description" class="input"
+                required>
+              <input type="number" name="expense" id="expense-amount" class="input" placeholder="Betrag..." step="any"
+                required>
+              <button class="rectangle-btn">Hinzufügen</button>
+            </div>
+          </form>
+
+        </div>
       </div>
-  
+
+      <div class="text-center">
+        <a href="/budget" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 512 512" class="link-svg">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+              d="M328 112L184 256l144 144" />
+          </svg>Budgetübersicht</a>
+      </div>
+
     </main>
 
 
-  
-  
+
+
     <%- include("../partials/footer") %>
   </div>
 
