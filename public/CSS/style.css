@@ -584,7 +584,6 @@ button#toggle-password {
   justify-content: space-between;
 }
 
-
 /*------*/
 /* HOME */
 /*------*/
@@ -772,6 +771,34 @@ button#toggle-password {
 
 .settings-btn:disabled {
   color: var(--primary-color-disabled);
+}
+
+/*----------*/
+/* KALENDER */
+/*----------*/
+
+#calendar-weekdays,
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+
+}
+.daySquare {
+  width: 2.25em;
+  height: 2.25em;
+  padding: 0.5em;
+  margin: 0.5em;
+  cursor: pointer;
+  color: var(--dark-color);
+  font-size: 0.625rem;
+  border-radius: 5px;
+  background-color: var(--main-text-color);
+}
+
+.blankSquare {
+  cursor: default !important;
+  background-color: var(--medium-dark-color) !important;
 }
 
 /*--------*/

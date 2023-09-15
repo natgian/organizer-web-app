@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Kalender</title>
+</head>
+
+<body>
+
+  <div class="main-layout">
+    <%- include("../partials/header") %>
+    <main>
+      <div class="container">
+
+        <h1 class="title">Kalender</h1>
+
+        <div class="wrapper medium-dark-wrapper">
+          <div id="calendar-header"></div>
+
+          <div id="calendar-weekdays">
+            <div>Mo</div>
+            <div>Di</div>
+            <div>Mi</div>
+            <div>Do</div>
+            <div>Fr</div>
+            <div>Sa</div>
+            <div>So</div>
+          </div>
+
+          <div id="calendar"></div>
+        </div>
+      
+    </main>
+    <%- include("../partials/footer") %>
+  </div>
+
+  <script src="/JS/kalender.js"></script>
+</body>
+
+</html>
