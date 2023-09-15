@@ -906,8 +906,11 @@ th {
   padding-top: 0;
 }
 
-.remaining-budget {
+.positive-remaining-budget {
   color: var(--comp-color-three);
+}
+.negative-remaining-budget {
+  color: var(--error-message);
 }
 
 .table-border {

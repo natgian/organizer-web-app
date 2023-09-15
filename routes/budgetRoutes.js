@@ -7,7 +7,7 @@ const budgetController = require("../controllers/budgetController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, isAuthor } = require("../middleware");
+const { isLoggedIn, isAuthor, validateBudget, validateExpense } = require("../middleware");
 
 // Routes
 // -- RENDER BUDGET INDEX PAGE
@@ -17,25 +17,25 @@ router.get("/", isLoggedIn, catchAsync(budgetController.renderBudgetPage));
 router.get("/neues-Budget", isLoggedIn, budgetController.renderNewBudget);
 
 // -- CREATE A NEW BUDGET
-router.post("/", isLoggedIn, catchAsync(budgetController.createBudget));
+router.post("/", isLoggedIn, validateBudget, catchAsync(budgetController.createBudget));
 
 // -- RENDER BUDGET SHOW PAGE
-router.get("/:budgetId", isLoggedIn, catchAsync(budgetController.showBudget));
+router.get("/:budgetId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.showBudget));
 
 // -- DELETE EXPENSE FROM A BUDGET
-router.delete("/:budgetId/expenses/:expenseId", isLoggedIn, catchAsync(budgetController.deleteExpenseFromBudget));
+router.delete("/:budgetId/expenses/:expenseId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteExpenseFromBudget));
 
 // -- RENDER BUDGET EDIT PAGE
-router.get("/:budgetId/bearbeiten", isLoggedIn, catchAsync(budgetController.renderEditBudget));
+router.get("/:budgetId/bearbeiten", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.renderEditBudget));
 
 // -- EDIT A BUDGET
-router.put("/:budgetId", isLoggedIn, catchAsync(budgetController.editBudget));
+router.put("/:budgetId", isLoggedIn, isAuthor("budget"), validateBudget, catchAsync(budgetController.editBudget));
 
 // -- DELETE A BUDGET
-router.delete("/:budgetId", isLoggedIn, catchAsync(budgetController.deleteBudget));
+router.delete("/:budgetId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteBudget));
 
 // -- ADD NEW EXPENSE TO A BUDGET
-router.post("/:budgetId", isLoggedIn, catchAsync(budgetController.addNewExpense));
+router.post("/:budgetId", isLoggedIn, validateExpense, catchAsync(budgetController.addNewExpense));
 
 
 module.exports = router;

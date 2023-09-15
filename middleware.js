@@ -1,7 +1,16 @@
 const { List } = require("./models/list");
 const Note = require("./models/note");
-const {listSchema, itemSchema, userSchema, noteSchema} = require("./validationSchemas");
+const { Budget}  = require("./models/budget");
+const {listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema} = require("./validationSchemas");
 
+module.exports.storeReturnTo = (req, res, next) => {
+  if (req.session.returnTo) {
+      res.locals.returnTo = req.session.returnTo;
+  }
+  next();
+};
+
+// IS LOGGED IN
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.returnTo = req.originalUrl;
@@ -11,13 +20,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   next();
 };
 
-module.exports.storeReturnTo = (req, res, next) => {
-  if (req.session.returnTo) {
-      res.locals.returnTo = req.session.returnTo;
-  }
-  next();
-};
-
+// IS AUTHOR
 module.exports.isAuthor = (resourceType) => {
   return async (req, res, next) => {
     const resourceId = req.params[`${resourceType}Id`];
@@ -29,6 +32,9 @@ module.exports.isAuthor = (resourceType) => {
         break;
       case "note":
         foundResource = await Note.findById(resourceId);
+        break;
+      case "budget":
+        foundResource = await Budget.findById(resourceId);
         break;
       case "project":
         foundResource = await Project.findById(resourceId);
@@ -44,7 +50,18 @@ module.exports.isAuthor = (resourceType) => {
   };
 };
 
+// VALIDATE USER
+module.exports.validateUser = async(req, res, next) => {
+  const {error} = userSchema.validate(req.body);
+  if(error) {
+   const msg = error.details.map(element => element.message).join(",");
+   req.flash("error", msg);
+   return res.redirect("/registration");
+  }
+  next();
+ };
 
+// VALIDATE LIST
 module.exports.validateList = async(req, res, next) => {
  const {error} = listSchema.validate(req.body);
  if(error) {
@@ -55,6 +72,7 @@ module.exports.validateList = async(req, res, next) => {
  next();
 };
 
+// VALIDATE ITEM
 module.exports.validateItem = async(req, res, next) => {
   const listId = req.params.listId;
   const {error} = itemSchema.validate(req.body);
@@ -66,16 +84,7 @@ module.exports.validateItem = async(req, res, next) => {
   next();
  };
 
- module.exports.validateUser = async(req, res, next) => {
-  const {error} = userSchema.validate(req.body);
-  if(error) {
-   const msg = error.details.map(element => element.message).join(",");
-   req.flash("error", msg);
-   return res.redirect("/registration");
-  }
-  next();
- };
-
+ // VALIDATE NOTE
  module.exports.validateNote = async(req, res, next) => {
   const {error} = noteSchema.validate(req.body);
  if(error) {
@@ -85,6 +94,28 @@ module.exports.validateItem = async(req, res, next) => {
  }
  next();
  };
+
+ // VALIDATE BUDGET
+ module.exports.validateBudget = async(req, res, next) => {
+  const {error} = budgetSchema.validate(req.body);
+  if(error) {
+   const msg = error.details.map(element => element.message).join(",");
+   req.flash("error", msg);
+   return res.redirect("/budget/neues-Budget");
+  }
+  next();
+ };
+ 
+ module.exports.validateExpense = async(req, res, next) => {
+   const budgetId = req.params.budgetId;
+   const {error} = expenseSchema.validate(req.body);
+   if(error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect(`/budget/${budgetId}`);
+   }
+   next();
+  };
 
 
 

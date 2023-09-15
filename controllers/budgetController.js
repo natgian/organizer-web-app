@@ -67,8 +67,22 @@ module.exports.renderEditBudget = async (req, res, next) => {
 // EDIT A BUDGET
 module.exports.editBudget = async (req, res) => {
   const { budgetId } = req.params;
-  const foundBudget = await Budget.findByIdAndUpdate(budgetId, req.body, { runValidators: true });
-  res.redirect(`/budget/${foundBudget._id}`);
+  const updatedBudget = req.body;
+  const foundBudget = await Budget.findById(budgetId);
+
+    if (!foundBudget) {
+      return res.status(404).render("pages/404");
+    }
+    // Find all expenses associated with the budget:
+    const expenses = await Expense.find({ _id: { $in: foundBudget.expenses } });
+    // Calculate the total expense amount:
+    const totalExpenses = expenses.reduce((total, expense) => total + expense.expense, 0);
+    // Calculate the remaining budget:
+    updatedBudget.remainingBudget = updatedBudget.budget - totalExpenses;
+    // Update the budget:
+    await Budget.findByIdAndUpdate(budgetId, updatedBudget, { runValidators: true });
+
+    res.redirect(`/budget/${budgetId}`);
 };
 
 // DELETE A BUDGET
@@ -87,10 +101,20 @@ module.exports.deleteBudget = async (req, res) => {
 // ADD NEW EXPENSE TO A BUDGET
 module.exports.addNewExpense = async (req, res) => {
   const { budgetId } = req.params;
-  const newExpense = new Expense({ date: req.body.date, description: req.body.description, expense: req.body.expense });
+
+  const newExpense = new Expense({ 
+    date: req.body.date, 
+    description: req.body.description, 
+    expense: req.body.expense 
+  });
+
+  const expenseAmount = req.body.expense;
+
   const savedExpense = await newExpense.save();
   const foundBudget = await Budget.findById(budgetId);
+
   foundBudget.expenses.push(savedExpense);
+  foundBudget.remainingBudget -= expenseAmount;
   await foundBudget.save();
   res.redirect(`/budget/${foundBudget._id}`);
 };
@@ -100,16 +124,18 @@ module.exports.deleteExpenseFromBudget = async (req, res) => {
   const { budgetId, expenseId } = req.params;
 
   const foundBudget = await Budget.findById(budgetId);
-  console.log("foundBudget:", foundBudget);
+  const expense = await Expense.findById(expenseId);
+  const expenseAmount = expense.expense;
   const expenseIndex = foundBudget.expenses.indexOf(expenseId); // Check if the item exists in the list's items array
-  console.log("expenseIndex:", expenseIndex);
 
   if (expenseIndex !== -1) {
     foundBudget.expenses.splice(expenseIndex, 1);// Remove the item from the list's items array
+    foundBudget.remainingBudget += expenseAmount;
     await foundBudget.save();
     await Expense.findByIdAndDelete(expenseId);
     await User.findByIdAndUpdate(req.user._id, { $pull: { budgets: budgetId } });
     res.redirect(`/budget/${budgetId}`);
+
   } else {
       res.status(404).render("pages/404");
   }

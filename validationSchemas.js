@@ -53,3 +53,17 @@ module.exports.noteSchema = Joi.object({
   body: Joi.string().required().escapeHTML()
 });
 
+module.exports.budgetSchema = Joi.object({
+  name: Joi.string().required().escapeHTML(),
+  color: Joi.string(),
+  budget: Joi.number().required()
+});
+
+module.exports.expenseSchema = Joi.object({
+  date: Joi.date().required(),
+  description: Joi.string().required().escapeHTML(),
+  expense: Joi.number().required()
+});
+
+
+
