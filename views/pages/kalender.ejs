@@ -18,8 +18,24 @@
 
         <h1 class="title">Kalender</h1>
 
-        <div class="wrapper medium-dark-wrapper">
-          <div id="calendar-header"></div>
+        <div class="calendar-wrapper medium-dark-wrapper">
+          <div id="calendar-header" class="bold">
+
+            <!-- back button -->
+            <button id="backwardMonthButton">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6l1.41-1.42Z" />
+              </svg>
+            </button>
+            <!-- month & year display -->
+            <div id="monthDisplay"></div>
+            <!-- forward button -->
+            <button id="forwardMonthButton">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
+              </svg>
+            </button>
+          </div>
 
           <div id="calendar-weekdays">
             <div>Mo</div>
@@ -33,7 +49,7 @@
 
           <div id="calendar"></div>
         </div>
-      
+
     </main>
     <%- include("../partials/footer") %>
   </div>

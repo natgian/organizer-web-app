@@ -777,23 +777,61 @@ button#toggle-password {
 /* KALENDER */
 /*----------*/
 
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 1.25em auto;
+  border-radius: 15px;
+  padding: 2em 1em;
+}
+
+#calendar-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+#backwardMonthButton,
+#forwardMonthButton {
+  color: var(--main-text-color);
+  background-color: var(--medium-dark-color);
+  border: none;
+  cursor: pointer;
+}
+
+#calendar {
+  padding-top: 0.5em;
+
+}
+
 #calendar-weekdays,
 #calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   justify-items: center;
-
 }
+
+#calendar-weekdays {
+  font-size: 0.75rem;
+}
+
 .daySquare {
-  width: 2.25em;
-  height: 2.25em;
+  width: 100%;
+  height: 5em;
   padding: 0.5em;
-  margin: 0.5em;
   cursor: pointer;
   color: var(--dark-color);
   font-size: 0.625rem;
+  border: 0.1px solid var(--medium-dark-color);
   border-radius: 5px;
-  background-color: var(--main-text-color);
+  background-color: var(--subtitle-text-color);
+}
+
+.daySquare:hover,
+.daySquare:focus {
+  background-color: var(--primary-color);
 }
 
 .blankSquare {

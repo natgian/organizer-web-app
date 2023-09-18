@@ -5,13 +5,17 @@ let events // array of event objects
 const calendar = document.getElementById("calendar");
 const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 
+// LOAD CALENDAR FUNCTION
 function loadCalendar() {
  const date = new Date();
+
+ if (nav !== 0) {
+  date.setMonth(new Date().getMonth() + nav);
+ }
 
  const day = date.getDate();
  const month = date.getMonth(); // careful, getMonth index is 0-11 (0 = January, 11 = December)
  const year = date.getFullYear();
-
  const firstDayOfMonth = new Date(year, month, 1);
  const daysInMonth = new Date(year, month + 1, 0).getDate(); // current year, month, 0 = the last day of the previous month)
 
@@ -23,6 +27,10 @@ function loadCalendar() {
  });
 
  const blankDays = weekdays.indexOf(dateString.split(", ")[0]); // calculating the "blank" days before the first day of the month in the week
+
+ document.getElementById("monthDisplay").innerText = `${date.toLocaleDateString("de-de", {month: "long"})} ${year}`;
+
+ calendar.innerHTML = ""; // resetting the calendar
 
  for(let i = 1; i <= blankDays + daysInMonth; i++) {
   const daySquare = document.createElement("div");
@@ -39,5 +47,18 @@ function loadCalendar() {
  }
 };
 
+// LOAD CALENDAR FUNCTION
+function changeMonth() {
+  document.getElementById("forwardMonthButton").addEventListener("click", () => {
+    nav++;
+    loadCalendar();
+  });
+  document.getElementById("backwardMonthButton").addEventListener("click", () => {
+    nav--;
+    loadCalendar();
+  });
+}
+
+changeMonth();
 loadCalendar();
 
