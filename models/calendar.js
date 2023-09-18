@@ -16,6 +16,15 @@ const calendarSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
+  },
+  startEventTime: {
+    type: Date
+  },
+  endEventTime: {
+    type: Date
+  },
+  color: {
+    type: String
   }
 });
 
