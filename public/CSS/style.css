@@ -803,7 +803,6 @@ button#toggle-password {
 
 #calendar {
   padding-top: 0.5em;
-
 }
 
 #calendar-weekdays,
@@ -815,23 +814,29 @@ button#toggle-password {
 
 #calendar-weekdays {
   font-size: 0.75rem;
+  color: var(--muted-text-color);
 }
 
 .daySquare {
   width: 100%;
-  height: 5em;
-  padding: 0.5em;
+  height: 4em;
+  padding-top: 0.8em;
+  text-align: center;
   cursor: pointer;
-  color: var(--dark-color);
-  font-size: 0.625rem;
-  border: 0.1px solid var(--medium-dark-color);
+  /* color: var(--dark-color); */
+  color: var(--main-text-color);
+  font-size: 0.75rem;
+  /* border-bottom: 0.1px solid var(--medium-dark-color);
   border-radius: 5px;
-  background-color: var(--subtitle-text-color);
+  background-color: var(--subtitle-text-color); */
+  border-bottom: 1px solid var(--light-color);
 }
 
 .daySquare:hover,
 .daySquare:focus {
   background-color: var(--primary-color);
+  color: var(--dark-color);
+  border-radius: 5px;
 }
 
 .blankSquare {
