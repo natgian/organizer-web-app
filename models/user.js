@@ -22,6 +22,9 @@ const UserSchema = new mongoose.Schema({
   budgets: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Budget"
+  }],
+  calendar: [{
+    type: mongoose.Schema.Types.ObjectId,
   }]
 });
 
