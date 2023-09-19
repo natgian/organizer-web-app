@@ -29,8 +29,10 @@
 
         <!-- Searchbar -->
         <form action="/notizen/suchen" role="search" method="POST">
-          <input type="search" name="searchTerm" placeholder="Suchen..." class="search-input container"
+          <label for="searchbar">
+          <input type="search" name="searchTerm" id="searchbar" placeholder="Suchen..." class="search-input container"
             aria-label="Search">
+          </label>
         </form>
 
         <!-- Add new note button -->

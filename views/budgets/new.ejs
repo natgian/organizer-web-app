@@ -31,11 +31,11 @@
           <form action="/budget" method="POST" autocomplete="off">
 
             <label for="name">
-              <input type="text" name="name" placeholder="Budgetname..." class="input" autofocus required>
+              <input type="text" name="name" id="name" placeholder="Budgetname..." class="input" autofocus required>
             </label>
 
             <label for="budget">
-              <input type="number" name="budget" placeholder="Budgetbetrag..." class="input" step="any" required>
+              <input type="number" name="budget" id="budget" placeholder="Budgetbetrag..." class="input" step="any" required>
             </label>
 
             <fieldset class="color-options-wrapper">
@@ -47,8 +47,8 @@
             </svg>
               <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
               <div class="color-options-color-wrapper">
-                <label class="color-option" >
-                  <input type="radio" name="color" value="#F9F871" hidden>
+                <label for="color1" class="color-option" >
+                  <input type="radio" name="color1" id="color1" value="#F9F871" hidden>
                   <div class="color-option comp-color-one"></div>
                 </label>
                 <label class="color-option">

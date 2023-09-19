@@ -28,12 +28,15 @@
 
           <form action="/notizen/<%=foundNote._id%>?_method=PUT" method="POST">
 
+            <label for="title">
             <input type="title" id="title" name="title" placeholder="Titel" class="input subtitle-specific-notcentered"
               value="<%=foundNote.title%>" required>
+            </label>
 
+            <label for="body">
             <textarea name="body" id="body" cols="50" rows="10" placeholder="Text hier eingeben..."
               class="input textarea" required><%=foundNote.body %></textarea>
-
+            </label>
 
             <button class="rectangle-btn">Speichern</button>
           </form>

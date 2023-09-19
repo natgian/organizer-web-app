@@ -30,11 +30,11 @@
           <form action="/budget/<%=foundBudget._id%>?_method=PUT" method="POST">
 
             <label for="name">
-              <input type="text" name="name" placeholder="Neuer Listenname" class="input" value="<%=foundBudget.name%>" autofocus required>
+              <input type="text" name="name" id="name" placeholder="Neuer Listenname" class="input" value="<%=foundBudget.name%>" autofocus required>
             </label>
 
             <label for="budget">
-              <input type="number" name="budget" placeholder="Budgetbetrag..." class="input" step="any" value="<%=foundBudget.budget%>" required>
+              <input type="number" name="budget" id="budget" placeholder="Budgetbetrag..." class="input" step="any" value="<%=foundBudget.budget%>" required>
             </label>
 
             <fieldset class="color-options-wrapper">
@@ -46,7 +46,7 @@
             </svg>
               <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
               <div class="color-options-color-wrapper">
-                <label class="color-option" >
+                <label class="color-option">
                   <input type="radio" name="color" value="#F9F871" hidden>
                   <div class="color-option comp-color-one"></div>
                 </label>
