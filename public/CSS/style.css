@@ -69,6 +69,7 @@ svg {
   /* Surfaces */
   --dark-color: #121212;
   --medium-dark-color: #2A2A2A;
+  --light-dark-color: #4a4a4a;
   --light-color: #777777;
   --error-message: #e76e7a;
   /* Primary */
@@ -815,6 +816,10 @@ button#toggle-password {
 #calendar-weekdays {
   font-size: 0.75rem;
   color: var(--muted-text-color);
+}
+
+#currentDay {
+  background-color: var(--light-dark-color);
 }
 
 .daySquare {

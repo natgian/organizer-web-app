@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const calendarSchema = new mongoose.Schema({
+const CalendarSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true

@@ -19,6 +19,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const listenRoutes = require("./routes/listenRoutes");
 const budgetRoutes = require("./routes/budgetRoutes")
 const notizenRoutes = require("./routes/notizenRoutes");
+const kalenderRoutes = require("./routes/kalenderRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 // Connecting Mongoose to MongoDB database
@@ -83,6 +84,7 @@ app.use((req, res, next) => {
 app.use("/listen", listenRoutes);
 app.use("/budget", budgetRoutes);
 app.use("/notizen", notizenRoutes);
+app.use("/kalender", kalenderRoutes);
 app.use("/", userRoutes);
 
 // General routes

@@ -39,6 +39,10 @@ function loadCalendar() {
   if(i > blankDays) {
     daySquare.innerText = i - blankDays;
     daySquare.addEventListener("click", () => console.log("click"));
+
+    if(i - blankDays === day && nav == 0) {
+      daySquare.id = "currentDay";
+    }
   } else {
     daySquare.classList.add("blankSquare");
   }
@@ -47,7 +51,7 @@ function loadCalendar() {
  }
 };
 
-// LOAD CALENDAR FUNCTION
+// CHANGE MONTH FUNCTION
 function changeMonth() {
   document.getElementById("forwardMonthButton").addEventListener("click", () => {
     nav++;
