@@ -14,11 +14,11 @@ const { isLoggedIn, isAuthor } = require("../middleware");
  // TODO: -- RENDER KALENDER PAGE
 // router.get("/", isLoggedIn, catchAsync(notizenController.index));
 
- // TODO:-- RENDER NEW CALENDR EVENT PAGE to create a new event
-// router.get("/neue-Notiz", isLoggedIn, notizenController.renderNewNote);
+ // -- RENDER NEW CALENDAR EVENT PAGE to create a new event
+router.get("/neuer-Eintrag", isLoggedIn, kalenderController.renderNewEvent);
 
  // TODO:-- CREATE A NEW CALENDAR EVENT
-// router.post("/neue-Notiz", isLoggedIn, validateNote, catchAsync(notizenController.createNote));
+router.post("/", isLoggedIn, catchAsync(kalenderController.createEvent));
 
  // TODO: SEARCH EVENT
 // router.post("/suchen", isLoggedIn, catchAsync(notizenController.searchNotesSubmit));

@@ -2,13 +2,17 @@ const Calendar = require("../models/calendar");
 const User = require("../models/user");
 
 
-// TODO: RENDER NEW CALENDAR EVENT PAGE
-// module.exports.renderNewNote = (req, res) => {
-//   const errorMessage = req.flash("error");
-//   res.render("notes/new", { errorMessage });
-// };
+// RENDER NEW CALENDAR EVENT PAGE
+module.exports.renderNewEvent = (req, res) => {
+  const errorMessage = req.flash("error");
+  res.render("calendar/new", { errorMessage });
+};
 
 // TODO: CREATE A NEW CALENDAR EVENT
+module.exports.createEvent = async (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+};
 // module.exports.createNote = async (req, res) => {
 //   const newNote = new Note(req.body);
 //   newNote.user = req.user._id;

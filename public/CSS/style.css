@@ -375,7 +375,7 @@ button#toggle-password {
 
 /* Style for the selected color option */
 .color-option input[type="radio"]:checked+div {
-  border: 2px solid var(--title-text-color);
+  border: 3px solid var(--title-text-color);
 }
 
 /* CSS classes for different colors */
@@ -820,6 +820,7 @@ button#toggle-password {
 
 #currentDay {
   background-color: var(--light-dark-color);
+  border-radius: 5px;
 }
 
 .daySquare {
@@ -827,20 +828,16 @@ button#toggle-password {
   height: 4em;
   padding-top: 0.8em;
   text-align: center;
-  cursor: pointer;
-  /* color: var(--dark-color); */
   color: var(--main-text-color);
   font-size: 0.75rem;
-  /* border-bottom: 0.1px solid var(--medium-dark-color);
-  border-radius: 5px;
-  background-color: var(--subtitle-text-color); */
   border-bottom: 1px solid var(--light-color);
+  cursor: pointer;
 }
 
 .daySquare:hover,
 .daySquare:focus {
-  background-color: var(--primary-color);
-  color: var(--dark-color);
+  background-color: var(--primary-color) !important;
+  color: var(--dark-color) !important;
   border-radius: 5px;
 }
 
