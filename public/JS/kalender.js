@@ -62,10 +62,13 @@ async function loadCalendar() {
       }
 
       // Add a click event listener to handle interactions with the day square
-      daySquare.addEventListener("click", () => displayDayEvents(currentDate, eventsOnDate));
-    } else {
-      daySquare.classList.add("blankSquare");
+      daySquare.addEventListener("click", () => {
+        displayDayEvents(currentDate, eventsOnDate);
+        const eventsContainer = document.getElementById("events-container");
+        eventsContainer.scrollIntoView({ behavior: "smooth" });
+      });
     }
+
     calendar.appendChild(daySquare);
   }
 };
