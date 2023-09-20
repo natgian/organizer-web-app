@@ -14,10 +14,10 @@ const CalendarSchema = new mongoose.Schema({
     ref: "User"
   },
   startEventTime: {
-    type: Date
+    type: String
   },
   endEventTime: {
-    type: Date
+    type: String
   },
   color: {
     type: String

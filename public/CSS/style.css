@@ -846,6 +846,22 @@ button#toggle-password {
   background-color: var(--medium-dark-color) !important;
 }
 
+.event-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--primary-color); 
+  border-radius: 50%;
+  padding-top: 0.5em;
+  margin: 0 auto;
+}
+
+.event-list-item {
+  color: var(--dark-color);
+  border-radius: 5px;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
 /*--------*/
 /* LISTEN */
 /*--------*/

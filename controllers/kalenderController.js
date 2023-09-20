@@ -8,26 +8,29 @@ module.exports.renderNewEvent = (req, res) => {
   res.render("calendar/new", { errorMessage });
 };
 
-// TODO: CREATE A NEW CALENDAR EVENT
+// CREATE A NEW CALENDAR EVENT
 module.exports.createEvent = async (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+  const newEvent = new Calendar(req.body);
+  newEvent.user = req.user._id;
+
+  await newEvent.save();
+
+  req.user.calendar.push(newEvent._id);
+  await req.user.save();
+
+  res.redirect("/kalender");
 };
-// module.exports.createNote = async (req, res) => {
-//   const newNote = new Note(req.body);
-//   newNote.user = req.user._id;
-//   newNote.createdAt = new Date();
-//   newNote.updatedAt = new Date();
 
-//   await newNote.save();
+// LOAD CALENDAR EVENTS
+module.exports.loadEvents = async (req, res) => {
+  const events = await Calendar.find({ user: req.user._id });
+  res.json(events);
+};
 
-//   req.user.notes.push(newNote._id);
-//   await req.user.save();
-
-//   res.redirect("/notizen");
-// };
-
-// TODO: RENDER SHOW CALENDAR EVENT ON CLICK
+// RENDER CALENDAR PAGE
+module.exports.renderCalendarPage = async (req, res) => {
+  res.render("calendar/kalender");
+}
 
 
 // TODO: RENDER CALENDAR EVENT EDIT PAGE

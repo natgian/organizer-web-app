@@ -11,8 +11,11 @@ const { isLoggedIn, isAuthor } = require("../middleware");
 
 // Routes
 
- // TODO: -- RENDER KALENDER PAGE
-// router.get("/", isLoggedIn, catchAsync(notizenController.index));
+ // -- RENDER KALENDER PAGE
+router.get("/", isLoggedIn, catchAsync(kalenderController.renderCalendarPage));
+
+// --  API ROUTE TO FETCH EVENTS
+router.get("/api/events", isLoggedIn, catchAsync(kalenderController.loadEvents));
 
  // -- RENDER NEW CALENDAR EVENT PAGE to create a new event
 router.get("/neuer-Eintrag", isLoggedIn, kalenderController.renderNewEvent);

@@ -101,10 +101,6 @@ app.get("/timer", isLoggedIn, (req, res) => {
   res.render("pages/timer");
 });
 
-app.get("/kalender", isLoggedIn, (req, res) => {
-  res.render("pages/kalender");
-})
-
 app.get("/404", (req, res) => {
   res.status(404).render("pages/404");
 });
