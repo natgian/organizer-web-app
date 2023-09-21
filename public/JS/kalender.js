@@ -71,18 +71,10 @@ async function loadCalendar() {
         eventsContainer.scrollIntoView({ behavior: "smooth" });
 
         selectedDate = currentDate;
-
-        // Format the date as yyyy-mm-dd with leading zeros
-        const formattedDate = `${currentDate.getFullYear()}-${padZero(currentDate.getMonth() + 1)}-${padZero(currentDate.getDate())}`;
-        
-        // Store the formatted date in localStorage
+        // Format the date as yyyy-mm-dd with leading zeros and save it to local storage
+        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
         localStorage.setItem("selectedDate", formattedDate);
       });
-      
-      // Function to pad a number with a leading zero if it's less than 10
-      function padZero(number) {
-        return number < 10 ? `0${number}` : number;
-      };
 
       addButton.addEventListener("click", () => {
         if (selectedDate) {
