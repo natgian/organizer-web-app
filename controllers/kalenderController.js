@@ -1,5 +1,6 @@
 const Calendar = require("../models/calendar");
 const User = require("../models/user");
+const formatDate = require("../utilities/formatDate");
 
 
 // RENDER NEW CALENDAR EVENT PAGE

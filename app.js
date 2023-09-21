@@ -36,6 +36,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/utilities", express.static(path.join(__dirname, "utilities")));
 
 // Middleware
 app.use(express.json());

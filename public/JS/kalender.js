@@ -1,11 +1,13 @@
 let nav = 0; // this variable is used to keep track of the month the user is on
-let clicked = null; // which day the user has clicked on
 let blankDays;
+let selectedDate;
 
 const calendar = document.getElementById("calendar");
 const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+const addButton = document.getElementById("add-button");
 
-// FUNCTION --> TO LOAD CALENDAR
+
+// FUNCTION --> TO LOAD CALENDAR //
 async function loadCalendar() {
   const date = new Date();
 
@@ -64,8 +66,31 @@ async function loadCalendar() {
       // Add a click event listener to handle interactions with the day square
       daySquare.addEventListener("click", () => {
         displayDayEvents(currentDate, eventsOnDate);
+
         const eventsContainer = document.getElementById("events-container");
         eventsContainer.scrollIntoView({ behavior: "smooth" });
+
+        selectedDate = currentDate;
+
+        // Format the date as yyyy-mm-dd with leading zeros
+        const formattedDate = `${currentDate.getFullYear()}-${padZero(currentDate.getMonth() + 1)}-${padZero(currentDate.getDate())}`;
+        
+        // Store the formatted date in localStorage
+        localStorage.setItem("selectedDate", formattedDate);
+      });
+      
+      // Function to pad a number with a leading zero if it's less than 10
+      function padZero(number) {
+        return number < 10 ? `0${number}` : number;
+      };
+
+      addButton.addEventListener("click", () => {
+        if (selectedDate) {
+          window.location.href = "kalender/neuer-Eintrag";
+        } else {
+          localStorage.setItem("selectedDate", "");
+          window.location.href = "kalender/neuer-Eintrag";
+        }
       });
     }
 

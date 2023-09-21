@@ -292,9 +292,9 @@ li {
   font-weight: bold;
   cursor: pointer;
   padding: 0.625em;
+  margin-top: 1em;
   border: none;
   border-radius: 15px;
-  margin-top: 1em;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
@@ -312,7 +312,6 @@ li {
   font-weight: bold;
   text-align: center;
   padding: 0.625em;
-  margin-top: 1em;
   border: 1px solid var(--primary-color);
   border-radius: 15px;
   cursor: pointer;
@@ -345,8 +344,8 @@ button#toggle-password {
   text-underline-offset: 0.2em;
   color: var(--navigation-color);
   font-size: 1rem;
-  margin: 0.5em 0;
   padding: 0.5em 1em;
+  margin-top: 0.5em;
 }
 
 .page-navigation-link:hover,

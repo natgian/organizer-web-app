@@ -14,13 +14,13 @@
   <div class="main-layout">
 
     <%- include("../partials/header") %>
-    
- 
+
+
     <main>
       <!-- Error Alert -->
       <div class="container">
         <% if(error && error.length) {%>
-          <div class="alert alert-error" role="alert">
+        <div class="alert alert-error" role="alert">
           <%= error %>
         </div>
         <% } %>
@@ -47,13 +47,14 @@
             </label>
 
             <fieldset class="color-options-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" class="inline-block-svg list-icon" id="list-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                class="inline-block-svg list-icon" id="list-icon">
                 <path fill="#ededed"
                   d="M9 10v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2m2-7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V1h2v2h8V1h2v2h1m0 16V8H5v11h14M9 14v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2Z" />
               </svg>
               <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
               <div class="color-options-color-wrapper">
-                <label class="color-option" >
+                <label class="color-option">
                   <input type="radio" name="color" value="#F9F871" hidden>
                   <div class="color-option comp-color-one"></div>
                 </label>
@@ -72,7 +73,7 @@
               </div>
             </fieldset>
 
-            <button class="rectangle-btn">Speichern</button>
+            <button class="rectangle-btn mb-1">Speichern</button>
             <a href="/kalender" class="rectangle-secondary-btn width-100">Abbrechen</a>
           </form>
         </div>
@@ -83,8 +84,13 @@
     <%- include("../partials/footer") %>
   </div>
 
+  <script>
+    const storedDate = localStorage.getItem("selectedDate");
+    const inputElement = document.getElementById("event-date");
+    inputElement.value = storedDate;
+    localStorage.removeItem("selectedDate");
+  </script>
   <script src="../JS/updateSVGColor.js"></script>
-  
 </body>
 
 </html>
