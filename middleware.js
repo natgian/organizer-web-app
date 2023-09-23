@@ -1,7 +1,8 @@
 const { List } = require("./models/list");
 const Note = require("./models/note");
 const { Budget}  = require("./models/budget");
-const {listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema} = require("./validationSchemas");
+const Calendar = require("./models/calendar");
+const {listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema, calendarSchema} = require("./validationSchemas");
 
 module.exports.storeReturnTo = (req, res, next) => {
   if (req.session.returnTo) {
@@ -106,6 +107,7 @@ module.exports.validateItem = async(req, res, next) => {
   next();
  };
  
+  // VALIDATE BUDGET
  module.exports.validateExpense = async(req, res, next) => {
    const budgetId = req.params.budgetId;
    const {error} = expenseSchema.validate(req.body);
@@ -117,5 +119,15 @@ module.exports.validateItem = async(req, res, next) => {
    next();
   };
 
+   // VALIDATE CALENDAR EVENT
+   module.exports.validateCalendar = async(req, res, next) => {
+    const {error} = calendarSchema.validate(req.body);
+    if(error) {
+     const msg = error.details.map(element => element.message).join(",");
+     req.flash("error", msg);
+     return res.redirect("/kalender/neuer-Eintrag");
+    }
+    next();
+   };
 
 

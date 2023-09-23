@@ -7,7 +7,7 @@ const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Sa
 const addButton = document.getElementById("add-button");
 
 
-// FUNCTION --> TO LOAD CALENDAR //
+// LOAD CALENDAR FUNCTION //
 async function loadCalendar() {
   const date = new Date();
 
@@ -90,7 +90,7 @@ async function loadCalendar() {
   }
 };
 
-// FUNCTION --> TO FILTER EVENTS BY DATE
+// FILTER EVENTS BY DATE FUNCTION //
 function filterEventsByDate(events, targetDate) {
   return events.filter((event) => {
     const eventDate = new Date(event.date);
@@ -102,18 +102,32 @@ function filterEventsByDate(events, targetDate) {
   });
 }
 
-// FUNCTION --> TO DISPLAY DAY EVENTS
+// DISPLAY DAY EVENTS FUNCTION //
 function displayDayEvents(currentDate, eventsData) {
   // Filter events that match the clicked date
   const eventsOnDate = filterEventsByDate(eventsData, currentDate);
   const eventsContainer = document.getElementById("events-container");
   const eventList = document.createElement("ul");
+  eventList.classList.add("event-list");
+
   // Loop through eventsOnDate and create list items for each event
   eventsOnDate.forEach((event) => {
     const eventListItem = document.createElement("li");
-    eventListItem.textContent = `${event.startEventTime} - ${event.endEventTime} ${event.title}`;
+    eventListItem.classList.add("event-item");
+
+    const eventTitle = document.createElement("div");
+    const eventTime = document.createElement("div");
+    eventTitle.classList.add("event-title");
+    eventTime.classList.add("event-time");
+
+    eventTitle.textContent = event.title;
+    eventTime.textContent = event.startEventTime && event.endEventTime ? `${event.startEventTime} - ${event.endEventTime}` : "";
+
+    eventListItem.appendChild(eventTitle);
+    eventListItem.appendChild(eventTime);
+
     eventListItem.style.backgroundColor = event.color;
-    eventListItem.classList.add("event-list-item");
+
     eventList.appendChild(eventListItem);
   });
   // Append the eventList to the eventsContainer
@@ -121,7 +135,7 @@ function displayDayEvents(currentDate, eventsData) {
   eventsContainer.appendChild(eventList);
 };
 
-// FUNCTION --> TO FETCH EVENT DATA FROM BACKEND
+// FETCH EVENT DATA FROM BACKEND FUNCTION //
 async function fetchEventData() {
   try {
     const response = await fetch("/kalender/api/events");
@@ -137,7 +151,7 @@ async function fetchEventData() {
   }
 }
 
-// FUNCTION --> TO CHANGE MONTH
+// CHANGE MONTH FUNCTION //
 function changeMonth() {
   document.getElementById("forwardMonthButton").addEventListener("click", () => {
     nav++;

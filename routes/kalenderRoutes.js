@@ -7,7 +7,7 @@ const kalenderController = require("../controllers/kalenderController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, isAuthor } = require("../middleware");
+const { isLoggedIn, validateCalendar } = require("../middleware");
 
 // Routes
 
@@ -20,8 +20,8 @@ router.get("/api/events", isLoggedIn, catchAsync(kalenderController.loadEvents))
  // -- RENDER NEW CALENDAR EVENT PAGE to create a new event
 router.get("/neuer-Eintrag", isLoggedIn, kalenderController.renderNewEvent);
 
- // TODO:-- CREATE A NEW CALENDAR EVENT
-router.post("/", isLoggedIn, catchAsync(kalenderController.createEvent));
+ // -- CREATE A NEW CALENDAR EVENT
+router.post("/", isLoggedIn, validateCalendar, catchAsync(kalenderController.createEvent));
 
  // TODO: SEARCH EVENT
 // router.post("/suchen", isLoggedIn, catchAsync(notizenController.searchNotesSubmit));
