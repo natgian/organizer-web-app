@@ -278,6 +278,13 @@ li {
   cursor: pointer;
 }
 
+.delete-btn-dark {
+  color: var(--dark-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .round-btn:hover,
 .round-btn:focus,
 .delete-edit-btn:hover,
@@ -861,8 +868,11 @@ button#toggle-password {
 }
 
 .event-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.75rem;
   color: var(--dark-color);
   border-radius: 5px;
   margin: 0.5em;

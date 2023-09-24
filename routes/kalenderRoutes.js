@@ -26,11 +26,8 @@ router.post("/", isLoggedIn, validateCalendar, catchAsync(kalenderController.cre
  // TODO: SEARCH EVENT
 // router.post("/suchen", isLoggedIn, catchAsync(notizenController.searchNotesSubmit));
 
- // TODO: -- RENDER CALENDAR EVENT
-// router.get("/:noteId", catchAsync(notizenController.showNote));
-
- // TODO: DELETE AN EVENT
-// router.delete("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.deleteNote));
+ // DELETE AN EVENT
+router.delete("/delete-event/:eventId", isLoggedIn, catchAsync(kalenderController.deleteEvent));
 
  // TODO: EDIT AN EVENT
 // router.put("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));

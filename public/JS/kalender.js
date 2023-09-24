@@ -77,12 +77,10 @@ async function loadCalendar() {
       });
 
       addButton.addEventListener("click", () => {
-        if (selectedDate) {
-          window.location.href = "kalender/neuer-Eintrag";
-        } else {
+        if (!selectedDate) {
           localStorage.setItem("selectedDate", "");
-          window.location.href = "kalender/neuer-Eintrag";
-        }
+        } 
+        window.location.assign("/kalender/neuer-Eintrag");
       });
     }
 
@@ -114,6 +112,7 @@ function displayDayEvents(currentDate, eventsData) {
   eventsOnDate.forEach((event) => {
     const eventListItem = document.createElement("li");
     eventListItem.classList.add("event-item");
+    eventListItem.style.backgroundColor = event.color;
 
     const eventTitle = document.createElement("div");
     const eventTime = document.createElement("div");
@@ -123,16 +122,56 @@ function displayDayEvents(currentDate, eventsData) {
     eventTitle.textContent = event.title;
     eventTime.textContent = event.startEventTime && event.endEventTime ? `${event.startEventTime} - ${event.endEventTime}` : "";
 
+    const deleteEventButton = document.createElement("button");
+    deleteEventButton.classList.add("delete-btn-dark");
+    deleteEventButton.addEventListener("click", () => {
+    deleteCalendarEvent(event._id);
+    });
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "20");
+    svg.setAttribute("height", "20");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("fill", "currentColor");
+    path.setAttribute("d", "M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z");
+
+    svg.appendChild(path);
+    deleteEventButton.appendChild(svg);
+
     eventListItem.appendChild(eventTitle);
     eventListItem.appendChild(eventTime);
-
-    eventListItem.style.backgroundColor = event.color;
+    eventListItem.appendChild(deleteEventButton);
 
     eventList.appendChild(eventListItem);
   });
   // Append the eventList to the eventsContainer
   eventsContainer.innerHTML = ''; // Clear any previous content
   eventsContainer.appendChild(eventList);
+};
+
+// SEND AJAX REQUEST TO DELETE CALENDAR EVENT FUNCTION //
+
+function deleteCalendarEvent (eventId) {
+  if (!eventId) {
+    console.log("Event ID is missing.");
+    return;
+  }
+
+  fetch(`/kalender/delete-event/${eventId}`, {
+    method: "DELETE",
+  })
+  .then((response) => {
+    if (response.ok) {
+      console.log("event erfolgreich gelöscht");
+      loadCalendar();
+    } else {
+      console.log("ERROR, Löschung hat nicht funktioniert.");
+    }
+  })
+  .catch((error) => {
+    console.error("Ein Fehler ist unterlaufen beim Senden der DELETE REQUEST.", error);
+  });
 };
 
 // FETCH EVENT DATA FROM BACKEND FUNCTION //

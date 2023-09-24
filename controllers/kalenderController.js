@@ -1,6 +1,5 @@
 const Calendar = require("../models/calendar");
 const User = require("../models/user");
-const formatDate = require("../utilities/formatDate");
 
 
 // RENDER NEW CALENDAR EVENT PAGE
@@ -31,7 +30,15 @@ module.exports.loadEvents = async (req, res) => {
 // RENDER CALENDAR PAGE
 module.exports.renderCalendarPage = async (req, res) => {
   res.render("calendar/kalender");
-}
+};
+
+// DELETE A CALENDAR EVENT
+module.exports.deleteEvent = async (req, res) => {
+  const eventId = req.params.eventId;
+  await Calendar.findByIdAndDelete(eventId);
+  await User.findByIdAndUpdate(req.user._id, { $pull: { calendar: eventId } });
+  res.sendStatus(200);
+};
 
 
 // TODO: RENDER CALENDAR EVENT EDIT PAGE
@@ -48,14 +55,7 @@ module.exports.renderCalendarPage = async (req, res) => {
 //   res.redirect("/notizen");
 // };
 
-// TODO: DELETE A CALENDAR EVENT
-// module.exports.deleteNote = async (req, res) => {
-//   const { noteId } = req.params;
 
-//   await Note.findByIdAndDelete(noteId);
-//   await User.findByIdAndUpdate(req.user._id, { $pull: { notes: noteId } });
-//   res.redirect("/notizen");
-// };
 
 // TODO: SEARCH CALENDAR EVENT
 // module.exports.searchNotesSubmit = async (req, res) => {
