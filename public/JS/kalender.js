@@ -154,7 +154,7 @@ function displayDayEvents(currentDate, eventsData) {
 
 function deleteCalendarEvent (eventId) {
   if (!eventId) {
-    console.log("Event ID is missing.");
+    console.log("Event ID fehlt.");
     return;
   }
 
@@ -163,14 +163,13 @@ function deleteCalendarEvent (eventId) {
   })
   .then((response) => {
     if (response.ok) {
-      console.log("event erfolgreich gelöscht");
       loadCalendar();
     } else {
-      console.log("ERROR, Löschung hat nicht funktioniert.");
+      console.log("Ein Fehler ist aufgetreten, der Löschvorgang konnte nicht abgeschlossen werden.");
     }
   })
   .catch((error) => {
-    console.error("Ein Fehler ist unterlaufen beim Senden der DELETE REQUEST.", error);
+    console.error("Ein Fehler ist aufgetreten.", error);
   });
 };
 

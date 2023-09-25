@@ -23,14 +23,11 @@ router.get("/neuer-Eintrag", isLoggedIn, kalenderController.renderNewEvent);
  // -- CREATE A NEW CALENDAR EVENT
 router.post("/", isLoggedIn, validateCalendar, catchAsync(kalenderController.createEvent));
 
- // TODO: SEARCH EVENT
-// router.post("/suchen", isLoggedIn, catchAsync(notizenController.searchNotesSubmit));
-
  // DELETE AN EVENT
 router.delete("/delete-event/:eventId", isLoggedIn, catchAsync(kalenderController.deleteEvent));
 
- // TODO: EDIT AN EVENT
-// router.put("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.editNote));
+ // TODO: SEARCH EVENT
+router.post("/suchen", isLoggedIn, catchAsync(kalenderController.searchEventSubmit));
 
 
 module.exports = router;

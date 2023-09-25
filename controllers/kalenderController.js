@@ -1,5 +1,6 @@
 const Calendar = require("../models/calendar");
 const User = require("../models/user");
+const formatDate = require("../utilities/formatDate");
 
 
 // RENDER NEW CALENDAR EVENT PAGE
@@ -40,43 +41,20 @@ module.exports.deleteEvent = async (req, res) => {
   res.sendStatus(200);
 };
 
+// SEARCH CALENDAR EVENT
+module.exports.searchEventSubmit = async (req, res) => {
+  let searchTerm = req.body.searchTerm;
+  const filteredSearchTerm = searchTerm.replace(/[^a-zA-Z0-9]/g, "");
 
-// TODO: RENDER CALENDAR EVENT EDIT PAGE
-// module.exports.renderEditNote = async (req, res, next) => {
-//   const { noteId } = req.params;
-//   const foundNote = await Note.findById(noteId);
-//   res.render("notes/edit", { foundNote });
-// };
+  const searchResults = await Calendar.find({
+    title: { $regex: new RegExp(filteredSearchTerm, "i") }
+  });
 
-// TODO:EDIT A CALENDAR EVENT
-// module.exports.editNote = async (req, res) => {
-//   const { noteId } = req.params;
-//   const foundNote = await Note.findByIdAndUpdate(noteId, {... req.body, updatedAt: Date.now()}, { runValidators: true });
-//   res.redirect("/notizen");
-// };
-
-
-
-// TODO: SEARCH CALENDAR EVENT
-// module.exports.searchNotesSubmit = async (req, res) => {
-//   const noteMaxLength = 150;
-//   let searchTerm = req.body.searchTerm;
-//   const filteredSearchTerm = searchTerm.replace(/[^a-zA-Z0-9]/g, "");
-  
-//   const searchResults = await Note.find(
-//     {
-//     "$or": [
-//       {title: {$regex: new RegExp(filteredSearchTerm, "i")}},
-//       {body: {$regex: new RegExp(filteredSearchTerm, "i")}}
-//     ]
-//   });
-//   searchResults.forEach(note => {
-//     if (note.body.length > noteMaxLength) {
-//       note.body = note.body.substring(0, noteMaxLength) + "...";
-//     };
-//   })
-//   res.render("notes/search", { searchResults });
-// };
+  if (searchResults.length === 0) {
+    req.flash("info", "Keine Einträge gefunden");
+  };
+  res.render("calendar/search", { searchResults, formatDate, filteredSearchTerm });
+};
 
 
 

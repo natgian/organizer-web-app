@@ -227,6 +227,7 @@ li {
   padding: 0.5em;
   color: var(--subtitle-text-color);
 }
+
 .subtitle-specific-notcentered {
   font-size: 1.25rem;
   font-weight: bold;
@@ -248,7 +249,7 @@ li {
   justify-content: center;
   padding: 1em;
   height: fit-content;
-  
+
 }
 
 .alert-error {
@@ -329,7 +330,7 @@ li {
 .rectangle-secondary-btn:focus {
   background-color: var(--error-message);
   color: var(--dark-color);
-  transform: scale(1.02); 
+  transform: scale(1.02);
   border-color: var(--dark-color);
 }
 
@@ -419,7 +420,7 @@ button#toggle-password {
   display: block;
   margin: 1em auto;
   border-radius: 10px;
-  padding: 0.625em 0.875em;  
+  padding: 0.625em 0.875em;
   color: var(--dark-color);
 }
 
@@ -427,6 +428,7 @@ button#toggle-password {
   color: var(--main-color);
   transition: transform 0.2s ease;
 }
+
 .note-link:hover,
 .note-link:focus {
   border: 1px solid var(--primary-color);
@@ -446,6 +448,7 @@ button#toggle-password {
 .mb-1 {
   margin-bottom: 1em;
 }
+
 .mb-2 {
   margin-bottom: 2em;
 }
@@ -457,6 +460,7 @@ button#toggle-password {
 .mt-1 {
   margin-top: 1em;
 }
+
 .mt-2 {
   margin-top: 2em;
 }
@@ -861,7 +865,7 @@ button#toggle-password {
 .event-indicator {
   width: 0.5rem;
   height: 0.5rem;
-  background-color: var(--primary-color); 
+  background-color: var(--primary-color);
   border-radius: 50%;
   padding-top: 0.5em;
   margin: 0 auto;
@@ -873,6 +877,16 @@ button#toggle-password {
   align-items: center;
   gap: 0.5em;
   font-size: 0.75rem;
+  color: var(--dark-color);
+  border-radius: 5px;
+  margin: 0.5em;
+  padding: 1em;
+}
+
+.event-searchresult {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 0.875rem;
   color: var(--dark-color);
   border-radius: 5px;
   margin: 0.5em;
@@ -994,7 +1008,8 @@ table {
   font-size: 0.75rem;
 }
 
-th, td {
+th,
+td {
   padding: 0.5em;
 }
 
@@ -1004,7 +1019,7 @@ th {
 
 .expense-delete-form {
   display: inline;
-  vertical-align:top;
+  vertical-align: top;
 }
 
 .budget-table td {
@@ -1014,6 +1029,7 @@ th {
 .positive-remaining-budget {
   color: var(--comp-color-three);
 }
+
 .negative-remaining-budget {
   color: var(--error-message);
 }
@@ -1090,10 +1106,12 @@ th {
     flex-direction: row;
     flex-wrap: wrap;
   }
+
   .note-wrapper {
     width: 300px;
     height: 300px;
   }
+
   .search-input {
     max-width: 50%;
   }

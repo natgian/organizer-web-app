@@ -16,7 +16,21 @@
     <main>
       <div class="container">
 
+        <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert">
+            <%= error %>
+          </div>
+          <% } %>
+
         <h1 class="title">Kalender</h1>
+
+             <!-- Searchbar -->
+             <form action="/kalender/suchen" role="search" method="POST">
+              <label for="searchbar">
+              <input type="search" name="searchTerm" id="searchbar" placeholder="Eintrag suchen..." class="search-input container"
+                aria-label="Search">
+              </label>
+            </form>
 
          <!-- Add new calendar event button -->
          <button class="round-btn mb-05" id="add-button"><svg xmlns="http://www.w3.org/2000/svg" width="30"
