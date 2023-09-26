@@ -38,7 +38,7 @@ async function loadCalendar() {
   eventsContainer.innerHTML = ""; // clear events when changing the month
 
   // Fetch event data from the backend
-  const eventsData = await fetchEventData();
+  const eventsData = await fetchEventData(year, month);
 
   // Loop through each day square and check if it has events
   for (let i = 1; i <= blankDays + daysInMonth; i++) {
@@ -91,12 +91,13 @@ async function loadCalendar() {
 // FILTER EVENTS BY DATE FUNCTION //
 function filterEventsByDate(events, targetDate) {
   return events.filter((event) => {
-    const eventDate = new Date(event.date);
-    return (
-      eventDate.getDate() === targetDate.getDate() &&
-      eventDate.getMonth() === targetDate.getMonth() &&
-      eventDate.getFullYear() === targetDate.getFullYear()
-    );
+    const startDate = new Date(event.startDate);
+    const endDate = new Date(event.endDate);
+    
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+
+    return startDate <= targetDate && targetDate <= endDate;
   });
 }
 
@@ -151,7 +152,6 @@ function displayDayEvents(currentDate, eventsData) {
 };
 
 // SEND AJAX REQUEST TO DELETE CALENDAR EVENT FUNCTION //
-
 function deleteCalendarEvent (eventId) {
   if (!eventId) {
     console.log("Event ID fehlt.");
@@ -174,7 +174,7 @@ function deleteCalendarEvent (eventId) {
 };
 
 // FETCH EVENT DATA FROM BACKEND FUNCTION //
-async function fetchEventData() {
+async function fetchEventData(year, month) {
   try {
     const response = await fetch("/kalender/api/events");
     if (response.ok) {

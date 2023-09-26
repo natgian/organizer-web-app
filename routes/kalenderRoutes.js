@@ -26,7 +26,7 @@ router.post("/", isLoggedIn, validateCalendar, catchAsync(kalenderController.cre
  // DELETE AN EVENT
 router.delete("/delete-event/:eventId", isLoggedIn, catchAsync(kalenderController.deleteEvent));
 
- // TODO: SEARCH EVENT
+ // SEARCH EVENT
 router.post("/suchen", isLoggedIn, catchAsync(kalenderController.searchEventSubmit));
 
 

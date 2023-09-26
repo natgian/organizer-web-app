@@ -66,7 +66,8 @@ module.exports.expenseSchema = Joi.object({
 });
 
 module.exports.calendarSchema = Joi.object({
-  date: Joi.date().required(),
+  startDate: Joi.date().required(),
+  endDate: Joi.date().required(),
   title: Joi.string().required().escapeHTML(),
   color: Joi.string().required(),
   startEventTime: Joi.string().allow(""),

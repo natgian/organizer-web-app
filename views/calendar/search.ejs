@@ -24,23 +24,24 @@
 
         <h1 class="title">Suchresultate</h1>
 
-                     <!-- Searchbar -->
-                     <form action="/kalender/suchen" role="search" method="POST">
-                      <label for="searchbar">
-                      <input type="search" name="searchTerm" id="searchbar" placeholder="Eintrag suchen..." class="search-input container" value="<%=filteredSearchTerm%>" autofocus
-                        aria-label="Search">
-                      </label>
-                    </form>
+        <!-- Searchbar -->
+        <form action="/kalender/suchen" role="search" method="POST">
+          <label for="searchbar">
+            <input type="search" name="searchTerm" id="searchbar" placeholder="Eintrag suchen..."
+              class="search-input container" value="<%=filteredSearchTerm%>" autofocus aria-label="Search">
+          </label>
+        </form>
 
         <div class="no-bg-wrapper">
-
           <% if(searchResults.length > 0) { %>
           <% searchResults.forEach(result => { %>
-          <div class="event-searchresult" style="background-color:<%= result.color %>;"> 
-            <div><span class="bold"><%=formatDate(result.date)%></span>
-            <br>
-            <div><%=result.startEventTime %> - <%=result.endEventTime %></div>
-          </div>
+          <div class="event-searchresult" style="background-color: <%= result.color %>;">
+            <div><span class="bold"><%=formatDate(result.startDate)%></span>
+              <br>
+              <% if (result.startEventTime) { %>
+                <%=result.startEventTime %> - <%=result.endEventTime %>
+                <% } %>              
+            </div>
             <div><%=result.title%></div>
           </div>
           <% }) %>
@@ -49,14 +50,15 @@
             <p>Keine Resultate für diesen Suchbegriff gefunden.
             </p>
             <br>
-            <a href="/kalender" class="page-navigation-link text-center"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                height="24" viewBox="0 0 512 512" class="link-svg">
-                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
-                  d="M328 112L184 256l144 144" />
-              </svg>zum Kalender</a>
             <% } %>
           </div>
-
+          <div class="flex-center">
+          <a href="/kalender" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 512 512" class="link-svg">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+              d="M328 112L184 256l144 144" />
+          </svg>zum Kalender</a>
+        </div>
         </div>
 
       </div>

@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
 const CalendarSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: true
-  },
   title: {
     type: String,
     required: true
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+  startDate: {
+    type: Date,
+    required: true
+  },
+  endDate: {
+    type: Date,
+    required: true
   },
   startEventTime: {
     type: String
@@ -21,6 +21,10 @@ const CalendarSchema = new mongoose.Schema({
   },
   color: {
     type: String
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   }
 });
 
