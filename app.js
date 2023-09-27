@@ -28,7 +28,7 @@ main().catch(err => console.log(err));
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/taskmanagerApp");
   console.log("Connected to MongoDB database");
-}
+};
 
 // Setting the view engine and path
 app.set("view engine", "ejs");
@@ -56,7 +56,7 @@ const sessionConfig = {
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
-}
+};
 app.use(session(sessionConfig));
 
 

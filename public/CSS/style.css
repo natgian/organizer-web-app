@@ -164,16 +164,6 @@ li {
 
 }
 
-.link-svg {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.inline-block-svg {
-  display: inline-block;
-  vertical-align: middle;
-}
-
 .text-center {
   text-align: center;
 }
@@ -361,10 +351,26 @@ button#toggle-password {
   color: var(--main-text-color);
 }
 
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
 .active-page {
   border-radius: 5px;
-  border: solid 1px var(--main-text-color);
+  border: solid 1px var(--primary-color);
   padding: 0.5em 1em;
+}
+
+.pagination {
+  /* border-radius: 5px;
+  border: solid 1px var(--main-text-color); */
+  padding: 0.5em 1em;
+}
+.pagination-arrow {
+  padding: 0.5em 0;
+  color: var(--navigation-color);
 }
 
 /* Style for the colored squares */
@@ -469,7 +475,7 @@ button#toggle-password {
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .width-100 {
@@ -496,8 +502,8 @@ button#toggle-password {
 }
 
 .inline-block-svg {
-  display: inline;
-  vertical-align: middle;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .main-nav-link {
@@ -601,6 +607,13 @@ button#toggle-password {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.profile-overview-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  
 }
 
 /*------*/
@@ -757,7 +770,7 @@ button#toggle-password {
 .timer-state {
   color: var(--title-text-color);
   margin-top: 1em;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 1.5rem;
   text-transform: uppercase;
 }

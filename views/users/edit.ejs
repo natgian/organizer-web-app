@@ -34,12 +34,11 @@
                 <input type="username" id="username" name="username" autofocus required class="login-input" value="<%=foundUser.username%>">
               </div>
                     
-
-            <button class="rectangle-btn">Speichern</button>
+            <button class="rectangle-btn mb-1">Speichern</button>
+            <a href="/benutzerkonto/<%=foundUser._id%>" class="rectangle-secondary-btn width-100">Abbrechen</a>
           </form>
         </div>
 
-    
     </main>
 
     <%- include("../partials/footer") %>

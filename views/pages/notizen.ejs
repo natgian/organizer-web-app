@@ -56,24 +56,24 @@
         </div>
 
         <!-- Pagination Links -->
-        <div class="container text-center mt-2">
+        <div class="container pagination-wrapper text-center mt-2">
             <% if (currentPage > 1) { %>
-          <a href="?page=<%= currentPage - 1 %>" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" viewBox="0 0 512 512" class="link-svg">
-              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
-                d="M328 112L184 256l144 144" />
-            </svg> <%= currentPage -1 %></a>
+          <a href="?page=<%= currentPage - 1 %>" class="pagination-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g transform="rotate(180 12 12)"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></g></svg></a>
+            <span class="pagination"><%= currentPage - 1%></span>
           <span class="active-page"><%= currentPage %></span>
           <% } %>
-          <% if (currentPage < pages) { %>
-            <span class="active-page"><%= currentPage %></span>
-          <a href="?page=<%= currentPage + 1 %>" class="page-navigation-link"><%= currentPage + 1  %><svg
-              class="link-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
-            </svg></a>
-          <% } %>
+          <% if (currentPage > 1 && currentPage < pages) { %>
+            <!-- <span class="active-page"><%= currentPage %></span> -->
+            <span class="pagination"><%= currentPage + 1%></span>
+            <a href="?page=<%= currentPage + 1 %>" class="pagination-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></svg></a>
+            <% } %>
+            <% if (currentPage === 1) { %>
+              <span class="active-page"><%= currentPage %></span>
+              <span class="pagination"><%= currentPage + 1%></span>
+            
+            <a href="?page=<%= currentPage + 1 %>" class="pagination-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></svg></a>
+            <% } %>
         </div>
-
 
       </div>
     </main>
