@@ -20,6 +20,7 @@ const listenRoutes = require("./routes/listenRoutes");
 const budgetRoutes = require("./routes/budgetRoutes")
 const notizenRoutes = require("./routes/notizenRoutes");
 const kalenderRoutes = require("./routes/kalenderRoutes");
+const projekteRoutes = require("./routes/projekteRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 // Connecting Mongoose to MongoDB database
@@ -87,6 +88,7 @@ app.use("/listen", listenRoutes);
 app.use("/budget", budgetRoutes);
 app.use("/notizen", notizenRoutes);
 app.use("/kalender", kalenderRoutes);
+app.use("/projekte", projekteRoutes);
 app.use("/", userRoutes);
 
 // General routes

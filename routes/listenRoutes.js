@@ -14,7 +14,7 @@ const { isLoggedIn, isAuthor, validateList, validateItem } = require("../middlew
 router.get("/", isLoggedIn, catchAsync(listenController.renderListenPage));
 
 // -- RENDER NEUE LISTE page to create a new list
-router.get("/neue-Liste", isLoggedIn, listenController.renderNewList);
+router.get("/neue-liste", isLoggedIn, listenController.renderNewList);
 
 // -- CREATE A NEW LIST
 router.post("/", isLoggedIn, validateList, catchAsync(listenController.createList));

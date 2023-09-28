@@ -14,7 +14,7 @@ const { isLoggedIn, isAuthor, validateBudget, validateExpense } = require("../mi
 router.get("/", isLoggedIn, catchAsync(budgetController.renderBudgetPage));
 
 // -- RENDER NEUES BUDGET page to create a new budget
-router.get("/neues-Budget", isLoggedIn, budgetController.renderNewBudget);
+router.get("/neues-budget", isLoggedIn, budgetController.renderNewBudget);
 
 // -- CREATE A NEW BUDGET
 router.post("/", isLoggedIn, validateBudget, catchAsync(budgetController.createBudget));

@@ -18,7 +18,7 @@ router.get("/", isLoggedIn, catchAsync(kalenderController.renderCalendarPage));
 router.get("/api/events", isLoggedIn, catchAsync(kalenderController.loadEvents));
 
  // -- RENDER NEW CALENDAR EVENT PAGE to create a new event
-router.get("/neuer-Eintrag", isLoggedIn, kalenderController.renderNewEvent);
+router.get("/neuer-eintrag", isLoggedIn, kalenderController.renderNewEvent);
 
  // -- CREATE A NEW CALENDAR EVENT
 router.post("/", isLoggedIn, validateCalendar, catchAsync(kalenderController.createEvent));

@@ -80,7 +80,7 @@ async function loadCalendar() {
         if (!selectedDate) {
           localStorage.setItem("selectedDate", "");
         } 
-        window.location.assign("/kalender/neuer-Eintrag");
+        window.location.assign("/kalender/neuer-eintrag");
       });
     }
 

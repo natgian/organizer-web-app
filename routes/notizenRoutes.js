@@ -15,10 +15,10 @@ const { isLoggedIn, isAuthor, validateNote } = require("../middleware");
 router.get("/", isLoggedIn, catchAsync(notizenController.index));
 
 // // -- RENDER NEW NOTE page to create a new note
-router.get("/neue-Notiz", isLoggedIn, notizenController.renderNewNote);
+router.get("/neue-notiz", isLoggedIn, notizenController.renderNewNote);
 
 // // -- CREATE A NEW NOTE
-router.post("/neue-Notiz", isLoggedIn, validateNote, catchAsync(notizenController.createNote));
+router.post("/neue-notiz", isLoggedIn, validateNote, catchAsync(notizenController.createNote));
 
 // // SEARCH IN NOTES
 router.post("/suchen", isLoggedIn, catchAsync(notizenController.searchNotesSubmit));

@@ -1,8 +1,9 @@
 const { List } = require("./models/list");
 const Note = require("./models/note");
 const { Budget}  = require("./models/budget");
+const { Project } = require("./models/project");
 const Calendar = require("./models/calendar");
-const {listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema, calendarSchema} = require("./validationSchemas");
+const {listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema, calendarSchema, projectSchema} = require("./validationSchemas");
 
 module.exports.storeReturnTo = (req, res, next) => {
   if (req.session.returnTo) {
@@ -62,13 +63,24 @@ module.exports.validateUser = async(req, res, next) => {
   next();
  };
 
+// VALIDATE PROJECT
+module.exports.validateProject = async(req, res, next) => {
+  const {error} = projectSchema.validate(req.body);
+  if(error) {
+   const msg = error.details.map(element => element.message).join(",");
+   req.flash("error", msg);
+   return res.redirect("/projekte/neues-projekt");
+  }
+  next();
+ };
+ 
 // VALIDATE LIST
 module.exports.validateList = async(req, res, next) => {
  const {error} = listSchema.validate(req.body);
  if(error) {
   const msg = error.details.map(element => element.message).join(",");
   req.flash("error", msg);
-  return res.redirect("/listen/neue-Liste");
+  return res.redirect("/listen/neue-liste");
  }
  next();
 };
@@ -91,7 +103,7 @@ module.exports.validateItem = async(req, res, next) => {
  if(error) {
   const msg = error.details.map(element => element.message).join(",");
   req.flash("error", msg);
-  return res.redirect("/notizen/neue-Notiz");
+  return res.redirect("/notizen/neue-notiz");
  }
  next();
  };
@@ -102,7 +114,7 @@ module.exports.validateItem = async(req, res, next) => {
   if(error) {
    const msg = error.details.map(element => element.message).join(",");
    req.flash("error", msg);
-   return res.redirect("/budget/neues-Budget");
+   return res.redirect("/budget/neues-budget");
   }
   next();
  };
@@ -125,7 +137,7 @@ module.exports.validateItem = async(req, res, next) => {
     if(error) {
      const msg = error.details.map(element => element.message).join(",");
      req.flash("error", msg);
-     return res.redirect("/kalender/neuer-Eintrag");
+     return res.redirect("/kalender/neuer-eintrag");
     }
     next();
    };

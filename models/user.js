@@ -25,6 +25,9 @@ const UserSchema = new mongoose.Schema({
   }],
   calendar: [{
     type: mongoose.Schema.Types.ObjectId,
+  }],
+  projects: [{
+    type: mongoose.Schema.Types.ObjectId,
   }]
 });
 

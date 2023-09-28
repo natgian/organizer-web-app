@@ -28,6 +28,11 @@ module.exports.listSchema = Joi.object({
   color: Joi.string().required()
 });
 
+module.exports.projectSchema = Joi.object({
+  name: Joi.string().required().escapeHTML(),
+  color: Joi.string().required()
+});
+
 module.exports.itemSchema = Joi.object({
   text: Joi.string().required().escapeHTML()
 });
@@ -47,6 +52,7 @@ module.exports.userSchema = Joi.object({
   .required()
   .escapeHTML()
 });
+
 
 module.exports.noteSchema = Joi.object({
   title: Joi.string().required().escapeHTML(),
