@@ -19,8 +19,17 @@ router.get("/neues-projekt", isLoggedIn, projekteController.renderNewProject);
 // -- CREATE A NEW PROJECT
 router.post("/", isLoggedIn, validateProject, catchAsync(projekteController.createProject));
 
-// -- RENDER SHOW PAGE
-// router.get("/:listId", isLoggedIn, catchAsync(listenController.showList));
+// -- RENDER PROJECT SHOW PAGE
+router.get("/:projectId", isLoggedIn, catchAsync(projekteController.showProject));
+
+// -- RENDER PROJECT TODOS SHOW PAGE
+router.get("/:projectId/aufgaben", isLoggedIn, catchAsync(projekteController.showProjectToDos));
+
+// -- ADD NEW TODO
+router.post("/:projectId/aufgaben", isLoggedIn, catchAsync(projekteController.addNewProjectTodo));
+
+router.put("/:projectId/aufgaben/:todoId", isLoggedIn, catchAsync(projekteController.toggleTodoCompletion));
+
 
 // -- RENDER EDIT PAGE
 // router.get("/:listId/bearbeiten", isLoggedIn, isAuthor("list"), catchAsync(listenController.renderEditList));
@@ -34,8 +43,7 @@ router.post("/", isLoggedIn, validateProject, catchAsync(projekteController.crea
 // -- DELETE A LIST
 // router.delete("/:listId", isLoggedIn, isAuthor("list"), catchAsync(listenController.deleteList));
 
-// -- ADD NEW ITEM TO A LIST
-// router.post("/:listId", isLoggedIn, validateItem, catchAsync(listenController.addNewListItem));
+
 
 
 

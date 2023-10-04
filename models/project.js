@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
-const ToDosSchema = new mongoose.Schema({
-  todos: {
+const TodosSchema = new mongoose.Schema({
+  text: {
     type: String,
     required: true
+  },
+  completed: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -60,28 +64,28 @@ const ProjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
-  toDos: [
+  todos: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ToDos"
+      ref: "Todo"
     }
   ],
   links: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Links"
+      ref: "Link"
     }
   ],
-  projectBudget: {
+  projectbudget: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "ProjectBudget"
     },
 });
 
 const Project = mongoose.model("Project", ProjectSchema);
-const ToDo = mongoose.model("ToDo", ToDosSchema);
+const Todo = mongoose.model("Todo", TodosSchema);
 const Link = mongoose.model("Link", LinkSchema);
 const ProjectExpense = mongoose.model("ProjectExpense", ProjectExpenseSchema);
 const ProjectBudget = mongoose.model("ProjectBudget", ProjectBudgetSchema);
 
-module.exports = { Project, ToDo, Link, ProjectExpense, ProjectBudget };
+module.exports = { Project, Todo, Link, ProjectExpense, ProjectBudget };

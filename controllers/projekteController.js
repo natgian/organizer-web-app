@@ -1,4 +1,4 @@
-const { Project, ToDo, Link, ProjectExpense, ProjectBudget } = require("../models/project");
+const { Project, Todo, Link, ProjectExpense, ProjectBudget } = require("../models/project");
 const User = require("../models/user");
 
 // RENDER PROJECTS PAGE
@@ -12,7 +12,7 @@ module.exports.renderNewProject = (req, res) => {
   res.render("projects/newProject");
 };
 
-// // CREATE A NEW PROJECT
+// CREATE A NEW PROJECT
 module.exports.createProject = async (req, res) => {
   const newProject = new Project(req.body);
   newProject.user = req.user._id;
@@ -22,36 +22,98 @@ module.exports.createProject = async (req, res) => {
   res.redirect(`/projekte/${newProject._id}`);
 };
 
-// // RENDER LISTEN SHOW PAGE
-// module.exports.showList = async (req, res) => {
-//   const { listId } = req.params;
-//   try {
-//     const foundList = await List.findById(listId)
-//       .populate("items")
-//       .populate({
-//         path: "user",
-//         populate: { path: "lists" }
-//       });
-//     if (!foundList) {
-//       res.status(404).render("pages/404");
-//     }
-//     else {
-//       if (req.user && req.user._id.equals(foundList.user._id)) {
-//         res.render("lists/show", { foundList });
-//       } else {
-//         res.status(403).render("pages/403");
-//       }      
-//     }
-//   }
-//   catch (err) {
-//     if (err.name === "CastError") {
-//       res.status(404).render("pages/404");
-//     }
-//     else {
-//       res.status(500).render("pages/error");
-//     }
-//   }
-// };
+// RENDER PROJECT SHOW PAGE
+module.exports.showProject = async (req, res) => {
+  const { projectId } = req.params;
+  try {
+    const foundProject = await Project.findById(projectId)
+      .populate({
+        path: "user",
+        populate: { path: "projects" }
+      });
+    if (!foundProject) {
+      res.status(404).render("pages/404");
+    }
+    else {
+      if (req.user && req.user._id.equals(foundProject.user._id)) {
+        res.render("projects/showProject", { foundProject });
+      } else {
+        res.status(403).render("pages/403");
+      }      
+    }
+  }
+  catch (err) {
+    if (err.name === "CastError") {
+      res.status(404).render("pages/404");
+    }
+    else {
+      res.status(500).render("pages/error");
+    }
+  }
+};
+
+// RENDER PROJECT TODOS SHOW PAGE
+module.exports.showProjectToDos = async (req, res) => {
+  const { projectId} = req.params;
+  try {
+    const foundProject = await Project.findById(projectId)
+    .populate("todos")
+      .populate({
+        path: "user",
+        populate: { path: "projects" }
+      });
+    if (!foundProject) {
+      res.status(404).render("pages/404");
+    }
+    else {
+      if (req.user && req.user._id.equals(foundProject.user._id)) {
+        res.render("projects/showProjectToDos", { foundProject });
+      } else {
+        res.status(403).render("pages/403");
+      }      
+    }
+  }
+  catch (err) {
+    if (err.name === "CastError") {
+      res.status(404).render("pages/404", { err });
+    }
+    else {
+      res.status(500).render("pages/error", { err});
+    }
+  }
+};
+
+// ADD NEW PROJECT TODO
+module.exports.addNewProjectTodo = async (req, res) => {
+  const { projectId } = req.params;
+
+  const newToDo = new Todo({ text: req.body.text });
+  const savedToDo = await newToDo.save();
+
+  const foundProject = await Project.findById(projectId);
+  
+  foundProject.todos.push(savedToDo);
+
+  await foundProject.save();
+
+  res.redirect(`/projekte/${foundProject._id}/aufgaben`);
+};
+
+// HANDLE TODOS COMPLETION STATE
+module.exports.toggleTodoCompletion = async (req, res) => {
+  const { projectId, todoId } = req.params;
+
+  const foundProject = await Project.findById(projectId);
+  const foundTodo = await Todo.findById(todoId);
+
+  if (!foundTodo) {
+    return res.status(404).send("ToDo not found");
+  };
+
+  foundTodo.completed = !foundTodo.completed;
+  await foundTodo.save();
+  res.json({ success: true });
+};
 
 // // RENDER LISTEN EDIT PAGE
 // module.exports.renderEditList = async (req, res, next) => {
@@ -80,16 +142,7 @@ module.exports.createProject = async (req, res) => {
 //   res.redirect("/listen");
 // };
 
-// // ADD NEW ITEM TO A LIST
-// module.exports.addNewListItem = async (req, res) => {
-//   const { listId } = req.params;
-//   const newItem = new Item({ text: req.body.text });
-//   const savedItem = await newItem.save();
-//   const foundList = await List.findById(listId);
-//   foundList.items.push(savedItem);
-//   await foundList.save();
-//   res.redirect(`/listen/${foundList._id}`);
-// }
+
 
 // // DELETE ITEM FROM A LIST
 // module.exports.deleteItemFromList = async (req, res) => {

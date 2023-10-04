@@ -29,9 +29,13 @@
 
           <form action="/projekte" method="POST" autocomplete="off">
 
-            <label for="projectname">
+            <label for="projectname">Projektname</label>
               <input type="text" name="name" id="projectname" placeholder="Neuer Projektname..." class="input" autofocus required>
-            </label>
+            
+
+            <label for="projectdescription">Infos/Notizen</label>
+              <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="input textarea" required></textarea>
+            
 
             <fieldset class="color-options-wrapper">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
