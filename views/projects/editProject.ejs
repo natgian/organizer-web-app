@@ -30,8 +30,12 @@
           <form action="/projekte/<%=foundProject._id%>?_method=PUT" method="POST">
 
             <label for="listname">
-              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="input" value="<%=foundProject.name%>" autofocus required>
+              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="input subtitle-specific-notcentered" value="<%=foundProject.name%>" autofocus required>
             </label>
+
+            <label for="projectdescription">
+            <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="input textarea" required><%=foundProject.description%></textarea>
+          </label>
 
             <fieldset class="color-options-wrapper">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
@@ -75,3 +79,7 @@
 </body>
 
 </html>
+
+
+
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem accusantium a optio quo, natus tempora impedit, corporis deleniti nisi, excepturi blanditiis ex! Velit, voluptas fuga id dolores quae nesciunt necessitatibus?
