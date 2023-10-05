@@ -7,7 +7,7 @@ const projekteController = require("../controllers/projekteController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, validateProject } = require("../middleware");
+const { isLoggedIn, validateProject, isAuthor } = require("../middleware");
 
 // Routes
 // -- RENDER PROJEKTE PAGE
@@ -20,28 +20,28 @@ router.get("/neues-projekt", isLoggedIn, projekteController.renderNewProject);
 router.post("/", isLoggedIn, validateProject, catchAsync(projekteController.createProject));
 
 // -- RENDER PROJECT SHOW PAGE
-router.get("/:projectId", isLoggedIn, catchAsync(projekteController.showProject));
+router.get("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.showProject));
 
 // -- RENDER PROJECT TODOS SHOW PAGE
-router.get("/:projectId/aufgaben", isLoggedIn, catchAsync(projekteController.showProjectToDos));
+router.get("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.showProjectToDos));
 
 // -- ADD NEW TODO
-router.post("/:projectId/aufgaben", isLoggedIn, catchAsync(projekteController.addNewProjectTodo));
+router.post("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addNewProjectTodo));
 
 router.put("/:projectId/aufgaben/:todoId", isLoggedIn, catchAsync(projekteController.toggleTodoCompletion));
 
 
 // -- RENDER EDIT PAGE
-// router.get("/:listId/bearbeiten", isLoggedIn, isAuthor("list"), catchAsync(listenController.renderEditList));
+router.get("/:projectId/bearbeiten", isLoggedIn, isAuthor("project"), catchAsync(projekteController.renderEditProject));
 
-// -- DELETE ITEM FROM A LIST
-// router.delete("/:listId/items/:itemId", isLoggedIn, isAuthor("list"), catchAsync(listenController.deleteItemFromList));
+// -- DELETE TODO FROM A TODO-LIST
+router.delete("/:projectId/aufgaben/:todoId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteTodoFromTodos));
 
-// -- EDIT A LIST
-// router.put("/:listId", isLoggedIn, isAuthor("list"), catchAsync(listenController.editList));
+// -- EDIT A PROJECT
+router.put("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.editProject));
 
-// -- DELETE A LIST
-// router.delete("/:listId", isLoggedIn, isAuthor("list"), catchAsync(listenController.deleteList));
+// -- DELETE A PROJECT
+router.delete("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProject));
 
 
 

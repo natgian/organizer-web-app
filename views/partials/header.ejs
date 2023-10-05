@@ -3,7 +3,7 @@
     <ul class="main-nav">
 
       <!-- BACK-BUTTON -->
-      <!-- <li>
+      <li>
         <div class="main-nav-link">
           <a href="javascript:void(0);" onclick="goBack()">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512"
@@ -13,23 +13,9 @@
             </svg></a>
           <span>Zurück</span>
         </div>
-      </li> -->
+      </li>
 
       <% if (loggedInUser) { %>
-      
-      <!-- LOGOUT-BUTTON -->
-      <li>
-        <div class="main-nav-link">
-          <a href="/logout">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-              <g transform="rotate(180 12 12)">
-                <path fill="currentColor"
-                  d="m17 8l-1.4 1.4l1.6 1.6H9v2h8.2l-1.6 1.6L17 16l4-4l-4-4M5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5Z" />
-              </g>
-            </svg></a>
-          <span>Logout</span>
-        </div>
-      </li>
 
                <!-- USER-PROFILE-BUTTON -->
                <li>
@@ -42,6 +28,20 @@
                  <span>Profil</span>
                </div>
              </li>
+
+                   <!-- LOGOUT-BUTTON -->
+      <li>
+        <div class="main-nav-link">
+          <a href="/logout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+              <g transform="rotate(180 12 12)">
+                <path fill="currentColor"
+                  d="m17 8l-1.4 1.4l1.6 1.6H9v2h8.2l-1.6 1.6L17 16l4-4l-4-4M5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5Z" />
+              </g>
+            </svg></a>
+          <span>Logout</span>
+        </div>
+      </li>
 
         <% } else { %>
           <li>

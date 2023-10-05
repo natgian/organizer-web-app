@@ -9,6 +9,8 @@ addItemButton.addEventListener("click", () => {
   inputElement.focus();
 });
 
+// EVENT LISTENER 
+
 // CHANGE TODO COMPLETED STATUS
 async function toggleCompleted(projectId, todoId) {
   try {

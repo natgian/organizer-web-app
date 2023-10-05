@@ -30,7 +30,9 @@ module.exports.showProject = async (req, res) => {
       .populate({
         path: "user",
         populate: { path: "projects" }
-      });
+      })
+      .populate("todos");
+
     if (!foundProject) {
       res.status(404).render("pages/404");
     }
@@ -96,7 +98,7 @@ module.exports.addNewProjectTodo = async (req, res) => {
 
   await foundProject.save();
 
-  res.redirect(`/projekte/${foundProject._id}/aufgaben`);
+  res.redirect(`/projekte/${foundProject._id}`);
 };
 
 // HANDLE TODOS COMPLETION STATE
@@ -115,53 +117,61 @@ module.exports.toggleTodoCompletion = async (req, res) => {
   res.json({ success: true });
 };
 
-// // RENDER LISTEN EDIT PAGE
-// module.exports.renderEditList = async (req, res, next) => {
-//   const { listId } = req.params;
-//   const foundList = await List.findById(listId);
-//   res.render("lists/edit", { foundList });
-// };
+// RENDER PROJECT EDIT PAGE
+module.exports.renderEditProject = async (req, res, next) => {
+  const { projectId } = req.params;
+  const foundProject = await Project.findById(projectId);
+  res.render("projects/editProject", { foundProject });
+};
 
-// // EDIT A LIST
-// module.exports.editList = async (req, res) => {
-//   const { listId } = req.params;
-//   const foundList = await List.findByIdAndUpdate(listId, req.body, { runValidators: true });
-//   res.redirect(`/listen/${foundList._id}`);
-// };
+// EDIT A PROJECT
+module.exports.editProject = async (req, res) => {
+  const { projectId } = req.params;
+  const foundProject = await Project.findByIdAndUpdate(projectId, req.body, { runValidators: true });
+  res.redirect(`/projekte/${foundProject._id}`);
+};
 
-// // DELETE A LIST
-// module.exports.deleteList = async (req, res) => {
-//   const { listId } = req.params;
+// DELETE A PROJECT
+module.exports.deleteProject = async (req, res) => {
+  const { projectId } = req.params;
 
-//   const foundList = await List.findById(listId);
-//   const itemIds = foundList.items;
+  const foundProject = await Project.findById(projectId);
+  const todoIds = foundProject.todos;
+  const projectbudgetId = foundProject.projectbudget;
+  const linkIds = foundProject.links;
 
-//   await Item.deleteMany({ _id: { $in: itemIds } });
-//   await List.findByIdAndDelete(listId);
-//   await User.findByIdAndUpdate(req.user._id, { $pull: { lists: listId } });
-//   res.redirect("/listen");
-// };
+  const projectBudget = await ProjectBudget.findById(projectbudgetId);
+  if (projectBudget) {
+    const projectexpenseIds = projectBudget.projectExpenses;
+    await ProjectExpense.deleteMany({ _id: { $in: projectexpenseIds } });
+    await ProjectBudget.findByIdAndDelete(projectbudgetId);
+  };
 
+  await Todo.deleteMany({ _id: { $in: todoIds } });
+  await Link.deleteMany({ _id: { $in: linkIds } });
+  await User.findByIdAndUpdate(req.user._id, { $pull: { projects: projectId } });
+  
+  await Project.findByIdAndDelete(projectId);
+  res.redirect("/projekte");
+};
 
+//  DELETE TODO FROM A TODO-LIST
+module.exports.deleteTodoFromTodos = async (req, res) => {
+  const { projectId, todoId } = req.params;
 
-// // DELETE ITEM FROM A LIST
-// module.exports.deleteItemFromList = async (req, res) => {
-//   const { listId, itemId } = req.params;
+    const foundProject = await Project.findById(projectId);
+    const todoIndex = foundProject.todos.indexOf(todoId); // Check if the todo exists in the project's todos array
 
-//     const foundList = await List.findById(listId);
-//     const itemIndex = foundList.items.indexOf(itemId); // Check if the item exists in the list's items array
+    if (todoIndex !== -1) {
+      foundProject.todos.splice(todoIndex, 1);// Remove the todo from the project's todos array
+      await foundProject.save();
+      await Todo.findByIdAndDelete(todoId);
 
-//     if (itemIndex !== -1) {
-//       foundList.items.splice(itemIndex, 1);// Remove the item from the list's items array
-//       await foundList.save();
-//       await Item.findByIdAndDelete(itemId);
-//       await User.findByIdAndUpdate(req.user._id, { $pull: { lists: listId } });
-
-//       res.redirect(`/listen/${listId}`);
-//     } else {
-//       res.status(404).render("pages/404");
-//     }
-// };
+      res.redirect(`/projekte/${projectId}`);
+    } else {
+      res.status(404).render("pages/404");
+    }
+};
 
 
 
