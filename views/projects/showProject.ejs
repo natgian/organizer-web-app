@@ -26,7 +26,7 @@
 
         <section class="wrapper medium-dark-wrapper">
           <!-- Title -->
-          <h1 class="subtitle">
+          <h1 class="project-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="inline-block-svg">
               <path fill="<%= foundProject.color %>"
                 d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
@@ -36,7 +36,7 @@
 
           <!-- Project infos -->
           <div class="project-wrapper">
-            <p><%= foundProject.description %></p>
+            <p class="formatted-textarea"><%= foundProject.description %></p>
           </div>
 
                     <!-- Edit project button -->
@@ -94,17 +94,6 @@
             </ul>
         </section>
 
-
-
-
-
-
-
-
-
-
-
-
              <!-- Budget -->
              <div>
               <a href="#" class="round-with-text-btn mb-05"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -125,9 +114,6 @@
         </div>
 
     </main>
-
-
-
 
     <%- include("../partials/footer") %>
   </div>

@@ -68,6 +68,7 @@ svg {
   /* COLORS: */
   /* Surfaces */
   --dark-color: #121212;
+  --semi-dark-color: #4d4d4d;
   --medium-dark-color: #2A2A2A;
   --light-dark-color: #4a4a4a;
   --light-color: #777777;
@@ -117,6 +118,13 @@ a:focus {
 
 li {
   list-style: none;
+}
+
+button,
+input,
+textarea,
+a {
+  outline: none;
 }
 
 /*--------*/
@@ -181,6 +189,10 @@ li {
 .flex-center {
   display: flex;
   justify-content: center;
+}
+
+.formatted-textarea {
+  white-space: pre-line;
 }
 
 .error-message {
@@ -259,7 +271,7 @@ li {
   background-color: transparent;
   cursor: pointer;
   border: none;
-  padding: 0.875em;
+  padding: 0.875em;   
 }
 
 .round-with-text-btn {
@@ -304,7 +316,7 @@ li {
   padding: 0.625em;
   margin-top: 1em;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
@@ -323,7 +335,7 @@ li {
   text-align: center;
   padding: 0.625em;
   border: 1px solid var(--primary-color);
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
@@ -426,7 +438,14 @@ button#toggle-password {
   border-radius: 10px;
   padding: 0.625em 0.875em;
   margin: 0.5em 0;
-  color: var(--dark-color);
+  color: var(--main-text-color);
+  background-color: var(--semi-dark-color);
+  border: none;
+}
+
+.input:focus,
+.input:active {
+  border: 2px solid var(--primary-color);
 }
 
 .textarea {
@@ -1106,10 +1125,16 @@ th {
 .project-wrapper {
   width: 100%;
   display: grid;
-  justify-content: center;
   flex-direction: column;
   gap: 1.5em;
   margin: 1.25em auto;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5em 0;
+  color: var(--subtitle-text-color);
 }
 
 .todo-checkbox {

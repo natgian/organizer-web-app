@@ -19,7 +19,6 @@ async function toggleCompleted(projectId, todoId) {
     });
 
     if (response.ok) {
-      // Refresh the page or update the UI as needed
       location.reload();
     } else {
       console.error("Toggle failed");
