@@ -100,6 +100,7 @@ svg {
 body {
   font-family: var(--main-font);
   font-size: 100%;
+  font-weight: 300;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   background-color: var(--dark-color);
@@ -357,6 +358,28 @@ button#toggle-password {
   color: var(--dark-color);
   bottom: 10px;
   right: 12px;
+}
+
+.remove-all-btn {
+  width: 100%;
+  background-color: var(--dark-color);
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 0.825em;
+  border: 1px solid var(--dark-color);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+}
+
+.remove-all-btn:hover,
+.remove-all-btn:focus {
+  background-color: var(--error-message);
+  color: var(--dark-color);
+  font-weight: bold;
+  transform: scale(1.02);
+  border-color: var(--dark-color);
 }
 
 .page-navigation-link {

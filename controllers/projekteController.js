@@ -41,7 +41,7 @@ module.exports.showProject = async (req, res) => {
         res.render("projects/showProject", { foundProject });
       } else {
         res.status(403).render("pages/403");
-      }      
+      }
     }
   }
   catch (err) {
@@ -56,10 +56,10 @@ module.exports.showProject = async (req, res) => {
 
 // RENDER PROJECT TODOS SHOW PAGE
 module.exports.showProjectToDos = async (req, res) => {
-  const { projectId} = req.params;
+  const { projectId } = req.params;
   try {
     const foundProject = await Project.findById(projectId)
-    .populate("todos")
+      .populate("todos")
       .populate({
         path: "user",
         populate: { path: "projects" }
@@ -72,7 +72,7 @@ module.exports.showProjectToDos = async (req, res) => {
         res.render("projects/showProjectToDos", { foundProject });
       } else {
         res.status(403).render("pages/403");
-      }      
+      }
     }
   }
   catch (err) {
@@ -80,7 +80,7 @@ module.exports.showProjectToDos = async (req, res) => {
       res.status(404).render("pages/404", { err });
     }
     else {
-      res.status(500).render("pages/error", { err});
+      res.status(500).render("pages/error", { err });
     }
   }
 };
@@ -93,7 +93,7 @@ module.exports.addNewProjectTodo = async (req, res) => {
   const savedToDo = await newToDo.save();
 
   const foundProject = await Project.findById(projectId);
-  
+
   foundProject.todos.push(savedToDo);
 
   await foundProject.save();
@@ -150,7 +150,7 @@ module.exports.deleteProject = async (req, res) => {
   await Todo.deleteMany({ _id: { $in: todoIds } });
   await Link.deleteMany({ _id: { $in: linkIds } });
   await User.findByIdAndUpdate(req.user._id, { $pull: { projects: projectId } });
-  
+
   await Project.findByIdAndDelete(projectId);
   res.redirect("/projekte");
 };
@@ -159,18 +159,31 @@ module.exports.deleteProject = async (req, res) => {
 module.exports.deleteTodoFromTodos = async (req, res) => {
   const { projectId, todoId } = req.params;
 
-    const foundProject = await Project.findById(projectId);
-    const todoIndex = foundProject.todos.indexOf(todoId); // Check if the todo exists in the project's todos array
+  const foundProject = await Project.findById(projectId);
+  const todoIndex = foundProject.todos.indexOf(todoId); // Check if the todo exists in the project's todos array
 
-    if (todoIndex !== -1) {
-      foundProject.todos.splice(todoIndex, 1);// Remove the todo from the project's todos array
-      await foundProject.save();
-      await Todo.findByIdAndDelete(todoId);
+  if (todoIndex !== -1) {
+    foundProject.todos.splice(todoIndex, 1);// Remove the todo from the project's todos array
+    await foundProject.save();
+    await Todo.findByIdAndDelete(todoId);
 
-      res.redirect(`/projekte/${projectId}`);
-    } else {
-      res.status(404).render("pages/404");
-    }
+    res.redirect(`/projekte/${projectId}`);
+  } else {
+    res.status(404).render("pages/404");
+  }
+};
+
+// DELETE ALL TODOS FROM A TODO-LIST
+module.exports.deleteAllTodos = async (req, res) => {
+  const { projectId } = req.params;
+
+  const foundProject = await Project.findById(projectId);
+  const todos = foundProject.todos;
+
+  await Todo.deleteMany({ _id: { $in: todos } });
+  await foundProject.save();
+
+  res.redirect(`/projekte/${projectId}`);
 };
 
 

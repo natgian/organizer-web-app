@@ -37,6 +37,9 @@ router.get("/:projectId/bearbeiten", isLoggedIn, isAuthor("project"), catchAsync
 // -- DELETE TODO FROM A TODO-LIST
 router.delete("/:projectId/aufgaben/:todoId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteTodoFromTodos));
 
+// -- DELETE ALL TODOS FROM A TODO-LIST
+router.delete("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteAllTodos));
+
 // -- EDIT A PROJECT
 router.put("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.editProject));
 
