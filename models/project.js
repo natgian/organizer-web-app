@@ -11,41 +11,29 @@ const TodosSchema = new mongoose.Schema({
   }
 });
 
-const LinkSchema = new mongoose.Schema({
-  link: {
-    type: String,
-    required: true
-  }
-});
-
-const ProjectExpenseSchema = new mongoose.Schema({
-  projextExpenseDate: {
-    type: Date,
-    required: true
-  },
-  projectExpenseDscription: {
-    type: String,
-    required: true
-  },
-  projectExpense: {
-    type: Number,
-    required: true
-  }
-});
-
 const ProjectBudgetSchema = new mongoose.Schema({
   projectBudget: {
     type: Number,
-    required: true
+    required: true,
   },
   remainingProjectBudget: {
-    type: Number
+    type: Number,
   },
   projectExpenses: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ProjectExpense"
-    }
+      projextExpenseDate: {
+        type: Date,
+        required: true,
+      },
+      projectExpenseDscription: {
+        type: String,
+        required: true,
+      },
+      projectExpenseAmount: {
+        type: Number,
+        required: true,
+      },
+    },
   ],
 });
 
@@ -84,8 +72,6 @@ const ProjectSchema = new mongoose.Schema({
 
 const Project = mongoose.model("Project", ProjectSchema);
 const Todo = mongoose.model("Todo", TodosSchema);
-const Link = mongoose.model("Link", LinkSchema);
-const ProjectExpense = mongoose.model("ProjectExpense", ProjectExpenseSchema);
 const ProjectBudget = mongoose.model("ProjectBudget", ProjectBudgetSchema);
 
-module.exports = { Project, Todo, Link, ProjectExpense, ProjectBudget };
+module.exports = { Project, Todo, ProjectBudget };

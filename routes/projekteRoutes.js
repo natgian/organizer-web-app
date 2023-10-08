@@ -22,14 +22,17 @@ router.post("/", isLoggedIn, validateProject, catchAsync(projekteController.crea
 // -- RENDER PROJECT SHOW PAGE
 router.get("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.showProject));
 
-// -- RENDER PROJECT TODOS SHOW PAGE
-router.get("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.showProjectToDos));
-
 // -- ADD NEW TODO
 router.post("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addNewProjectTodo));
 
+// -- HANDLE TODOS COMPLETION STATE
 router.put("/:projectId/aufgaben/:todoId", isLoggedIn, catchAsync(projekteController.toggleTodoCompletion));
 
+// -- ADD NEW PROJECT BUDGET
+router.post("/:projectId/budget", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addProjectBudget));
+
+// -- ADD NEW BUDGET EXPENSE
+router.post("/:projectId/budget/ausgabe", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addProjectBudgetExpense));
 
 // -- RENDER EDIT PAGE
 router.get("/:projectId/bearbeiten", isLoggedIn, isAuthor("project"), catchAsync(projekteController.renderEditProject));

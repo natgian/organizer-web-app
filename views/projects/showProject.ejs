@@ -96,32 +96,109 @@
 
           <% if (foundProject.todos.length > 0) { %>
           <form action="/projekte/<%=foundProject._id%>/aufgaben?_method=DELETE" method="POST">
-          <button class="remove-all-btn mt-1">Alle entfernen</button>
-        </form>
-        <% foundProject.todos.forEach((todo) => { %>
-          <% console.log(todo.text); %>
-        <% }); %>
-        <% } %>
+            <button class="remove-all-btn mt-1">Alle entfernen</button>
+          </form>
+          <% } %>
+        </section>
+
+        <!-- BUDGET -->
+        <section class="wrapper medium-dark-wrapper">
+          <h1 class="subtitle-specific">Budget</h1>
+
+          <div class="add-item-container">
+            <% if (!foundProject.projectbudget) { %>
+            <!-- Button to open "Add Budget" form -->
+            <button class="round-btn" id="add-budget-btn"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                viewBox="0 0 20 20">
+                <path fill="currentColor"
+                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+              </svg></button>
+            <!-- Add Budget form -->
+            <form action="/projekte/<%= foundProject._id %>/budget" method="POST" autocomplete="off">
+              <div class="new-item-container" id="new-projectbudget-container">
+                <input type="number" name="projectBudget" id="projectbudget-input"
+                  placeholder="Budgetbetrag hier eingeben..." class="input" step="any" required>
+                <button class="rectangle-btn">Hinzufügen</button>
+              </div>
+            </form>
+            <% } else {%>
+            <!-- Budget Table -->
+            <table class="budget-table mt-2 mb-1">
+              <tr>
+                <th class="table-align-left bold">Budget</th>
+                <th class="table-align-right bold">Verbleibend</th>
+              </tr>
+              <tr>
+                <td class="table-align-left"><%= foundProject.projectbudget.projectBudget %> CHF</td>
+                <td
+                  class="table-align-right <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">
+                  <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) %> CHF</td>
+              </tr>
+            </table>
+
+            <!-- Expenses-Table -->
+            <table class="expenses-table mt-1">
+              <tr>
+                <th class="table-align-left bold">Beschreibung</th>
+                <th class="table-align-right bold">Betrag</th>
+              </tr>
+
+              <% foundProject.projectbudget.projectExpenses.forEach((expense) => { %>
+              <tr>
+                <td class="table-align-left table-border"><%= expense.projectExpenseDscription %>
+                  <br><span class="expense-date"><%= formatDate(expense.projextExpenseDate) %></span>
+                </td>
+                <td class="table-align-right table-align-top table-border"><%= expense.projectExpenseAmount.toFixed(2)%> &nbsp;
+                  <form action="#?_method=DELETE" method="POST"
+                    class="expense-delete-form">
+                    <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                          d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                      </svg></button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </table>
+
+            <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26"
+              height="26" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+            </svg></button>
+
+          <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST" autocomplete="off">
+            <div class="new-item-container" id="new-expense-container">
+              <label for="projextExpenseDate">
+                <input type="date" name="projextExpenseDate" id="projextExpenseDate" class="input" autofocus required>
+              </label>
+              <label for="projectExpenseDscription">
+                <input type="text" name="projectExpenseDscription" placeholder="Beschreibung..." id="projectExpenseDscription"
+                  class="input" required>
+              </label>
+              <label for="projectExpenseAmount">
+              <input type="number" name="projectExpenseAmount" id="projectExpenseAmount" class="input" placeholder="Betrag..." step="any"
+                required>
+              </label>
+              <button class="rectangle-btn">Hinzufügen</button>
+            </div>
+          </form>
+
+            <% } %>
+          </div>
+
+
         </section>
 
 
-        <!-- Budget -->
-        <div>
-          <a href="#" class="round-with-text-btn mb-05"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 20 20">
-              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z">
-              </path>
-            </svg>Budget hinzufügen</a>
-        </div>
-
-        <!-- back button-->
+        <!-- link to go back -->
         <div class="text-center">
           <a href="/projekte" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
               height="24" viewBox="0 0 24 24" class="inline-block-svg">
               <g transform="rotate(180 12 12)">
                 <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
               </g>
-            </svg>Projektübersicht</a>
+            </svg>zurück</a>
         </div>
 
     </main>
@@ -130,6 +207,7 @@
   </div>
 
   <script src="/JS/handleToDos.js"></script>
+  <script src="/JS/handleProjectBudget.js"></script>
 </body>
 
 </html>

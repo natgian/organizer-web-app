@@ -1,5 +1,6 @@
-const { Project, Todo, Link, ProjectExpense, ProjectBudget } = require("../models/project");
+const { Project, Todo, ProjectBudget } = require("../models/project");
 const User = require("../models/user");
+const formatDate  = require("../utilities/formatDate");
 
 // RENDER PROJECTS PAGE
 module.exports.renderProjektePage = async (req, res, next) => {
@@ -31,14 +32,15 @@ module.exports.showProject = async (req, res) => {
         path: "user",
         populate: { path: "projects" }
       })
-      .populate("todos");
+      .populate("todos")
+      .populate("projectbudget");
 
     if (!foundProject) {
       res.status(404).render("pages/404");
     }
     else {
       if (req.user && req.user._id.equals(foundProject.user._id)) {
-        res.render("projects/showProject", { foundProject });
+        res.render("projects/showProject", { foundProject, formatDate });
       } else {
         res.status(403).render("pages/403");
       }
@@ -50,37 +52,6 @@ module.exports.showProject = async (req, res) => {
     }
     else {
       res.status(500).render("pages/error");
-    }
-  }
-};
-
-// RENDER PROJECT TODOS SHOW PAGE
-module.exports.showProjectToDos = async (req, res) => {
-  const { projectId } = req.params;
-  try {
-    const foundProject = await Project.findById(projectId)
-      .populate("todos")
-      .populate({
-        path: "user",
-        populate: { path: "projects" }
-      });
-    if (!foundProject) {
-      res.status(404).render("pages/404");
-    }
-    else {
-      if (req.user && req.user._id.equals(foundProject.user._id)) {
-        res.render("projects/showProjectToDos", { foundProject });
-      } else {
-        res.status(403).render("pages/403");
-      }
-    }
-  }
-  catch (err) {
-    if (err.name === "CastError") {
-      res.status(404).render("pages/404", { err });
-    }
-    else {
-      res.status(500).render("pages/error", { err });
     }
   }
 };
@@ -115,6 +86,44 @@ module.exports.toggleTodoCompletion = async (req, res) => {
   foundTodo.completed = !foundTodo.completed;
   await foundTodo.save();
   res.json({ success: true });
+};
+
+// ADD NEW PROJECT BUDGET
+module.exports.addProjectBudget = async (req, res) => {
+  const { projectId } = req.params;
+  const { projectBudget} = req.body;
+
+  const newProjectBudget = new ProjectBudget({projectBudget, remainingProjectBudget: projectBudget});
+
+  await newProjectBudget.save();
+
+  const foundProject = await Project.findById(projectId);
+
+  if (!foundProject) {
+    return res.status(404).send("Project nicht gefunden");
+  };
+
+  foundProject.projectbudget = newProjectBudget._id;
+  await foundProject.save();
+
+  res.redirect(`/projekte/${foundProject._id}`);
+};
+
+// ADD PROJECT BUDGET EXPENSE
+module.exports.addProjectBudgetExpense = async (req, res, next) => {
+  const { projectId } = req.params;
+  const foundProject = await Project.findById(projectId).populate("projectbudget");
+  const projectBudget = foundProject.projectbudget;
+
+  const { projextExpenseDate, projectExpenseDscription, projectExpenseAmount } = req.body;
+  const newExpense = { projextExpenseDate, projectExpenseDscription, projectExpenseAmount };
+
+
+  projectBudget.projectExpenses.push(newExpense);
+  projectBudget.remainingProjectBudget -= projectExpenseAmount;
+  await projectBudget.save();
+
+  res.redirect(`/projekte/${foundProject._id}`);
 };
 
 // RENDER PROJECT EDIT PAGE

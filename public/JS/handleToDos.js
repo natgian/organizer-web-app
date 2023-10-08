@@ -1,15 +1,13 @@
-const addItemButton = document.getElementById("add-todo-btn");
+const addTodoButton = document.getElementById("add-todo-btn");
 const newItemContainer = document.querySelector(".new-item-container");
 const inputElement = document.querySelector("#todo-input");
 
 
 // EVENT LISTENER TO ADD A TODO
-addItemButton.addEventListener("click", () => {
+addTodoButton.addEventListener("click", () => {
   newItemContainer.style.display = "block";
   inputElement.focus();
 });
-
-// EVENT LISTENER 
 
 // CHANGE TODO COMPLETED STATUS
 async function toggleCompleted(projectId, todoId) {
