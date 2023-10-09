@@ -17,9 +17,11 @@ if (addProjectBudgetButton) {
 };
 
 // EVENT LISTENER TO ADD A NEW EXPENSE
+if (addExpenseButton) {
 addExpenseButton.addEventListener("click", () => {
   newExpenseContainer.style.display = "block";
   inputProjectExpenseDate.focus();
 });
+};
 
 

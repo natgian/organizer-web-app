@@ -37,17 +37,24 @@ router.post("/:projectId/budget/ausgabe", isLoggedIn, isAuthor("project"), catch
 // -- RENDER EDIT PAGE
 router.get("/:projectId/bearbeiten", isLoggedIn, isAuthor("project"), catchAsync(projekteController.renderEditProject));
 
+// -- DELETE A PROJECT
+router.delete("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProject));
+
 // -- DELETE TODO FROM A TODO-LIST
 router.delete("/:projectId/aufgaben/:todoId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteTodoFromTodos));
 
 // -- DELETE ALL TODOS FROM A TODO-LIST
 router.delete("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteAllTodos));
 
+// DELETE A BUDGET EXPENSE
+router.delete("/:projectId/budget/ausgabe/:expenseId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudgetExpense));
+
+// DELETE A BUDGET
+router.delete("/:projectId/budget", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudget));
+
 // -- EDIT A PROJECT
 router.put("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.editProject));
 
-// -- DELETE A PROJECT
-router.delete("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProject));
 
 
 

@@ -58,12 +58,6 @@ const ProjectSchema = new mongoose.Schema({
       ref: "Todo"
     }
   ],
-  links: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Link"
-    }
-  ],
   projectbudget: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "ProjectBudget"

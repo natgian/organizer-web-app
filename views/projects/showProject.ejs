@@ -129,7 +129,7 @@
                 <th class="table-align-right bold">Verbleibend</th>
               </tr>
               <tr>
-                <td class="table-align-left"><%= foundProject.projectbudget.projectBudget %> CHF</td>
+                <td class="table-align-left"><%= foundProject.projectbudget.projectBudget.toFixed(2) %> CHF</td>
                 <td
                   class="table-align-right <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">
                   <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) %> CHF</td>
@@ -149,7 +149,7 @@
                   <br><span class="expense-date"><%= formatDate(expense.projextExpenseDate) %></span>
                 </td>
                 <td class="table-align-right table-align-top table-border"><%= expense.projectExpenseAmount.toFixed(2)%> &nbsp;
-                  <form action="#?_method=DELETE" method="POST"
+                  <form action="/projekte/<%=foundProject._id%>/budget/ausgabe/<%=expense._id%>?_method=DELETE" method="POST"
                     class="expense-delete-form">
                     <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                         viewBox="0 0 24 24">
@@ -162,11 +162,13 @@
               <% }) %>
             </table>
 
+            <!-- Add Expense Button -->
             <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26"
               height="26" viewBox="0 0 20 20">
               <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
             </svg></button>
 
+            <!-- Add Expense Form -->
           <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST" autocomplete="off">
             <div class="new-item-container" id="new-expense-container">
               <label for="projextExpenseDate">
@@ -184,10 +186,11 @@
             </div>
           </form>
 
+          <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
+            <button class="remove-all-btn mt-2">Budget entfernen</button>
+          </form>
             <% } %>
           </div>
-
-
         </section>
 
 
