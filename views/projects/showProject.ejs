@@ -148,9 +148,10 @@
                 <td class="table-align-left table-border"><%= expense.projectExpenseDscription %>
                   <br><span class="expense-date"><%= formatDate(expense.projextExpenseDate) %></span>
                 </td>
-                <td class="table-align-right table-align-top table-border"><%= expense.projectExpenseAmount.toFixed(2)%> &nbsp;
-                  <form action="/projekte/<%=foundProject._id%>/budget/ausgabe/<%=expense._id%>?_method=DELETE" method="POST"
-                    class="expense-delete-form">
+                <td class="table-align-right table-align-top table-border"><%= expense.projectExpenseAmount.toFixed(2)%>
+                  &nbsp;
+                  <form action="/projekte/<%=foundProject._id%>/budget/ausgabe/<%=expense._id%>?_method=DELETE"
+                    method="POST" class="expense-delete-form">
                     <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                         viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -164,31 +165,50 @@
 
             <!-- Add Expense Button -->
             <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26"
-              height="26" viewBox="0 0 20 20">
-              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-            </svg></button>
+                height="26" viewBox="0 0 20 20">
+                <path fill="currentColor"
+                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+              </svg></button>
 
             <!-- Add Expense Form -->
-          <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST" autocomplete="off">
-            <div class="new-item-container" id="new-expense-container">
-              <label for="projextExpenseDate">
-                <input type="date" name="projextExpenseDate" id="projextExpenseDate" class="input" autofocus required>
-              </label>
-              <label for="projectExpenseDscription">
-                <input type="text" name="projectExpenseDscription" placeholder="Beschreibung..." id="projectExpenseDscription"
-                  class="input" required>
-              </label>
-              <label for="projectExpenseAmount">
-              <input type="number" name="projectExpenseAmount" id="projectExpenseAmount" class="input" placeholder="Betrag..." step="any"
-                required>
-              </label>
-              <button class="rectangle-btn">Hinzufügen</button>
-            </div>
-          </form>
+            <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST" autocomplete="off">
+              <div class="new-item-container" id="new-expense-container">
+                <label for="projextExpenseDate">
+                  <input type="date" name="projextExpenseDate" id="projextExpenseDate" class="input" autofocus required>
+                </label>
+                <label for="projectExpenseDscription">
+                  <input type="text" name="projectExpenseDscription" placeholder="Beschreibung..."
+                    id="projectExpenseDscription" class="input" required>
+                </label>
+                <label for="projectExpenseAmount">
+                  <input type="number" name="projectExpenseAmount" id="projectExpenseAmount" class="input"
+                    placeholder="Betrag..." step="any" required>
+                </label>
+                <button class="rectangle-btn">Hinzufügen</button>
+              </div>
+            </form>
 
-          <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
-            <button class="remove-all-btn mt-2">Budget entfernen</button>
-          </form>
+            <!-- Delete Budget Button -->
+            <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
+              <button class="remove-all-btn mt-2">Budget entfernen</button>
+            </form>
+
+            <!-- Edit Budget Button -->
+            <button class="delete-edit-btn flex-right mt-2 mb-1" id="edit-budget-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+              </svg>
+            </button>
+
+              <!-- Edit Budget Form -->
+              <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>" method="POST" autocomplete="off">
+                <div class="new-item-container" id="edit-projectbudget-container">
+                  <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
+                    placeholder="Budgetbetrag hier eingeben..." value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>
+                  <button class="rectangle-btn">Speichern</button>
+                </div>
+              </form>
             <% } %>
           </div>
         </section>

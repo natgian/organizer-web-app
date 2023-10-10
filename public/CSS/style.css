@@ -1129,22 +1129,6 @@ th {
 /* PROJEKTE */
 /*----------*/
 
-/* .project-btn {
-  min-width: 7rem;
-  min-height: 7rem;
-  background-color: var(--dark-color);
-  color: var(--main-text-color);
-  border: none;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5em;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-} */
-
 .project-wrapper {
   width: 100%;
   display: grid;
@@ -1212,6 +1196,10 @@ th {
 .completed {
   text-decoration:line-through;
   color: var(--light-dark-color);
+}
+
+#edit-budget-btn {
+width: 100%;
 }
 
 /*--------*/

@@ -1,6 +1,6 @@
 const { Project, Todo, ProjectBudget } = require("../models/project");
 const User = require("../models/user");
-const formatDate  = require("../utilities/formatDate");
+const formatDate = require("../utilities/formatDate");
 
 // RENDER PROJEKTE PAGE
 module.exports.renderProjektePage = async (req, res, next) => {
@@ -91,9 +91,9 @@ module.exports.toggleTodoCompletion = async (req, res, next) => {
 // ADD NEW PROJECT BUDGET
 module.exports.addProjectBudget = async (req, res, next) => {
   const { projectId } = req.params;
-  const { projectBudget} = req.body;
+  const { projectBudget } = req.body;
 
-  const newProjectBudget = new ProjectBudget({projectBudget, remainingProjectBudget: projectBudget});
+  const newProjectBudget = new ProjectBudget({ projectBudget, remainingProjectBudget: projectBudget });
 
   await newProjectBudget.save();
 
@@ -140,6 +140,23 @@ module.exports.editProject = async (req, res, next) => {
   res.redirect(`/projekte/${foundProject._id}`);
 };
 
+// EDIT A PROJECT BUDGET
+module.exports.editProjectBudget = async (req, res, next) => {
+  const { projectId, budgetId } = req.params;
+  const { newProjectBudget } = req.body;
+  const foundProject = await Project.findById(projectId);
+  const foundProjectBudget = await ProjectBudget.findById(budgetId);
+  // getting the total of all expenses in the budget:
+  const totalExpenses = foundProjectBudget.projectExpenses.reduce((total, expense) => total + expense.projectExpenseAmount, 0);
+
+  foundProjectBudget.projectBudget = newProjectBudget;
+  foundProjectBudget.remainingProjectBudget = newProjectBudget - totalExpenses;
+
+  await foundProjectBudget.save();
+
+  res.redirect(`/projekte/${foundProject._id}`);
+};
+
 // DELETE A PROJECT
 module.exports.deleteProject = async (req, res, next) => {
   const { projectId } = req.params;
@@ -147,11 +164,9 @@ module.exports.deleteProject = async (req, res, next) => {
   const foundProject = await Project.findById(projectId);
   const todoIds = foundProject.todos;
   const projectbudgetId = foundProject.projectbudget;
-
   const projectBudget = await ProjectBudget.findById(projectbudgetId);
+  
   if (projectBudget) {
-    const projectexpenseIds = projectBudget.projectExpenses;
-    await ProjectExpense.deleteMany({ _id: { $in: projectexpenseIds } });
     await ProjectBudget.findByIdAndDelete(projectbudgetId);
   };
 
@@ -201,15 +216,15 @@ module.exports.deleteProjectBudgetExpense = async (req, res, next) => {
   const expenseIndex = projectBudget.projectExpenses.findIndex(
     (expense) => expense._id.equals(expenseId));
 
-    if (expenseIndex !== -1) {
-      const deletedExpenseAmount = projectBudget.projectExpenses[expenseIndex].projectExpenseAmount;
-      projectBudget.remainingProjectBudget += deletedExpenseAmount;
-      projectBudget.projectExpenses.splice(expenseIndex, 1);
-      await projectBudget.save();
-      res.redirect(`/projekte/${projectId}`);
-    } else {
-      res.status(404).render("pages/404");
-    };
+  if (expenseIndex !== -1) {
+    const deletedExpenseAmount = projectBudget.projectExpenses[expenseIndex].projectExpenseAmount;
+    projectBudget.remainingProjectBudget += deletedExpenseAmount;
+    projectBudget.projectExpenses.splice(expenseIndex, 1);
+    await projectBudget.save();
+    res.redirect(`/projekte/${projectId}`);
+  } else {
+    res.status(404).render("pages/404");
+  };
 };
 
 // DELETE A PROJECT BUDGET

@@ -52,14 +52,11 @@ router.delete("/:projectId/budget/ausgabe/:expenseId", isLoggedIn, isAuthor("pro
 // DELETE A BUDGET
 router.delete("/:projectId/budget", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudget));
 
+// EDIT A BUDGET
+router.post("/:projectId/budget/bearbeiten/:budgetId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.editProjectBudget));
+
 // -- EDIT A PROJECT
 router.put("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.editProject));
-
-
-
-
-
-
 
 
 module.exports = router;
