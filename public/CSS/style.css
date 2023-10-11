@@ -139,6 +139,13 @@ a {
   grid-template-rows: auto 1fr auto;
 }
 
+.main-layout-center {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  align-content: center;
+}
+
 .container {
   width: 85%;
   max-width: 1400px;
