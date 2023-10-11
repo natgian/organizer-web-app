@@ -1,13 +1,13 @@
 const { List } = require("./models/list");
 const Note = require("./models/note");
-const { Budget}  = require("./models/budget");
+const { Budget } = require("./models/budget");
 const { Project } = require("./models/project");
 const Calendar = require("./models/calendar");
-const {listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema, calendarSchema, projectSchema} = require("./validationSchemas");
+const { listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema, calendarSchema, projectSchema, todoSchema, projectBudgetSchema, projectBudgetExpenseSchema } = require("./validationSchemas");
 
 module.exports.storeReturnTo = (req, res, next) => {
   if (req.session.returnTo) {
-      res.locals.returnTo = req.session.returnTo;
+    res.locals.returnTo = req.session.returnTo;
   }
   next();
 };
@@ -26,7 +26,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.isAuthor = (resourceType) => {
   return async (req, res, next) => {
     const resourceId = req.params[`${resourceType}Id`];
-    
+
     let foundResource;
     switch (resourceType) {
       case "list":
@@ -48,98 +48,133 @@ module.exports.isAuthor = (resourceType) => {
     if (!foundResource || !foundResource.user.equals(req.user._id)) {
       return res.status(403).render("pages/403");
     }
-     next();
+    next();
   };
 };
 
 // VALIDATE USER
-module.exports.validateUser = async(req, res, next) => {
-  const {error} = userSchema.validate(req.body);
-  if(error) {
-   const msg = error.details.map(element => element.message).join(",");
-   req.flash("error", msg);
-   return res.redirect("/registration");
+module.exports.validateUser = async (req, res, next) => {
+  const { error } = userSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect("/registration");
   }
   next();
- };
+};
 
 // VALIDATE PROJECT
-module.exports.validateProject = async(req, res, next) => {
-  const {error} = projectSchema.validate(req.body);
-  if(error) {
-   const msg = error.details.map(element => element.message).join(",");
-   req.flash("error", msg);
-   return res.redirect("/projekte/neues-projekt");
+module.exports.validateProject = async (req, res, next) => {
+  const { error } = projectSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect("/projekte/neues-projekt");
   }
   next();
- };
- 
+};
+
 // VALIDATE LIST
-module.exports.validateList = async(req, res, next) => {
- const {error} = listSchema.validate(req.body);
- if(error) {
-  const msg = error.details.map(element => element.message).join(",");
-  req.flash("error", msg);
-  return res.redirect("/listen/neue-liste");
- }
- next();
+module.exports.validateList = async (req, res, next) => {
+  const { error } = listSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect("/listen/neue-liste");
+  }
+  next();
 };
 
 // VALIDATE ITEM
-module.exports.validateItem = async(req, res, next) => {
+module.exports.validateItem = async (req, res, next) => {
   const listId = req.params.listId;
-  const {error} = itemSchema.validate(req.body);
-  if(error) {
-   const msg = error.details.map(element => element.message).join(",");
-   req.flash("error", msg);
-   return res.redirect(`/listen/${listId}`);
+  const { error } = itemSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect(`/listen/${listId}`);
   }
   next();
- };
+};
 
- // VALIDATE NOTE
- module.exports.validateNote = async(req, res, next) => {
-  const {error} = noteSchema.validate(req.body);
- if(error) {
-  const msg = error.details.map(element => element.message).join(",");
-  req.flash("error", msg);
-  return res.redirect("/notizen/neue-notiz");
- }
- next();
- };
-
- // VALIDATE BUDGET
- module.exports.validateBudget = async(req, res, next) => {
-  const {error} = budgetSchema.validate(req.body);
-  if(error) {
-   const msg = error.details.map(element => element.message).join(",");
-   req.flash("error", msg);
-   return res.redirect("/budget/neues-budget");
+// VALIDATE NOTE
+module.exports.validateNote = async (req, res, next) => {
+  const { error } = noteSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect("/notizen/neue-notiz");
   }
   next();
- };
- 
-  // VALIDATE BUDGET
- module.exports.validateExpense = async(req, res, next) => {
-   const budgetId = req.params.budgetId;
-   const {error} = expenseSchema.validate(req.body);
-   if(error) {
+};
+
+// VALIDATE BUDGET
+module.exports.validateBudget = async (req, res, next) => {
+  const { error } = budgetSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect("/budget/neues-budget");
+  }
+  next();
+};
+
+// VALIDATE BUDGET
+module.exports.validateExpense = async (req, res, next) => {
+  const budgetId = req.params.budgetId;
+  const { error } = expenseSchema.validate(req.body);
+  if (error) {
     const msg = error.details.map(element => element.message).join(",");
     req.flash("error", msg);
     return res.redirect(`/budget/${budgetId}`);
-   }
-   next();
-  };
+  }
+  next();
+};
 
-   // VALIDATE CALENDAR EVENT
-   module.exports.validateCalendar = async(req, res, next) => {
-    const {error} = calendarSchema.validate(req.body);
-    if(error) {
-     const msg = error.details.map(element => element.message).join(",");
-     req.flash("error", msg);
-     return res.redirect("/kalender/neuer-eintrag");
-    }
-    next();
-   };
+// VALIDATE CALENDAR EVENT
+module.exports.validateCalendar = async (req, res, next) => {
+  const { error } = calendarSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect("/kalender/neuer-eintrag");
+  }
+  next();
+};
 
 
+// VALIDATE TODO
+module.exports.validateTodo = async (req, res, next) => {
+  const projectId = req.params.projectId;
+  const { error } = todoSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect(`/projekte/${projectId}`);
+  }
+  next();
+};
+
+// VALIDATE PROJECT BUDGET
+module.exports.validateProjectBudget = async (req, res, next) => {
+  const projectId = req.params.projectId;
+  const { error } = projectBudgetSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect(`/projekte/${projectId}`);
+  }
+  next();
+};
+
+// VALIDATE PROJECT BUDGET EXPENSE
+module.exports.validateProjectBudgetExpense = async (req, res, next) => {
+  const projectId = req.params.projectId;
+  const { error } = projectBudgetExpenseSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(element => element.message).join(",");
+    req.flash("error", msg);
+    return res.redirect(`/projekte/${projectId}`);
+  }
+  next();
+};

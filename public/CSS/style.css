@@ -535,6 +535,10 @@ button#toggle-password {
   margin-top: 2em;
 }
 
+.mt-3 {
+  margin-top: 3em;
+}
+
 .bold {
   font-weight: 600;
 }

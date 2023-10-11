@@ -47,7 +47,7 @@
         </section>
 
         <!-- TODOS -->
-        <section class="wrapper medium-dark-wrapper">
+        <section class="wrapper medium-dark-wrapper" id="todo-section">
           <h1 class="subtitle-specific">Aufgaben</h1>
 
           <div class="add-item-container">
@@ -59,7 +59,7 @@
               </svg></button>
 
             <!-- Add Todo form -->
-            <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST" autocomplete="off">
+            <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
               <div class="new-item-container">
                 <input type="text" name="text" id="todo-input" placeholder="Aufgabe hier eingeben..." class="input"
                   required>
@@ -96,13 +96,13 @@
 
           <% if (foundProject.todos.length > 0) { %>
           <form action="/projekte/<%=foundProject._id%>/aufgaben?_method=DELETE" method="POST">
-            <button class="remove-all-btn mt-1">Alle entfernen</button>
+            <button class="remove-all-btn mt-2">Aufgaben entfernen</button>
           </form>
           <% } %>
         </section>
 
         <!-- BUDGET -->
-        <section class="wrapper medium-dark-wrapper">
+        <section class="wrapper medium-dark-wrapper" id="budget-section">
           <h1 class="subtitle-specific">Budget</h1>
 
           <div class="add-item-container">
@@ -114,7 +114,7 @@
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
               </svg></button>
             <!-- Add Budget form -->
-            <form action="/projekte/<%= foundProject._id %>/budget" method="POST" autocomplete="off">
+            <form action="/projekte/<%= foundProject._id %>/budget" method="POST">
               <div class="new-item-container" id="new-projectbudget-container">
                 <input type="number" name="projectBudget" id="projectbudget-input"
                   placeholder="Budgetbetrag hier eingeben..." class="input" step="any" required>
@@ -145,8 +145,8 @@
 
               <% foundProject.projectbudget.projectExpenses.forEach((expense) => { %>
               <tr>
-                <td class="table-align-left table-border"><%= expense.projectExpenseDscription %>
-                  <br><span class="expense-date"><%= formatDate(expense.projextExpenseDate) %></span>
+                <td class="table-align-left table-border"><%= expense.projectExpenseDescription %>
+                  <br><span class="expense-date"><%= formatDate(expense.projectExpenseDate) %></span>
                 </td>
                 <td class="table-align-right table-align-top table-border"><%= expense.projectExpenseAmount.toFixed(2)%>
                   &nbsp;
@@ -171,14 +171,14 @@
               </svg></button>
 
             <!-- Add Expense Form -->
-            <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST" autocomplete="off">
+            <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
               <div class="new-item-container" id="new-expense-container">
-                <label for="projextExpenseDate">
-                  <input type="date" name="projextExpenseDate" id="projextExpenseDate" class="input" autofocus required>
+                <label for="projectExpenseDate">
+                  <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input" required>
                 </label>
-                <label for="projectExpenseDscription">
-                  <input type="text" name="projectExpenseDscription" placeholder="Beschreibung..."
-                    id="projectExpenseDscription" class="input" required>
+                <label for="projectExpenseDescription">
+                  <input type="text" name="projectExpenseDescription" placeholder="Beschreibung..."
+                    id="projectExpenseDescription" class="input" required>
                 </label>
                 <label for="projectExpenseAmount">
                   <input type="number" name="projectExpenseAmount" id="projectExpenseAmount" class="input"
@@ -190,7 +190,7 @@
 
             <!-- Delete Budget Button -->
             <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
-              <button class="remove-all-btn mt-2">Budget entfernen</button>
+              <button class="remove-all-btn mt-3">Budget entfernen</button>
             </form>
 
             <!-- Edit Budget Button -->
@@ -202,7 +202,7 @@
             </button>
 
               <!-- Edit Budget Form -->
-              <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>" method="POST" autocomplete="off">
+              <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>" method="POST">
                 <div class="new-item-container" id="edit-projectbudget-container">
                   <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
                     placeholder="Budgetbetrag hier eingeben..." value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>

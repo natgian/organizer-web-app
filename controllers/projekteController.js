@@ -69,7 +69,7 @@ module.exports.addNewProjectTodo = async (req, res, next) => {
 
   await foundProject.save();
 
-  res.redirect(`/projekte/${foundProject._id}`);
+  res.redirect(`/projekte/${foundProject._id}#todo-section`);
 };
 
 // HANDLE TODOS COMPLETION STATE
@@ -106,7 +106,7 @@ module.exports.addProjectBudget = async (req, res, next) => {
   foundProject.projectbudget = newProjectBudget._id;
   await foundProject.save();
 
-  res.redirect(`/projekte/${foundProject._id}`);
+  res.redirect(`/projekte/${foundProject._id}#budget-section`);
 };
 
 // ADD PROJECT BUDGET EXPENSE
@@ -115,15 +115,15 @@ module.exports.addProjectBudgetExpense = async (req, res, next) => {
   const foundProject = await Project.findById(projectId).populate("projectbudget");
   const projectBudget = foundProject.projectbudget;
 
-  const { projextExpenseDate, projectExpenseDscription, projectExpenseAmount } = req.body;
-  const newExpense = { projextExpenseDate, projectExpenseDscription, projectExpenseAmount };
+  const { projectExpenseDate, projectExpenseDescription, projectExpenseAmount } = req.body;
+  const newExpense = { projectExpenseDate, projectExpenseDescription, projectExpenseAmount };
 
 
   projectBudget.projectExpenses.push(newExpense);
   projectBudget.remainingProjectBudget -= projectExpenseAmount;
   await projectBudget.save();
 
-  res.redirect(`/projekte/${foundProject._id}`);
+  res.redirect(`/projekte/${foundProject._id}#budget-section`);
 };
 
 // RENDER PROJECT EDIT PAGE
@@ -154,7 +154,7 @@ module.exports.editProjectBudget = async (req, res, next) => {
 
   await foundProjectBudget.save();
 
-  res.redirect(`/projekte/${foundProject._id}`);
+  res.redirect(`/projekte/${foundProject._id}#budget-section`);
 };
 
 // DELETE A PROJECT
@@ -188,7 +188,7 @@ module.exports.deleteTodoFromTodos = async (req, res, next) => {
     foundProject.todos.splice(todoIndex, 1);// Remove the todo from the project's todos array
     await foundProject.save();
     await Todo.findByIdAndDelete(todoId);
-    res.redirect(`/projekte/${projectId}`);
+    res.redirect(`/projekte/${projectId}#todo-section`);
   } else {
     res.status(404).render("pages/404");
   };
@@ -204,7 +204,7 @@ module.exports.deleteAllTodos = async (req, res, next) => {
   await Todo.deleteMany({ _id: { $in: todos } });
   await foundProject.save();
 
-  res.redirect(`/projekte/${projectId}`);
+  res.redirect(`/projekte/${projectId}#todo-section`);
 };
 
 // DELETE EXPENSE FROM BUDGET
@@ -221,7 +221,7 @@ module.exports.deleteProjectBudgetExpense = async (req, res, next) => {
     projectBudget.remainingProjectBudget += deletedExpenseAmount;
     projectBudget.projectExpenses.splice(expenseIndex, 1);
     await projectBudget.save();
-    res.redirect(`/projekte/${projectId}`);
+    res.redirect(`/projekte/${projectId}#budget-section`);
   } else {
     res.status(404).render("pages/404");
   };

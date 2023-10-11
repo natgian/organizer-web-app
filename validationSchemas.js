@@ -54,7 +54,6 @@ module.exports.userSchema = Joi.object({
   .escapeHTML()
 });
 
-
 module.exports.noteSchema = Joi.object({
   title: Joi.string().required().escapeHTML(),
   body: Joi.string().required().escapeHTML()
@@ -81,6 +80,19 @@ module.exports.calendarSchema = Joi.object({
   endEventTime: Joi.string().allow("")
 });
 
+module.exports.todoSchema = Joi.object({
+  text: Joi.string().required().escapeHTML()
+});
+
+module.exports.projectBudgetSchema = Joi.object({
+  projectBudget: Joi.number().required()
+});
+
+module.exports.projectBudgetExpenseSchema = Joi.object({
+  projectExpenseDate: Joi.date().required(),
+  projectExpenseDescription: Joi.string().required().escapeHTML(),
+  projectExpenseAmount: Joi.number().required()
+});
 
 
 

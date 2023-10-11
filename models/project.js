@@ -21,11 +21,11 @@ const ProjectBudgetSchema = new mongoose.Schema({
   },
   projectExpenses: [
     {
-      projextExpenseDate: {
+      projectExpenseDate: {
         type: Date,
         required: true,
       },
-      projectExpenseDscription: {
+      projectExpenseDescription: {
         type: String,
         required: true,
       },

@@ -7,7 +7,7 @@ const projekteController = require("../controllers/projekteController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, validateProject, isAuthor } = require("../middleware");
+const { isLoggedIn, validateProject, isAuthor, validateTodo, validateProjectBudget, validateProjectBudgetExpense } = require("../middleware");
 
 // Routes
 // -- RENDER PROJEKTE PAGE
@@ -23,16 +23,16 @@ router.post("/", isLoggedIn, validateProject, catchAsync(projekteController.crea
 router.get("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.showProject));
 
 // -- ADD NEW TODO
-router.post("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addNewProjectTodo));
+router.post("/:projectId/aufgaben", isLoggedIn, validateTodo, isAuthor("project"), catchAsync(projekteController.addNewProjectTodo));
 
 // -- HANDLE TODOS COMPLETION STATE
 router.put("/:projectId/aufgaben/:todoId", isLoggedIn, catchAsync(projekteController.toggleTodoCompletion));
 
 // -- ADD NEW PROJECT BUDGET
-router.post("/:projectId/budget", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addProjectBudget));
+router.post("/:projectId/budget", isLoggedIn, validateProjectBudget, isAuthor("project"), catchAsync(projekteController.addProjectBudget));
 
 // -- ADD NEW BUDGET EXPENSE
-router.post("/:projectId/budget/ausgabe", isLoggedIn, isAuthor("project"), catchAsync(projekteController.addProjectBudgetExpense));
+router.post("/:projectId/budget/ausgabe", isLoggedIn, validateProjectBudgetExpense, isAuthor("project"), catchAsync(projekteController.addProjectBudgetExpense));
 
 // -- RENDER EDIT PAGE
 router.get("/:projectId/bearbeiten", isLoggedIn, isAuthor("project"), catchAsync(projekteController.renderEditProject));
