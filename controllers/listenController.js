@@ -9,7 +9,7 @@ module.exports.renderListenPage = async (req, res, next) => {
 
 // RENDER NEW LIST PAGE
 module.exports.renderNewList = (req, res) => {
-  res.render("lists/new");
+  res.render("lists/newList");
 };
 
 // CREATE A NEW LIST
@@ -37,7 +37,7 @@ module.exports.showList = async (req, res) => {
     }
     else {
       if (req.user && req.user._id.equals(foundList.user._id)) {
-        res.render("lists/show", { foundList });
+        res.render("lists/showList", { foundList });
       } else {
         res.status(403).render("pages/403");
       }      
@@ -57,7 +57,7 @@ module.exports.showList = async (req, res) => {
 module.exports.renderEditList = async (req, res, next) => {
   const { listId } = req.params;
   const foundList = await List.findById(listId);
-  res.render("lists/edit", { foundList });
+  res.render("lists/editList", { foundList });
 };
 
 // EDIT A LIST

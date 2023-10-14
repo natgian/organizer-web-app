@@ -27,7 +27,7 @@ module.exports.index = async (req, res, next) => {
 // RENDER NEW NOTE PAGE
 module.exports.renderNewNote = (req, res) => {
   const errorMessage = req.flash("error");
-  res.render("notes/new", { errorMessage });
+  res.render("notes/newNote", { errorMessage });
 };
 
 // CREATE A NEW NOTE
@@ -63,7 +63,7 @@ module.exports.showNote = async (req, res) => {
     }
     else {
       if (req.user && req.user._id.equals(foundNote.user._id)) {
-        res.render("notes/show", { foundNote });
+        res.render("notes/showNote", { foundNote });
       } else {
         res.status(403).render("pages/403");
       }
@@ -83,7 +83,7 @@ module.exports.showNote = async (req, res) => {
 module.exports.renderEditNote = async (req, res, next) => {
   const { noteId } = req.params;
   const foundNote = await Note.findById(noteId);
-  res.render("notes/edit", { foundNote });
+  res.render("notes/editNote", { foundNote });
 };
 
 // EDIT A NOTE
@@ -120,7 +120,7 @@ module.exports.searchNotesSubmit = async (req, res) => {
       note.body = note.body.substring(0, noteMaxLength) + "...";
     };
   })
-  res.render("notes/search", { searchResults });
+  res.render("notes/searchNote", { searchResults });
 };
 
 
