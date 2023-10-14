@@ -23,20 +23,24 @@
         </div>
         <% } %>
 
+        <h1 class="project-title text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="inline-block-svg">
+            <path fill="<%= foundProject.color %>"
+              d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
+          </svg>&nbsp
+          <%= foundProject.name %>
+        </h1>
+
         <!-- TITLE & PROJECT INFOS -->
         <section class="wrapper medium-dark-wrapper">
-          <h1 class="project-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="inline-block-svg">
-              <path fill="<%= foundProject.color %>"
-                d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
-            </svg>&nbsp
-            <%= foundProject.name %>
-          </h1>
+          <div class="project-info-wrapper">
+
 
           <!-- Project infos -->
           <div class="project-wrapper">
             <p class="formatted-textarea"><%= foundProject.description %></p>
           </div>
+        </div>
 
           <!-- Edit project button -->
           <a href="/projekte/<%=foundProject._id%>/bearbeiten" class="delete-edit-btn flex-right">
@@ -190,7 +194,7 @@
 
             <!-- Delete Budget Button -->
             <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
-              <button class="remove-all-btn mt-3">Budget entfernen</button>
+              <button class="remove-all-btn mt-4">Budget entfernen</button>
             </form>
 
             <!-- Edit Budget Button -->
@@ -212,7 +216,6 @@
             <% } %>
           </div>
         </section>
-
 
         <!-- link to go back -->
         <div class="text-center">

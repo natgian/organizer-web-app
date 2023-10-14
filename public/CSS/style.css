@@ -539,6 +539,10 @@ button#toggle-password {
   margin-top: 3em;
 }
 
+.mt-4 {
+  margin-top: 4em;
+}
+
 .bold {
   font-weight: 600;
 }
@@ -1146,6 +1150,12 @@ th {
   flex-direction: column;
   gap: 1.5em;
   margin: 1.25em auto;
+}
+
+.project-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 .project-title {

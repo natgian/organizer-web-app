@@ -10,7 +10,7 @@ module.exports.renderBudgetPage = async (req, res, next) => {
 
 // RENDER NEW BUDGET PAGE
 module.exports.renderNewBudget = (req, res) => {
-  res.render("budgets/new");
+  res.render("budgets/newBudget");
 };
 
 // CREATE A NEW BUDGET
@@ -41,7 +41,7 @@ module.exports.showBudget = async (req, res) => {
     }
     else {
       if (req.user && req.user._id.equals(foundBudget.user._id)) {
-        res.render("budgets/show", { foundBudget, formatDate });
+        res.render("budgets/showBudget", { foundBudget, formatDate });
       } else {
         res.status(403).render("pages/403");
       }      
@@ -61,7 +61,7 @@ module.exports.showBudget = async (req, res) => {
 module.exports.renderEditBudget = async (req, res, next) => {
   const { budgetId } = req.params;
   const foundBudget = await Budget.findById(budgetId);
-  res.render("budgets/edit", { foundBudget });
+  res.render("budgets/editBudget", { foundBudget });
 };
 
 // EDIT A BUDGET
