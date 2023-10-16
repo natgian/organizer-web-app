@@ -72,6 +72,7 @@ svg {
   --medium-dark-color: #2A2A2A;
   --light-dark-color: #4a4a4a;
   --light-color: #777777;
+  --light-background: #dfdfdf;
   --error-message: #e76e7a;
   /* Primary */
   --primary-color: #03dac5;
@@ -356,17 +357,6 @@ a {
   border-color: var(--dark-color);
 }
 
-button#toggle-password {
-  position: absolute;
-  color: inherit;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--dark-color);
-  bottom: 10px;
-  right: 12px;
-}
-
 .remove-all-btn {
   width: 100%;
   background-color: var(--dark-color);
@@ -623,14 +613,7 @@ button#toggle-password {
 
 .input-container {
   position: relative;
-  margin: 1.25em 0;
-}
-
-.form-label {
-  display: flex;
-  justify-content: flex-start;
-  gap: 0.5em;
-  padding-bottom: 0.8em;
+  margin-top: 2.2em;
 }
 
 .login-form-wrapper {
@@ -639,29 +622,72 @@ button#toggle-password {
   text-align: center;
 }
 
+.form-label {
+  position: absolute;
+  left: 2.5em;
+  top: 0.875em;
+  padding: 0 0.5em;
+  cursor: text;
+  background-color: var(--medium-dark-color);
+  color: var(--light-color);
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in, 200ms ease-in;
+}
+
 .login-input {
   width: 100%;
   border-radius: 10px;
   font-size: 1rem;
-  padding: 0.625em 0.625em 0.625em 2.8em;
+  font-weight: 400;
+  padding: 0.825em 0.825em 0.825em 2.8em;
+  background: none;
+  color: var(--main-text-color);
+  border: 2px solid var(--light-background);
+} 
+
+.login-input:focus ~ .form-label,
+.login-input:not(:placeholder-shown).login-input:not(:focus) ~ .form-label {
+  top: -0.7em;
+  left: 3.3em;
+  font-size: 0.8rem;
+  color: var(--primary-color);
 }
 
-.input-container input[id="password"] {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 17a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2m6 3V10H6v10h12m0-12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.11.89-2 2-2h1V6a5 5 0 0 1 5-5a5 5 0 0 1 5 5v2h1m-6-5a3 3 0 0 0-3 3v2h6V6a3 3 0 0 0-3-3Z"%2F%3E%3C%2Fsvg%3E');
-  background-position: 12px 10px;
+.login-input:focus,
+.login-input:active {
+  border: 2px solid var(--primary-color);
+}
+
+.input-container input[id="username"] {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="22" height="22" viewBox="0 0 24 24"%3E%3Cpath fill="silver" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78A7.893 7.893 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.928 7.928 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.5-1.64 4.83M12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11Z"%2F%3E%3C%2Fsvg%3E');
+  background-position: 0.75em 0.85em;
   background-repeat: no-repeat;
 }
 
 .input-container input[id="email"] {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6m-2 0l-8 5l-8-5h16m0 12H4V8l8 5l8-5v10Z"%2F%3E%3C%2Fsvg%3E');
-  background-position: 12px 10px;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="22" height="22" viewBox="0 0 24 24"%3E%3Cpath fill="silver" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6m-2 0l-8 5l-8-5h16m0 12H4V8l8 5l8-5v10Z"%2F%3E%3C%2Fsvg%3E');
+  background-position: 0.75em 0.85em;
   background-repeat: no-repeat;
 }
 
-.input-container input[id="username"] {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78A7.893 7.893 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.928 7.928 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.5-1.64 4.83M12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11Z"%2F%3E%3C%2Fsvg%3E');
-  background-position: 12px 10px;
+.input-container input[id="password"] {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="22" height="22" viewBox="0 0 24 24"%3E%3Cpath fill="silver" d="M12 17a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2m6 3V10H6v10h12m0-12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.11.89-2 2-2h1V6a5 5 0 0 1 5-5a5 5 0 0 1 5 5v2h1m-6-5a3 3 0 0 0-3 3v2h6V6a3 3 0 0 0-3-3Z"%2F%3E%3C%2Fsvg%3E');
+  background-position: 0.75em 0.85em;
   background-repeat: no-repeat;
+}
+
+.input-container input svg {
+  fill: red;
+}
+
+button#toggle-password {
+  position: absolute;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  bottom: 0.875em;
+  right: 0.875em;
+  color: var(--light-color);
 }
 
 /* input[type=email]:not(:placeholder-shown):invalid {
