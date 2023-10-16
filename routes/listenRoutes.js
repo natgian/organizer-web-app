@@ -38,7 +38,4 @@ router.delete("/:listId", isLoggedIn, isAuthor("list"), catchAsync(listenControl
 router.post("/:listId", isLoggedIn, validateItem, catchAsync(listenController.addNewListItem));
 
 
-
-
-
 module.exports = router;

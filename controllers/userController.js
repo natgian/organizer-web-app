@@ -31,7 +31,7 @@ module.exports.renderLoginPage = (req, res) => {
 };
 
 // LOGIN
-module.exports.loginUser = (req, res) => {
+module.exports.loginUser = (req, res, next) => {
   const redirectUrl = res.locals.returnTo || "/home";
   res.redirect(redirectUrl);
 };
@@ -47,7 +47,7 @@ module.exports.logoutUser = (req, res, next) => {
 };
 
 // -- RENDER USER PROFILE PAGE
-module.exports.renderUserAccount = async (req, res) => {
+module.exports.renderUserAccount = async (req, res, next) => {
   const { userId } = req.params;
   const loggedInUser = req.user._id;
 
@@ -71,7 +71,7 @@ module.exports.renderEditUser = async (req, res, next) => {
 };
 
 // EDIT USER PROFILE
-module.exports.editUser = async (req, res) => {
+module.exports.editUser = async (req, res, next) => {
   const { userId } = req.params;
   const loggedInUser = req.user._id;
 

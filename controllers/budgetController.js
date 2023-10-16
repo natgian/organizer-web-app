@@ -9,12 +9,12 @@ module.exports.renderBudgetPage = async (req, res, next) => {
 };
 
 // RENDER NEW BUDGET PAGE
-module.exports.renderNewBudget = (req, res) => {
+module.exports.renderNewBudget = (req, res, next) => {
   res.render("budgets/newBudget");
 };
 
 // CREATE A NEW BUDGET
-module.exports.createBudget = async (req, res) => {
+module.exports.createBudget = async (req, res, next) => {
   const newBudgetData = req.body;
   newBudgetData.user = req.user._id;
   newBudgetData.remainingBudget = newBudgetData.budget;
@@ -27,7 +27,7 @@ module.exports.createBudget = async (req, res) => {
 };
 
 // RENDER BUDGET SHOW PAGE
-module.exports.showBudget = async (req, res) => {
+module.exports.showBudget = async (req, res, next) => {
   const { budgetId } = req.params;
   try {
     const foundBudget = await Budget.findById(budgetId)
@@ -65,7 +65,7 @@ module.exports.renderEditBudget = async (req, res, next) => {
 };
 
 // EDIT A BUDGET
-module.exports.editBudget = async (req, res) => {
+module.exports.editBudget = async (req, res, next) => {
   const { budgetId } = req.params;
   const updatedBudget = req.body;
   const foundBudget = await Budget.findById(budgetId);
@@ -86,7 +86,7 @@ module.exports.editBudget = async (req, res) => {
 };
 
 // DELETE A BUDGET
-module.exports.deleteBudget = async (req, res) => {
+module.exports.deleteBudget = async (req, res, next) => {
   const { budgetId } = req.params;
 
   const foundBudget = await Budget.findById(budgetId);
@@ -99,7 +99,7 @@ module.exports.deleteBudget = async (req, res) => {
 };
 
 // ADD NEW EXPENSE TO A BUDGET
-module.exports.addNewExpense = async (req, res) => {
+module.exports.addNewExpense = async (req, res, next) => {
   const { budgetId } = req.params;
 
   const newExpense = new Expense({ 
@@ -120,7 +120,7 @@ module.exports.addNewExpense = async (req, res) => {
 };
 
 // DELETE EXPENSE FROM A BUDGET
-module.exports.deleteExpenseFromBudget = async (req, res) => {
+module.exports.deleteExpenseFromBudget = async (req, res, next) => {
   const { budgetId, expenseId } = req.params;
 
   const foundBudget = await Budget.findById(budgetId);

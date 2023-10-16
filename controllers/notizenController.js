@@ -3,9 +3,8 @@ const User = require("../models/user");
 
 // RENDER NOTIZEN INDEX PAGE
 module.exports.index = async (req, res, next) => {
-
   const currentPage = parseInt(req.query.page) || 1;
-  const notesPerPage = 8;
+  const notesPerPage = 5;
   const startIndex = (currentPage - 1) * notesPerPage;
   const totalNotes = await Note.countDocuments({ user: req.user._id });
   const noteMaxLength = 150;
@@ -25,13 +24,13 @@ module.exports.index = async (req, res, next) => {
 };
 
 // RENDER NEW NOTE PAGE
-module.exports.renderNewNote = (req, res) => {
+module.exports.renderNewNote = (req, res, next) => {
   const errorMessage = req.flash("error");
   res.render("notes/newNote", { errorMessage });
 };
 
 // CREATE A NEW NOTE
-module.exports.createNote = async (req, res) => {
+module.exports.createNote = async (req, res, next) => {
   const newNote = new Note(req.body);
   newNote.user = req.user._id;
   newNote.createdAt = new Date();
@@ -46,7 +45,7 @@ module.exports.createNote = async (req, res) => {
 };
 
 // RENDER SINGLE NOTE SHOW PAGE
-module.exports.showNote = async (req, res) => {
+module.exports.showNote = async (req, res, next) => {
   const { noteId } = req.params;
 
   try {
@@ -87,14 +86,14 @@ module.exports.renderEditNote = async (req, res, next) => {
 };
 
 // EDIT A NOTE
-module.exports.editNote = async (req, res) => {
+module.exports.editNote = async (req, res, next) => {
   const { noteId } = req.params;
   const foundNote = await Note.findByIdAndUpdate(noteId, {... req.body, updatedAt: Date.now()}, { runValidators: true });
   res.redirect("/notizen");
 };
 
 // DELETE A NOTE
-module.exports.deleteNote = async (req, res) => {
+module.exports.deleteNote = async (req, res, next) => {
   const { noteId } = req.params;
 
   await Note.findByIdAndDelete(noteId);
@@ -103,7 +102,7 @@ module.exports.deleteNote = async (req, res) => {
 };
 
 // SEARCH IN NOTES
-module.exports.searchNotesSubmit = async (req, res) => {
+module.exports.searchNotesSubmit = async (req, res, next) => {
   const noteMaxLength = 150;
   let searchTerm = req.body.searchTerm;
   const filteredSearchTerm = searchTerm.replace(/[^a-zA-Z0-9]/g, "");

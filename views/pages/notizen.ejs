@@ -67,10 +67,9 @@
             <span class="pagination"><%= currentPage + 1%></span>
             <a href="?page=<%= currentPage + 1 %>" class="pagination-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></svg></a>
             <% } %>
-            <% if (currentPage === 1) { %>
+            <% if (currentPage === 1 && pages > 1) { %>
               <span class="active-page"><%= currentPage %></span>
               <span class="pagination"><%= currentPage + 1%></span>
-            
             <a href="?page=<%= currentPage + 1 %>" class="pagination-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"/></svg></a>
             <% } %>
         </div>

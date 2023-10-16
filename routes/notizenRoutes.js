@@ -24,7 +24,7 @@ router.post("/neue-notiz", isLoggedIn, validateNote, catchAsync(notizenControlle
 router.post("/suchen", isLoggedIn, catchAsync(notizenController.searchNotesSubmit));
 
 // // -- RENDER NOTE SHOW PAGE
-router.get("/:noteId", catchAsync(notizenController.showNote));
+router.get("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.showNote));
 
 // // DELETE A NOTE
 router.delete("/:noteId", isLoggedIn, isAuthor("note"), catchAsync(notizenController.deleteNote));

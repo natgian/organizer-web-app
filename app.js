@@ -1,6 +1,6 @@
-if(process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-};
+// if(process.env.NODE_ENV !== "production") {
+//   require("dotenv").config();
+// };
 
 const express = require("express");
 const app = express();
@@ -82,7 +82,6 @@ app.use((req, res, next) => {
 });
 
 // ROUTES
-
 // Required routes
 app.use("/listen", listenRoutes);
 app.use("/budget", budgetRoutes);
@@ -90,7 +89,6 @@ app.use("/notizen", notizenRoutes);
 app.use("/kalender", kalenderRoutes);
 app.use("/projekte", projekteRoutes);
 app.use("/", userRoutes);
-
 // General routes
 app.get("/", (req, res) => {
   res.render("index");

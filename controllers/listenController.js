@@ -8,12 +8,12 @@ module.exports.renderListenPage = async (req, res, next) => {
 };
 
 // RENDER NEW LIST PAGE
-module.exports.renderNewList = (req, res) => {
+module.exports.renderNewList = (req, res, next) => {
   res.render("lists/newList");
 };
 
 // CREATE A NEW LIST
-module.exports.createList = async (req, res) => {
+module.exports.createList = async (req, res, next) => {
   const newList = new List(req.body);
   newList.user = req.user._id;
   await newList.save();
@@ -23,7 +23,7 @@ module.exports.createList = async (req, res) => {
 };
 
 // RENDER LISTEN SHOW PAGE
-module.exports.showList = async (req, res) => {
+module.exports.showList = async (req, res, next) => {
   const { listId } = req.params;
   try {
     const foundList = await List.findById(listId)
@@ -61,14 +61,14 @@ module.exports.renderEditList = async (req, res, next) => {
 };
 
 // EDIT A LIST
-module.exports.editList = async (req, res) => {
+module.exports.editList = async (req, res, next) => {
   const { listId } = req.params;
   const foundList = await List.findByIdAndUpdate(listId, req.body, { runValidators: true });
   res.redirect(`/listen/${foundList._id}`);
 };
 
 // DELETE A LIST
-module.exports.deleteList = async (req, res) => {
+module.exports.deleteList = async (req, res, next) => {
   const { listId } = req.params;
 
   const foundList = await List.findById(listId);
@@ -81,7 +81,7 @@ module.exports.deleteList = async (req, res) => {
 };
 
 // ADD NEW ITEM TO A LIST
-module.exports.addNewListItem = async (req, res) => {
+module.exports.addNewListItem = async (req, res, next) => {
   const { listId } = req.params;
   const newItem = new Item({ text: req.body.text });
   const savedItem = await newItem.save();
@@ -92,7 +92,7 @@ module.exports.addNewListItem = async (req, res) => {
 }
 
 // DELETE ITEM FROM A LIST
-module.exports.deleteItemFromList = async (req, res) => {
+module.exports.deleteItemFromList = async (req, res, next) => {
   const { listId, itemId } = req.params;
 
     const foundList = await List.findById(listId);
