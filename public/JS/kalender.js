@@ -1,13 +1,23 @@
 let nav = 0; // this variable is used to keep track of the month the user is on
 let blankDays;
 let selectedDate;
+let focusedDaySquare = null;
 
 const calendar = document.getElementById("calendar");
 const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 const addButton = document.getElementById("add-button");
 
+// EVENT LISTENER TO CHECK FOCUSED DAY SQUARE
+document.addEventListener("click", (event) => {
+  // Check if the click event is not within a daySquare and a daySquare is currently focused
+  if (!event.target.classList.contains("daySquare") && focusedDaySquare) {
+    // Remove the focus style from the currently focused daySquare
+    focusedDaySquare.classList.remove("focused-daySqaure");
+    focusedDaySquare = null;
+  }
+});
 
-// LOAD CALENDAR FUNCTION //
+// LOAD CALENDAR //
 async function loadCalendar() {
   const date = new Date();
 
@@ -65,6 +75,16 @@ async function loadCalendar() {
 
       // Add a click event listener to handle interactions with the day square
       daySquare.addEventListener("click", () => {
+
+        // Remove focus from the previously focused daySquare
+        if (focusedDaySquare) {
+          focusedDaySquare.classList.remove("focused-daySquare");
+        }
+        // Add focus to the current daySquare
+        daySquare.classList.add("focused-daySquare");
+        // Update the focusedDaySquare
+        focusedDaySquare = daySquare;
+
         displayDayEvents(currentDate, eventsOnDate);
 
         const eventsContainer = document.getElementById("events-container");
@@ -79,7 +99,7 @@ async function loadCalendar() {
       addButton.addEventListener("click", () => {
         if (!selectedDate) {
           localStorage.setItem("selectedDate", "");
-        } 
+        }
         window.location.assign("/kalender/neuer-eintrag");
       });
     }
@@ -88,12 +108,12 @@ async function loadCalendar() {
   }
 };
 
-// FILTER EVENTS BY DATE FUNCTION //
+// FILTER EVENTS BY DATE //
 function filterEventsByDate(events, targetDate) {
   return events.filter((event) => {
     const startDate = new Date(event.startDate);
     const endDate = new Date(event.endDate);
-    
+
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
 
@@ -101,10 +121,18 @@ function filterEventsByDate(events, targetDate) {
   });
 }
 
-// DISPLAY DAY EVENTS FUNCTION //
+// DISPLAY DAY EVENTS //
 function displayDayEvents(currentDate, eventsData) {
   // Filter events that match the clicked date
   const eventsOnDate = filterEventsByDate(eventsData, currentDate);
+
+  eventsOnDate.sort((eventA, eventB) => {
+    const timeA = eventA.startEventTime || "23:59";
+    const timeB = eventB.startEventTime || "23:59";
+
+    return timeA.localeCompare(timeB);
+  });
+
   const eventsContainer = document.getElementById("events-container");
   const eventList = document.createElement("ul");
   eventList.classList.add("event-list");
@@ -126,7 +154,7 @@ function displayDayEvents(currentDate, eventsData) {
     const deleteEventButton = document.createElement("button");
     deleteEventButton.classList.add("delete-btn-dark");
     deleteEventButton.addEventListener("click", () => {
-    deleteCalendarEvent(event._id);
+      deleteCalendarEvent(event._id);
     });
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -151,8 +179,8 @@ function displayDayEvents(currentDate, eventsData) {
   eventsContainer.appendChild(eventList);
 };
 
-// SEND AJAX REQUEST TO DELETE CALENDAR EVENT FUNCTION //
-function deleteCalendarEvent (eventId) {
+// SEND AJAX REQUEST TO DELETE CALENDAR EVENT //
+function deleteCalendarEvent(eventId) {
   if (!eventId) {
     console.log("Event ID fehlt.");
     return;
@@ -161,19 +189,19 @@ function deleteCalendarEvent (eventId) {
   fetch(`/kalender/delete-event/${eventId}`, {
     method: "DELETE",
   })
-  .then((response) => {
-    if (response.ok) {
-      loadCalendar();
-    } else {
-      console.log("Ein Fehler ist aufgetreten, der Löschvorgang konnte nicht abgeschlossen werden.");
-    }
-  })
-  .catch((error) => {
-    console.error("Ein Fehler ist aufgetreten.", error);
-  });
+    .then((response) => {
+      if (response.ok) {
+        loadCalendar();
+      } else {
+        console.log("Ein Fehler ist aufgetreten, der Löschvorgang konnte nicht abgeschlossen werden.");
+      }
+    })
+    .catch((error) => {
+      console.error("Ein Fehler ist aufgetreten.", error);
+    });
 };
 
-// FETCH EVENT DATA FROM BACKEND FUNCTION //
+// FETCH EVENT DATA FROM BACKEND //
 async function fetchEventData(year, month) {
   try {
     const response = await fetch("/kalender/api/events");
@@ -189,7 +217,7 @@ async function fetchEventData(year, month) {
   }
 }
 
-// CHANGE MONTH FUNCTION //
+// CHANGE MONTH //
 function changeMonth() {
   document.getElementById("forwardMonthButton").addEventListener("click", () => {
     nav++;
@@ -200,6 +228,7 @@ function changeMonth() {
     loadCalendar();
   });
 }
+
 
 changeMonth();
 loadCalendar();

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../CSS/style.css">
-  <title><%= foundProject.name %></title>
+  <title>Projekt: <%= foundProject.name %></title>
 </head>
 
 <body>
@@ -23,31 +23,33 @@
         </div>
         <% } %>
 
-        <h1 class="project-title text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="inline-block-svg">
-            <path fill="<%= foundProject.color %>"
-              d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
-          </svg>&nbsp
-          <%= foundProject.name %>
+        <h1 class="project-title text-center"><%= foundProject.name %>
         </h1>
 
         <!-- TITLE & PROJECT INFOS -->
         <section class="wrapper medium-dark-wrapper">
-          <div class="project-info-wrapper">
-
-
-          <!-- Project infos -->
-          <div class="project-wrapper">
-            <p class="formatted-textarea"><%= foundProject.description %></p>
-          </div>
-        </div>
-
           <!-- Edit project button -->
           <a href="/projekte/<%=foundProject._id%>/bearbeiten" class="delete-edit-btn flex-right">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
               <path fill="currentColor"
                 d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
             </svg></a>
+          <div class="project-info-wrapper">
+
+            <div class="align-text-svg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                <path fill="<%= foundProject.color %>"
+                  d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
+              </svg>&nbsp;
+              <p>Projekt: <%= foundProject.name %></p>
+            </div>
+
+            <!-- Project infos -->
+            <div class="project-wrapper">
+              <p class="formatted-textarea"><%= foundProject.description %></p>
+            </div>
+          </div>
+
         </section>
 
         <!-- TODOS -->
@@ -63,13 +65,15 @@
               </svg></button>
 
             <!-- Add Todo form -->
-            <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
-              <div class="new-item-container">
+               <div class="new-item-container">
+                <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
                 <input type="text" name="text" id="todo-input" placeholder="Aufgabe hier eingeben..." class="input"
                   required>
                 <button class="rectangle-btn">Hinzufügen</button>
+              </form>
+                <button class="rectangle-secondary-btn mt-1" onclick="closeToDoForm()">Abbrechen</button>
               </div>
-            </form>
+            
           </div>
 
           <ul class="items-ul">
@@ -100,13 +104,20 @@
 
           <% if (foundProject.todos.length > 0) { %>
           <form action="/projekte/<%=foundProject._id%>/aufgaben?_method=DELETE" method="POST">
-            <button class="remove-all-btn mt-2">Aufgaben entfernen</button>
+            <button class="remove-all-btn mt-2">Aufgaben löschen</button>
           </form>
           <% } %>
         </section>
 
         <!-- BUDGET -->
         <section class="wrapper medium-dark-wrapper" id="budget-section">
+          <!-- Edit Budget Button -->
+          <button class="delete-edit-btn flex-right mt-2 mb-1" id="edit-budget-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+            </svg>
+          </button>
           <h1 class="subtitle-specific">Budget</h1>
 
           <div class="add-item-container">
@@ -126,6 +137,17 @@
               </div>
             </form>
             <% } else {%>
+            <!-- Edit Budget Form -->
+            <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>"
+              method="POST" class="mt-2">
+              <div class="new-item-container" id="edit-projectbudget-container">
+                <label for="edit-projectbudget-input" class="input-label">Budgetbetrag:</label><br>
+                <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
+                  placeholder="Budgetbetrag hier eingeben..."
+                  value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>
+                <button class="rectangle-btn">Speichern</button>
+              </div>
+            </form>
             <!-- Budget Table -->
             <table class="budget-table mt-2 mb-1">
               <tr>
@@ -172,11 +194,12 @@
                 height="26" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg></button>
+              </svg>
+            </button>
 
             <!-- Add Expense Form -->
+            <div class="new-item-container" id="new-expense-container">
             <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
-              <div class="new-item-container" id="new-expense-container">
                 <label for="projectExpenseDate">
                   <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input" required>
                 </label>
@@ -189,30 +212,16 @@
                     placeholder="Betrag..." step="any" required>
                 </label>
                 <button class="rectangle-btn">Hinzufügen</button>
+              </form>
+              <button class="rectangle-secondary-btn mt-1" onclick="closeExpenseForm()">Abbrechen</button>
               </div>
-            </form>
+            
 
             <!-- Delete Budget Button -->
             <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
-              <button class="remove-all-btn mt-4">Budget entfernen</button>
+              <button class="remove-all-btn mt-4">Budget löschen</button>
             </form>
 
-            <!-- Edit Budget Button -->
-            <button class="delete-edit-btn flex-right mt-2 mb-1" id="edit-budget-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-              </svg>
-            </button>
-
-              <!-- Edit Budget Form -->
-              <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>" method="POST">
-                <div class="new-item-container" id="edit-projectbudget-container">
-                  <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
-                    placeholder="Budgetbetrag hier eingeben..." value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>
-                  <button class="rectangle-btn">Speichern</button>
-                </div>
-              </form>
             <% } %>
           </div>
         </section>

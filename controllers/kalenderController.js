@@ -6,7 +6,7 @@ const formatDate = require("../utilities/formatDate");
 // RENDER NEW CALENDAR EVENT PAGE
 module.exports.renderNewEvent = (req, res, next) => {
   const errorMessage = req.flash("error");
-  res.render("calendar/new", { errorMessage });
+  res.render("calendar/newCalendarEvent", { errorMessage });
 };
 
 // CREATE A NEW CALENDAR EVENT
@@ -49,11 +49,19 @@ module.exports.searchEventSubmit = async (req, res, next) => {
   const searchResults = await Calendar.find({
     title: { $regex: new RegExp(filteredSearchTerm, "i") }
   });
+  // Sort the searchResults by date
+  searchResults.sort((eventA, eventB) => {
+    // Assuming you have a date or startDate property
+    const dateA = eventA.date || eventA.startDate;
+    const dateB = eventB.date || eventB.startDate;
+    // Compare events based on their date
+    return dateA - dateB;
+  });
 
   if (searchResults.length === 0) {
     req.flash("info", "Keine Einträge gefunden");
   };
-  res.render("calendar/search", { searchResults, formatDate, filteredSearchTerm });
+  res.render("calendar/searchCalendarEvent", { searchResults, formatDate, filteredSearchTerm });
 };
 
 

@@ -26,3 +26,8 @@ async function toggleCompleted(projectId, todoId) {
   }
 };
 
+// CLOSE TODO FORM //
+function closeToDoForm() {
+  newItemContainer.style.display = "none";
+};
+

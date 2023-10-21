@@ -35,5 +35,11 @@ if (editProjectBudgetButton) {
     editProjectBudgetContainer.style.display = "block";
     inputNewProjectBudgetElement.focus();
   });
-}
+};
+
+
+// CLOSE EXPENSE FORM //
+function closeExpenseForm() {
+  newExpenseContainer.style.display = "none";
+};
 
