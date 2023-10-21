@@ -76,8 +76,9 @@ svg {
   --error-message: #e76e7a;
   /* Primary */
   --primary-color: #03dac5;
-  --primary-color-hover: rgb(3, 218, 197, 0.6);
-  --primary-color-disabled: rgb(3, 218, 197, 0.3);
+  --primary-color-hover: #048179;
+  --primary-color-active: #096661;
+  --primary-color-disabled: #0d5450;
   /* Complementary */
   --comp-color-one: #F9F871;
   --comp-color-two: #fda76d;
@@ -115,7 +116,11 @@ a {
 
 a:hover,
 a:focus {
-  color: rgb(94, 193, 180, 0.7);
+  color: var(--primary-color-hover);
+}
+
+::placeholder {
+  color: var(--light-color);
 }
 
 li {
@@ -125,10 +130,14 @@ li {
 button,
 input,
 textarea,
+fieldset,
 a {
   outline: none;
 }
 
+fieldset {
+  border: none;
+}
 /*--------*/
 /* LAYOUT */
 /*--------*/
@@ -332,8 +341,12 @@ a {
 .rectangle-btn:hover,
 .rectangle-btn:focus {
   background-color: var(--primary-color-hover);
-  color: var(--medium-dark-color);
-  transform: scale(1.02);
+  color: var(--main-font);
+}
+
+.rectangle-btn:active {
+  background-color: var(--primary-color-active);
+  color: var(--light-background);
 }
 
 .rectangle-secondary-btn {
@@ -353,7 +366,6 @@ a {
 .rectangle-secondary-btn:focus {
   background-color: var(--error-message);
   color: var(--dark-color);
-  transform: scale(1.02);
   border-color: var(--dark-color);
 }
 
@@ -375,7 +387,6 @@ a {
   background-color: var(--error-message);
   color: var(--dark-color);
   font-weight: bold;
-  transform: scale(1.02);
   border-color: var(--dark-color);
 }
 
@@ -613,7 +624,7 @@ a {
 
 .input-container {
   position: relative;
-  margin-top: 2.2em;
+  margin-top: 2em;
 }
 
 .login-form-wrapper {
@@ -624,32 +635,30 @@ a {
 
 .form-label {
   position: absolute;
-  left: 2.5em;
-  top: 0.875em;
-  padding: 0 0.5em;
-  cursor: text;
+  top: -0.7em;
+  left: 3.3em;
+  padding: 0 0.5em 0.5em 0.5em;
+  font-size: 0.8rem;
   background-color: var(--medium-dark-color);
-  color: var(--light-color);
-  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in, 200ms ease-in;
+  border-radius: 5px;
 }
 
 .login-input {
   width: 100%;
   border-radius: 10px;
   font-size: 1rem;
-  font-weight: 400;
-  padding: 0.825em 0.825em 0.825em 2.8em;
+  padding: 1.1em 0.825em 1em 2.8em;
   background: none;
   color: var(--main-text-color);
-  border: 2px solid var(--light-background);
-} 
+  border: 2px solid var(--light-color);
+}
 
-.login-input:focus ~ .form-label,
-.login-input:not(:placeholder-shown).login-input:not(:focus) ~ .form-label {
-  top: -0.7em;
-  left: 3.3em;
-  font-size: 0.8rem;
+.login-input:focus ~ .form-label {
   color: var(--primary-color);
+}
+
+.login-input:focus::placeholder {
+  color: transparent;
 }
 
 .login-input:focus,
@@ -659,40 +668,41 @@ a {
 
 .input-container input[id="username"] {
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="22" height="22" viewBox="0 0 24 24"%3E%3Cpath fill="silver" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78A7.893 7.893 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.928 7.928 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.5-1.64 4.83M12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11Z"%2F%3E%3C%2Fsvg%3E');
-  background-position: 0.75em 0.85em;
+  background-position: 0.75em 1.2em;
   background-repeat: no-repeat;
 }
 
 .input-container input[id="email"] {
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="22" height="22" viewBox="0 0 24 24"%3E%3Cpath fill="silver" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6m-2 0l-8 5l-8-5h16m0 12H4V8l8 5l8-5v10Z"%2F%3E%3C%2Fsvg%3E');
-  background-position: 0.75em 0.85em;
+  background-position: 0.75em 1.2em;
   background-repeat: no-repeat;
 }
 
 .input-container input[id="password"] {
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="22" height="22" viewBox="0 0 24 24"%3E%3Cpath fill="silver" d="M12 17a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2m6 3V10H6v10h12m0-12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10c0-1.11.89-2 2-2h1V6a5 5 0 0 1 5-5a5 5 0 0 1 5 5v2h1m-6-5a3 3 0 0 0-3 3v2h6V6a3 3 0 0 0-3-3Z"%2F%3E%3C%2Fsvg%3E');
-  background-position: 0.75em 0.85em;
+  background-position: 0.75em 1.2em;
   background-repeat: no-repeat;
-}
-
-.input-container input svg {
-  fill: red;
 }
 
 button#toggle-password {
   position: absolute;
-  color: inherit;
   background: none;
   border: none;
   cursor: pointer;
-  bottom: 0.875em;
-  right: 0.875em;
-  color: var(--light-color);
+  top: 1.4em;
+  right: 1em;
+  color: silver;
+  width: 20px;
+  height: 20px;
 }
 
-/* input[type=email]:not(:placeholder-shown):invalid {
-  color: red;
-} */
+button#toggle-password:hover {
+  color: var(--primary-color-hover);
+}
+button#toggle-password:focus,
+button#toggle-password:active {
+  color: var(--primary-color-active);
+}
 
 /*---------*/
 /* PROFILE */
@@ -894,6 +904,7 @@ button#toggle-password {
   background-color: var(--medium-dark-color);
   color: var(--primary-color);
   border: none;
+  cursor: pointer;
 }
 
 .settings-btn:disabled {
@@ -960,11 +971,14 @@ button#toggle-password {
   cursor: pointer;
 }
 
-.daySquare:hover,
-.daySquare:focus {
+.daySquare:hover {
   border: 2px solid var(--primary-color) !important;
-  /* background-color: var(--primary-color) !important; */
-  /* color: var(--dark-color) !important; */
+  border-radius: 5px;
+}
+
+.daySquare:active,
+.daySquare:focus {
+  border: 2px solid var(--primary-color-active) !important;
   border-radius: 5px;
 }
 
@@ -1043,7 +1057,7 @@ button#toggle-password {
 
 .listen-name a:hover,
 .listen-name a:focus {
-  color: var(--primary-color);
+  color: var(--primary-color-hover);
 }
 
 .listen-buttons-wrapper {
