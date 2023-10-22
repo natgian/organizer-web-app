@@ -24,17 +24,17 @@
           </div>
           <% } %>
 
-        <div class="wrapper medium-dark-wrapper">
+        <div class="card-wrapper medium-dark-wrapper">
           <h1 class="subtitle">Budget bearbeiten</h1>
 
           <form action="/budget/<%=foundBudget._id%>?_method=PUT" method="POST">
 
             <label for="name">
-              <input type="text" name="name" id="name" placeholder="Neuer Listenname" class="input" value="<%=foundBudget.name%>" autofocus required>
+              <input type="text" name="name" id="name" placeholder="Neuer Listenname" class="card-input" value="<%=foundBudget.name%>" autofocus required>
             </label>
 
             <label for="budget">
-              <input type="number" name="budget" id="budget" placeholder="Budgetbetrag..." class="input" step="any" value="<%=foundBudget.budget%>" required>
+              <input type="number" name="budget" id="budget" placeholder="Budgetbetrag..." class="card-input" step="any" value="<%=foundBudget.budget%>" required>
             </label>
 
             <fieldset class="color-options-wrapper">
@@ -65,8 +65,8 @@
               </div>
             </fieldset>
 
-            <button class="rectangle-btn mb-1">Speichern</button>
-            <a href="/budget" class="rectangle-secondary-btn width-100">Abbrechen</a>
+            <button class="rectangle-btn-card mb-1">Speichern</button>
+            <a href="/budget" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
           </form>
         </div>
 

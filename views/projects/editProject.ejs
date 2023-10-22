@@ -30,11 +30,11 @@
           <form action="/projekte/<%=foundProject._id%>?_method=PUT" method="POST">
 
             <label for="listname">
-              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="input bold" value="<%=foundProject.name%>" autofocus required>
+              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="card-input bold" value="<%=foundProject.name%>" autofocus required>
             </label>
 
             <label for="projectdescription">
-            <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="input textarea"><%=foundProject.description%></textarea>
+            <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="card-input textarea"><%=foundProject.description%></textarea>
           </label>
 
             <fieldset class="color-options-wrapper">

@@ -24,13 +24,13 @@
           </div>
           <% } %>
 
-        <div class="wrapper medium-dark-wrapper">
+        <div class="card-wrapper medium-dark-wrapper">
           <h1 class="subtitle">Liste bearbeiten</h1>
 
           <form action="/listen/<%=foundList._id%>?_method=PUT" method="POST">
 
             <label for="listname">
-              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="input" value="<%=foundList.name%>" autofocus required>
+              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="card-input" value="<%=foundList.name%>" autofocus required>
             </label>
 
             <fieldset class="color-options-wrapper">
@@ -61,8 +61,8 @@
               </div>
             </fieldset>
 
-            <button class="rectangle-btn mb-1">Speichern</button>
-            <a href="/listen" class="rectangle-secondary-btn width-100">Abbrechen</a>
+            <button class="rectangle-btn-card mb-1">Speichern</button>
+            <a href="/listen" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
           </form>
         </div>
 

@@ -27,14 +27,14 @@
         <div class="wrapper medium-dark-wrapper">
           <h1 class="subtitle">Projekt erstellen</h1>
 
-          <form action="/projekte" method="POST">
+          <form action="/projekte" method="POST" class="mt-2">
 
             <label for="projectname">Projektname</label>
-              <input type="text" name="name" id="projectname" placeholder="Neuer Projektname..." class="input" autofocus required>
+              <input type="text" name="name" id="projectname" placeholder="Neuer Projektname..." class="card-input mb-2" autofocus required>
             
 
-            <label for="projectdescription">Infos/Notizen</label>
-              <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="input textarea"></textarea>
+            <label for="projectdescription">Notizen</label>
+              <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="card-input textarea"></textarea>
             
 
             <fieldset class="color-options-wrapper">
@@ -66,7 +66,7 @@
             </fieldset>
 
             <button class="rectangle-btn mb-1">Speichern</button>
-            <a href="/listen" class="rectangle-secondary-btn width-100">Abbrechen</a>
+            <a href="/projekte" class="rectangle-secondary-btn width-100">Abbrechen</a>
           </form>
         </div>
 

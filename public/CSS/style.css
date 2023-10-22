@@ -144,6 +144,7 @@ a {
 fieldset {
   border: none;
 }
+
 /*--------*/
 /* LAYOUT */
 /*--------*/
@@ -169,9 +170,11 @@ fieldset {
 }
 
 .wrapper,
-.card-wrapper {
+.card-wrapper,
+.timer-container {
   display: flex;
   flex-direction: column;
+  gap: 1em;
   max-width: 500px;
   margin: 1.25em auto;
   border-radius: 15px;
@@ -302,7 +305,7 @@ fieldset {
   background-color: transparent;
   cursor: pointer;
   border: none;
-  padding: 0.875em;   
+  padding: 0.875em;
 }
 
 .round-with-text-btn {
@@ -353,7 +356,9 @@ fieldset {
 }
 
 .rectangle-btn:hover,
-.rectangle-btn:focus {
+.rectangle-btn:focus,
+.rectangle-btn-card:hover,
+.rectangle-btn-card:focus {
   background-color: var(--primary-color-hover);
   color: var(--main-font);
 }
@@ -364,7 +369,7 @@ fieldset {
 }
 
 .rectangle-secondary-btn,
-.rectangle-sencodary-btn-card {
+.rectangle-secondary-btn-card {
   width: 100%;
   background-color: var(--dark-color);
   color: var(--primary-color);
@@ -378,7 +383,9 @@ fieldset {
 }
 
 .rectangle-secondary-btn:hover,
-.rectangle-secondary-btn:focus {
+.rectangle-secondary-btn:focus,
+.rectangle-secondary-btn-card:hover,
+.rectangle-secondary-btn-card:focus {
   background-color: var(--error-message);
   color: var(--dark-color);
   border-color: var(--dark-color);
@@ -419,7 +426,7 @@ fieldset {
 
 .page-navigation-link:hover,
 .page-navigation-link:focus {
-  color: var(--main-text-color);
+  color: var(--primary-color-hover);
 }
 
 .pagination-wrapper {
@@ -439,6 +446,7 @@ fieldset {
   border: solid 1px var(--main-text-color); */
   padding: 0.5em 1em;
 }
+
 .pagination-arrow {
   padding: 0.5em 0;
   color: var(--navigation-color);
@@ -496,7 +504,8 @@ fieldset {
   border: 2px solid var(--primary-color);
 }
 
-.input::placeholder {
+.input::placeholder,
+.card-input::placeholder {
   color: silver;
 }
 
@@ -529,6 +538,7 @@ fieldset {
 .calendar-input-label {
   margin-bottom: 2em;
 }
+
 /*---------*/
 /* UTILITY */
 /*---------*/
@@ -578,23 +588,25 @@ fieldset {
 /*------------*/
 
 .main-header {
-  border-bottom: 1px solid var(--medium-dark-color);
-  box-shadow: 0 1px 30px -5px var(--navigation-color);
+  background-color: #1a1a1a;
+  /* border-bottom: 1px solid var(--medium-dark-color);
+  box-shadow: 0 1px 30px -5px var(--navigation-color); */
   padding: 1em 0;
   margin-bottom: 3.5em;
 }
 
 .main-nav {
+  max-width: 1000px;
   display: flex;
   justify-content: space-between;
-  justify-self: flex-start;
   align-items: center;
   color: var(--navigation-color);
+  margin: 0 auto;
 }
 
 .inline-block-svg {
   display: inline-block;
-  vertical-align:text-top;
+  vertical-align: text-top;
 }
 
 .main-nav-link {
@@ -611,9 +623,10 @@ fieldset {
   padding-bottom: 0.5em;
 }
 
+.main-nav-link:hover,
 .main-nav-link a:hover,
 .main-nav-link a:focus {
-  color: var(--main-text-color);
+  color: var(--primary-color-hover);
 }
 
 /*-----------------*/
@@ -680,7 +693,7 @@ fieldset {
   border: 2px solid var(--light-color);
 }
 
-.login-input:focus ~ .form-label {
+.login-input:focus~.form-label {
   color: var(--primary-color);
 }
 
@@ -726,6 +739,7 @@ button#toggle-password {
 button#toggle-password:hover {
   color: var(--primary-color-hover);
 }
+
 button#toggle-password:focus,
 button#toggle-password:active {
   color: var(--primary-color-active);
@@ -745,7 +759,7 @@ button#toggle-password:active {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
-  
+
 }
 
 /*------*/
@@ -753,11 +767,7 @@ button#toggle-password:active {
 /*------*/
 
 .home-wrapper {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1em;
-  margin: 2em auto; */
-
+  max-width: 1000px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -1008,7 +1018,7 @@ button#toggle-password:active {
   border-radius: 5px;
 }
 
-  .focused-daySquare {
+.focused-daySquare {
   border: 2px solid var(--primary-color) !important;
   border-radius: 5px;
 }
@@ -1150,8 +1160,8 @@ button#toggle-password:active {
 .notes-container {
   display: flex;
   flex-direction: column;
+  gap: 1em;
   justify-content: center;
-  gap: 2em;
 }
 
 .note-wrapper {
@@ -1159,7 +1169,6 @@ button#toggle-password:active {
   border-radius: 15px;
   padding: 2em 1.25em;
   overflow-wrap: break-word;
-
 }
 
 .show-note-wrapper {
@@ -1176,7 +1185,7 @@ button#toggle-password:active {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.75rem;
+  font-size: var(--small-font-size);
 }
 
 th,
@@ -1255,19 +1264,24 @@ th {
   color: var(--subtitle-text-color);
 }
 
+#projectdescription {
+  height: 20em;
+  resize: vertical;
+}
+
 .todo-checkbox {
   position: absolute;
-   width: 1.25rem;
+  width: 1.25rem;
   height: 1.25rem;
   opacity: 0;
 }
 
- .checkbox-label {
+.checkbox-label {
   position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
-} 
+}
 
 .custom-checkbox {
   position: absolute;
@@ -1292,11 +1306,11 @@ th {
   opacity: 0;
 }
 
-.todo-checkbox:checked + .custom-checkbox::after {
+.todo-checkbox:checked+.custom-checkbox::after {
   opacity: 1;
 }
 
-.todo-checkbox:checked + .custom-checkbox {
+.todo-checkbox:checked+.custom-checkbox {
   border: 2px solid var(--light-dark-color);
 }
 
@@ -1305,12 +1319,12 @@ th {
 }
 
 .completed {
-  text-decoration:line-through;
+  text-decoration: line-through;
   color: var(--light-dark-color);
 }
 
 #edit-budget-btn {
-width: 100%;
+  width: 100%;
 }
 
 /*--------*/
@@ -1323,6 +1337,7 @@ width: 100%;
   text-align: center;
   padding: 4em 0 2em 0;
   color: var(--muted-text-color);
+  background-color: #1a1a1a;
 }
 
 /*---------------*/
@@ -1341,12 +1356,15 @@ width: 100%;
     width: 10rem;
     height: 10rem;
   }
+
   .login-form-wrapper {
     padding: 0 0.5em;
   }
+
   .search-input {
     max-width: 500px;
   }
+
   .event-searchresult {
     max-width: 500px;
   }
@@ -1366,14 +1384,22 @@ width: 100%;
     width: 60px;
     height: 60px;
   }
+
+  .main-nav-link {
+    font-size: 0.875rem;
+  }
 }
 
 @media only screen and (min-width:768px) {
   .wrapper {
     max-width: 1000px;
-    margin: 1.25em auto;
+    margin: 2em auto;
     border-radius: 15px;
     padding: 2em 3em;
+  }
+
+  .card-wrapper {
+    margin: 4em auto;
   }
 
   .rectangle-btn,
@@ -1384,15 +1410,21 @@ width: 100%;
     margin-left: 25%;
   }
 
-  #projectdescription {
-    height: 30em;
-    resize: vertical;
-  }
-
   .formatted-textarea {
     max-width: 600px;
   }
 
+  /* PROJEKTE */
+  #projectdescription {
+    height: 30em;
+  }
+
+  /* BUDGET */
+  .expense-date {
+    font-size: 0.75rem;
+  }
+
+  /* NOTIZEN */
   .notes-container {
     flex-direction: row;
     flex-wrap: wrap;
@@ -1400,9 +1432,15 @@ width: 100%;
 
   .note-wrapper {
     width: 300px;
-    height: 300px;
+    height: 250px;
+    flex: 0 0 calc(25% - 1em);
   }
 
+  #body {
+    height: 30em;
+  }
+
+  /* KALENDER */
   .calendar-wrapper {
     max-width: 800px;
   }
@@ -1420,7 +1458,7 @@ width: 100%;
   .event-indicator {
     width: 1rem;
     height: 1rem;
-     margin-top: 1em;
+    margin-top: 1em;
   }
 
   #calendar-header {
@@ -1430,16 +1468,5 @@ width: 100%;
 
   #events-container {
     max-width: 800px;
-  }
-}
-
-@media only screen and (min-width:1280px) {
-  .home-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    max-width: 1000px;
-    height: 500px;
-    gap: 4em;
-
   }
 }
