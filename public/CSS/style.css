@@ -160,7 +160,9 @@ fieldset {
   min-height: 100vh;
   min-height: 100dvh;
   display: grid;
-  align-content: center;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+
 }
 
 .container {
@@ -176,9 +178,9 @@ fieldset {
   flex-direction: column;
   gap: 1em;
   max-width: 500px;
-  margin: 1.25em auto;
+  margin: 1.25em auto 2em auto;
   border-radius: 15px;
-  padding: 2em 1.25em;
+  padding: 2em 1.25em 3.5em 1.25em;
 }
 
 .no-bg-wrapper {
@@ -421,7 +423,6 @@ fieldset {
   color: var(--navigation-color);
   font-size: 1rem;
   padding: 0.5em 1em;
-  margin-top: 0.5em;
 }
 
 .page-navigation-link:hover,
@@ -554,6 +555,9 @@ fieldset {
 .mb-2 {
   margin-bottom: 2em;
 }
+.mb-3 {
+  margin-bottom: 3em;
+}
 
 .mt-05 {
   margin-top: 0.5em;
@@ -581,6 +585,40 @@ fieldset {
 
 .width-100 {
   display: block;
+}
+
+.loader {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(51, 51, 51, 0.6);
+  transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader::after {
+  content: "";
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 10px solid var(--light-background);
+  border-top-color: var(--primary-color-hover);  
+  animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+  from { transform: rotate(0turn) }
+  to { transform: rotate(1turn) }
 }
 
 /*------------*/
@@ -613,25 +651,32 @@ fieldset {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.2em;
   color: var(--navigation-color);
   font-size: 0.625rem;
   margin: 0.5em 0;
 }
 
-.main-nav-link a {
-  color: var(--navigation-color);
-  padding-bottom: 0.5em;
-}
-
 .main-nav-link:hover,
-.main-nav-link a:hover,
-.main-nav-link a:focus {
+.main-nav-link:focus {
   color: var(--primary-color-hover);
 }
 
-/*-----------------*/
-/* LOGIN & SIGN UP */
-/*-----------------*/
+.main-nav-link:focus,
+.main-nav-link:active {
+  color: var(--primary-color-active);
+}
+
+/*----------------------------------*/
+/* LOGIN & SIGN UP & RESET PASSWORD */
+/*----------------------------------*/
+
+.reset-password-wrapper {
+  max-width: 500px;
+  margin: 0 auto 2em auto;
+  border-radius: 15px;
+  padding: 0 1.25em;
+}
 
 #registration-form,
 #login-form {
@@ -649,7 +694,7 @@ fieldset {
   width: 90%;
   max-width: 500px;
   margin: 2em auto 0 auto;
-  padding: 1em;
+  padding: 1em 1em 2em 1em;
   border-radius: 15px;
 }
 
@@ -759,7 +804,6 @@ button#toggle-password:active {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
-
 }
 
 /*------*/
@@ -1335,7 +1379,8 @@ th {
   width: 100%;
   font-size: 0.875rem;
   text-align: center;
-  padding: 4em 0 2em 0;
+  padding: 2em 0;
+  margin-top: 3em;
   color: var(--muted-text-color);
   background-color: #1a1a1a;
 }

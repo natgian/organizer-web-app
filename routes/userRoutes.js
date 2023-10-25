@@ -41,6 +41,15 @@ router.get("/benutzerkonto/:userId/bearbeiten", isLoggedIn, catchAsync(userContr
 // -- EDIT A USER
 router.put("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.editUser));
 
+// -- RENDER FORGOT PASSWORD PAGE
+router.get("/passwort-vergessen", userController.renderForgotPassword);
+
+// -- SEND RESET PASSWORD EMAIL TO USER
+router.post("/passwort-vergessen", catchAsync(userController.sendResetPasswordEmail));
+
+// -- RENDER SENT MAIL PAGE
+router.get("/email-versendet", userController.renderSentMailConfirmation);
+
 
 module.exports = router;
 

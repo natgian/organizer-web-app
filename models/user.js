@@ -11,6 +11,12 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordDate: {
+    type: Date,
+  },
   lists: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "List"

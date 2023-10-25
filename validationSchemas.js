@@ -54,6 +54,13 @@ module.exports.userSchema = Joi.object({
   .escapeHTML()
 });
 
+module.exports.userEmailSchema = Joi.object({
+  email: Joi.string()
+  .email()
+  .required()
+  .escapeHTML()
+});
+
 module.exports.noteSchema = Joi.object({
   title: Joi.string().required().escapeHTML(),
   body: Joi.string().required().escapeHTML()
