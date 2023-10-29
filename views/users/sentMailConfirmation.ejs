@@ -12,14 +12,14 @@
 <body>
 
   <div class="main-layout-center">
-
-    <% if(error && error.length) {%>
-    <div class="alert alert-error" role="alert">
-      <%= error %>
-    </div>
-    <% } %>
-
     <main>
+
+      <% if(error && error.length) {%>
+        <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } %>
+
       <div class="form-container">
 
         <svg class="user-svg" xmlns="http://www.w3.org/2000/svg" width="125" height="125" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
           <p class="mt-1">Der Link wurde an deine E-Mail Adresse gesendet.</p>
           <p class="mt-1 mb-3">Solltest du keine E-Mail in deinem Posteingang vorfinden, überprüfe bitte deinen
             Spam-Ordner.</p>
-          <a href="/login" class="main-nav-link">
+          <a href="/login" class="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
               <path fill="currentColor"
                 d="M19 3H5c-1.11 0-2 .89-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-8.92 12.58L11.5 17l5-5l-5-5l-1.42 1.41L12.67 11H3v2h9.67l-2.59 2.58Z" />

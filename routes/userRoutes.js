@@ -50,6 +50,12 @@ router.post("/passwort-vergessen", catchAsync(userController.sendResetPasswordEm
 // -- RENDER SENT MAIL PAGE
 router.get("/email-versendet", userController.renderSentMailConfirmation);
 
+// -- RENDER RESET PASSWORD PAGE
+router.get("/reset/:token", catchAsync(userController.renderResetPassword));
+
+// -- RESET PASSWORD
+router.post("/reset/:token", catchAsync(userController.resetPassword));
+
 
 module.exports = router;
 

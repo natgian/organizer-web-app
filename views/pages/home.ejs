@@ -17,6 +17,11 @@
 
   <main>
 
+    <% if(error && error.length) {%>
+      <div class="alert alert-error" role="alert">
+        <%= error %>
+      </div>
+      <% } %>
   
     <h1 class="subtitle-specific home-profile-heading"><%=user.username %></h1>
     <div class="container home-wrapper">

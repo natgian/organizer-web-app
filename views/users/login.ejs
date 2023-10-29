@@ -11,15 +11,15 @@
 
 <body>
 
-  <div class="main-layout-center">
+  <div class="main-layout-center">  
+  <main>
 
     <% if(error && error.length) {%>
       <div class="alert alert-error" role="alert">
       <%= error %>
     </div>
-    <% } %>
     
-  <main>
+    <% } %>
     <div class="form-container">
       <svg class="user-svg" xmlns="http://www.w3.org/2000/svg" width="125" height="125" viewBox="0 0 24 24">
         <path fill="currentColor"
@@ -46,12 +46,12 @@
           <label for="password" class="form-label">Passwort</label>
         </fieldset>
 
-        <button class="rectangle-btn mt-2" type="submit">Anmelden</button>
+        <button class="rectangle-btn-card mt-2" type="submit">Anmelden</button>
       </form>
       </div>
 
       <a href="/passwort-vergessen" class="page-navigation-link mt-2">Passwort vergessen</a>
-      <a href="/registration" class="page-navigation-link">Konto erstellen</a></p>
+      <a href="/registration" class="page-navigation-link">Konto erstellen</a>
       
     </div>
   </main>

@@ -145,6 +145,24 @@ fieldset {
   border: none;
 }
 
+/*-------*/
+/* INDEX */
+/*-------*/
+
+.logo {
+  max-width: 500px;
+  padding: 1em 2em;
+}
+
+.index-list {
+  list-style:disc !important;
+}
+
+.index-wrapper {
+  align-items: center;
+}
+
+
 /*--------*/
 /* LAYOUT */
 /*--------*/
@@ -173,7 +191,8 @@ fieldset {
 
 .wrapper,
 .card-wrapper,
-.timer-container {
+.timer-container,
+.index-wrapper {
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -292,6 +311,11 @@ fieldset {
 
 .alert-error {
   background-color: var(--error-message);
+  color: var(--dark-color);
+}
+
+.alert-success {
+  background-color: var(--comp-color-three);
   color: var(--dark-color);
 }
 
@@ -613,6 +637,7 @@ fieldset {
   border-radius: 50%;
   border: 10px solid var(--light-background);
   border-top-color: var(--primary-color-hover);  
+  -webkit-animation: loading 0.75s ease infinite;
   animation: loading 0.75s ease infinite;
 }
 
@@ -620,6 +645,12 @@ fieldset {
   from { transform: rotate(0turn) }
   to { transform: rotate(1turn) }
 }
+
+@-webkit-keyframes loading {
+  from { -webkit-transform: rotate(0turn); }
+  to { -webkit-transform: rotate(1turn); }
+}
+
 
 /*------------*/
 /* NAVIGATION */
@@ -658,14 +689,28 @@ fieldset {
 }
 
 .main-nav-link:hover,
-.main-nav-link:focus {
+.nav-link:hover {
   color: var(--primary-color-hover);
 }
 
 .main-nav-link:focus,
-.main-nav-link:active {
+.main-nav-link:active,
+.nav-link:focus,
+.nav-link:active {
   color: var(--primary-color-active);
 }
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  color: var(--primary-color);
+  font-size: 1rem;
+  margin: 0.5em 0;
+}
+
+
 
 /*----------------------------------*/
 /* LOGIN & SIGN UP & RESET PASSWORD */
@@ -1209,10 +1254,12 @@ button#toggle-password:active {
 }
 
 .note-wrapper {
+  max-height: 250px;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
   padding: 2em 1.25em;
   overflow-wrap: break-word;
+  overflow: hidden;
 }
 
 .show-note-wrapper {
@@ -1389,13 +1436,6 @@ th {
 /* MEDIA QUERIES */
 /*---------------*/
 
-@media only screen and (max-width:374px) {
-  .note-wrapper {
-    max-width: 300px;
-    max-height: 250px;
-  }
-}
-
 @media only screen and (min-width:415px) {
   .home-btn {
     width: 10rem;
@@ -1513,5 +1553,16 @@ th {
 
   #events-container {
     max-width: 800px;
+  }
+}
+
+@media only screen and (min-width:1097px) {
+  .note-wrapper {
+    width: 400px;
+  }
+}
+@media only screen and (min-width:1400px) {
+  .note-wrapper {
+    width: 300px;
   }
 }

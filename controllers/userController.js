@@ -127,11 +127,11 @@ module.exports.sendResetPasswordEmail = async (req, res, next) => {
   });
 
   const mailOptions = {
-    from: "TaskManagerApp",
+    from: "info@natgian.com",
     to: user.email,
     subject: "TaskManagerApp Passwort zurücksetzen",
-    text: `Du erhältst diese Nachricht, weil du (oder eine andere Person) das Zurücksetzen des Passworts für dein Konto beantragt hast.\n\n` +
-    `Bitte klicke auf dien folgenden Link oder füge diesen in deinen Browser ein, um den Vorgang abzuschliessen:\n\n` +
+    text: `Du erhältst diese Nachricht, weil das Zurücksetzen des Passworts für dein Konto beantragt wurde.\n\n` +
+    `Bitte klicke auf den folgenden Link oder füge diesen in deinen Browser ein, um den Vorgang abzuschliessen:\n\n` +
     `http://${req.headers.host}/reset/${resetToken}\n\n` +
     `Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail und dein Passwort bleibt unverändert.\n`
   };
@@ -139,8 +139,70 @@ module.exports.sendResetPasswordEmail = async (req, res, next) => {
   await transporter.sendMail(mailOptions);
 
   res.redirect("/email-versendet");
-  
 };
+
+// -- RENDER RESET PASSWORD PAGE
+module.exports.renderResetPassword = async (req, res, next) => {
+  // check if token is maching the user and is still valid
+  const user = await User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gt: Date.now() },
+  }).exec();
+
+  if (!user) {
+    req.flash("error", "Link ist ungültig oder abgelaufen.");
+    return res.redirect("/passwort-vergessen");
+  }
+
+  res.render("users/resetPassword", { token: req.params.token });
+};
+
+// -- RESET THE PASSWORD
+module.exports.resetPassword = async (req, res, next) => {
+  // check if token is maching the user and is still valid
+  const user = await User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gt: Date.now() },
+  }).exec();
+
+  if (!user) {
+    req.flash("error", "Link ist ungültig oder abgelaufen.");
+    return res.redirect("/passwort-vergessen");
+  };
+
+  // Ensure the new password and the confirmation match
+  if (req.body.password !== req.body.confirm) {
+    req.flash("error", "Passwörter stimmen nicht überein.");
+    return res.redirect(`/reset/${req.params.token}`);
+  };
+  // Use the setPassword method from passport-local-mongoose to hash new password
+  user.setPassword(req.body.password, async (err) => {
+    if (err) {
+      req.flash("error", "Ein Fehler ist unterlaufen. Bitte versuche es erneut.");
+      return res.render("resetPassword", { token: req.params.token });
+    }
+    // Clear the resetPasswordToken and resetPasswordExpires
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    // Save the user
+    await user.save();
+
+    // Log in the user
+    req.logIn(user, (err) => {
+      if (err) {
+        req.flash("error", "Ein Fehler ist unterlaufen. Bitte versuche es erneut.");
+        return res.redirect(`/reset/${req.params.token}`);
+      }
+
+       // Redirect to the user's profile or any desired location
+       req.flash("success", "Dein Passwort wurde erfolgreich geändert.");
+       return res.redirect("/home");
+    });
+  });
+};
+
+
 
 
 
