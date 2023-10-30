@@ -297,6 +297,41 @@ fieldset {
   font-weight: bold;
 }
 
+/*-------------*/
+/* DATENSCHUTZ */
+/*-------------*/
+
+.datenschutz-link {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  color: var(--navigation-color);
+  font-size: 0.8rem;
+  padding: 0.5em 1em;
+}
+
+.datenschutz-h1 {
+  font-size: var(--title-fs);
+  font-weight: bold;
+  color: var(--title-text-color);
+}
+
+.datenschutz-h2 {
+  font-size: var(--subtitle-fs);
+  font-weight: bold;
+  color: var(--subtitle-text-color);
+}
+
+.datenschutz-h3 {
+  font-size: var(--main-font-size);
+  font-weight: bold;
+  color: var(--subtitle-text-color);
+}
+.datenschutz-h4 {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--subtitle-text-color);
+}
+
 /*--------*/
 /* ALERTS */
 /*--------*/

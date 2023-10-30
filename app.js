@@ -107,6 +107,10 @@ app.get("/404", (req, res) => {
   res.status(404).render("pages/404");
 });
 
+app.get("/datenschutz", (req, res) => {
+  res.render("pages/datenschutz");
+});
+
 // ERROR HANDLING
 // Error Handler for other errors
 app.use((err, req, res, next) => {
