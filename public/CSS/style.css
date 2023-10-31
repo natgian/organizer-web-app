@@ -306,7 +306,12 @@ fieldset {
   text-underline-offset: 0.2em;
   color: var(--navigation-color);
   font-size: 0.8rem;
-  padding: 0.5em 1em;
+}
+
+.datenschutz-link-normalsize {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  color: var(--navigation-color);
 }
 
 .datenschutz-h1 {
@@ -331,6 +336,41 @@ fieldset {
   font-weight: 400;
   color: var(--subtitle-text-color);
 }
+
+.agree-btn {
+  border: 1px solid var(--light-dark-color);
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.625em;
+  margin: 0 1em;
+  border-radius: 10px;
+}
+
+.cookies {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  margin: 1.25em auto 0 auto;
+}
+
+#cookies {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: none;
+}
+
+/* display: flex;
+flex-direction: column;
+gap: 1em;
+max-width: 500px;
+margin: 1.25em auto 2em auto;
+border-radius: 15px;
+padding: 2em 1.25em 3.5em 1.25em; */
 
 /*--------*/
 /* ALERTS */
