@@ -16,11 +16,16 @@
     <main>
       <div class="container">
 
+        <!-- flash message -->
         <% if(error && error.length) {%>
-        <div class="alert alert-error" role="alert">
+          <div class="alert alert-error" role="alert">
           <%= error %>
         </div>
-        <% } %>
+        <% } else if(success){ %>
+          <div class="" role="alert">
+            <%= success %>
+          </div>
+          <% } %>
 
         <h1 class="title">Suchresultate</h1>
 

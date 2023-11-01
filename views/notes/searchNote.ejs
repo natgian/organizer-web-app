@@ -18,45 +18,50 @@
     <main>
       <div class="container">
 
-       
-          <% if(error && error.length) {%>
-            <div class="alert alert-error" role="alert">
-            <%= error %>
-          </div>
-          <% } %>
+        <!-- flash message -->
+        <% if(error && error.length) {%>
+        <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } else if(success && success.length){ %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
+        </div>
+        <% } %>
 
         <h1 class="subtitle">Suchergebnisse</h1>
 
         <!-- Searchbar -->
         <form action="/notizen/suchen" role="search" method="POST">
           <label for="searchbar">
-          <input type="search" name="searchTerm" id="searchbar" placeholder="Suchen..." autofocus class="search-input container" aria-label="Search">
-        </label>
+            <input type="search" name="searchTerm" id="searchbar" placeholder="Suchen..." autofocus
+              class="search-input container" aria-label="Search">
+          </label>
         </form>
 
         <div class="notes-container mt-2">
           <% if(searchResults.length > 0) { %>
-            <% searchResults.forEach(result => { %>
-              <a href="/notizen/<%=result._id %>" class="note-link">
-                <div class="note-wrapper">
-                  <h2 class="subtitle-specific-notcentered"><%= result.title %></h2>
-                  <p><%= result.body %></p>
-                </div>
-              </a> 
-              <% }) %>
-            <% } else { %>
-              <p>Keine Resultate für diesen Suchbegriff gefunden.</p>
-               <% } %>                       
+          <% searchResults.forEach(result => { %>
+          <a href="/notizen/<%=result._id %>" class="note-link">
+            <div class="note-wrapper">
+              <h2 class="subtitle-specific-notcentered"><%= result.title %></h2>
+              <p><%= result.body %></p>
+            </div>
+          </a>
+          <% }) %>
+          <% } else { %>
+          <p>Keine Resultate für diesen Suchbegriff gefunden.</p>
+          <% } %>
         </div>
 
         <div class="text-center mt-1">
           <a href="/notizen" class="page-navigation-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 512 512" class="inline-block-svg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"
+              class="inline-block-svg">
               <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
                 d="M328 112L184 256l144 144" />
             </svg>Alle Notizen</a>
-          </div>
+        </div>
       </div>
     </main>
 
@@ -66,5 +71,3 @@
 </body>
 
 </html>
-
-

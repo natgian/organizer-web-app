@@ -18,10 +18,14 @@
     <main>
       <div class="container">
 
-
-          <% if(error && error.length) {%>
-            <div class="alert alert-error" role="alert">
-            <%= error %>
+        <!-- flash message -->
+        <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } else if(success){ %>
+          <div class="" role="alert">
+            <%= success %>
           </div>
           <% } %>
 

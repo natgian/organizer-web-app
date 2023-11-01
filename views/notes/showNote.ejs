@@ -17,9 +17,15 @@
 
     <main>
       <div class="container">
+
+        <!-- flash message -->
         <% if(error && error.length) {%>
         <div class="alert alert-error" role="alert">
           <%= error %>
+        </div>
+        <% } else if(success){ %>
+        <div class="" role="alert">
+          <%= success %>
         </div>
         <% } %>
 
@@ -29,31 +35,31 @@
           <form action="/notizen/<%=foundNote._id%>?_method=PUT" method="POST">
 
             <label for="title">
-            <input type="title" id="title" name="title" placeholder="Titel" class="card-input subtitle-specific-notcentered"
-              value="<%=foundNote.title%>" required>
+              <input type="title" id="title" name="title" placeholder="Titel"
+                class="card-input subtitle-specific-notcentered" value="<%=foundNote.title%>" required>
             </label>
 
             <label for="body">
-            <textarea name="body" id="body" cols="50" rows="10" placeholder="Text hier eingeben..."
-              class="card-input textarea" required><%=foundNote.body %></textarea>
+              <textarea name="body" id="body" cols="50" rows="10" placeholder="Text hier eingeben..."
+                class="card-input textarea" required><%=foundNote.body %></textarea>
             </label>
 
             <button class="rectangle-btn">Speichern</button>
           </form>
 
-          <form action="/notizen/<%= foundNote._id%>?_method=DELETE" method="POST" >
+          <form action="/notizen/<%= foundNote._id%>?_method=DELETE" method="POST">
             <button class="remove-all-btn">Notiz löschen</button>
           </form>
 
 
         </div>
         <div class="text-center">
-        <a href="/notizen" class="page-navigation-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-            viewBox="0 0 512 512" class="inline-block-svg">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
-              d="M328 112L184 256l144 144" />
-          </svg>Alle Notizen</a>
+          <a href="/notizen" class="page-navigation-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"
+              class="inline-block-svg">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+                d="M328 112L184 256l144 144" />
+            </svg>Alle Notizen</a>
         </div>
       </div>
     </main>

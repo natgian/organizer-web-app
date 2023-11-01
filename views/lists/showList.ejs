@@ -17,9 +17,15 @@
 
     <main>
       <div class="container">
+
+        <!-- flash message -->
         <% if(error && error.length) {%>
-          <div class="alert alert-error" role="alert">
+        <div class="alert alert-error" role="alert">
           <%= error %>
+        </div>
+        <% } else if(success && success.length){ %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
         </div>
         <% } %>
 
@@ -75,19 +81,23 @@
               </form>
             </div>
             <% }); %>
-          </ul>   
-          
-          </div>
+          </ul>
+
+        </div>
 
         <div class="text-center">
-        <a href="/listen" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" class="inline-block-svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/></svg>Listenübersicht</a>
-      </div>
-  
+          <a href="/listen" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 512 512" class="inline-block-svg">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
+                d="M328 112L184 256l144 144" />
+            </svg>Listenübersicht</a>
+        </div>
+
     </main>
 
 
-  
-  
+
+
     <%- include("../partials/footer") %>
   </div>
 

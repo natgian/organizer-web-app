@@ -16,9 +16,14 @@
     <main>
       <div class="container">
 
+        <!-- flash message -->
         <% if(error && error.length) {%>
           <div class="alert alert-error" role="alert">
-            <%= error %>
+          <%= error %>
+        </div>
+        <% } else if(success){ %>
+          <div class="" role="alert">
+            <%= success %>
           </div>
           <% } %>
 

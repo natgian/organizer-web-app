@@ -70,10 +70,10 @@ module.exports.renderUserAccount = async (req, res, next) => {
 module.exports.renderEditUser = async (req, res, next) => {
   const { userId } = req.params;
   const foundUser = await User.findById(userId);
-  res.render("users/edit", { foundUser });
+  res.render("users/editUsername", { foundUser });
 };
 
-// EDIT USER PROFILE
+// -- EDIT USER PROFILE
 module.exports.editUser = async (req, res, next) => {
   const { userId } = req.params;
   const loggedInUser = req.user._id;
@@ -85,6 +85,36 @@ module.exports.editUser = async (req, res, next) => {
 
   const foundUser = await User.findByIdAndUpdate(userId, req.body, { runValidators: true });
   res.redirect(`/benutzerkonto/${foundUser._id}`);
+};
+
+// -- RENDER EDIT PASSWWORD PAGE
+module.exports.renderChangePassword = async (req, res, next) => {
+  const { userId } = req.params;
+  const foundUser = await User.findById(userId);
+  res.render("users/changePassword", { foundUser});
+};
+
+// -- EDIT PASSWORD
+module.exports.changePassword = async (req, res, next) => {
+  const foundUser = await User.findById(req.params.userId);
+
+  if (!foundUser) {
+    req.flash("error", "Benutzer nicht gefunden");
+    return res.redirect("/home");
+  };
+
+  foundUser.authenticate(req.body.oldPassword, async (err, valid) => {
+    if (err || !valid) {
+      req.flash("error", "Das alte Passwort ist nicht korrekt.");
+      return res.redirect(`/benutzerkonto/${foundUser._id}/passwort`);
+    };
+
+    foundUser.setPassword(req.body.newPassword, async () => {
+      await foundUser.save();
+      req.flash("success", "Passwort wurde erfolgreich geändert.");
+      res.redirect(`/benutzerkonto/${foundUser._id}`);
+    });  
+  });
 };
 
 // -- RENDER FORGOT PASSWORD PAGE
@@ -117,17 +147,30 @@ module.exports.sendResetPasswordEmail = async (req, res, next) => {
   user.resetPasswordExpires = Date.now() + 3600000; // Set the expiration date in the user's document
   await user.save();
 
+  // const transporter = nodemailer.createTransport({
+  //   host: "sandbox.smtp.mailtrap.io",
+  //   port: 2525,
+  //   auth: {
+  //     user: "441ffc0c9ef5d4",
+  //     pass: "c84d9289446308"
+  //   }
+  // });
+
   const transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
+    host: "smtp-mail.outlook.com",
+    secureConnection: false,
+    port: 587,
+    tls: {
+      ciphers:'SSLv3'
+    },
     auth: {
-      user: "441ffc0c9ef5d4",
-      pass: "c84d9289446308"
+      user: "n.giancaspro@outlook.com",
+      pass: "Resident_195615"
     }
   });
 
   const mailOptions = {
-    from: "info@natgian.com",
+    from: "n.giancaspro@outlook.com",
     to: user.email,
     subject: "TaskManagerApp Passwort zurücksetzen",
     text: `Du erhältst diese Nachricht, weil das Zurücksetzen des Passworts für dein Konto beantragt wurde.\n\n` +

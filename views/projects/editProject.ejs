@@ -17,12 +17,17 @@
 
     <main>
       <div class="container">
- 
-          <% if(error && error.length) {%>
-            <div class="alert alert-error" role="alert">
-            <%= error %>
-          </div>
-          <% } %>
+
+        <!-- flash message -->
+        <% if(error && error.length) {%>
+        <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } else if(success){ %>
+        <div class="" role="alert">
+          <%= success %>
+        </div>
+        <% } %>
 
         <div class="wrapper medium-dark-wrapper">
           <h1 class="subtitle">Projekt bearbeiten</h1>
@@ -30,22 +35,25 @@
           <form action="/projekte/<%=foundProject._id%>?_method=PUT" method="POST">
 
             <label for="listname">
-              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="card-input bold" value="<%=foundProject.name%>" autofocus required>
+              <input type="text" name="name" id="listname" placeholder="Neuer Listenname" class="card-input bold"
+                value="<%=foundProject.name%>" autofocus required>
             </label>
 
             <label for="projectdescription">
-            <textarea name="description" id="projectdescription" cols="50" rows="5" placeholder="Text hier eingeben..." class="card-input textarea"><%=foundProject.description%></textarea>
-          </label>
+              <textarea name="description" id="projectdescription" cols="50" rows="5"
+                placeholder="Text hier eingeben..." class="card-input textarea"><%=foundProject.description%></textarea>
+            </label>
 
             <fieldset class="color-options-wrapper">
               <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
-              class="inline-block-svg list-icon" id="list-icon">
-              <path fill="<%=foundProject.color%>" d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
-            </svg>
-              
+                class="inline-block-svg list-icon" id="list-icon">
+                <path fill="<%=foundProject.color%>"
+                  d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
+              </svg>
+
               <div class="color-options-color-wrapper">
-                <label class="color-option" >
+                <label class="color-option">
                   <input type="radio" name="color" value="#F9F871" hidden>
                   <div class="color-option comp-color-one"></div>
                 </label>
@@ -69,7 +77,7 @@
           </form>
         </div>
 
-    
+
     </main>
 
     <%- include("../partials/footer") %>

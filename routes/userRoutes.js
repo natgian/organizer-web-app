@@ -41,6 +41,12 @@ router.get("/benutzerkonto/:userId/bearbeiten", isLoggedIn, catchAsync(userContr
 // -- EDIT A USER
 router.put("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.editUser));
 
+// -- RENDER PASSWORD EDIT PAGE
+router.get("/benutzerkonto/:userId/passwort", isLoggedIn, catchAsync(userController.renderChangePassword));
+
+// -- EDIT PASSWORD
+router.post("/benutzerkonto/:userId/passwort", isLoggedIn, catchAsync(userController.changePassword));
+
 // -- RENDER FORGOT PASSWORD PAGE
 router.get("/passwort-vergessen", userController.renderForgotPassword);
 

@@ -17,23 +17,29 @@
 
     <main>
       <div class="container">
- 
-          <% if(error && error.length) {%>
-            <div class="alert alert-error" role="alert">
-            <%= error %>
-          </div>
-          <% } %>
+
+        <!-- flash message -->
+        <% if(error && error.length) {%>
+        <div class="alert alert-error" role="alert">
+          <%= error %>
+        </div>
+        <% } else if(success){ %>
+        <div class="" role="alert">
+          <%= success %>
+        </div>
+        <% } %>
 
         <div class="card-wrapper medium-dark-wrapper">
           <h1 class="subtitle">Daten bearbeiten</h1>
 
           <form action="/benutzerkonto/<%=foundUser._id%>?_method=PUT" method="POST">
 
-              <div class="input-container mb-2">
-                <label for="username" class="form-label">Benutzername</label>
-                <input type="username" id="username" name="username" autofocus required class="login-input" value="<%=foundUser.username%>">
-              </div>
-                    
+            <div class="input-container mb-2">
+              <label for="username" class="form-label">Benutzername</label>
+              <input type="username" id="username" name="username" autofocus required class="login-input"
+                value="<%=foundUser.username%>">
+            </div>
+
             <button class="rectangle-btn-card mb-1">Speichern</button>
             <a href="/benutzerkonto/<%=foundUser._id%>" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
           </form>
@@ -43,7 +49,7 @@
 
     <%- include("../partials/footer") %>
   </div>
-  
+
 </body>
 
 </html>

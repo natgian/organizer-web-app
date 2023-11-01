@@ -18,11 +18,17 @@
  
     <main>
       <div class="container">
-        <% if(error && error.length) {%>
-          <div class="alert alert-error" role="alert">
-          <%= error %>
-        </div>
-        <% } %>
+
+        <!-- flash message -->
+          <% if(error && error.length) {%>
+            <div class="alert alert-error" role="alert">
+            <%= error %>
+          </div>
+          <% } else if(success){ %>
+            <div class="" role="alert">
+              <%= success %>
+            </div>
+            <% } %>
 
         <div class="card-wrapper medium-dark-wrapper">
           <h1 class="subtitle">Liste erstellen</h1>

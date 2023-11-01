@@ -17,9 +17,15 @@
 
     <main>
       <div class="container">
+
+        <!-- flash message -->
         <% if(error && error.length) {%>
         <div class="alert alert-error" role="alert">
           <%= error %>
+        </div>
+        <% } else if(success){ %>
+        <div class="" role="alert">
+          <%= success %>
         </div>
         <% } %>
 
@@ -65,15 +71,15 @@
               </svg></button>
 
             <!-- Add Todo form -->
-               <div class="new-item-container">
-                <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
+            <div class="new-item-container">
+              <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
                 <input type="text" name="text" id="todo-input" placeholder="Aufgabe hier eingeben..." class="input"
                   required>
                 <button class="rectangle-btn">Hinzufügen</button>
               </form>
-                <button class="rectangle-secondary-btn mt-1" onclick="closeToDoForm()">Abbrechen</button>
-              </div>
-            
+              <button class="rectangle-secondary-btn mt-1" onclick="closeToDoForm()">Abbrechen</button>
+            </div>
+
           </div>
 
           <ul class="items-ul">
@@ -199,7 +205,7 @@
 
             <!-- Add Expense Form -->
             <div class="new-item-container" id="new-expense-container">
-            <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
+              <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
                 <label for="projectExpenseDate">
                   <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input" required>
                 </label>
@@ -214,8 +220,8 @@
                 <button class="rectangle-btn">Hinzufügen</button>
               </form>
               <button class="rectangle-secondary-btn mt-1" onclick="closeExpenseForm()">Abbrechen</button>
-              </div>
-            
+            </div>
+
 
             <!-- Delete Budget Button -->
             <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
