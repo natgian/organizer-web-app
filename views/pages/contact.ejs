@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Kontaktformular</title>
+</head>
+
+<body>
+
+  <div class="main-layout">
+
+    <%- include("../partials/header") %>
+
+    <main>
+
+       <!-- flash message -->
+       <% if(error && error.length) {%>
+        <div class="alert alert-error" role="alert">
+        <%= error %>
+      </div>
+      <% } else if(success && success.length){ %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
+        </div>
+        <% } %>
+
+      <div class="form-container">
+        <h1 class="title">Kontakt</h1>
+
+        <div class="login-form-wrapper">
+
+          <form action="">
+           
+            <fieldset class="contact-container mt-3">                
+                <label for="name" class="bold">Name:</label>
+                <input type="text" id="name" name="name" autocomplete="name" required class="card-input mb-2">
+            </fieldset>
+
+              <fieldset class="contact-container">
+                <label for="email" class="bold">E-Mail:</label>
+                <input type="email" id="email" name="email" autocomplete="email" required class="card-input mb-2">
+            </fieldset>
+
+              <fieldset class="contact-container">
+                <label for="message" class="bold">Nachricht:</label>
+                <textarea name="message" id="message" cols="50" rows="10" placeholder="Hier Nachricht eingeben..." class="card-input textarea"></textarea>
+            </fieldset>
+
+            <button type="submit" class="rectangle-btn-card">Nachricht senden</button>
+          </form>
+        </div>
+
+      </div>
+
+    </main>
+
+    <%- include("../partials/footer") %>
+
+  </div>
+
+</body>
+
+</html>

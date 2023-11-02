@@ -1,6 +1,6 @@
-// if(process.env.NODE_ENV !== "production") {
-//   require("dotenv").config();
-// };
+if(process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+};
 
 const express = require("express");
 const app = express();
@@ -109,6 +109,10 @@ app.get("/404", (req, res) => {
 
 app.get("/datenschutz", (req, res) => {
   res.render("pages/datenschutz");
+});
+
+app.get("/kontakt", (req, res) => {
+  res.render("pages/contact");
 });
 
 // ERROR HANDLING

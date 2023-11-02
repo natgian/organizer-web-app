@@ -147,32 +147,20 @@ module.exports.sendResetPasswordEmail = async (req, res, next) => {
   user.resetPasswordExpires = Date.now() + 3600000; // Set the expiration date in the user's document
   await user.save();
 
-  // const transporter = nodemailer.createTransport({
-  //   host: "sandbox.smtp.mailtrap.io",
-  //   port: 2525,
-  //   auth: {
-  //     user: "441ffc0c9ef5d4",
-  //     pass: "c84d9289446308"
-  //   }
-  // });
-
   const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
-    secureConnection: false,
-    port: 587,
-    tls: {
-      ciphers:'SSLv3'
-    },
+    host: "mail.infomaniak.com",
+    port: 465,
+    secure: true,
     auth: {
-      user: "n.giancaspro@outlook.com",
-      pass: "Resident_195615"
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PW
     }
   });
 
   const mailOptions = {
-    from: "n.giancaspro@outlook.com",
+    from: "info@natgian.com",
     to: user.email,
-    subject: "TaskManagerApp Passwort zurücksetzen",
+    subject: "MyOrganizer - Passwort zurücksetzen",
     text: `Du erhältst diese Nachricht, weil das Zurücksetzen des Passworts für dein Konto beantragt wurde.\n\n` +
     `Bitte klicke auf den folgenden Link oder füge diesen in deinen Browser ein, um den Vorgang abzuschliessen:\n\n` +
     `http://${req.headers.host}/reset/${resetToken}\n\n` +

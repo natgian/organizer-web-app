@@ -141,6 +141,10 @@ a {
   outline: none;
 }
 
+textarea {
+  resize: vertical;
+}
+
 fieldset {
   border: none;
 }
@@ -901,6 +905,15 @@ button#toggle-password:focus,
 button#toggle-password:active {
   color: var(--primary-color-active);
 }
+
+/*---------*/
+/* CONTACT */
+/*---------*/
+
+.contact-container {
+  text-align: start;
+}
+
 
 /*---------*/
 /* PROFILE */
