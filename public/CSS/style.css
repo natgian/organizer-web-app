@@ -482,8 +482,7 @@ fieldset {
 }
 
 .remove-all-btn {
-  width: 50%;
-  margin-left: 25%;
+  width: 100%;
   background-color: var(--dark-color);
   color: var(--primary-color);
   font-size: 0.75rem;
@@ -1583,6 +1582,11 @@ th {
 }
 
 @media only screen and (min-width:640px) {
+  .remove-all-btn {
+    width: 50%;
+    margin-left: 25%;
+  }
+  
   .home-btn {
     width: 16rem;
     height: 16rem;
