@@ -1392,13 +1392,13 @@ table {
   font-size: var(--small-font-size);
 }
 
-th,
-td {
+th {
   padding: 0.5em;
+  margin-bottom: 1em;
 }
 
-th {
-  margin-bottom: 1em;
+td {
+ padding: 1em 0.5em 0.5em 0.5em; 
 }
 
 .expense-delete-form {
@@ -1586,7 +1586,7 @@ th {
     width: 50%;
     margin-left: 25%;
   }
-  
+
   .home-btn {
     width: 16rem;
     height: 16rem;
