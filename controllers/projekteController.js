@@ -74,9 +74,9 @@ module.exports.addNewProjectTodo = async (req, res, next) => {
 
 // HANDLE TODOS COMPLETION STATE
 module.exports.toggleTodoCompletion = async (req, res, next) => {
-  const { projectId, todoId } = req.params;
+  const { todoId } = req.params;
 
-  const foundProject = await Project.findById(projectId);
+  // const foundProject = await Project.findById(projectId);
   const foundTodo = await Todo.findById(todoId);
 
   if (!foundTodo) {
