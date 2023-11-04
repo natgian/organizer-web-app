@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <title>Passwort vergessen - E-Mail versendet</title>
+</head>
+
+<body>
+
+  <div class="main-layout-center">
+    <main>
+
+      <!-- flash message -->
+      <% if(error && error.length) {%>
+      <div class="alert alert-error" role="alert">
+        <%= error %>
+      </div>
+      <% } else if(success && success.length){ %>
+      <div class="alert alert-success" role="alert">
+        <%= success %>
+      </div>
+      <% } %>
+
+      <div class="form-container">
+
+        <svg class="user-svg" xmlns="http://www.w3.org/2000/svg" width="125" height="125" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M21 7L9 19l-5.5-5.5l1.41-1.41L9 16.17L19.59 5.59L21 7Z" />
+        </svg>
+
+        <div class="reset-password-wrapper">
+          <h1 class="subtitle">Nachricht versendet</h1>
+          <p class="mt-1 mb-3 text-center">Vielen Dank für deine Nachricht.
+            <br>
+            Ich werde mich so schnell wie möglich bei dir melden.</p>
+          <a href="/home" class="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M19 3H5c-1.11 0-2 .89-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-8.92 12.58L11.5 17l5-5l-5-5l-1.42 1.41L12.67 11H3v2h9.67l-2.59 2.58Z" />
+            </svg>Home
+          </a>
+        </div>
+
+    </main>
+    <%- include("../partials/footer") %>
+  </div>
+
+
+</body>
+
+</html>

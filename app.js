@@ -8,12 +8,15 @@ const PORT = 3000 || process.env.PORT;
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
-const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
+const nodemailer = require("nodemailer");
+const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
+const session = require("express-session");
+const MongoDBStore = require("connect-mongo");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
@@ -27,7 +30,7 @@ const userRoutes = require("./routes/userRoutes");
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/taskmanagerApp");
+  await mongoose.connect(dbURL);
   console.log("Connected to MongoDB database");
 };
 
@@ -46,9 +49,24 @@ app.use(methodOverride("_method"));
 app.use(mongoSanitize());
 
 // Sessions
+const secret = process.env.SECRET || "thisismysecret";
+
+const store = MongoDBStore.create({
+  mongoUrl: dbURL,
+  touchAfter: 24 * 60 * 60, // time period in seconds, saying to be updated only one time in a period of 24 hours
+  crypto: {
+    secret: secret
+  }
+});
+
+store.on("error", function(err) {
+  console.log("SESSION STORE ERROR", err);
+});
+
 const sessionConfig = {
+  store: store,
   name: "session",
-  secret: "thisismysecret",
+  secret: secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -58,8 +76,8 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 };
-app.use(session(sessionConfig));
 
+app.use(session(sessionConfig));
 
 // Passport
 app.use(passport.initialize());
@@ -113,6 +131,35 @@ app.get("/datenschutz", (req, res) => {
 
 app.get("/kontakt", (req, res) => {
   res.render("pages/contact");
+});
+
+app.get("/nachricht-versendet", (req, res) => {
+  res.render("pages/contactSentConfirmation");
+});
+
+app.post("/kontakt", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  const transporter = nodemailer.createTransport({
+    host: "mail.infomaniak.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PW
+    }
+  });
+
+  const mailOptions = {
+    from: "info@natgian.com",
+    to: "info@natgian.com",
+    subject: `MyOrganizer - Nachricht von ${name}`,
+    text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`
+  };
+
+  await transporter.sendMail(mailOptions);
+
+  res.redirect("/nachricht-versendet");
 });
 
 // ERROR HANDLING

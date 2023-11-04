@@ -15,7 +15,7 @@
   <div id="cookies">
       <div class="medium-dark-wrapper">
         <div class="cookies">
-          <p>Diese Website verwendet Cookies, um das bestmögliche Nutzererlebnis zu bieten. Beim Weitersurfen auf dieser Website erklärst du dich mit den Datenschutzbestimmungen einverstanden. <a href="/datenschutz" class="datenschutz-link-normalsize">Datenschutzerklärung</a></p>
+          <p>Diese Website verwendet Cookies, um das bestmögliche Nutzererlebnis zu bieten. Beim Weitersurfen auf dieser Website erklärst du dich mit den Datenschutzbestimmungen einverstanden. <a href="/datenschutz" class="datenschutz-link">Datenschutzerklärung</a></p>
           <button class="agree-btn">OK</button>
         </div>
       </div>
@@ -45,8 +45,11 @@
     </div>
 
     <footer class="footer-container">
-      <a href="/datenschutz" class="datenschutz-link">Datenschutzerklärung</a> 
-      <p class="mt-1">Copyright © 2023 - <a href="https://www.natgian.com/" target="_blank">natgian.com</a></p>
+      <div class="footer-links-container">
+      <a href="/kontakt" class="footer-link">Kontakt</a> 
+      <a href="/datenschutz" class="footer-link">Datenschutzerklärung</a> 
+    </div>
+        <p class="mt-1">Copyright © <%= new Date().getFullYear(); %> - <a href="https://www.natgian.com/" target="_blank">natgian.com</a></p>
     </footer>
   </div>
 

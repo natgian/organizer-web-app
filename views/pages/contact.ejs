@@ -11,43 +11,51 @@
 
 <body>
 
+  <div class="loader loader-hidden"></div>
+
   <div class="main-layout">
 
     <%- include("../partials/header") %>
 
     <main>
 
-       <!-- flash message -->
-       <% if(error && error.length) {%>
-        <div class="alert alert-error" role="alert">
+      <!-- flash message -->
+      <% if(error && error.length) {%>
+      <div class="alert alert-error" role="alert">
         <%= error %>
       </div>
       <% } else if(success && success.length){ %>
-        <div class="alert alert-success" role="alert">
-          <%= success %>
-        </div>
-        <% } %>
+      <div class="alert alert-success" role="alert">
+        <%= success %>
+      </div>
+      <% } %>
 
       <div class="form-container">
         <h1 class="title">Kontakt</h1>
 
-        <div class="login-form-wrapper">
 
-          <form action="">
-           
-            <fieldset class="contact-container mt-3">                
-                <label for="name" class="bold">Name:</label>
-                <input type="text" id="name" name="name" autocomplete="name" required class="card-input mb-2">
+        <div class="login-form-wrapper mt-1">
+
+          <p>Hast du Fragen oder ein sonstiges Anliegen?
+            <br>
+            Schreib mir eine Nachricht:
+          </p>
+          <form action="/kontakt" method="POST">
+
+            <fieldset class="input-container">
+              <input type="text" id="contact-name" name="name" autocomplete="name" required class="contact-input">
+              <label for="name" class="contact-label">Name</label>
             </fieldset>
 
-              <fieldset class="contact-container">
-                <label for="email" class="bold">E-Mail:</label>
-                <input type="email" id="email" name="email" autocomplete="email" required class="card-input mb-2">
+            <fieldset class="input-container">
+              <input type="email" id="contact-email" name="email" autocomplete="email" required class="contact-input">
+              <label for="email" class="contact-label">E-Mail</label>
             </fieldset>
 
-              <fieldset class="contact-container">
-                <label for="message" class="bold">Nachricht:</label>
-                <textarea name="message" id="message" cols="50" rows="10" placeholder="Hier Nachricht eingeben..." class="card-input textarea"></textarea>
+            <fieldset class="input-container">
+              <textarea name="message" id="message" cols="50" rows="10" required placeholder="Hier Nachricht eingeben..."
+                class="contact-input textarea"></textarea>
+              <label for="message" class="contact-label">Nachricht</label>
             </fieldset>
 
             <button type="submit" class="rectangle-btn-card">Nachricht senden</button>
@@ -62,6 +70,12 @@
 
   </div>
 
+  <script>
+    function displayLoader() {
+      const loader = document.querySelector(".loader");
+      loader.classList.remove("loader-hidden");
+    }
+  </script>
 </body>
 
 </html>
