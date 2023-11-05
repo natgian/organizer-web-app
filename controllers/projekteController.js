@@ -118,7 +118,6 @@ module.exports.addProjectBudgetExpense = async (req, res, next) => {
   const { projectExpenseDate, projectExpenseDescription, projectExpenseAmount } = req.body;
   const newExpense = { projectExpenseDate, projectExpenseDescription, projectExpenseAmount };
 
-
   projectBudget.projectExpenses.push(newExpense);
   projectBudget.remainingProjectBudget -= projectExpenseAmount;
   await projectBudget.save();

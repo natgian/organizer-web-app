@@ -30,7 +30,7 @@ module.exports.listSchema = Joi.object({
 
 module.exports.projectSchema = Joi.object({
   name: Joi.string().required().escapeHTML(),
-  description: Joi.string().escapeHTML(),
+  description: Joi.string().escapeHTML().allow(""),
   color: Joi.string().required()
 });
 

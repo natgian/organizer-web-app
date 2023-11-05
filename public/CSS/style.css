@@ -183,7 +183,6 @@ fieldset {
   justify-content: center;
 }
 
-
 /*--------*/
 /* LAYOUT */
 /*--------*/
@@ -261,6 +260,7 @@ fieldset {
 
 .formatted-textarea {
   white-space: pre-line;
+  padding-bottom: 0.5em;
 }
 
 .align-text-svg {
@@ -1347,11 +1347,14 @@ button#toggle-password:active {
 .listen-item {
   display: flex;
   flex-direction: row;
-  gap: 0.5em;
   justify-content: space-between;
   list-style: none;
   padding: 1.25em 0;
   border-bottom: 1px solid var(--light-color);
+}
+
+.listen-item > form {
+  flex-shrink: 0;
 }
 
 .color-options-wrapper {
@@ -1385,7 +1388,7 @@ button#toggle-password:active {
   max-height: 250px;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
-  padding: 2em 1.25em;
+  padding: 1em 1.25em;
   overflow-wrap: break-word;
   overflow: hidden;
 }
@@ -1418,7 +1421,7 @@ td {
 
 .expense-delete-form {
   display: inline;
-  vertical-align: top;
+  vertical-align: text-top;
 }
 
 .budget-table td {
@@ -1663,7 +1666,7 @@ td {
 
   .note-wrapper {
     width: 300px;
-    height: 250px;
+    height: 200px;
     flex: 0 0 calc(25% - 1em);
   }
 
