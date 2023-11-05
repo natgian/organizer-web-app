@@ -154,16 +154,33 @@ fieldset {
 /*-------*/
 
 .logo {
-  max-width: 500px;
-  padding: 1em 2em;
+  max-width: 300px;
+  padding: 1em;
 }
 
 .index-list {
-  list-style:disc !important;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.index-main-layout{
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: center;
 }
 
 .index-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 500px;
+  margin: 1.25em auto;
+  border-radius: 15px;
+  padding: 2em 0 1em 0;
   align-items: center;
+  justify-content: center;
 }
 
 
@@ -184,7 +201,6 @@ fieldset {
   display: grid;
   grid-template-rows: 1fr auto;
   align-items: center;
-
 }
 
 .container {
@@ -195,8 +211,7 @@ fieldset {
 
 .wrapper,
 .card-wrapper,
-.timer-container,
-.index-wrapper {
+.timer-container {
   display: flex;
   flex-direction: column;
   gap: 1em;
