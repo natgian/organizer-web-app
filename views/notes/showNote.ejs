@@ -35,12 +35,12 @@
           <form action="/notizen/<%=foundNote._id%>?_method=PUT" method="POST">
 
             <label for="title">
-              <input type="title" id="title" name="title" placeholder="Titel"
-                class="card-input subtitle-specific-notcentered" value="<%=foundNote.title%>" required>
+              <input type="title" id="title" name="title" placeholder="Titel hier eingeben..."
+                class="card-input bold" value="<%=foundNote.title%>" required>
             </label>
 
             <label for="body">
-              <textarea name="body" id="body" cols="50" rows="10" placeholder="Text hier eingeben..."
+              <textarea name="body" id="body" cols="50" rows="10" placeholder="Notiz hier eingeben..."
                 class="card-input textarea" required><%=foundNote.body %></textarea>
             </label>
 
