@@ -44,7 +44,8 @@
                 class="card-input textarea" required><%=foundNote.body %></textarea>
             </label>
 
-            <button class="rectangle-btn">Speichern</button>
+            <button class="rectangle-btn mb-1">Speichern</button>
+            <a href="/notizen" class="rectangle-secondary-btn width-100 mb-1">Abbrechen</a>
           </form>
 
           <form action="/notizen/<%= foundNote._id%>?_method=DELETE" method="POST">

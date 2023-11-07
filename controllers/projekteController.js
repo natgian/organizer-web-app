@@ -80,12 +80,12 @@ module.exports.toggleTodoCompletion = async (req, res, next) => {
   const foundTodo = await Todo.findById(todoId);
 
   if (!foundTodo) {
-    return res.status(404).send("ToDo not found");
+    return res.status(404).send("Augabe nicht gefunden.");
   };
 
   foundTodo.completed = !foundTodo.completed;
   await foundTodo.save();
-  res.json({ success: true });
+  res.json({ success: true, todo: foundTodo });
 };
 
 // ADD NEW PROJECT BUDGET
