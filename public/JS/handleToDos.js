@@ -41,7 +41,7 @@ async function toggleCompleted(projectId, todoId) {
     if (response.ok) {
       // Update the UI without a page reload
       const checkbox = document.getElementById(`todo-checkbox-${todoId}`);
-      const listItem = checkbox.closest('li');
+      const listItem = checkbox.closest("li");
       if (checkbox.checked) {
         listItem.classList.add('completed');
       } else {

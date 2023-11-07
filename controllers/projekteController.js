@@ -80,7 +80,7 @@ module.exports.toggleTodoCompletion = async (req, res, next) => {
   const foundTodo = await Todo.findById(todoId);
 
   if (!foundTodo) {
-    return res.status(404).send("Augabe nicht gefunden.");
+    return res.status(404).send("Aufgabe nicht gefunden.");
   };
 
   foundTodo.completed = !foundTodo.completed;
