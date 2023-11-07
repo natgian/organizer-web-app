@@ -15,23 +15,6 @@ function closeToDoForm() {
   newItemContainer.style.display = "none";
 };
 
-// CHANGE TODO COMPLETED STATUS
-// async function toggleCompleted(projectId, todoId) {
-//   try {
-//     const response = await fetch(`/projekte/${projectId}/aufgaben/${todoId}`, {
-//       method: "PUT",
-//     });
-
-//     if (response.ok) {
-//       location.reload();
-//     } else {
-//       console.error("Toggle failed");
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 async function toggleCompleted(projectId, todoId) {
   try {
     const response = await fetch(`/projekte/${projectId}/aufgaben/${todoId}`, {
@@ -39,7 +22,6 @@ async function toggleCompleted(projectId, todoId) {
     });
 
     if (response.ok) {
-      // Update the UI without a page reload
       const checkbox = document.getElementById(`todo-checkbox-${todoId}`);
       const listItem = checkbox.closest("li");
       if (checkbox.checked) {
