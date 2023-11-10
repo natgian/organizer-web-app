@@ -35,7 +35,6 @@
 
     <%- include("../partials/header") %>
 
-
     <main>
 
       <!-- flash message -->
@@ -49,51 +48,56 @@
       </div>
       <% } %>
 
-      <div class="card-wrapper medium-dark-wrapper">
-        <h1 class="subtitle">Budget erstellen</h1>
+      <div class="container">
 
-        <form action="/budget" method="POST">
+        <div class="card-wrapper medium-dark-wrapper">
+          <h1 class="subtitle">Budget erstellen</h1>
 
-          <label for="name">
-            <input type="text" name="name" id="name" placeholder="Budgetname..." class="card-input" autofocus required>
-          </label>
+          <form action="/budget" method="POST">
 
-          <label for="budget">
-            <input type="number" name="budget" id="budget" placeholder="Budgetbetrag..." class="card-input" step="any"
-              required>
-          </label>
+            <label for="name">
+              <input type="text" name="name" id="name" placeholder="Budgetname..." class="card-input" autofocus
+                required>
+            </label>
 
-          <fieldset class="color-options-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
-              class="inline-block-svg list-icon" id="list-icon">
-              <path fill="#ededed"
-                d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4H7m0 6v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2Z">
-              </path>
-            </svg>
-            <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
-            <div class="color-options-color-wrapper">
-              <label for="color" class="color-option">
-                <input type="radio" name="color" id="color" value="#F9F871" hidden>
-                <div class="color-option comp-color-one"></div>
-              </label>
-              <label class="color-option">
-                <input type="radio" name="color" value="#fda76d" hidden>
-                <div class="color-option comp-color-two"></div>
-              </label>
-              <label class="color-option">
-                <input type="radio" name="color" value="#6ae79c" hidden>
-                <div class="color-option comp-color-three"></div>
-              </label>
-              <label class="color-option">
-                <input type="radio" name="color" value="#3a9ddf" hidden>
-                <div class="color-option comp-color-four"></div>
-              </label>
-            </div>
-          </fieldset>
+            <label for="budget">
+              <input type="number" name="budget" id="budget" placeholder="Budgetbetrag..." class="card-input" step="any"
+                required>
+            </label>
 
-          <button class="rectangle-btn-card mb-1">Speichern</button>
-          <a href="/budget" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
-        </form>
+            <fieldset class="color-options-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                class="inline-block-svg list-icon" id="list-icon">
+                <path fill="#ededed"
+                  d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4H7m0 6v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2Z">
+                </path>
+              </svg>
+              <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
+              <div class="color-options-color-wrapper">
+                <label for="color" class="color-option">
+                  <input type="radio" name="color" id="color" value="#F9F871" hidden>
+                  <div class="color-option comp-color-one"></div>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#fda76d" hidden>
+                  <div class="color-option comp-color-two"></div>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#6ae79c" hidden>
+                  <div class="color-option comp-color-three"></div>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#3a9ddf" hidden>
+                  <div class="color-option comp-color-four"></div>
+                </label>
+              </div>
+            </fieldset>
+
+            <button class="rectangle-btn-card mb-1">Speichern</button>
+            <a href="/budget" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
+          </form>
+        </div>
+
       </div>
 
   </div>

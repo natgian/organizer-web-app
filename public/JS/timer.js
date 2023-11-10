@@ -100,12 +100,12 @@ function startTimer() {
   resetButton.disabled = false;
 
   isFocusSession = true;
-}
+};
 
 // Function to DECREASE TIMER DURATION
 function decreaseTimerDuration() {
   let currentDuration = parseInt(timerDurationIndicator.textContent, 10);
-  const minimumDuration = 15;
+  const minimumDuration = 5;
 
   if (currentDuration > minimumDuration) {
     currentDuration -= 5;
@@ -115,7 +115,7 @@ function decreaseTimerDuration() {
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
   }
-}
+};
 
 // Function to INCREASE TIMER DURATION
 function increaseTimerDuration() {
@@ -137,14 +137,14 @@ function decreaseBreakDuration() {
     currentDuration -= 5;
     breakDurationIndicator.textContent = currentDuration;
   }
-}
+};
 
 // Function to INCREASE BREAK DURATION
 function increaseBreakDuration() {
   let currentDuration = parseInt(breakDurationIndicator.textContent, 10);
   currentDuration += 5;
   breakDurationIndicator.textContent = currentDuration;
-}
+};
 
 // Function to PAUSE THE TIMER
 function pauseTimer() {
@@ -171,7 +171,7 @@ function pauseTimer() {
     pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5v14l8-7m2 7h3V5h-3m5 0v14h3V5"/></svg>`;
     isTimerPaused = true;
   }
-}
+};
 
 // Function to RESET THE TIMER
 function resetTimer() {
@@ -189,14 +189,14 @@ function resetTimer() {
               </svg>`;
   isTimerPaused = false;
   currentCycle = 0;
-}
+};
 
 // Function to FORMAT THE TIME
 function formatTime(time) {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-}
+};
 
 // Function to SET THE COLOR ON THE CIRCLE for the remaining time
 function setRemainingPathColor() {
@@ -212,14 +212,14 @@ function setRemainingPathColor() {
     document.getElementById("base-timer-path-remaining").classList.remove(warning.color);
     document.getElementById("base-timer-path-remaining").classList.add(info.color);
   }
-}
+};
 
 // Function to CALCULATE the appropriate stroke-dasharray VALUE for the SVG circle representing the timer 
 function setCircleDasharray() {
   const calculateTimeLeft = timeLeft / timeLimit;
   const circleDasharray = `${(calculateTimeLeft * FULL_DASHARRAY).toFixed(0)} 283`;
   document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
-}
+};
 
 // Function to DISABLE SETTINGS BUTTONS
 function disableSettings() {
@@ -227,7 +227,7 @@ function disableSettings() {
   timerPlusButton.disabled = true;
   breakMinusButton.disabled = true;
   breakPlusButton.disabled = true;
-}
+};
 
 // Function to ENABLE SETTINGS BUTTONS
 function enableSettings() {
@@ -235,7 +235,7 @@ function enableSettings() {
   timerPlusButton.disabled = false;
   breakMinusButton.disabled = false;
   breakPlusButton.disabled = false;
-}
+};
 
 // Function to manage actions when the TIMER IS UP
 function onTimesUp() {
@@ -258,7 +258,7 @@ function onTimesUp() {
     pauseButton.disabled = true;
     resetButton.disabled = true;
   }
-}
+};
 
 // Function to manage actions when the BREAK TIME IS UP
 function onBreaksUp() {
@@ -271,13 +271,13 @@ function onBreaksUp() {
   if (currentCycle < 3) {
     startTimer();
   }
-}
+};
 
 // Function to PLAY SOUND
 function playSound() {
   const audio = new Audio("/audio/bell.mp3");
   audio.play();
-}
+};
 
 // Function to manage actions for BREAK TIME
 function startBreak() {
@@ -312,6 +312,6 @@ function startBreak() {
   }, 1000);
 
   isFocusSession = false;
-}
+};
 
 

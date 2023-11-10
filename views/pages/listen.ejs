@@ -43,7 +43,7 @@
         <div class="no-bg-wrapper">
 
           <!-- Create new list button -->
-          <button class="round-btn mb-05"><a href="/listen/neue-liste"><svg xmlns="http://www.w3.org/2000/svg"
+          <button class="round-btn mb-05" aria-label="Neue Liste erstellen"><a href="/listen/neue-liste"><svg xmlns="http://www.w3.org/2000/svg"
                 width="32" height="32" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
@@ -63,14 +63,14 @@
 
                 <div class="listen-buttons-wrapper">
                   <form action="/listen/<%= list._id%>?_method=DELETE" method="POST" class="flex">
-                    <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    <button class="delete-edit-btn" aria-label="Liste löschen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24">
                         <path fill="currentColor"
                           d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                       </svg></button>
                   </form>
 
-                  <button class="delete-edit-btn inline-block-svg">
+                  <button class="delete-edit-btn inline-block-svg" aria-label="Liste bearbeiten">
                     <a href="/listen/<%=list._id%>/bearbeiten">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor"
