@@ -5,9 +5,9 @@
 // Total length of the timer circle path
 const FULL_DASHARRAY = 283;
 // Threshold value where progress color transitions from "info" to "warning"
-const WARNING_THRESHOLD = 10;
+const WARNING_THRESHOLD = 30;
 // Threshold value where progress color transitions from "warning" to "alert"
-const ALERT_THRESHOLD = 5;
+const ALERT_THRESHOLD = 10;
 // Object defining the color codes for the timer progress
 const COLOR_CODES = {
   info: {
@@ -92,6 +92,7 @@ function startTimer() {
 
     if (timeLeft === 0) {
       onTimesUp();
+      playSound();
     }
   }, 1000);
 

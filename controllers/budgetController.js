@@ -133,7 +133,6 @@ module.exports.deleteExpenseFromBudget = async (req, res, next) => {
     foundBudget.remainingBudget += expenseAmount;
     await foundBudget.save();
     await Expense.findByIdAndDelete(expenseId);
-    await User.findByIdAndUpdate(req.user._id, { $pull: { budgets: budgetId } });
     res.redirect(`/budget/${budgetId}`);
 
   } else {

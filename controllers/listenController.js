@@ -102,7 +102,6 @@ module.exports.deleteItemFromList = async (req, res, next) => {
       foundList.items.splice(itemIndex, 1);// Remove the item from the list's items array
       await foundList.save();
       await Item.findByIdAndDelete(itemId);
-      await User.findByIdAndUpdate(req.user._id, { $pull: { lists: listId } });
 
       res.redirect(`/listen/${listId}`);
     } else {
