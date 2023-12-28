@@ -60,7 +60,7 @@
             <br>
             Schreib mir eine Nachricht:
           </p>
-          <form action="/kontakt" method="POST">
+          <form action="/kontakt" method="POST" onsubmit="displayLoader()">
 
             <fieldset class="input-container">
               <input type="text" id="contact-name" name="name" autocomplete="name" required class="contact-input">

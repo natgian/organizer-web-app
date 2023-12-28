@@ -122,6 +122,7 @@ module.exports.renderForgotPassword = (req, res) => {
   res.render("users/forgotPassword");
 };
 
+// -- RENDER SENT MAIL CONFIRMATION PAGE
 module.exports.renderSentMailConfirmation = (req, res) => {
   res.render("users/sentMailConfirmation");
 };

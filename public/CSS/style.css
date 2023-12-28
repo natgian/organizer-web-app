@@ -402,6 +402,25 @@ fieldset {
 /* BUTTONS, LINKS & INPUTS */
 /*-------------------------*/
 
+#scrollToTopButton {
+  display: none;
+  position: fixed;
+  right: 2em;
+  bottom: 3em;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--navigation-color);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+#scrollToTopButton:active,
+#scrollToTopButton:hover {
+  background-color: var(--main-text-color)
+}
+
 .round-btn {
   display: flex;
   justify-content: center;
@@ -687,6 +706,10 @@ fieldset {
 
 .width-100 {
   display: block;
+}
+
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
 }
 
 .loader {

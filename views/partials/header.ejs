@@ -2,25 +2,7 @@
   <nav class="container navbar">
     <ul class="main-nav">
 
-      <!-- BACK-BUTTON -->
-      <li>
-        <a href="javascript:void(0);" onclick="goBack()" class="main-nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512" class="inline-block-svg">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"
-              d="M328 112L184 256l144 144" />
-          </svg>Zurück</a>
-      </li>
-
       <% if (loggedInUser) { %>
-
-      <!-- USER-PROFILE-BUTTON -->
-      <li>
-        <a href="/benutzerkonto/<%=loggedInUser._id%>" class="main-nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-            <path fill="currentColor"
-              d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10Z" />
-          </svg>Profil</a>
-      </li>
 
       <!-- LOGOUT-BUTTON -->
       <li>
@@ -32,6 +14,15 @@
             </g>
           </svg>Logout</a>
       </li>
+
+            <!-- USER-PROFILE-BUTTON -->
+            <li>
+              <a href="/benutzerkonto/<%=loggedInUser._id%>" class="main-nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10Z" />
+                </svg>Profil</a>
+            </li>
 
       <% } else { %>
       <li>
@@ -53,10 +44,11 @@
 
     </ul>
   </nav>
+
+  <button id="scrollToTopButton">
+    <img src="/images/arrow-up-thick.svg" alt="button to scroll to the top of the page">
+  </button>
+
 </header>
 
-<script>
-  function goBack() {
-    window.history.back();
-  }
-</script>
+<script defer src="/JS/scrollToTop.js"></script>
