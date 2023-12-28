@@ -88,7 +88,7 @@
                 viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg></button>
+              </svg>Aufgabe hinzufügen</button>
 
             <!-- Add Todo form -->
             <div class="new-item-container">
@@ -153,7 +153,7 @@
                 viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg></button>
+              </svg>Budget hinzufügen</button>
             <!-- Add Budget form -->
             <form action="/projekte/<%= foundProject._id %>/budget" method="POST">
               <div class="new-item-container" id="new-projectbudget-container">
@@ -220,14 +220,14 @@
                 height="32" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg>
+              </svg> Ausgabe hinzufügen
             </button>
 
             <!-- Add Expense Form -->
             <div class="new-item-container" id="new-expense-container">
               <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
                 <label for="projectExpenseDate">
-                  <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input" required>
+                  <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input"  max="9999-12-31" required>
                 </label>
                 <label for="projectExpenseDescription">
                   <input type="text" name="projectExpenseDescription" placeholder="Beschreibung..."

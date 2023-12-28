@@ -95,7 +95,7 @@ svg {
   --main-font: 'Montserrat', sans-serif;
 
   --main-font-size: clamp(1rem, 3vw, 1.25rem);
-  --small-font-size: clamp(0.75rem, 3vw, 1rem);
+  --small-font-size: clamp(0.875rem, 3vw, 1rem);
   --title-fs: clamp(1.875rem, 3vw + 1rem, 3.25rem);
   --subtitle-fs: clamp(1.5rem, 3vw, 2rem);
   --subtitle-specific-fs: clamp(1.25rem, 3vw, 1.5rem);
@@ -424,6 +424,8 @@ fieldset {
 .round-btn {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 0.5em;
   width: 100%;
   color: var(--primary-color);
   background-color: transparent;
@@ -1476,7 +1478,7 @@ td {
 }
 
 .expense-date {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   color: var(--muted-text-color);
 }
 

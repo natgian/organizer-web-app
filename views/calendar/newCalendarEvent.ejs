@@ -64,26 +64,26 @@
 
             <fieldset class="mb-1">
               <legend>Beginn</legend>
-              <input type="date" name="startDate" id="startEventDate" class="card-input" required>
+              <input type="date" name="startDate" id="startEventDate" class="card-input" max="9999-12-31" required>
               <input type="time" name="startEventTime" id="startEventTime" class="card-input mb-1">
             </fieldset>
 
             <fieldset>
               <legend>Ende</legend>
-              <input type="date" name="endDate" id="endEventDate" class="card-input" required>
+              <input type="date" name="endDate" id="endEventDate" class="card-input" max="9999-12-31" required>
               <input type="time" name="endEventTime" id="endEventTime" class="card-input">
             </fieldset>
 
             <fieldset class="color-options-wrapper">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
                 class="inline-block-svg list-icon" id="list-icon">
-                <path fill="#ededed"
+                <path fill="#F9F871"
                   d="M9 10v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2m2-7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V1h2v2h8V1h2v2h1m0 16V8H5v11h14M9 14v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2Z" />
               </svg>
               <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
               <div class="color-options-color-wrapper">
                 <label class="color-option">
-                  <input type="radio" name="color" value="#F9F871" hidden>
+                  <input type="radio" name="color" value="#F9F871" checked hidden>
                   <div class="color-option comp-color-one"></div>
                 </label>
                 <label class="color-option">

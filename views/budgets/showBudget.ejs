@@ -114,12 +114,12 @@
           <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="32"
               height="32" viewBox="0 0 20 20">
               <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-            </svg></button>
+            </svg>Ausgabe hinzufügen</button>
 
           <form action="/budget/<%= foundBudget._id %>" method="POST">
             <div class="new-item-container">
               <label for="expense-date">
-                <input type="date" name="date" id="expense-date" class="input" autofocus required>
+                <input type="date" name="date" id="expense-date" class="input" max="9999-12-31" autofocus required>
               </label>
               <label for="expense-description">
                 <input type="text" name="description" placeholder="Beschreibung..." id="expense-description"

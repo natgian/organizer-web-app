@@ -46,8 +46,13 @@ module.exports.searchEventSubmit = async (req, res, next) => {
   let searchTerm = req.body.searchTerm;
   const filteredSearchTerm = searchTerm.replace(/[^a-zA-Z0-9]/g, "");
 
+  const userId = req.user._id;
+
   const searchResults = await Calendar.find({
-    title: { $regex: new RegExp(filteredSearchTerm, "i") }
+    $and: [
+      { title: { $regex: new RegExp(filteredSearchTerm, "i") } },
+      { user: userId }, // Add this condition to filter by user ID
+    ],
   });
   // Sort the searchResults by date
   searchResults.sort((eventA, eventB) => {

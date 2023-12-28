@@ -106,19 +106,27 @@ module.exports.searchNotesSubmit = async (req, res, next) => {
   const noteMaxLength = 150;
   let searchTerm = req.body.searchTerm;
   const filteredSearchTerm = searchTerm.replace(/[^a-zA-Z0-9]/g, "");
+
+  const userId = req.user._id;
   
-  const searchResults = await Note.find(
-    {
-    "$or": [
-      {title: {$regex: new RegExp(filteredSearchTerm, "i")}},
-      {body: {$regex: new RegExp(filteredSearchTerm, "i")}}
-    ]
+  const searchResults = await Note.find({
+    $and: [
+      {
+        $or: [
+          { title: { $regex: new RegExp(filteredSearchTerm, "i") } },
+          { body: { $regex: new RegExp(filteredSearchTerm, "i") } },
+        ],
+      },
+      { user: userId },
+    ],
   });
-  searchResults.forEach(note => {
+
+  searchResults.forEach((note) => {
     if (note.body.length > noteMaxLength) {
       note.body = note.body.substring(0, noteMaxLength) + "...";
-    };
-  })
+    }
+  });
+
   res.render("notes/searchNote", { searchResults });
 };
 
