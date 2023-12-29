@@ -57,7 +57,7 @@
             <div class="input-container mb-2">
               <label for="username" class="form-label">Benutzername</label>
               <input type="username" id="username" name="username" autofocus required class="login-input"
-                value="<%=foundUser.username%>">
+                value="<%=foundUser.username%>" pattern="[a-zA-Z0-9 ]+" title="Bitte nur alphanumerische Zeichen und Leerzeichen eingeben" minlength="2">
             </div>
 
             <button class="rectangle-btn-card mb-1">Speichern</button>

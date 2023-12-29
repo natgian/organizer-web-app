@@ -163,7 +163,7 @@ fieldset {
   list-style-position: inside;
 }
 
-.index-main-layout{
+.index-main-layout {
   min-height: 100vh;
   min-height: 100dvh;
   display: grid;
@@ -258,10 +258,11 @@ fieldset {
   justify-content: center;
 }
 
-.formatted-textarea {
+/* .formatted-textarea {
   white-space: pre-line;
   padding-bottom: 0.5em;
-}
+  overflow: hidden;
+} */
 
 .align-text-svg {
   display: flex;
@@ -311,6 +312,13 @@ fieldset {
   color: var(--subtitle-text-color);
 }
 
+.note-title {
+  font-size: (--main-font-size);
+  font-weight: bold;
+  padding: 0.5em 0;
+  color: var(--subtitle-text-color);
+}
+
 .user {
   font-size: 1.25rem;
   font-weight: bold;
@@ -343,6 +351,7 @@ fieldset {
   font-weight: bold;
   color: var(--subtitle-text-color);
 }
+
 .datenschutz-h4 {
   font-style: italic;
   font-weight: 400;
@@ -678,6 +687,7 @@ fieldset {
 .mb-2 {
   margin-bottom: 2em;
 }
+
 .mb-3 {
   margin-bottom: 3em;
 }
@@ -739,19 +749,29 @@ fieldset {
   height: 5rem;
   border-radius: 50%;
   border: 10px solid var(--light-background);
-  border-top-color: var(--primary-color-hover);  
+  border-top-color: var(--primary-color-hover);
   -webkit-animation: loading 0.75s ease infinite;
   animation: loading 0.75s ease infinite;
 }
 
 @keyframes loading {
-  from { transform: rotate(0turn) }
-  to { transform: rotate(1turn) }
+  from {
+    transform: rotate(0turn)
+  }
+
+  to {
+    transform: rotate(1turn)
+  }
 }
 
 @-webkit-keyframes loading {
-  from { -webkit-transform: rotate(0turn); }
-  to { -webkit-transform: rotate(1turn); }
+  from {
+    -webkit-transform: rotate(0turn);
+  }
+
+  to {
+    -webkit-transform: rotate(1turn);
+  }
 }
 
 
@@ -1378,7 +1398,7 @@ button#toggle-password:active {
   border-bottom: 1px solid var(--light-color);
 }
 
-.listen-item > form {
+.listen-item>form {
   flex-shrink: 0;
 }
 
@@ -1407,10 +1427,12 @@ button#toggle-password:active {
   flex-direction: column;
   gap: 1em;
   justify-content: center;
+  align-items: stretch;
 }
 
 .note-wrapper {
-  max-height: 250px;
+  height: 100px;
+  width: 100%;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
   padding: 1em 1.25em;
@@ -1441,7 +1463,7 @@ th {
 }
 
 td {
- padding: 1em 0.5em 0.5em 0.5em; 
+  padding: 1em 0.5em 0.5em 0.5em;
 }
 
 .expense-delete-form {
@@ -1669,10 +1691,6 @@ td {
     margin-left: 25%;
   }
 
-  .formatted-textarea {
-    max-width: 600px;
-  }
-
   /* PROJEKTE */
   #projectdescription {
     height: 30em;
@@ -1681,18 +1699,6 @@ td {
   /* BUDGET */
   .expense-date {
     font-size: 0.75rem;
-  }
-
-  /* NOTIZEN */
-  .notes-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .note-wrapper {
-    width: 300px;
-    height: 200px;
-    flex: 0 0 calc(25% - 1em);
   }
 
   #body {
@@ -1730,12 +1736,11 @@ td {
   }
 }
 
-@media only screen and (min-width:1097px) {
-  .note-wrapper {
-    width: 400px;
+@media only screen and (min-width:724px) {
+  .notes-container {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-}
-@media only screen and (min-width:1400px) {
   .note-wrapper {
     width: 300px;
   }

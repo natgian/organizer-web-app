@@ -56,7 +56,7 @@
           <form action="/registration" method="POST" id="registration-form">
 
             <fieldset class="input-container">
-              <input type="text" id="username" name="username" required class="login-input" placeholder="Benutzer123">
+              <input type="text" id="username" name="username" required class="login-input" placeholder="Benutzer123" pattern="[a-zA-Z0-9 ]+" title="Bitte nur alphanumerische Zeichen und Leerzeichen eingeben" minlength="2">
               <label for="username" class="form-label">Benutzername</label>
             </fieldset>
 
