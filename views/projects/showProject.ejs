@@ -113,7 +113,7 @@
                     <% if (todo.completed) { %> checked <% } %>
                     onchange="toggleCompleted('<%= foundProject._id %>', '<%= todo._id %>')" />
                   <span class="custom-checkbox"></span>
-                  <span class="todo-text"><%= todo.text %></span>
+                  <span class="todo-text overflow-wrap-anywhere"><%= todo.text %></span>
                 </label>
               </li>
               <!-- delete Todo button -->
