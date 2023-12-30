@@ -1541,6 +1541,8 @@ td {
 
 .project-nav {
   display: flex;
+  padding: 2em;
+  flex-direction: row;
   justify-content: center;
   gap: 1em;
 }

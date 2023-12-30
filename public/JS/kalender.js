@@ -6,6 +6,7 @@ let focusedDaySquare = null;
 const calendar = document.getElementById("calendar");
 const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 const addButton = document.getElementById("add-button");
+const testButton = document.getElementById("test");
 
 // EVENT LISTENER TO CHECK FOCUSED DAY SQUARE
 document.addEventListener("click", (event) => {
@@ -75,11 +76,10 @@ async function loadCalendar() {
 
       // Add a click event listener to handle interactions with the day square
       daySquare.addEventListener("click", () => {
-
         // Remove focus from the previously focused daySquare
         if (focusedDaySquare) {
           focusedDaySquare.classList.remove("focused-daySquare");
-        }
+        };
         // Add focus to the current daySquare
         daySquare.classList.add("focused-daySquare");
         // Update the focusedDaySquare
@@ -102,8 +102,15 @@ async function loadCalendar() {
         }
         window.location.assign("/kalender/neuer-eintrag");
       });
-    }
 
+      daySquare.addEventListener("dblclick", () => {
+        if (!selectedDate) {
+          localStorage.setItem("selectedDate", "");
+        }
+        window.location.assign("/kalender/neuer-eintrag");
+      });
+
+    }
     calendar.appendChild(daySquare);
   }
 };
@@ -119,7 +126,7 @@ function filterEventsByDate(events, targetDate) {
 
     return startDate <= targetDate && targetDate <= endDate;
   });
-}
+};
 
 // DISPLAY DAY EVENTS //
 function displayDayEvents(currentDate, eventsData) {
@@ -215,7 +222,7 @@ async function fetchEventData(year, month) {
     console.error("Error fetching event data:", error);
     return [];
   }
-}
+};
 
 // CHANGE MONTH //
 function changeMonth() {
@@ -227,8 +234,7 @@ function changeMonth() {
     nav--;
     loadCalendar();
   });
-}
-
+};
 
 changeMonth();
 loadCalendar();
