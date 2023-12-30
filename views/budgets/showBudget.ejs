@@ -78,10 +78,10 @@
               <th class="table-align-right bold">Verbleibend</th>
             </tr>
             <tr>
-              <td class="table-align-left"><%= foundBudget.budget.toFixed(2) %> CHF</td>
+              <td class="table-align-left">CHF <%= foundBudget.budget.toFixed(2) %></td>
               <td
-                class="table-align-right <%= foundBudget.remainingBudget >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">
-                <%= foundBudget.remainingBudget.toFixed(2) %> CHF</td>
+                class="table-align-right <%= foundBudget.remainingBudget >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">CHF 
+                <%= foundBudget.remainingBudget.toFixed(2) %></td>
             </tr>
           </table>
 
@@ -97,7 +97,7 @@
               <td class="table-align-left table-border"><%= expense.description %>
                 <br><span class="expense-date"><%= formatDate(expense.date) %></span>
               </td>
-              <td class="table-align-right table-align-top table-border"><%= expense.expense.toFixed(2) %> &nbsp;
+              <td class="table-align-right table-align-top table-border">CHF <%= expense.expense.toFixed(2) %> &nbsp;
                 <form action="/budget/<%= foundBudget._id%>/expenses/<%=expense._id%>?_method=DELETE" method="POST"
                   class="expense-delete-form">
                   <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
