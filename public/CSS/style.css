@@ -549,18 +549,22 @@ fieldset {
 }
 
 .page-navigation-link {
-  display: inline-block;
-  justify-content: center;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  /* text-decoration: underline; */
+  /* text-underline-offset: 0.2em; */
   color: var(--navigation-color);
   font-size: 1rem;
   padding: 0.5em 1em;
+  vertical-align:bottom;
 }
 
 .page-navigation-link:hover,
 .page-navigation-link:focus {
   color: var(--primary-color-hover);
+}
+
+.page-navigation-svg {
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 .pagination-wrapper {
