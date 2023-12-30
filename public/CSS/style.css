@@ -30,6 +30,7 @@ html:focus-within {
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 /* A elements that don't have a class get default styles */
@@ -1536,6 +1537,12 @@ td {
   font-weight: bold;
   padding: 0.5em 0;
   color: var(--subtitle-text-color);
+}
+
+.project-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 #projectdescription {

@@ -43,7 +43,7 @@
         <div class="timer-container timer-wrapper">
 
           <!-- TIMER -->
-          <div class="base-timer">
+          <section class="base-timer">
             <svg class="base-timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <g class="base-timer-circle">
                 <circle class="base-timer-path-elapsed" cx="50" cy="50" r="45"></circle>
@@ -52,14 +52,14 @@
               </g>
             </svg>
             <span id="base-timer-indicator" class="base-timer-indicator">25:00</span>
-          </div>
+          </section>
 
-          <div class="timer-state">
+          <section class="timer-state">
             <span id="timer-state">Fokus</span>
-          </div>
+          </section>
 
           <!-- BUTTONS -->
-          <div class="timer-buttons">
+          <section class="timer-buttons">
             <button id="start-button" class="timer-btn">Starten</button>
             <button id="pause-button" class="timer-btn" aria-label="Pause">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -72,10 +72,10 @@
                   d="M12 4c2.1 0 4.1.8 5.6 2.3c3.1 3.1 3.1 8.2 0 11.3c-1.8 1.9-4.3 2.6-6.7 2.3l.5-2c1.7.2 3.5-.4 4.8-1.7c2.3-2.3 2.3-6.1 0-8.5C15.1 6.6 13.5 6 12 6v4.6l-5-5l5-5V4M6.3 17.6C3.7 15 3.3 11 5.1 7.9l1.5 1.5c-1.1 2.2-.7 5 1.2 6.8c.5.5 1.1.9 1.8 1.2l-.6 2c-1-.4-1.9-1-2.7-1.8Z" />
               </svg>
             </button>
-          </div>
+          </section>
 
           <!-- SETTINGS -->
-          <div class="timer-settings">
+          <section class="timer-settings">
             <div class="duration-control-container">
               <span>Fokus:&nbsp;</span>
               <div class="duration-buttons-container">
@@ -118,15 +118,17 @@
               </div>
             </div>
 
-          </div>
+          </section>
         </div>
         
-        <div class="accordion-body">
+          <!-- INFORMATION -->
+        <!-- <section class="accordion-body">
           <h2>Hilfe</h2>
           <div class="accordion">
             Wie funktioniert der Timer?
           </div>
-        </div>
+        </section> -->
+        
     </main>
 
     <%- include("../partials/footer") %>

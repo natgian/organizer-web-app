@@ -57,19 +57,18 @@
           <form action="/kalender" method="POST" class="mt-2">
 
             <fieldset class="mb-1">
-              <legend>Titel</legend>
-              <input type="text" name="title" id="event-title" placeholder="Titel..." class="card-input mb-1" autofocus
-                required>
+              <legend class="bold">Titel:</legend>
+              <input type="text" name="title" id="event-title" placeholder="Titel..." class="card-input mb-1" autofocus required>
             </fieldset>
 
             <fieldset class="mb-1">
-              <legend>Beginn</legend>
+              <legend class="bold">Beginn:</legend>
               <input type="date" name="startDate" id="startEventDate" class="card-input" max="9999-12-31" required>
               <input type="time" name="startEventTime" id="startEventTime" class="card-input mb-1">
             </fieldset>
 
             <fieldset>
-              <legend>Ende</legend>
+              <legend class="bold">Ende:</legend>
               <input type="date" name="endDate" id="endEventDate" class="card-input" max="9999-12-31" required>
               <input type="time" name="endEventTime" id="endEventTime" class="card-input">
             </fieldset>
@@ -80,7 +79,7 @@
                 <path fill="#F9F871"
                   d="M9 10v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2m2-7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V1h2v2h8V1h2v2h1m0 16V8H5v11h14M9 14v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2Z" />
               </svg>
-              <legend class="mb-1 text-center">Wähle eine Farbe:</legend>
+              <legend class="mb-1 text-center bold">Wähle eine Farbe:</legend>
               <div class="color-options-color-wrapper">
                 <label class="color-option">
                   <input type="radio" name="color" value="#F9F871" checked hidden>
