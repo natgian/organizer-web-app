@@ -1427,7 +1427,6 @@ button#toggle-password:active {
   flex-direction: column;
   gap: 1em;
   justify-content: center;
-  align-items: stretch;
 }
 
 .note-wrapper {

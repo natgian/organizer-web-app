@@ -153,13 +153,13 @@
                 viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg>Budget hinzufügen</button>
+              </svg>Budget erstellen</button>
             <!-- Add Budget form -->
             <form action="/projekte/<%= foundProject._id %>/budget" method="POST">
               <div class="new-item-container" id="new-projectbudget-container">
                 <input type="number" name="projectBudget" id="projectbudget-input"
                   placeholder="Budgetbetrag hier eingeben..." class="input" step="any" required>
-                <button class="rectangle-btn" aria-label="Budget hinzufügen">Hinzufügen</button>
+                <button class="rectangle-btn" aria-label="Budget erstellen">Erstellen</button>
               </div>
             </form>
             <% } else {%>
