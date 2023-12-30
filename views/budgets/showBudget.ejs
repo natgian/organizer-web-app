@@ -126,8 +126,7 @@
                   class="input" required>
               </label>
               <label for="expense-amount">
-                <input type="number" name="expense" id="expense-amount" class="input" placeholder="Betrag..." step="any"
-                  required>
+                <input type="number" name="expense" id="expense-amount" class="input" placeholder="Betrag..." step="any" max="100000000" required>
               </label>
               <button class="rectangle-btn mb-1">Hinzufügen</button>
               <a href="/budget/<%= foundBudget._id %>" class="rectangle-secondary-btn width-100">Abbrechen</a>

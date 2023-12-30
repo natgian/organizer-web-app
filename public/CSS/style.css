@@ -68,7 +68,7 @@ svg {
   /* COLORS: */
   /* Surfaces */
   --dark-color: #121212;
-  --semi-dark-color: #4d4d4d;
+  --semi-dark-color: #424242;
   --medium-dark-color: #2A2A2A;
   --light-dark-color: #4a4a4a;
   --light-color: #777777;
@@ -258,11 +258,11 @@ fieldset {
   justify-content: center;
 }
 
-/* .formatted-textarea {
+.formatted-textarea {
   white-space: pre-line;
   padding-bottom: 0.5em;
   overflow: hidden;
-} */
+}
 
 .align-text-svg {
   display: flex;
@@ -511,7 +511,7 @@ fieldset {
   font-weight: bold;
   text-align: center;
   padding: 0.625em;
-  border: 1px solid var(--primary-color);
+  border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
@@ -625,7 +625,7 @@ fieldset {
 .card-input {
   width: 100%;
   border-radius: 10px;
-  padding: 0.625em 0.875em;
+  padding: 1em;
   margin: 0.5em 0;
   color: var(--main-text-color);
   background-color: var(--semi-dark-color);
@@ -633,7 +633,9 @@ fieldset {
 }
 
 .input:focus,
-.input:active {
+.input:active
+.card-input:focus,
+.card-input:active {
   border: 2px solid var(--primary-color);
 }
 
@@ -724,6 +726,11 @@ fieldset {
   overflow-wrap: anywhere;
 }
 
+.inline-svg {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
 .loader {
   position: fixed;
   z-index: 1;
@@ -773,7 +780,6 @@ fieldset {
     -webkit-transform: rotate(1turn);
   }
 }
-
 
 /*------------*/
 /* NAVIGATION */
