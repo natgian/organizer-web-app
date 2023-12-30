@@ -1545,10 +1545,17 @@ td {
 
 .project-nav {
   display: flex;
-  padding: 2em;
   flex-direction: row;
   justify-content: center;
-  gap: 1em;
+  gap: 1rem;
+  margin: 1em auto; 
+  font-size: var(--small-font-size); 
+}
+
+.project-nav li {
+  padding: 0.75em 1.5em;
+  border: 1px solid var(--medium-dark-color);
+  border-radius: 10px;
 }
 
 #projectdescription {
