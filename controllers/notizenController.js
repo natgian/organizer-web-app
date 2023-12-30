@@ -103,7 +103,7 @@ module.exports.deleteNote = async (req, res, next) => {
 
 // SEARCH IN NOTES
 module.exports.searchNotesSubmit = async (req, res, next) => {
-  const noteMaxLength = 150;
+  const noteMaxLength = 25;
   let searchTerm = req.body.searchTerm;
   const filteredSearchTerm = searchTerm.replace(/[^a-zA-Z0-9]/g, "");
 
