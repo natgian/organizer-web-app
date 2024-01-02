@@ -15,6 +15,7 @@ function closeToDoForm() {
   newItemContainer.style.display = "none";
 };
 
+// TOGGLE COMPLETED
 async function toggleCompleted(projectId, todoId) {
   try {
     const response = await fetch(`/projekte/${projectId}/aufgaben/${todoId}`, {
@@ -29,6 +30,8 @@ async function toggleCompleted(projectId, todoId) {
       } else {
         listItem.classList.remove('completed');
       }
+    //After toggling, fetch and update the completed count
+      fetchAndUpdateCompletedCount(projectId);
     } else {
       console.error("Toggle failed");
     }
@@ -36,6 +39,36 @@ async function toggleCompleted(projectId, todoId) {
     console.error(error);
   }
 };
+
+// GET COMPLETED TODOS COUNT
+async function fetchAndUpdateCompletedCount(projectId) {
+  try {
+    const response = await fetch(`/projekte/${projectId}/aufgaben/count`, {
+      method: "PUT",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      updateCompletedCount(data);
+    } else {
+      console.error("Failed to fetch completed count");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//UPDATE COMPLETED TODOS COUNT
+function updateCompletedCount(data) {
+  const completedCount = document.getElementById("completed-count");
+  const openCount = document.getElementById("open-count");
+
+  if (completedCount && openCount) {
+    completedCount.textContent = data.completedCount;
+    openCount.textContent = data.openCount;
+  }
+};
+
 
 
 

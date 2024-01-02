@@ -1565,6 +1565,7 @@ td {
   padding: 0.75em 1.5em;
   border: 1px solid var(--medium-dark-color);
   border-radius: 10px;
+  color: var(--subtitle-text-color);
 }
 
 #projectdescription {

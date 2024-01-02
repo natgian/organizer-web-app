@@ -25,6 +25,9 @@ router.get("/:projectId", isLoggedIn, isAuthor("project"), catchAsync(projekteCo
 // -- ADD NEW TODO
 router.post("/:projectId/aufgaben", isLoggedIn, validateTodo, isAuthor("project"), catchAsync(projekteController.addNewProjectTodo));
 
+// -- HANDLE TODOS COMPLETED COUNT STATE
+router.put("/:projectId/aufgaben/count", isLoggedIn, catchAsync(projekteController.updateTodoCount));
+
 // -- HANDLE TODOS COMPLETION STATE
 router.put("/:projectId/aufgaben/:todoId", isLoggedIn, catchAsync(projekteController.toggleTodoCompletion));
 

@@ -51,15 +51,19 @@
 
         <h1 class="project-title text-center"><%= foundProject.name %></h1>
 
-          <!-- PROJECT NAVIGATIONS -->
-          <nav class="project-nav-header">
-            <ul class="project-nav">
-              <li><a href="#todo-section" >Aufgaben</a></li>
-              <li><a href="#budget-section">Budget</a></li>
-              <!-- <li><a href="#">Kalender</a></li> -->
-            </ul>
-          </nav>
-
+        <!-- PROJECT NAVIGATIONS -->
+        <nav class="project-nav-header">
+          <ul class="project-nav">
+            <li><a href="#todo-section">Aufgaben</a><br>
+              offen: <span id="open-count"><%= openCount %></span> / erledigt: <span id="completed-count"><%= completedCount %></span></li>
+            <li><a href="#budget-section">Budget</a><br>
+              <% if(foundProject.projectbudget) {%>
+              <span id="current-budget">Aktuell: CHF <%=foundProject.projectbudget.remainingProjectBudget.toFixed(2) %></span></li>
+              <% } else { %>
+                <span id="current-budget">kein Budget vorhanden</span>
+                <% } %>
+          </ul>
+        </nav>
 
         <!-- PROJECT INFOS -->
         <section class="wrapper medium-dark-wrapper">
@@ -69,7 +73,7 @@
               <path fill="currentColor"
                 d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
             </svg></a>
-            <h2 class="subtitle-specific">Projektnotizen</h2>
+          <h2 class="subtitle-specific">Notizen</h2>
           <div class="project-info-wrapper">
 
             <!-- Project infos -->
@@ -86,8 +90,8 @@
 
           <div class="add-item-container">
             <!-- Button to open "Add Todo" form -->
-            <button class="round-btn" id="add-todo-btn" aria-label="Aufgabe hinzufügen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 20 20">
+            <button class="round-btn" id="add-todo-btn" aria-label="Aufgabe hinzufügen"><svg
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
               </svg>Aufgabe hinzufügen</button>
@@ -99,7 +103,8 @@
                   required>
                 <button class="rectangle-btn" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
               </form>
-              <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen" onclick="closeToDoForm()">Abbrechen</button>
+              <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen"
+                onclick="closeToDoForm()">Abbrechen</button>
             </div>
 
           </div>
@@ -119,8 +124,8 @@
               <!-- delete Todo button -->
               <form action="/projekte/<%=foundProject._id%>/aufgaben/<%=todo._id%>?_method=DELETE" method="POST"
                 class="flex">
-                <button class="delete-edit-btn" aria-label="Aufgabe löschen"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                    viewBox="0 0 24 24">
+                <button class="delete-edit-btn" aria-label="Aufgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20" viewBox="0 0 24 24">
                     <path fill="currentColor"
                       d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                   </svg>
@@ -151,8 +156,8 @@
           <div class="add-item-container">
             <% if (!foundProject.projectbudget) { %>
             <!-- Button to open "Add Budget" form -->
-            <button class="round-btn" id="add-budget-btn" aria-label="Budget hinzufügen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 20 20">
+            <button class="round-btn" id="add-budget-btn" aria-label="Budget hinzufügen"><svg
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
               </svg>Budget erstellen</button>
@@ -185,7 +190,8 @@
               <tr>
                 <td class="table-align-left">CHF <%= foundProject.projectbudget.projectBudget.toFixed(2) %></td>
                 <td
-                  class="table-align-right <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">CHF 
+                  class="table-align-right <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">
+                  CHF
                   <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) %></td>
               </tr>
             </table>
@@ -202,12 +208,13 @@
                 <td class="table-align-left table-border"><%= expense.projectExpenseDescription %>
                   <br><span class="expense-date"><%= formatDate(expense.projectExpenseDate) %></span>
                 </td>
-                <td class="table-align-right table-align-top table-border">CHF <%= expense.projectExpenseAmount.toFixed(2)%>
+                <td class="table-align-right table-align-top table-border">CHF
+                  <%= expense.projectExpenseAmount.toFixed(2)%>
                   &nbsp;
                   <form action="/projekte/<%=foundProject._id%>/budget/ausgabe/<%=expense._id%>?_method=DELETE"
                     method="POST" class="expense-delete-form">
-                    <button class="delete-edit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24">
+                    <button class="delete-edit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="20" height="20" viewBox="0 0 24 24">
                         <path fill="currentColor"
                           d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                       </svg></button>
@@ -218,8 +225,8 @@
             </table>
 
             <!-- Add Expense Button -->
-            <button class="round-btn mt-1" id="add-expense-btn" aria-label="Ausgabe hinzufügen"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                height="24" viewBox="0 0 20 20">
+            <button class="round-btn mt-1" id="add-expense-btn" aria-label="Ausgabe hinzufügen"><svg
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
               </svg> Ausgabe hinzufügen
@@ -229,7 +236,8 @@
             <div class="new-item-container" id="new-expense-container">
               <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
                 <label for="projectExpenseDate">
-                  <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input"  max="9999-12-31" required>
+                  <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input" max="9999-12-31"
+                    required>
                 </label>
                 <label for="projectExpenseDescription">
                   <input type="text" name="projectExpenseDescription" placeholder="Beschreibung..."
@@ -241,7 +249,8 @@
                 </label>
                 <button class="rectangle-btn" aria-label="Ausgabe hinzufügen">Hinzufügen</button>
               </form>
-              <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen" onclick="closeExpenseForm()">Abbrechen</button>
+              <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
+                onclick="closeExpenseForm()">Abbrechen</button>
             </div>
 
 

@@ -26,8 +26,9 @@ module.exports.createProject = async (req, res, next) => {
 // RENDER PROJECT SHOW PAGE
 module.exports.showProject = async (req, res, next) => {
   const { projectId } = req.params;
+
   try {
-    const foundProject = await Project.findById(projectId)
+        const foundProject = await Project.findById(projectId)
       .populate({
         path: "user",
         populate: { path: "projects" }
@@ -40,7 +41,16 @@ module.exports.showProject = async (req, res, next) => {
     }
     else {
       if (req.user && req.user._id.equals(foundProject.user._id)) {
-        res.render("projects/showProject", { foundProject, formatDate });
+        // Calculate the todo counts
+        const completedCount = await Todo.countDocuments({
+          project: projectId,
+          completed: true,
+        });
+        const openCount = await Todo.countDocuments({
+          project: projectId,
+          completed: false,
+        });
+        res.render("projects/showProject", { foundProject, formatDate, completedCount, openCount });
       } else {
         res.status(403).render("pages/403");
       }
@@ -60,7 +70,7 @@ module.exports.showProject = async (req, res, next) => {
 module.exports.addNewProjectTodo = async (req, res, next) => {
   const { projectId } = req.params;
 
-  const newToDo = new Todo({ text: req.body.text });
+  const newToDo = new Todo({ text: req.body.text, project: projectId });
   const savedToDo = await newToDo.save();
 
   const foundProject = await Project.findById(projectId);
@@ -75,17 +85,45 @@ module.exports.addNewProjectTodo = async (req, res, next) => {
 // HANDLE TODOS COMPLETION STATE
 module.exports.toggleTodoCompletion = async (req, res, next) => {
   const { todoId } = req.params;
-
-  // const foundProject = await Project.findById(projectId);
   const foundTodo = await Todo.findById(todoId);
-
+  // check if there is a todo
   if (!foundTodo) {
     return res.status(404).send("Aufgabe nicht gefunden.");
   };
-
+  // Toggle completion state
   foundTodo.completed = !foundTodo.completed;
   await foundTodo.save();
-  res.json({ success: true, todo: foundTodo });
+  // Get the updated count of completed and open todos
+  const completedCount = await Todo.countDocuments({ project: req.params.projectId, completed: true });
+  const openCount = await Todo.countDocuments({ project: req.params.projectId, completed: false });
+  // Send the updated counts as JSON response
+  res.json({ success: true, todo: foundTodo, completedCount, openCount });
+};
+
+// HANDLE TODOS COUNT STATE
+module.exports.updateTodoCount = async (req, res, next) => {
+  const { projectId } = req.params;
+  const foundProject = await Project.findById(projectId);
+
+    if (!foundProject) {
+      res.status(404).render("pages/404");
+    }
+    else {
+      if (req.user && req.user._id.equals(foundProject.user._id)) {
+        // Calculate the todo counts
+        const completedCount = await Todo.countDocuments({
+          project: projectId,
+          completed: true,
+        });
+        const openCount = await Todo.countDocuments({
+          project: projectId,
+          completed: false,
+        });
+        res.json({ success: true, completedCount, openCount });
+      } else {
+        res.status(403).render("pages/403");
+      }
+    }
 };
 
 // ADD NEW PROJECT BUDGET

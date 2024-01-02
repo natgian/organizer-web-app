@@ -8,6 +8,10 @@ const TodosSchema = new mongoose.Schema({
   completed: {
     type: Boolean,
     default: false
+  },
+  project: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Project"
   }
 });
 
