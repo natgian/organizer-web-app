@@ -4,7 +4,7 @@ const formatDate = require("../utilities/formatDate");
 
 // RENDER PROJEKTE PAGE
 module.exports.renderProjektePage = async (req, res, next) => {
-  const projects = await Project.find({ user: req.user._id }).populate("user");
+  const projects = await Project.find({ user: req.user._id }).sort({ updatedAt: -1}).populate("user");
   res.render("pages/projekte", { projects });
 };
 
@@ -76,6 +76,7 @@ module.exports.addNewProjectTodo = async (req, res, next) => {
   const foundProject = await Project.findById(projectId);
 
   foundProject.todos.push(savedToDo);
+  foundProject.updatedAt = Date.now();
 
   await foundProject.save();
 
@@ -84,7 +85,8 @@ module.exports.addNewProjectTodo = async (req, res, next) => {
 
 // HANDLE TODOS COMPLETION STATE
 module.exports.toggleTodoCompletion = async (req, res, next) => {
-  const { todoId } = req.params;
+  const { todoId, projectId } = req.params;
+  const foundProject = await Project.findById(projectId);
   const foundTodo = await Todo.findById(todoId);
   // check if there is a todo
   if (!foundTodo) {
@@ -93,6 +95,9 @@ module.exports.toggleTodoCompletion = async (req, res, next) => {
   // Toggle completion state
   foundTodo.completed = !foundTodo.completed;
   await foundTodo.save();
+  // Update the "updatedAt" date of the project
+  foundProject.updatedAt = Date.now();
+  await foundProject.save();
   // Get the updated count of completed and open todos
   const completedCount = await Todo.countDocuments({ project: req.params.projectId, completed: true });
   const openCount = await Todo.countDocuments({ project: req.params.projectId, completed: false });
@@ -142,6 +147,7 @@ module.exports.addProjectBudget = async (req, res, next) => {
   };
 
   foundProject.projectbudget = newProjectBudget._id;
+  foundProject.updatedAt = Date.now();
   await foundProject.save();
 
   res.redirect(`/projekte/${foundProject._id}#budget-section`);
@@ -160,6 +166,9 @@ module.exports.addProjectBudgetExpense = async (req, res, next) => {
   projectBudget.remainingProjectBudget -= projectExpenseAmount;
   await projectBudget.save();
 
+  foundProject.updatedAt = Date.now();
+  await foundProject.save();
+
   res.redirect(`/projekte/${foundProject._id}#budget-section`);
 };
 
@@ -173,7 +182,7 @@ module.exports.renderEditProject = async (req, res, next) => {
 // EDIT A PROJECT
 module.exports.editProject = async (req, res, next) => {
   const { projectId } = req.params;
-  const foundProject = await Project.findByIdAndUpdate(projectId, req.body, { runValidators: true });
+  const foundProject = await Project.findByIdAndUpdate(projectId, {... req.body, updatedAt: Date.now()}, { runValidators: true });
   res.redirect(`/projekte/${foundProject._id}`);
 };
 
@@ -190,6 +199,9 @@ module.exports.editProjectBudget = async (req, res, next) => {
   foundProjectBudget.remainingProjectBudget = newProjectBudget - totalExpenses;
 
   await foundProjectBudget.save();
+
+  foundProject.updatedAt = Date.now();
+  await foundProject.save();
 
   res.redirect(`/projekte/${foundProject._id}#budget-section`);
 };
@@ -223,6 +235,7 @@ module.exports.deleteTodoFromTodos = async (req, res, next) => {
 
   if (todoIndex !== -1) {
     foundProject.todos.splice(todoIndex, 1);// Remove the todo from the project's todos array
+    foundProject.updatedAt = Date.now();
     await foundProject.save();
     await Todo.findByIdAndDelete(todoId);
     res.redirect(`/projekte/${projectId}#todo-section`);
@@ -239,6 +252,7 @@ module.exports.deleteAllTodos = async (req, res, next) => {
   const todos = foundProject.todos;
 
   await Todo.deleteMany({ _id: { $in: todos } });
+  foundProject.updatedAt = Date.now();
   await foundProject.save();
 
   res.redirect(`/projekte/${projectId}#todo-section`);
@@ -258,6 +272,8 @@ module.exports.deleteProjectBudgetExpense = async (req, res, next) => {
     projectBudget.remainingProjectBudget += deletedExpenseAmount;
     projectBudget.projectExpenses.splice(expenseIndex, 1);
     await projectBudget.save();
+    foundProject.updatedAt = Date.now();
+    await foundProject.save();
     res.redirect(`/projekte/${projectId}#budget-section`);
   } else {
     res.status(404).render("pages/404");
@@ -272,6 +288,7 @@ module.exports.deleteProjectBudget = async (req, res, next) => {
 
   foundProject.projectbudget = null;
   await ProjectBudget.deleteOne({ _id: projectBudget._id });
+  foundProject.updatedAt = Date.now();
   await foundProject.save();
   res.redirect(`/projekte/${projectId}`);
 };

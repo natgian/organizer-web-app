@@ -218,7 +218,7 @@ fieldset {
   max-width: 500px;
   margin: 1.25em auto 2em auto;
   border-radius: 15px;
-  padding: 2em 1.25em 3.5em 1.25em;
+  padding: 2em 1.25em 3em 1.25em;
 }
 
 .no-bg-wrapper {
@@ -549,8 +549,6 @@ fieldset {
 }
 
 .page-navigation-link {
-  /* text-decoration: underline; */
-  /* text-underline-offset: 0.2em; */
   color: var(--navigation-color);
   font-size: 1rem;
   padding: 0.5em 1em;
@@ -734,6 +732,10 @@ fieldset {
 .inline-svg {
   display: inline-block;
   vertical-align: text-bottom;
+}
+
+.draggable {
+  cursor:move;
 }
 
 .loader {
@@ -1366,10 +1368,6 @@ button#toggle-password:active {
   gap: 0.875em;
 }
 
-.items-ul {
-  padding: 1em 0 1em 0;
-}
-
 .list-wrapper {
   display: flex;
   flex-direction: row;
@@ -1566,6 +1564,13 @@ td {
   border: 1px solid var(--medium-dark-color);
   border-radius: 10px;
   color: var(--subtitle-text-color);
+}
+
+.todos-count {
+  color: var(--navigation-color);
+  font-size: var(--small-font-size);
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 #projectdescription {

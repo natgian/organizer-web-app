@@ -26,9 +26,9 @@ async function toggleCompleted(projectId, todoId) {
       const checkbox = document.getElementById(`todo-checkbox-${todoId}`);
       const listItem = checkbox.closest("li");
       if (checkbox.checked) {
-        listItem.classList.add('completed');
+        listItem.classList.add("completed");
       } else {
-        listItem.classList.remove('completed');
+        listItem.classList.remove("completed");
       }
     //After toggling, fetch and update the completed count
       fetchAndUpdateCompletedCount(projectId);

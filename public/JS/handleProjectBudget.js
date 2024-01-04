@@ -12,6 +12,8 @@ const editProjectBudgetButton = document.getElementById("edit-budget-btn");
 const editProjectBudgetContainer = document.getElementById("edit-projectbudget-container");
 const inputNewProjectBudgetElement = document.getElementById("edit-projectbudget-input");
 
+const currentDate = new Date().toISOString().split("T")[0];
+
 
 // EVENT LISTENER TO ADD A NEW PROJECT BUDGET
 if (addProjectBudgetButton) {
@@ -26,6 +28,7 @@ if (addExpenseButton) {
 addExpenseButton.addEventListener("click", () => {
   newExpenseContainer.style.display = "block";
   inputProjectExpenseDate.focus();
+  inputProjectExpenseDate.value = currentDate;
 });
 };
 

@@ -63,9 +63,13 @@ const ProjectSchema = new mongoose.Schema({
     }
   ],
   projectbudget: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ProjectBudget"
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ProjectBudget"
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Project = mongoose.model("Project", ProjectSchema);

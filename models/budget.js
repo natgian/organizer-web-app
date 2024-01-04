@@ -38,7 +38,11 @@ const BudgetSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  }  
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  } 
 });
 
 const Expense = mongoose.model("Expense", ExpenseSchema);

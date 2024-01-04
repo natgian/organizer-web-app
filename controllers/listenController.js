@@ -3,7 +3,7 @@ const User = require("../models/user");
 
 // RENDER LISTEN PAGE
 module.exports.renderListenPage = async (req, res, next) => {
-  const lists = await List.find({ user: req.user._id }).populate("user");
+  const lists = await List.find({ user: req.user._id }).sort({ updatedAt: -1}).populate("user");
   res.render("pages/listen", { lists });
 };
 
@@ -63,7 +63,7 @@ module.exports.renderEditList = async (req, res, next) => {
 // EDIT A LIST
 module.exports.editList = async (req, res, next) => {
   const { listId } = req.params;
-  const foundList = await List.findByIdAndUpdate(listId, req.body, { runValidators: true });
+  const foundList = await List.findByIdAndUpdate(listId, {... req.body, updatedAt: Date.now()}, { runValidators: true });
   res.redirect(`/listen/${foundList._id}`);
 };
 
@@ -87,6 +87,7 @@ module.exports.addNewListItem = async (req, res, next) => {
   const savedItem = await newItem.save();
   const foundList = await List.findById(listId);
   foundList.items.push(savedItem);
+  foundList.updatedAt = Date.now();
   await foundList.save();
   res.redirect(`/listen/${foundList._id}`);
 }
@@ -100,6 +101,7 @@ module.exports.deleteItemFromList = async (req, res, next) => {
 
     if (itemIndex !== -1) {
       foundList.items.splice(itemIndex, 1);// Remove the item from the list's items array
+      foundList.updatedAt = Date.now();
       await foundList.save();
       await Item.findByIdAndDelete(itemId);
 

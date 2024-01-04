@@ -4,7 +4,7 @@ const formatDate  = require("../utilities/formatDate");
 
 // RENDER BUDGET PAGE
 module.exports.renderBudgetPage = async (req, res, next) => {
-  const budgets = await Budget.find({ user: req.user._id }).populate("user");
+  const budgets = await Budget.find({ user: req.user._id }).sort({ updatedAt: -1}).populate("user");
   res.render("pages/budget", { budgets });
 };
 
@@ -80,7 +80,7 @@ module.exports.editBudget = async (req, res, next) => {
     // Calculate the remaining budget:
     updatedBudget.remainingBudget = updatedBudget.budget - totalExpenses;
     // Update the budget:
-    await Budget.findByIdAndUpdate(budgetId, updatedBudget, { runValidators: true });
+    await Budget.findByIdAndUpdate(budgetId, {...updatedBudget, updatedAt: Date.now()}, { runValidators: true });
 
     res.redirect(`/budget/${budgetId}`);
 };
@@ -101,7 +101,6 @@ module.exports.deleteBudget = async (req, res, next) => {
 // ADD NEW EXPENSE TO A BUDGET
 module.exports.addNewExpense = async (req, res, next) => {
   const { budgetId } = req.params;
-
   const newExpense = new Expense({ 
     date: req.body.date, 
     description: req.body.description, 
@@ -109,12 +108,12 @@ module.exports.addNewExpense = async (req, res, next) => {
   });
 
   const expenseAmount = req.body.expense;
-
   const savedExpense = await newExpense.save();
   const foundBudget = await Budget.findById(budgetId);
 
   foundBudget.expenses.push(savedExpense);
   foundBudget.remainingBudget -= expenseAmount;
+  foundBudget.updatedAt = Date.now();
   await foundBudget.save();
   res.redirect(`/budget/${foundBudget._id}`);
 };
@@ -122,7 +121,6 @@ module.exports.addNewExpense = async (req, res, next) => {
 // DELETE EXPENSE FROM A BUDGET
 module.exports.deleteExpenseFromBudget = async (req, res, next) => {
   const { budgetId, expenseId } = req.params;
-
   const foundBudget = await Budget.findById(budgetId);
   const expense = await Expense.findById(expenseId);
   const expenseAmount = expense.expense;
@@ -131,6 +129,7 @@ module.exports.deleteExpenseFromBudget = async (req, res, next) => {
   if (expenseIndex !== -1) {
     foundBudget.expenses.splice(expenseIndex, 1);// Remove the item from the list's items array
     foundBudget.remainingBudget += expenseAmount;
+    foundBudget.updatedAt = Date.now();
     await foundBudget.save();
     await Expense.findByIdAndDelete(expenseId);
     res.redirect(`/budget/${budgetId}`);
