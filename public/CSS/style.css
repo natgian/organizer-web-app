@@ -734,10 +734,6 @@ fieldset {
   vertical-align: text-bottom;
 }
 
-.draggable {
-  cursor:move;
-}
-
 .loader {
   position: fixed;
   z-index: 1;
@@ -1202,6 +1198,7 @@ button#toggle-password:active {
   justify-content: center;
   align-items: center;
   gap: 2em;
+  font-size: var(--subtitle-specific-fs);
 }
 
 .timer-explainer {
@@ -1222,6 +1219,7 @@ button#toggle-password:active {
 
 .duration-buttons-container {
   display: flex;
+  align-items: center;
   gap: 0.2em;
   padding-top: 0.5em;
 }
@@ -1235,6 +1233,11 @@ button#toggle-password:active {
 
 .settings-btn:disabled {
   color: var(--primary-color-disabled);
+}
+
+#current-cycle{
+  font-size: var(--small-font-size);
+  color: var(--muted-text-color);
 }
 
 /*----------*/

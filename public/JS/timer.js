@@ -96,6 +96,8 @@ function startTimer() {
     }
   }, 1000);
 
+  updateCurrentCycle();
+
   startButton.disabled = true;
   pauseButton.disabled = false;
   resetButton.disabled = false;
@@ -218,9 +220,10 @@ function setRemainingPathColor() {
 // Function to CALCULATE the appropriate stroke-dasharray VALUE for the SVG circle representing the timer 
 function setCircleDasharray() {
   const calculateTimeLeft = timeLeft / timeLimit;
-  const circleDasharray = `${(calculateTimeLeft * FULL_DASHARRAY).toFixed(0)} 283`;
+  const circleDasharray = `${(calculateTimeLeft * FULL_DASHARRAY).toFixed(0)} ${FULL_DASHARRAY}`;
   document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
 };
+
 
 // Function to DISABLE SETTINGS BUTTONS
 function disableSettings() {
@@ -304,15 +307,23 @@ function startBreak() {
     setCircleDasharray();
     setRemainingPathColor();
 
-    // timerState.innerHTML = "Pause";
-    // timerState.style.color = "red";
-
     if (timeLeft === 0) {
       onBreaksUp();
     }
   }, 1000);
 
   isFocusSession = false;
+};
+
+// Function to UPDATE DISPLAY WITH CURRENT CYCLE based on timer state
+function updateCurrentCycle() {
+  const currentCycleElement = document.getElementById("current-cycle");
+
+  if (timerInterval) {
+    currentCycleElement.textContent = `#${currentCycle}`;
+  } else {
+    currentCycleElement.style.display = "none";
+  };
 };
 
 
