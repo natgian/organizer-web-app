@@ -55,13 +55,16 @@
         <nav class="project-nav-header">
           <ul class="project-nav">
             <li><a href="#todo-section">Aufgaben</a><br>
-              offen: <span id="open-count"><%= openCount %></span> / erledigt: <span id="completed-count"><%= completedCount %></span></li>
+              offen: <span id="open-count"><%= openCount %></span> / erledigt: <span
+                id="completed-count"><%= completedCount %></span></li>
             <li><a href="#budget-section">Budget</a><br>
               <% if(foundProject.projectbudget) {%>
-              <span id="current-budget">Aktuell: CHF <%=foundProject.projectbudget.remainingProjectBudget.toFixed(2) %></span></li>
-              <% } else { %>
-                <span id="current-budget">kein Budget vorhanden</span>
-                <% } %>
+              <span id="current-budget">Aktuell: CHF
+                <%=foundProject.projectbudget.remainingProjectBudget.toFixed(2) %></span>
+            </li>
+            <% } else { %>
+            <span id="current-budget">kein Budget vorhanden</span>
+            <% } %>
           </ul>
         </nav>
 
@@ -144,13 +147,25 @@
 
         <!-- BUDGET -->
         <section class="wrapper medium-dark-wrapper" id="budget-section">
-          <!-- Edit Budget Button -->
-          <button class="delete-edit-btn flex-right" id="edit-budget-btn" aria-label="Budget editieren">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-              <path fill="currentColor"
-                d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-            </svg>
-          </button>
+
+          <div class="listen-buttons-wrapper">
+            <!-- Delete Budget Button -->
+            <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST" class="flex">
+              <button class="delete-edit-btn" aria-label="Budget löschen"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                </svg></button>
+            </form>
+            <!-- Edit Budget Button -->
+            <button class="delete-edit-btn" id="edit-budget-btn" aria-label="Budget editieren">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+              </svg>
+            </button>
+          </div>
+
           <h2 class="subtitle-specific">Budget</h2>
 
           <div class="add-item-container">
@@ -208,8 +223,8 @@
                 <td class="table-align-left table-border"><%= transaction.projectTransactionDescription %>
                   <br><span class="expense-date"><%= formatDate(transaction.projectTransactionDate) %></span>
                 </td>
-                <td class="table-align-right table-align-top table-border"> 
-                   <%= transaction.projectTransactionType === "revenue" ? "+" : "-" %> CHF
+                <td class="table-align-right table-align-top table-border">
+                  <%= transaction.projectTransactionType === "revenue" ? "+" : "-" %> CHF
                   <%= transaction.projectTransactionAmount.toFixed(2)%>
                   &nbsp;
                   <form action="/projekte/<%=foundProject._id%>/budget/transaction/<%=transaction._id%>?_method=DELETE"
@@ -236,26 +251,21 @@
             <!-- Add Transaction Form -->
             <div class="new-item-container" id="new-transaction-container">
               <form action="/projekte/<%=foundProject._id%>/budget/transaction" method="POST">
-                <!-- <label for="projectTransactionType">Transaction Type:</label>
-                <select name="projectTransactionType" id="projectTransactionType" required>
-                  <option value="expense">Ausgabe</option>
-                  <option value="revenue">Einnahme</option>
-                </select> -->
 
                 <div class="radio-input-container">
-                <label class="radio-input">
-                  <input type="radio" name="projectTransactionType" value="expense" checked>
-                  Ausgabe
-                </label>
-                <label class="radio-input">
-                  <input type="radio" name="projectTransactionType" value="revenue">
-                  Einnahme
-                </label>
-              </div>
+                  <label class="radio-input">
+                    <input type="radio" name="projectTransactionType" value="expense" checked>
+                    Ausgabe
+                  </label>
+                  <label class="radio-input">
+                    <input type="radio" name="projectTransactionType" value="revenue">
+                    Einnahme
+                  </label>
+                </div>
 
                 <label for="projectTransactionDate">
-                  <input type="date" name="projectTransactionDate" id="projectTransactionDate" class="input" max="9999-12-31"
-                    required>
+                  <input type="date" name="projectTransactionDate" id="projectTransactionDate" class="input"
+                    max="9999-12-31" required>
                 </label>
                 <label for="projectTransactionDescription">
                   <input type="text" name="projectTransactionDescription" placeholder="Beschreibung..."
@@ -270,12 +280,6 @@
               <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
                 onclick="closeTransactionForm()">Abbrechen</button>
             </div>
-
-
-            <!-- Delete Budget Button -->
-            <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
-              <button class="remove-all-btn mt-4">Budget löschen</button>
-            </form>
 
             <% } %>
           </div>

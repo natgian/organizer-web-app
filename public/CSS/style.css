@@ -160,10 +160,6 @@ fieldset {
 .radio-input {
 cursor: pointer;
 }
-input[type=radio]:focus {
-  background-color: red;
-}
-
 
 /*-------*/
 /* INDEX */
@@ -1416,6 +1412,7 @@ button#toggle-password:active {
 
 .listen-buttons-wrapper {
   display: flex;
+  justify-content: flex-end;
   gap: 0.75em;
 }
 
@@ -1648,10 +1645,6 @@ td {
 .completed {
   text-decoration: line-through;
   color: var(--light-dark-color);
-}
-
-#edit-budget-btn {
-  width: 100%;
 }
 
 /*--------*/
