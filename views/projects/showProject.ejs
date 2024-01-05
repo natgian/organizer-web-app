@@ -148,6 +148,7 @@
         <!-- BUDGET -->
         <section class="wrapper medium-dark-wrapper" id="budget-section">
 
+          <% if (foundProject.projectbudget) { %>
           <div class="listen-buttons-wrapper">
             <!-- Delete Budget Button -->
             <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST" class="flex">
@@ -165,6 +166,7 @@
               </svg>
             </button>
           </div>
+          <% } %>
 
           <h2 class="subtitle-specific">Budget</h2>
 
