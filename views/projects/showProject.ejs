@@ -196,23 +196,24 @@
               </tr>
             </table>
 
-            <!-- Expenses-Table -->
-            <table class="expenses-table mt-1">
+            <!-- Transactions-Table -->
+            <table class="transactions-table mt-1">
               <tr>
                 <th class="table-align-left bold">Beschreibung</th>
                 <th class="table-align-right bold">Betrag</th>
               </tr>
 
-              <% foundProject.projectbudget.projectExpenses.forEach((expense) => { %>
+              <% foundProject.projectbudget.projectTransactions.forEach((transaction) => { %>
               <tr>
-                <td class="table-align-left table-border"><%= expense.projectExpenseDescription %>
-                  <br><span class="expense-date"><%= formatDate(expense.projectExpenseDate) %></span>
+                <td class="table-align-left table-border"><%= transaction.projectTransactionDescription %>
+                  <br><span class="expense-date"><%= formatDate(transaction.projectTransactionDate) %></span>
                 </td>
-                <td class="table-align-right table-align-top table-border">CHF
-                  <%= expense.projectExpenseAmount.toFixed(2)%>
+                <td class="table-align-right table-align-top table-border"> 
+                   <%= transaction.projectTransactionType === "revenue" ? "+" : "-" %> CHF
+                  <%= transaction.projectTransactionAmount.toFixed(2)%>
                   &nbsp;
-                  <form action="/projekte/<%=foundProject._id%>/budget/ausgabe/<%=expense._id%>?_method=DELETE"
-                    method="POST" class="expense-delete-form">
+                  <form action="/projekte/<%=foundProject._id%>/budget/transaction/<%=transaction._id%>?_method=DELETE"
+                    method="POST" class="transaction-delete-form">
                     <button class="delete-edit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
                         width="20" height="20" viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -224,33 +225,50 @@
               <% }) %>
             </table>
 
-            <!-- Add Expense Button -->
-            <button class="round-btn mt-1" id="add-expense-btn" aria-label="Ausgabe hinzufügen"><svg
+            <!-- Add Transaction Button -->
+            <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe hinzufügen"><svg
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg> Ausgabe hinzufügen
+              </svg> Ausgabe / Einnahme hinzufügen
             </button>
 
-            <!-- Add Expense Form -->
-            <div class="new-item-container" id="new-expense-container">
-              <form action="/projekte/<%=foundProject._id%>/budget/ausgabe" method="POST">
-                <label for="projectExpenseDate">
-                  <input type="date" name="projectExpenseDate" id="projectExpenseDate" class="input" max="9999-12-31"
+            <!-- Add Transaction Form -->
+            <div class="new-item-container" id="new-transaction-container">
+              <form action="/projekte/<%=foundProject._id%>/budget/transaction" method="POST">
+                <!-- <label for="projectTransactionType">Transaction Type:</label>
+                <select name="projectTransactionType" id="projectTransactionType" required>
+                  <option value="expense">Ausgabe</option>
+                  <option value="revenue">Einnahme</option>
+                </select> -->
+
+                <div class="radio-input-container">
+                <label class="radio-input">
+                  <input type="radio" name="projectTransactionType" value="expense" checked>
+                  Ausgabe
+                </label>
+                <label class="radio-input">
+                  <input type="radio" name="projectTransactionType" value="revenue">
+                  Einnahme
+                </label>
+              </div>
+
+                <label for="projectTransactionDate">
+                  <input type="date" name="projectTransactionDate" id="projectTransactionDate" class="input" max="9999-12-31"
                     required>
                 </label>
-                <label for="projectExpenseDescription">
-                  <input type="text" name="projectExpenseDescription" placeholder="Beschreibung..."
-                    id="projectExpenseDescription" class="input" required>
+                <label for="projectTransactionDescription">
+                  <input type="text" name="projectTransactionDescription" placeholder="Beschreibung..."
+                    id="projectTransactionDescription" class="input" required>
                 </label>
-                <label for="projectExpenseAmount">
-                  <input type="number" name="projectExpenseAmount" id="projectExpenseAmount" class="input"
+                <label for="projectTransactionAmount">
+                  <input type="number" name="projectTransactionAmount" id="projectTransactionAmount" class="input"
                     placeholder="Betrag..." step="any" required>
                 </label>
-                <button class="rectangle-btn" aria-label="Ausgabe hinzufügen">Hinzufügen</button>
+                <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
               </form>
               <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
-                onclick="closeExpenseForm()">Abbrechen</button>
+                onclick="closeTransactionForm()">Abbrechen</button>
             </div>
 
 

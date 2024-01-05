@@ -150,6 +150,21 @@ fieldset {
   border: none;
 }
 
+.radio-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1em;
+}
+
+.radio-input {
+cursor: pointer;
+}
+input[type=radio]:focus {
+  background-color: red;
+}
+
+
 /*-------*/
 /* INDEX */
 /*-------*/
@@ -1236,8 +1251,8 @@ button#toggle-password:active {
 }
 
 #current-cycle{
-  font-size: var(--small-font-size);
   color: var(--muted-text-color);
+  font-size: var(--main-font-size);
 }
 
 /*----------*/
@@ -1486,7 +1501,7 @@ td {
   padding: 1em 0.5em 0.5em 0.5em;
 }
 
-.expense-delete-form {
+.transaction-delete-form {
   display: inline;
   vertical-align: text-top;
 }
@@ -1741,7 +1756,7 @@ td {
 
   /* BUDGET */
   .expense-date {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
   }
 
   #body {

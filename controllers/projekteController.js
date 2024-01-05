@@ -4,7 +4,7 @@ const formatDate = require("../utilities/formatDate");
 
 // RENDER PROJEKTE PAGE
 module.exports.renderProjektePage = async (req, res, next) => {
-  const projects = await Project.find({ user: req.user._id }).sort({ updatedAt: -1}).populate("user");
+  const projects = await Project.find({ user: req.user._id }).sort({ updatedAt: -1 }).populate("user");
   res.render("pages/projekte", { projects });
 };
 
@@ -28,7 +28,7 @@ module.exports.showProject = async (req, res, next) => {
   const { projectId } = req.params;
 
   try {
-        const foundProject = await Project.findById(projectId)
+    const foundProject = await Project.findById(projectId)
       .populate({
         path: "user",
         populate: { path: "projects" }
@@ -110,25 +110,25 @@ module.exports.updateTodoCount = async (req, res, next) => {
   const { projectId } = req.params;
   const foundProject = await Project.findById(projectId);
 
-    if (!foundProject) {
-      res.status(404).render("pages/404");
+  if (!foundProject) {
+    res.status(404).render("pages/404");
+  }
+  else {
+    if (req.user && req.user._id.equals(foundProject.user._id)) {
+      // Calculate the todo counts
+      const completedCount = await Todo.countDocuments({
+        project: projectId,
+        completed: true,
+      });
+      const openCount = await Todo.countDocuments({
+        project: projectId,
+        completed: false,
+      });
+      res.json({ success: true, completedCount, openCount });
+    } else {
+      res.status(403).render("pages/403");
     }
-    else {
-      if (req.user && req.user._id.equals(foundProject.user._id)) {
-        // Calculate the todo counts
-        const completedCount = await Todo.countDocuments({
-          project: projectId,
-          completed: true,
-        });
-        const openCount = await Todo.countDocuments({
-          project: projectId,
-          completed: false,
-        });
-        res.json({ success: true, completedCount, openCount });
-      } else {
-        res.status(403).render("pages/403");
-      }
-    }
+  }
 };
 
 // ADD NEW PROJECT BUDGET
@@ -153,17 +153,22 @@ module.exports.addProjectBudget = async (req, res, next) => {
   res.redirect(`/projekte/${foundProject._id}#budget-section`);
 };
 
-// ADD PROJECT BUDGET EXPENSE
-module.exports.addProjectBudgetExpense = async (req, res, next) => {
+// ADD PROJECT BUDGET TRANSACTION
+module.exports.addProjectBudgetTransaction = async (req, res, next) => {
   const { projectId } = req.params;
   const foundProject = await Project.findById(projectId).populate("projectbudget");
   const projectBudget = foundProject.projectbudget;
 
-  const { projectExpenseDate, projectExpenseDescription, projectExpenseAmount } = req.body;
-  const newExpense = { projectExpenseDate, projectExpenseDescription, projectExpenseAmount };
+  const { projectTransactionDate, projectTransactionDescription, projectTransactionAmount, projectTransactionType } = req.body;
+  const newTransaction = { projectTransactionDate, projectTransactionDescription, projectTransactionAmount, projectTransactionType };
 
-  projectBudget.projectExpenses.push(newExpense);
-  projectBudget.remainingProjectBudget -= projectExpenseAmount;
+  projectBudget.projectTransactions.push(newTransaction);
+
+  if (projectTransactionType === "expense") {
+    projectBudget.remainingProjectBudget -= parseInt(projectTransactionAmount, 10);
+  } else if (projectTransactionType === "revenue") {
+    projectBudget.remainingProjectBudget += parseInt(projectTransactionAmount, 10);
+  };
   await projectBudget.save();
 
   foundProject.updatedAt = Date.now();
@@ -182,7 +187,7 @@ module.exports.renderEditProject = async (req, res, next) => {
 // EDIT A PROJECT
 module.exports.editProject = async (req, res, next) => {
   const { projectId } = req.params;
-  const foundProject = await Project.findByIdAndUpdate(projectId, {... req.body, updatedAt: Date.now()}, { runValidators: true });
+  const foundProject = await Project.findByIdAndUpdate(projectId, { ...req.body, updatedAt: Date.now() }, { runValidators: true });
   res.redirect(`/projekte/${foundProject._id}`);
 };
 
@@ -193,10 +198,10 @@ module.exports.editProjectBudget = async (req, res, next) => {
   const foundProject = await Project.findById(projectId);
   const foundProjectBudget = await ProjectBudget.findById(budgetId);
   // getting the total of all expenses in the budget:
-  const totalExpenses = foundProjectBudget.projectExpenses.reduce((total, expense) => total + expense.projectExpenseAmount, 0);
+  const totalTransactions = foundProjectBudget.projectTransactions.reduce((total, transaction) => total + transaction.projectTransactionAmount, 0);
 
   foundProjectBudget.projectBudget = newProjectBudget;
-  foundProjectBudget.remainingProjectBudget = newProjectBudget - totalExpenses;
+  foundProjectBudget.remainingProjectBudget = newProjectBudget - totalTransactions;
 
   await foundProjectBudget.save();
 
@@ -214,7 +219,7 @@ module.exports.deleteProject = async (req, res, next) => {
   const todoIds = foundProject.todos;
   const projectbudgetId = foundProject.projectbudget;
   const projectBudget = await ProjectBudget.findById(projectbudgetId);
-  
+
   if (projectBudget) {
     await ProjectBudget.findByIdAndDelete(projectbudgetId);
   };
@@ -258,19 +263,26 @@ module.exports.deleteAllTodos = async (req, res, next) => {
   res.redirect(`/projekte/${projectId}#todo-section`);
 };
 
-// DELETE EXPENSE FROM BUDGET
-module.exports.deleteProjectBudgetExpense = async (req, res, next) => {
-  const { projectId, expenseId } = req.params;
+// DELETE TRANSACTION FROM BUDGET
+module.exports.deleteProjectBudgetTransaction = async (req, res, next) => {
+  const { projectId, transactionId } = req.params;
   const foundProject = await Project.findById(projectId).populate("projectbudget");
   const projectBudget = foundProject.projectbudget;
 
-  const expenseIndex = projectBudget.projectExpenses.findIndex(
-    (expense) => expense._id.equals(expenseId));
+  const transactionIndex = projectBudget.projectTransactions.findIndex(
+    (transaction) => transaction._id.equals(transactionId));
 
-  if (expenseIndex !== -1) {
-    const deletedExpenseAmount = projectBudget.projectExpenses[expenseIndex].projectExpenseAmount;
-    projectBudget.remainingProjectBudget += deletedExpenseAmount;
-    projectBudget.projectExpenses.splice(expenseIndex, 1);
+  if (transactionIndex !== -1) {
+    const deletedTransaction = projectBudget.projectTransactions[transactionIndex];
+
+    if (deletedTransaction.projectTransactionType === "expense") {
+      projectBudget.remainingProjectBudget += deletedTransaction.projectTransactionAmount;
+    } else if (deletedTransaction.projectTransactionType === "revenue") {
+      projectBudget.remainingProjectBudget -= deletedTransaction.projectTransactionAmount;
+    };
+
+    projectBudget.projectTransactions.splice(transactionIndex, 1);
+
     await projectBudget.save();
     foundProject.updatedAt = Date.now();
     await foundProject.save();

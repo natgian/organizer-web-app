@@ -23,18 +23,23 @@ const ProjectBudgetSchema = new mongoose.Schema({
   remainingProjectBudget: {
     type: Number,
   },
-  projectExpenses: [
+  projectTransactions: [
     {
-      projectExpenseDate: {
+      projectTransactionDate: {
         type: Date,
         required: true,
       },
-      projectExpenseDescription: {
+      projectTransactionDescription: {
         type: String,
         required: true,
       },
-      projectExpenseAmount: {
+      projectTransactionAmount: {
         type: Number,
+        required: true,
+      },
+      projectTransactionType: {
+        type: String,
+        enum: ["expense", "revenue"],
         required: true,
       },
     },

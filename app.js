@@ -20,7 +20,7 @@ const MongoDBStore = require("connect-mongo");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
-const budgetRoutes = require("./routes/budgetRoutes")
+const budgetRoutes = require("./routes/budgetRoutes");
 const notizenRoutes = require("./routes/notizenRoutes");
 const kalenderRoutes = require("./routes/kalenderRoutes");
 const projekteRoutes = require("./routes/projekteRoutes");

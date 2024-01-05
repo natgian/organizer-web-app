@@ -2,11 +2,12 @@ const addProjectBudgetButton = document.getElementById("add-budget-btn");
 const newProjectBudgetContainer = document.getElementById("new-projectbudget-container");
 const inputProjectBudgetElement = document.getElementById("projectbudget-input");
 
-const addExpenseButton = document.getElementById("add-expense-btn");
-const newExpenseContainer = document.getElementById("new-expense-container");
-const inputProjectExpenseDate = document.getElementById("projectExpenseDate");
-const inputProjectExpenseDescription = document.getElementById("projectExpenseDescription");
-const inputProjectExpenseAmount = document.getElementById("projectExpenseAmount");
+const addTransactionButton = document.getElementById("add-transaction-btn");
+const newTransactionContainer = document.getElementById("new-transaction-container");
+const inputProjectTransactionDate = document.getElementById("projectTransactionDate");
+const inputProjectTransactionDescription = document.getElementById("projectTransactionDescription");
+const inputProjectTransactionAmount = document.getElementById("projectTransactionAmount");
+const inputProjectTransactionType = document.querySelector(".radio-input");
 
 const editProjectBudgetButton = document.getElementById("edit-budget-btn");
 const editProjectBudgetContainer = document.getElementById("edit-projectbudget-container");
@@ -23,12 +24,12 @@ if (addProjectBudgetButton) {
   });
 };
 
-// EVENT LISTENER TO ADD A NEW EXPENSE
-if (addExpenseButton) {
-addExpenseButton.addEventListener("click", () => {
-  newExpenseContainer.style.display = "block";
-  inputProjectExpenseDate.focus();
-  inputProjectExpenseDate.value = currentDate;
+// EVENT LISTENER TO ADD A NEW TRANSACTION
+if (addTransactionButton) {
+addTransactionButton.addEventListener("click", () => {
+  newTransactionContainer.style.display = "block";
+  inputProjectTransactionType.focus();
+  inputProjectTransactionDate.value = currentDate;
 });
 };
 
@@ -41,8 +42,8 @@ if (editProjectBudgetButton) {
 };
 
 
-// CLOSE EXPENSE FORM //
-function closeExpenseForm() {
-  newExpenseContainer.style.display = "none";
+// CLOSE TRANSACTION FORM //
+function closeTransactionForm() {
+  newTransactionContainer.style.display = "none";
 };
 

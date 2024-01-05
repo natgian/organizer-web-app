@@ -269,8 +269,8 @@ function onBreaksUp() {
   clearInterval(timerInterval);
   playSound();
 
-  timerState.innerHTML = "Fokus";
-  timerState.style.color = "var(--title-text-color)";
+  timerState.textContent = "FOKUS";
+  timerState.style.color = "var(--comp-color-one)";
 
   if (currentCycle < 3) {
     startTimer();
@@ -296,7 +296,7 @@ function startBreak() {
   setCircleDasharray();
   setRemainingPathColor();
 
-    timerState.innerHTML = "Pause";
+    timerState.textContent = "PAUSE";
     timerState.style.color = "var(--comp-color-one)";
 
   timerInterval = setInterval(() => {
@@ -321,6 +321,8 @@ function updateCurrentCycle() {
 
   if (timerInterval) {
     currentCycleElement.textContent = `#${currentCycle}`;
+    timerState.textContent = "FOKUS";
+    timerState.style.color = "var(--comp-color-two)";
   } else {
     currentCycleElement.style.display = "none";
   };

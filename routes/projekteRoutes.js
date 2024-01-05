@@ -7,7 +7,7 @@ const projekteController = require("../controllers/projekteController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, validateProject, isAuthor, validateTodo, validateProjectBudget, validateProjectBudgetExpense } = require("../middleware");
+const { isLoggedIn, validateProject, isAuthor, validateTodo, validateProjectBudget, validateProjectBudgetTransaction } = require("../middleware");
 
 // Routes
 // -- RENDER PROJEKTE PAGE
@@ -34,8 +34,8 @@ router.put("/:projectId/aufgaben/:todoId", isLoggedIn, catchAsync(projekteContro
 // -- ADD NEW PROJECT BUDGET
 router.post("/:projectId/budget", isLoggedIn, validateProjectBudget, isAuthor("project"), catchAsync(projekteController.addProjectBudget));
 
-// -- ADD NEW BUDGET EXPENSE
-router.post("/:projectId/budget/ausgabe", isLoggedIn, validateProjectBudgetExpense, isAuthor("project"), catchAsync(projekteController.addProjectBudgetExpense));
+// -- ADD NEW BUDGET TRANSACTION
+router.post("/:projectId/budget/transaction", isLoggedIn, validateProjectBudgetTransaction, isAuthor("project"), catchAsync(projekteController.addProjectBudgetTransaction));
 
 // -- RENDER EDIT PAGE
 router.get("/:projectId/bearbeiten", isLoggedIn, isAuthor("project"), catchAsync(projekteController.renderEditProject));
@@ -50,7 +50,7 @@ router.delete("/:projectId/aufgaben/:todoId", isLoggedIn, isAuthor("project"), c
 router.delete("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteAllTodos));
 
 // DELETE A BUDGET EXPENSE
-router.delete("/:projectId/budget/ausgabe/:expenseId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudgetExpense));
+router.delete("/:projectId/budget/transaction/:transactionId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudgetTransaction));
 
 // DELETE A BUDGET
 router.delete("/:projectId/budget", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudget));

@@ -95,10 +95,11 @@ module.exports.projectBudgetSchema = Joi.object({
   projectBudget: Joi.number().required()
 });
 
-module.exports.projectBudgetExpenseSchema = Joi.object({
-  projectExpenseDate: Joi.date().required(),
-  projectExpenseDescription: Joi.string().required().escapeHTML(),
-  projectExpenseAmount: Joi.number().required()
+module.exports.projectBudgetTransactionSchema = Joi.object({
+  projectTransactionDate: Joi.date().required(),
+  projectTransactionDescription: Joi.string().required().escapeHTML(),
+  projectTransactionAmount: Joi.number().required(),
+  projectTransactionType: Joi.string().required()
 });
 
 

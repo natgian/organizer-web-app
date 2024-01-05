@@ -86,7 +86,7 @@
           </table>
 
           <!-- Expenses-Table -->
-          <table class="expenses-table mt-1">
+          <table class="transactions-table mt-1">
             <tr>
               <th class="table-align-left bold">Beschreibung</th>
               <th class="table-align-right bold">Betrag</th>
@@ -99,7 +99,7 @@
               </td>
               <td class="table-align-right table-align-top table-border">CHF <%= expense.expense.toFixed(2) %> &nbsp;
                 <form action="/budget/<%= foundBudget._id%>/expenses/<%=expense._id%>?_method=DELETE" method="POST"
-                  class="expense-delete-form">
+                  class="transaction-delete-form">
                   <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                       viewBox="0 0 24 24">
                       <path fill="currentColor"
