@@ -68,7 +68,7 @@ svg {
 :root {
   /* COLORS: */
   /* Surfaces */
-  --dark-color: #121212;
+  --dark-color: #050505;
   --semi-dark-color: #424242;
   --medium-dark-color: #2A2A2A;
   --light-dark-color: #4a4a4a;
@@ -76,9 +76,9 @@ svg {
   --light-background: #dfdfdf;
   --error-message: #e76e7a;
   /* Primary */
-  --primary-color: #03dac5;
-  --primary-color-hover: #048179;
-  --primary-color-active: #096661;
+  --primary-color: #03c4b1;
+  --primary-color-hover: #028376;
+  --primary-color-active: #01574f;
   --primary-color-disabled: #0d5450;
   /* Complementary */
   --comp-color-one: #F9F871;
