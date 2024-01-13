@@ -14,7 +14,8 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const nodemailer = require("nodemailer");
-const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
+// const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
+const dbURL = "mongodb://127.0.0.1:27017/taskmanagerApp";
 const session = require("express-session");
 const MongoDBStore = require("connect-mongo");
 
@@ -71,7 +72,8 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // secure: true --> this says that this cookie should only work over https. ACTIVE IT FOR DEPLOYMENT (not before, since localhost is not https)
+    // secure: true 
+    // "secure: true" --> says that this cookie should only work over https. ACTIVATE IT FOR DEPLOYMENT (not before, since localhost is not https)
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
@@ -107,36 +109,37 @@ app.use("/notizen", notizenRoutes);
 app.use("/kalender", kalenderRoutes);
 app.use("/projekte", projekteRoutes);
 app.use("/", userRoutes);
-// General routes
+// General routes:
+// Index
 app.get("/", (req, res) => {
   res.render("index");
 });
-
+// Home
 app.get("/home", isLoggedIn, (req, res) => {
   const user = req.user;
   res.render("pages/home", { user });
 });
-
+// Timer
 app.get("/timer", isLoggedIn, (req, res) => {
   res.render("pages/timer");
 });
-
+// Error Not Found
 app.get("/404", (req, res) => {
   res.status(404).render("pages/404");
 });
-
+// Privacy Policy
 app.get("/datenschutz", (req, res) => {
   res.render("pages/datenschutz");
 });
-
+// Contact
 app.get("/kontakt", (req, res) => {
   res.render("pages/contact");
 });
-
+// Mail sent
 app.get("/nachricht-versendet", (req, res) => {
   res.render("pages/contactSentConfirmation");
 });
-
+// Send contact form
 app.post("/kontakt", async (req, res) => {
   const { name, email, message } = req.body;
 

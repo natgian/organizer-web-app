@@ -44,7 +44,6 @@ async function loadCalendar() {
   document.getElementById("monthDisplay").innerText = `${date.toLocaleDateString("de-de", { month: "long" })} ${year}`;
 
   calendar.innerHTML = ""; // resetting the calendar
-
   const eventsContainer = document.getElementById("events-container");
   eventsContainer.innerHTML = ""; // clear events when changing the month
 
@@ -67,14 +66,14 @@ async function loadCalendar() {
       // Check if there are events on this date
       const eventsOnDate = filterEventsByDate(eventsData, currentDate);
 
-      // Render events (e.g., by adding dots or labels)
+      // Render events
       if (eventsOnDate.length > 0) {
         const eventIndicator = document.createElement("div");
         eventIndicator.classList.add("event-indicator");
         daySquare.appendChild(eventIndicator);
-      }
+      };
 
-      // Add a click event listener to handle interactions with the day square
+      // Handlling interactions with the day square
       daySquare.addEventListener("click", () => {
         // Remove focus from the previously focused daySquare
         if (focusedDaySquare) {
@@ -182,7 +181,7 @@ function displayDayEvents(currentDate, eventsData) {
     eventList.appendChild(eventListItem);
   });
   // Append the eventList to the eventsContainer
-  eventsContainer.innerHTML = ''; // Clear any previous content
+  eventsContainer.innerHTML = ""; // Clear any previous content
   eventsContainer.appendChild(eventList);
 };
 

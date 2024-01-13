@@ -658,6 +658,15 @@ cursor: pointer;
   color: silver;
 }
 
+.inline-input {
+  border-radius: 10px;
+  padding: 1em;
+  margin: 0.5em 0;
+  color: var(--main-text-color);
+  background-color: var(--semi-dark-color);
+  border: none;
+}
+
 .textarea {
   white-space: pre-line;
 }
@@ -1370,6 +1379,11 @@ button#toggle-password:active {
   border-radius: 5px;
   margin: 0.8em 0;
   padding: 1em;
+}
+
+#yearly {
+  margin-block: 1rem;
+  cursor: pointer;
 }
 
 /*--------*/

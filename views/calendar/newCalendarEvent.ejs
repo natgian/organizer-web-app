@@ -58,20 +58,25 @@
 
             <fieldset class="mb-1">
               <legend class="bold">Titel:</legend>
-              <input type="text" name="title" id="event-title" placeholder="Titel..." class="card-input mb-1" autofocus required>
+              <input type="text" name="title" id="event-title" placeholder="Titel..." class="card-input mb-1" autofocus
+                required>
             </fieldset>
 
-            <fieldset class="mb-1">
+            <fieldset class="date-inputs-container mb-1">
               <legend class="bold">Beginn:</legend>
-              <input type="date" name="startDate" id="startEventDate" class="card-input" max="9999-12-31" required>
-              <input type="time" name="startEventTime" id="startEventTime" class="card-input mb-1">
+              <input type="date" name="startDate" id="startEventDate" class="inline-input" max="9999-12-31" required>
+              <input type="time" name="startEventTime" id="startEventTime" class="inline-input mb-1">
             </fieldset>
 
             <fieldset>
               <legend class="bold">Ende:</legend>
-              <input type="date" name="endDate" id="endEventDate" class="card-input" max="9999-12-31" required>
-              <input type="time" name="endEventTime" id="endEventTime" class="card-input">
+              <input type="date" name="endDate" id="endEventDate" class="inline-input" max="9999-12-31" required>
+              <input type="time" name="endEventTime" id="endEventTime" class="inline-input">
             </fieldset>
+
+            <label for="yearly">
+              <input type="checkbox" name="reccurence" id="yearly" value="yearly"> Jährlich
+            </label>
 
             <fieldset class="color-options-wrapper">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"

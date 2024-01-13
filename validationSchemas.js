@@ -84,7 +84,12 @@ module.exports.calendarSchema = Joi.object({
   title: Joi.string().required().escapeHTML(),
   color: Joi.string().required(),
   startEventTime: Joi.string().allow(""),
-  endEventTime: Joi.string().allow("")
+  endEventTime: Joi.string().allow(""),
+  reccurence: Joi.when('yearly', {
+    is: true,
+    then: Joi.string().valid('yearly').required(),
+    otherwise: Joi.string().optional()
+  })
 });
 
 module.exports.todoSchema = Joi.object({

@@ -19,6 +19,10 @@ const CalendarSchema = new mongoose.Schema({
   endEventTime: {
     type: String
   },
+  recurrence: {
+    type: String,
+    default: "once"
+  },
   color: {
     type: String
   },

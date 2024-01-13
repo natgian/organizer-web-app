@@ -133,6 +133,7 @@ module.exports.validateExpense = async (req, res, next) => {
 
 // VALIDATE CALENDAR EVENT
 module.exports.validateCalendar = async (req, res, next) => {
+  console.log("Request Body:", req.body);
   const { error } = calendarSchema.validate(req.body);
   if (error) {
     const msg = error.details.map(element => element.message).join(",");

@@ -11,15 +11,45 @@ module.exports.renderNewEvent = (req, res, next) => {
 
 // CREATE A NEW CALENDAR EVENT
 module.exports.createEvent = async (req, res, next) => {
-  const newEvent = new Calendar(req.body);
-  newEvent.user = req.user._id;
+  const eventData = req.body;
+  eventData.user = req.user._id;
 
-  await newEvent.save();
+  if (eventData.reccurence === "yearly") {
+    // If present, set the recurrence to 'yearly'
+    eventData.recurrence = 'yearly';
 
-  req.user.calendar.push(newEvent._id);
-  await req.user.save();
+    // Create entries for the next 5 years
+    for (let i = 0; i < 10; i++) {
+      const newStartDate = new Date(eventData.startDate);
+      const newEndDate = new Date(eventData.endDate);
 
-  res.redirect("/kalender");
+      newStartDate.setFullYear(newStartDate.getFullYear() + i);
+      newEndDate.setFullYear(newEndDate.getFullYear() + i);
+
+      // Create a new event entry for each occurrence
+      const newEvent = new Calendar({
+        ...eventData,
+        startDate: newStartDate,
+        endDate: newEndDate
+      });
+
+      await newEvent.save();
+
+      // Update the user's calendar
+      req.user.calendar.push(newEvent._id);
+      await req.user.save();
+    }
+  } else {
+    // If not present or has a different recurrence pattern, save it as a single event
+    const newEvent = new Calendar(eventData);
+    await newEvent.save();
+
+    // Update the user's calendar
+    req.user.calendar.push(newEvent._id);
+    await req.user.save();
+  }
+
+  res.redirect('/kalender');
 };
 
 // LOAD CALENDAR EVENTS
