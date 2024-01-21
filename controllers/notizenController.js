@@ -4,7 +4,7 @@ const User = require("../models/user");
 // RENDER NOTIZEN INDEX PAGE
 module.exports.index = async (req, res, next) => {
   const currentPage = parseInt(req.query.page) || 1;
-  const notesPerPage = 16;
+  const notesPerPage = 10;
   const startIndex = (currentPage - 1) * notesPerPage;
   const totalNotes = await Note.countDocuments({ user: req.user._id });
   const noteMaxLength = 25;

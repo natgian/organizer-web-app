@@ -224,7 +224,6 @@ function setCircleDasharray() {
   document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
 };
 
-
 // Function to DISABLE SETTINGS BUTTONS
 function disableSettings() {
   timerMinusButton.disabled = true;
