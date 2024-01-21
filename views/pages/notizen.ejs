@@ -76,6 +76,7 @@
           <% }); %>
         </div>
 
+        <% if (pages > 1) { %>
         <!-- Pagination Links -->
         <div class="container pagination-wrapper text-center mt-2">
           <% if (currentPage > 1) { %>
@@ -104,6 +105,7 @@
             </a>
           <% } %>
         </div>
+        <% } %>
 
       </div>
     </main>
