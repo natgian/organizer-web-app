@@ -62,7 +62,7 @@
 
                 <div class="listen-buttons-wrapper">
                   <!-- Delete a budget -->
-                  <form action="/budget/<%= budget._id%>?_method=DELETE" method="POST" class="flex">
+                  <form action="/budget/<%= budget._id%>?_method=DELETE" method="POST" class="flex" title="Budget löschen">
                     <button class="delete-edit-btn" aria-label="Budget löschen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -70,7 +70,7 @@
                       </svg></button>
                   </form>
                   <!-- Edit a budget -->
-                  <button class="delete-edit-btn inline-block-svg" aria-label="Budget editieren">
+                  <button class="delete-edit-btn inline-block-svg" aria-label="Budget bearbeiten" title="Budget bearbeiten">
                     <a href="/budget/<%=budget._id%>/bearbeiten">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor"

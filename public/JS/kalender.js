@@ -159,6 +159,7 @@ function displayDayEvents(currentDate, eventsData) {
 
     const deleteEventButton = document.createElement("button");
     deleteEventButton.classList.add("delete-btn-dark");
+    deleteEventButton.setAttribute("title", "Eintrag löschen");
     deleteEventButton.addEventListener("click", () => {
       deleteCalendarEvent(event._id);
     });
