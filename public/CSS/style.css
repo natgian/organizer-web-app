@@ -1136,7 +1136,7 @@ button#toggle-password:active {
 .base-timer-path-remaining {
   stroke-width: 5px;
   stroke-linecap: round;
-  transform: rotate(90deg);
+  transform: rotate(-90deg) scaleX(-1);
   transform-origin: center;
   transition: 1s linear all;
   fill-rule: nonzero;
