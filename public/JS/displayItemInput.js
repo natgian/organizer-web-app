@@ -6,3 +6,9 @@ addItemBtn.addEventListener("click", () => {
   newItemContainer.style.display = "block";
   inputElement.focus();
 });
+
+// CLOSE TRANSACTION FORM //
+function closeInputForm() {
+  event.preventDefault();
+  newItemContainer.style.display = "none";
+};
