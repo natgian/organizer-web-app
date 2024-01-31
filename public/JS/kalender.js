@@ -6,7 +6,6 @@ let focusedDaySquare = null;
 const calendar = document.getElementById("calendar");
 const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 const addButton = document.getElementById("add-button");
-const testButton = document.getElementById("test");
 
 // EVENT LISTENER TO CHECK FOCUSED DAY SQUARE
 document.addEventListener("click", (event) => {
@@ -21,9 +20,14 @@ document.addEventListener("click", (event) => {
 // LOAD CALENDAR //
 async function loadCalendar() {
   const date = new Date();
+  const currentMonth = date.getMonth();
 
-  if (nav !== 0) {
-    date.setMonth(new Date().getMonth() + nav);
+    // Update the month with proper overflow handling
+    date.setMonth(currentMonth + nav);
+
+     // Handle overflow for months greater than 11 (December)
+  while (date.getMonth() !== (currentMonth + nav) % 12) {
+    date.setMonth(date.getMonth() - 1);
   };
 
   const day = date.getDate();
@@ -112,6 +116,11 @@ async function loadCalendar() {
     }
     calendar.appendChild(daySquare);
   }
+  console.log("Month:", date.getMonth());
+  console.log("Year:", date.getFullYear());
+  console.log("Blank Days:", blankDays);
+  console.log("Nav", nav);
+  console.log("=== End of loadCalendar ===");
 };
 
 // FILTER EVENTS BY DATE //
@@ -224,17 +233,15 @@ async function fetchEventData(year, month) {
   }
 };
 
-// CHANGE MONTH //
-function changeMonth() {
-  document.getElementById("forwardMonthButton").addEventListener("click", () => {
-    nav++;
-    loadCalendar();
-  });
-  document.getElementById("backwardMonthButton").addEventListener("click", () => {
-    nav--;
-    loadCalendar();
-  });
-};
+// EVENT LISTENERS TO CHANGE THE MONTH
+document.getElementById("forwardMonthButton").addEventListener("click", () => {
+  nav++;
+  loadCalendar();
+});
 
-changeMonth();
+document.getElementById("backwardMonthButton").addEventListener("click", async () => {
+  nav--;
+ loadCalendar();
+});
+
 loadCalendar();

@@ -14,8 +14,8 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const nodemailer = require("nodemailer");
-const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
-// const dbURL = "mongodb://127.0.0.1:27017/taskmanagerApp";
+// // const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
+const dbURL = "mongodb://127.0.0.1:27017/taskmanagerApp";
 const session = require("express-session");
 const MongoDBStore = require("connect-mongo");
 
