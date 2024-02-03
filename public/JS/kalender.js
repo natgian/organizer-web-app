@@ -12,7 +12,7 @@ document.addEventListener("click", (event) => {
   // Check if the click event is not within a daySquare and a daySquare is currently focused
   if (!event.target.classList.contains("daySquare") && focusedDaySquare) {
     // Remove the focus style from the currently focused daySquare
-    focusedDaySquare.classList.remove("focused-daySqaure");
+    focusedDaySquare.classList.remove("focused-daySquare");
     focusedDaySquare = null;
   }
 });
@@ -20,107 +20,113 @@ document.addEventListener("click", (event) => {
 // LOAD CALENDAR //
 async function loadCalendar() {
   const date = new Date();
-  const currentMonth = date.getMonth();
+  date.setMonth(date.getMonth() + nav);
 
-    // Update the month with proper overflow handling
-    date.setMonth(currentMonth + nav);
+  const { year, month, daysInMonth, blankDays } = getDateDetails(date);
 
-     // Handle overflow for months greater than 11 (December)
-  while (date.getMonth() !== (currentMonth + nav) % 12) {
-    date.setMonth(date.getMonth() - 1);
-  };
+  updateMonthDisplay(date);
+  clearCalendarAndEvents();
 
-  const day = date.getDate();
-  const month = date.getMonth(); // careful, getMonth index is 0-11 (0 = January, 11 = December)
+  const eventsData = await fetchEventData(year, month);
+
+  for (let i = 1; i <= blankDays + daysInMonth; i++) {
+    const daySquare = createDaySquare(i, blankDays, eventsData, year, month);
+    document.getElementById("calendar").appendChild(daySquare);
+  }
+
+  addButton.addEventListener("click", () => {
+    if (!selectedDate) {
+      localStorage.setItem("selectedDate", "");
+    }
+    window.location.assign("/kalender/neuer-eintrag");
+  });
+};
+
+// GET DATE DETAILS (year, month etc..) //
+function getDateDetails(date) {
   const year = date.getFullYear();
+  const month = date.getMonth();
   const firstDayOfMonth = new Date(year, month, 1);
-  const daysInMonth = new Date(year, month + 1, 0).getDate(); // current year, month, 0 = the last day of the previous month)
-
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
   const dateString = firstDayOfMonth.toLocaleDateString("de-de", {
     weekday: "long",
     year: "numeric",
     month: "numeric",
     day: "numeric",
   });
+  const blankDays = weekdays.indexOf(dateString.split(", ")[0]);
+  return { year, month, daysInMonth, blankDays };
+};
 
-  blankDays = weekdays.indexOf(dateString.split(", ")[0]); // calculating the "blank" days before the first day of the month in the week
-
+// UPDATE THE DISPLAY OF THE MONTH // 
+function updateMonthDisplay(date) {
+  const year = date.getFullYear();
   document.getElementById("monthDisplay").innerText = `${date.toLocaleDateString("de-de", { month: "long" })} ${year}`;
+};
 
-  calendar.innerHTML = ""; // resetting the calendar
-  const eventsContainer = document.getElementById("events-container");
-  eventsContainer.innerHTML = ""; // clear events when changing the month
+// SET CALENDAR AND EVENTS TO EMPTY STRING // 
+function clearCalendarAndEvents() {
+  document.getElementById("calendar").innerHTML = "";
+  document.getElementById("events-container").innerHTML = "";
+};
 
-  // Fetch event data from the backend
-  const eventsData = await fetchEventData(year, month);
+// CREATE VISUAL DAY SQUARE //
+function createDaySquare(day, blankDays, eventsData, year, month) {
+  const daySquare = document.createElement("div");
+  daySquare.classList.add("daySquare");
 
-  // Loop through each day square and check if it has events
-  for (let i = 1; i <= blankDays + daysInMonth; i++) {
-    const daySquare = document.createElement("div");
-    daySquare.classList.add("daySquare");
+  if (day > blankDays) {
+    daySquare.innerText = day - blankDays;
 
-    if (i > blankDays) {
-      daySquare.innerText = i - blankDays;
+    const currentDate = new Date(year, month, day - blankDays);
+    const eventsOnDate = filterEventsByDate(eventsData, currentDate);
 
-      if (i - blankDays === day && nav == 0) {
-        daySquare.id = "currentDay";
-      }
-      const currentDate = new Date(year, month, i - blankDays);
-
-      // Check if there are events on this date
-      const eventsOnDate = filterEventsByDate(eventsData, currentDate);
-
-      // Render events
-      if (eventsOnDate.length > 0) {
-        const eventIndicator = document.createElement("div");
-        eventIndicator.classList.add("event-indicator");
-        daySquare.appendChild(eventIndicator);
-      };
-
-      // Handlling interactions with the day square
-      daySquare.addEventListener("click", () => {
-        // Remove focus from the previously focused daySquare
-        if (focusedDaySquare) {
-          focusedDaySquare.classList.remove("focused-daySquare");
-        };
-        // Add focus to the current daySquare
-        daySquare.classList.add("focused-daySquare");
-        // Update the focusedDaySquare
-        focusedDaySquare = daySquare;
-
-        displayDayEvents(currentDate, eventsOnDate);
-
-        const eventsContainer = document.getElementById("events-container");
-        eventsContainer.scrollIntoView({ behavior: "smooth" });
-
-        selectedDate = currentDate;
-        // Format the date as yyyy-mm-dd with leading zeros and save it to local storage
-        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
-        localStorage.setItem("selectedDate", formattedDate);
-      });
-
-      addButton.addEventListener("click", () => {
-        if (!selectedDate) {
-          localStorage.setItem("selectedDate", "");
-        }
-        window.location.assign("/kalender/neuer-eintrag");
-      });
-
-      daySquare.addEventListener("dblclick", () => {
-        if (!selectedDate) {
-          localStorage.setItem("selectedDate", "");
-        }
-        window.location.assign("/kalender/neuer-eintrag");
-      });
-
+    if (eventsOnDate.length > 0) {
+      const eventIndicator = document.createElement("div");
+      eventIndicator.classList.add("event-indicator");
+      daySquare.appendChild(eventIndicator);
     }
-    calendar.appendChild(daySquare);
+
+    daySquare.addEventListener("click", () => {
+      handleDaySquareClick(daySquare, currentDate, eventsOnDate);
+    });
+
+    daySquare.addEventListener("dblclick", () => {
+      selectedDate = currentDate;  
+      const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+      localStorage.setItem("selectedDate", formattedDate);
+      window.location.assign("/kalender/neuer-eintrag");
+    });
   }
-  console.log("Month:", date.getMonth());
-  console.log("Year:", date.getFullYear());
-  console.log("Blank Days:", blankDays);
-  console.log("Nav", nav);
-  console.log("=== End of loadCalendar ===");
+  return daySquare;
+};
+
+// HANDLE CLICKS ON A DAY SQUARE // 
+function handleDaySquareClick(daySquare, currentDate, eventsOnDate) {
+  // Remove focus from the previously focused daySquare
+  if (focusedDaySquare) {
+    focusedDaySquare.classList.remove("focused-daySquare");
+  }
+
+  // Add focus to the current daySquare
+  focusedDaySquare = daySquare;
+  daySquare.classList.add("focused-daySquare");
+
+  // Check if there are events on this date
+  // Clear eventsContainer if there are no events on this date
+  const eventsContainer = document.getElementById("events-container");
+  eventsContainer.innerHTML = eventsOnDate.length > 0 ? "" : "";
+
+  // Display events for the clicked day
+  displayDayEvents(currentDate, eventsOnDate);
+
+  // Scroll to eventsContainer
+  eventsContainer.scrollIntoView({ behavior: "smooth" });
+
+  // Update selectedDate and save to local storage
+  selectedDate = currentDate;
+  const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+  localStorage.setItem("selectedDate", formattedDate);
 };
 
 // FILTER EVENTS BY DATE //
@@ -241,7 +247,7 @@ document.getElementById("forwardMonthButton").addEventListener("click", () => {
 
 document.getElementById("backwardMonthButton").addEventListener("click", async () => {
   nav--;
- loadCalendar();
+  loadCalendar();
 });
 
 loadCalendar();
