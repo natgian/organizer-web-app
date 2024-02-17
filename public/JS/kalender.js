@@ -97,6 +97,8 @@ function createDaySquare(day, blankDays, eventsData, year, month) {
       localStorage.setItem("selectedDate", formattedDate);
       window.location.assign("/kalender/neuer-eintrag");
     });
+
+    showCurrentDay(daySquare, currentDate);
   }
   return daySquare;
 };
@@ -199,6 +201,14 @@ function displayDayEvents(currentDate, eventsData) {
   // Append the eventList to the eventsContainer
   eventsContainer.innerHTML = ""; // Clear any previous content
   eventsContainer.appendChild(eventList);
+};
+
+// SHOW CURRENT DAY //
+function showCurrentDay(daySquare, currentDate) {
+  const today = new Date();
+  if (today.getDate() === currentDate.getDate() && today.getMonth() === currentDate.getMonth() && today.getFullYear() === currentDate.getFullYear()) {
+    daySquare.id = "currentDay";
+  };
 };
 
 // SEND AJAX REQUEST TO DELETE CALENDAR EVENT //
