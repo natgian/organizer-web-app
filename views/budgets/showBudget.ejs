@@ -27,6 +27,7 @@
   <meta name="application-name" content="MyOrganizer">
   <link rel="stylesheet" href="../CSS/style.css">
   <title>Budget: <%= foundBudget.name %></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
 </head>
 
 <body>
@@ -49,7 +50,7 @@
         </div>
         <% } %>
 
-        <div class="wrapper medium-dark-wrapper">
+        <div class="wrapper medium-dark-wrapper" id="pdf">
 
           <!-- Edit Button -->
           <button class="delete-edit-btn flex-right" title="Budget ändern">
@@ -78,10 +79,11 @@
               <th class="table-align-right bold">Verbleibend</th>
             </tr>
             <tr>
-              <td class="table-align-left">CHF <%= foundBudget.budget.toFixed(2) %></td>
+              <td class="table-align-left" id="budget">CHF <%= foundBudget.budget.toFixed(2) %></td>
               <td
-                class="table-align-right <%= foundBudget.remainingBudget >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">CHF 
-                <%= foundBudget.remainingBudget.toFixed(2) %></td>
+                class="table-align-right <%= foundBudget.remainingBudget >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>"
+                id="remainingBudget">
+                CHF <%= foundBudget.remainingBudget.toFixed(2) %></td>
             </tr>
           </table>
 
@@ -94,8 +96,9 @@
 
             <% foundBudget.expenses.forEach((expense) => { %>
             <tr>
-              <td class="table-align-left table-border"><%= expense.description %>
-                <br><span class="expense-date"><%= formatDate(expense.date) %></span>
+              <td class="table-align-left table-border">
+                <div class="expense-description"><%= expense.description %></div>
+                <div class="expense-date"><%= formatDate(expense.date) %></div>
               </td>
               <td class="table-align-right table-align-top table-border">CHF <%= expense.expense.toFixed(2) %> &nbsp;
                 <form action="/budget/<%= foundBudget._id%>/expenses/<%=expense._id%>?_method=DELETE" method="POST"
@@ -126,34 +129,36 @@
                   class="input" required>
               </label>
               <label for="expense-amount">
-                <input type="number" name="expense" id="expense-amount" class="input" placeholder="Betrag..." step="any" max="100000000" required>
+                <input type="number" name="expense" id="expense-amount" class="input" placeholder="Betrag..." step="any"
+                  max="100000000" required>
               </label>
               <button class="rectangle-btn mb-1">Hinzufügen</button>
               <a href="/budget/<%= foundBudget._id %>" class="rectangle-secondary-btn width-100">Abbrechen</a>
             </div>
           </form>
 
+          <button id="download-pdf" class="rectangle-btn">PDF herunterladen</button>
+
         </div>
+
       </div>
 
       <div class="text-center">
-        <a href="/budget" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-          height="24" viewBox="0 0 24 24" class="page-navigation-svg">
-          <g transform="rotate(180 12 12)">
-            <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
-          </g>
-        </svg>Alle Budgets</a>
+        <a href="/budget" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" class="page-navigation-svg">
+            <g transform="rotate(180 12 12)">
+              <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
+            </g>
+          </svg>Alle Budgets</a>
       </div>
 
     </main>
-
-
-
 
     <%- include("../partials/footer") %>
   </div>
 
   <script src="/JS/displayExpenseInput.js"></script>
+  <script src="/JS/createPDF.js"></script>
 </body>
 
 </html>

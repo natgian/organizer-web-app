@@ -1,10 +1,10 @@
 const User = require("../models/user");
 const { Expense, Budget } = require("../models/budget");
-const formatDate  = require("../utilities/formatDate");
+const formatDate = require("../utilities/formatDate");
 
 // RENDER BUDGET PAGE
 module.exports.renderBudgetPage = async (req, res, next) => {
-  const budgets = await Budget.find({ user: req.user._id }).sort({ updatedAt: -1}).populate("user");
+  const budgets = await Budget.find({ user: req.user._id }).sort({ updatedAt: -1 }).populate("user");
   res.render("pages/budget", { budgets });
 };
 
@@ -44,7 +44,7 @@ module.exports.showBudget = async (req, res, next) => {
         res.render("budgets/showBudget", { foundBudget, formatDate });
       } else {
         res.status(403).render("pages/403");
-      }      
+      }
     }
   }
   catch (err) {
@@ -70,19 +70,19 @@ module.exports.editBudget = async (req, res, next) => {
   const updatedBudget = req.body;
   const foundBudget = await Budget.findById(budgetId);
 
-    if (!foundBudget) {
-      return res.status(404).render("pages/404");
-    }
-    // Find all expenses associated with the budget:
-    const expenses = await Expense.find({ _id: { $in: foundBudget.expenses } });
-    // Calculate the total expense amount:
-    const totalExpenses = expenses.reduce((total, expense) => total + expense.expense, 0);
-    // Calculate the remaining budget:
-    updatedBudget.remainingBudget = updatedBudget.budget - totalExpenses;
-    // Update the budget:
-    await Budget.findByIdAndUpdate(budgetId, {...updatedBudget, updatedAt: Date.now()}, { runValidators: true });
+  if (!foundBudget) {
+    return res.status(404).render("pages/404");
+  }
+  // Find all expenses associated with the budget:
+  const expenses = await Expense.find({ _id: { $in: foundBudget.expenses } });
+  // Calculate the total expense amount:
+  const totalExpenses = expenses.reduce((total, expense) => total + expense.expense, 0);
+  // Calculate the remaining budget:
+  updatedBudget.remainingBudget = updatedBudget.budget - totalExpenses;
+  // Update the budget:
+  await Budget.findByIdAndUpdate(budgetId, { ...updatedBudget, updatedAt: Date.now() }, { runValidators: true });
 
-    res.redirect(`/budget/${budgetId}`);
+  res.redirect(`/budget/${budgetId}`);
 };
 
 // DELETE A BUDGET
@@ -101,10 +101,10 @@ module.exports.deleteBudget = async (req, res, next) => {
 // ADD NEW EXPENSE TO A BUDGET
 module.exports.addNewExpense = async (req, res, next) => {
   const { budgetId } = req.params;
-  const newExpense = new Expense({ 
-    date: req.body.date, 
-    description: req.body.description, 
-    expense: req.body.expense 
+  const newExpense = new Expense({
+    date: req.body.date,
+    description: req.body.description,
+    expense: req.body.expense
   });
 
   const expenseAmount = req.body.expense;
@@ -135,7 +135,7 @@ module.exports.deleteExpenseFromBudget = async (req, res, next) => {
     res.redirect(`/budget/${budgetId}`);
 
   } else {
-      res.status(404).render("pages/404");
+    res.status(404).render("pages/404");
   }
 };
 

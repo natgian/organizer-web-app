@@ -37,5 +37,7 @@ router.delete("/:budgetId", isLoggedIn, isAuthor("budget"), catchAsync(budgetCon
 // -- ADD NEW EXPENSE TO A BUDGET
 router.post("/:budgetId", isLoggedIn, validateExpense, catchAsync(budgetController.addNewExpense));
 
+// -- GET BUDGET PDF
+// router.get("/:budgetId/download-pdf", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.createPDF));
 
 module.exports = router;
