@@ -1,20 +1,5 @@
 const mongoose = require("mongoose");
 
-const ExpenseSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  expense: {
-    type: Number,
-    required: true,
-  },
-});
-
 const BudgetSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -29,11 +14,26 @@ const BudgetSchema = new mongoose.Schema({
   remainingBudget: {
     type: Number
   },
-  expenses: [
+  transactions: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Expense"
-    }
+      transactionDate: {
+        type: Date,
+        required: true,
+      },
+      transactionDescription: {
+        type: String,
+        required: true,
+      },
+      transactionAmount: {
+        type: Number,
+        required: true,
+      },
+      transactionType: {
+        type: String,
+        enum: ["expense", "revenue"],
+        required: true,
+      },
+    },
   ],
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -45,7 +45,6 @@ const BudgetSchema = new mongoose.Schema({
   } 
 });
 
-const Expense = mongoose.model("Expense", ExpenseSchema);
 const Budget = mongoose.model("Budget", BudgetSchema);
 
-module.exports = { Expense, Budget };
+module.exports = { Budget };

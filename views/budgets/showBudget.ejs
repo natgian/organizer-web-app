@@ -52,14 +52,21 @@
 
         <div class="wrapper medium-dark-wrapper" id="pdf">
 
-          <!-- Edit Button -->
-          <button class="delete-edit-btn flex-right" title="Budget ändern">
-            <a href="/budget/<%=foundBudget._id%>/bearbeiten">
+          <div class="listen-buttons-wrapper">
+            <!-- PDF Button -->
+            <button id="download-pdf" class="delete-edit-btn flex-right" title="PDF herunterladen">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z" />
+              </svg>
+            </button>
+            <!-- Edit Button -->
+            <a href="/budget/<%=foundBudget._id%>/bearbeiten" class="delete-edit-btn flex-right" title="Budget ändern">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
                 <path fill="currentColor"
                   d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
               </svg></a>
-          </button>
+          </div>
 
           <!-- Budget Title -->
           <h1 class="subtitle-specific">
@@ -87,22 +94,24 @@
             </tr>
           </table>
 
-          <!-- Expenses-Table -->
+          <!-- Transactions-Table -->
           <table class="transactions-table mt-1">
             <tr>
               <th class="table-align-left bold">Beschreibung</th>
               <th class="table-align-right bold">Betrag</th>
             </tr>
 
-            <% foundBudget.expenses.forEach((expense) => { %>
+            <% foundBudget.transactions.forEach((transaction) => { %>
             <tr>
               <td class="table-align-left table-border">
-                <div class="expense-description"><%= expense.description %></div>
-                <div class="expense-date"><%= formatDate(expense.date) %></div>
+                <div class="expense-description"><%= transaction.transactionDescription %></div>
+                <div class="expense-date"><%= formatDate(transaction.transactionDate) %></div>
               </td>
-              <td class="table-align-right table-align-top table-border">CHF <%= expense.expense.toFixed(2) %> &nbsp;
-                <form action="/budget/<%= foundBudget._id%>/expenses/<%=expense._id%>?_method=DELETE" method="POST"
-                  class="transaction-delete-form">
+              <td class="table-align-right table-align-top table-border">
+                <%= transaction.transactionType === "revenue" ? "+" : "-" %> CHF <%= transaction.transactionAmount.toFixed(2) %>
+                &nbsp;
+                <form action="/budget/<%= foundBudget._id%>/transactions/<%=transaction._id%>?_method=DELETE"
+                  method="POST" class="transaction-delete-form">
                   <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                       viewBox="0 0 24 24">
                       <path fill="currentColor"
@@ -114,30 +123,44 @@
             <% }) %>
           </table>
 
-          <button class="round-btn mt-1" id="add-expense-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-              height="24" viewBox="0 0 20 20">
+          <!-- Add Transaction Button -->
+          <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe/Einnahme hinzufügen"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
               <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-            </svg>Ausgabe hinzufügen</button>
+            </svg> Ausgabe / Einnahme hinzufügen
+          </button>
 
-          <form action="/budget/<%= foundBudget._id %>" method="POST">
-            <div class="new-item-container">
-              <label for="expense-date">
-                <input type="date" name="date" id="expense-date" class="input" max="9999-12-31" autofocus required>
-              </label>
-              <label for="expense-description">
-                <input type="text" name="description" placeholder="Beschreibung..." id="expense-description"
-                  class="input" required>
-              </label>
-              <label for="expense-amount">
-                <input type="number" name="expense" id="expense-amount" class="input" placeholder="Betrag..." step="any"
-                  max="100000000" required>
-              </label>
-              <button class="rectangle-btn mb-1">Hinzufügen</button>
-              <a href="/budget/<%= foundBudget._id %>" class="rectangle-secondary-btn width-100">Abbrechen</a>
-            </div>
-          </form>
+          <!-- Add Transaction Form -->
+          <div class="new-item-container" id="new-transaction-container">
+            <form action="/budget/<%= foundBudget._id %>/transaction" method="POST">
 
-          <button id="download-pdf" class="rectangle-btn">PDF herunterladen</button>
+              <div class="radio-input-container">
+                <label class="radio-input">
+                  <input type="radio" name="transactionType" value="expense" checked>
+                  Ausgabe
+                </label>
+                <label class="radio-input">
+                  <input type="radio" name="transactionType" value="revenue">
+                  Einnahme
+                </label>
+              </div>
+
+              <label for="transactionDate">
+                <input type="date" name="transactionDate" id="transactionDate" class="input" max="9999-12-31" required>
+              </label>
+              <label for="transactionDescription">
+                <input type="text" name="transactionDescription" placeholder="Beschreibung..."
+                  id="transactionDescription" class="input" required>
+              </label>
+              <label for="transactionAmount">
+                <input type="number" name="transactionAmount" id="transactionAmount" class="input"
+                  placeholder="Betrag..." step="any" max="100000000" required>
+              </label>
+              <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
+            </form>
+            <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
+              onclick="closeTransactionForm()">Abbrechen</button>
+          </div>
 
         </div>
 

@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { Expense, Budget } = require("../models/budget");
+const { Budget } = require("../models/budget");
 const formatDate = require("../utilities/formatDate");
 
 // RENDER BUDGET PAGE
@@ -31,7 +31,6 @@ module.exports.showBudget = async (req, res, next) => {
   const { budgetId } = req.params;
   try {
     const foundBudget = await Budget.findById(budgetId)
-      .populate("expenses")
       .populate({
         path: "user",
         populate: { path: "budgets" }
@@ -67,20 +66,30 @@ module.exports.renderEditBudget = async (req, res, next) => {
 // EDIT A BUDGET
 module.exports.editBudget = async (req, res, next) => {
   const { budgetId } = req.params;
-  const updatedBudget = req.body;
+  const { budget, name } = req.body;
   const foundBudget = await Budget.findById(budgetId);
 
   if (!foundBudget) {
     return res.status(404).render("pages/404");
-  }
-  // Find all expenses associated with the budget:
-  const expenses = await Expense.find({ _id: { $in: foundBudget.expenses } });
-  // Calculate the total expense amount:
-  const totalExpenses = expenses.reduce((total, expense) => total + expense.expense, 0);
-  // Calculate the remaining budget:
-  updatedBudget.remainingBudget = updatedBudget.budget - totalExpenses;
-  // Update the budget:
-  await Budget.findByIdAndUpdate(budgetId, { ...updatedBudget, updatedAt: Date.now() }, { runValidators: true });
+  };
+
+  const totalTransactions = foundBudget.transactions.reduce((total, transaction) => {
+    if (transaction.transactionType === "expense") {
+      return total + parseFloat(transaction.transactionAmount, 10); 
+    } else if (transaction.transactionType === "revenue") {
+      return total - parseFloat(transaction.transactionAmount, 10); 
+    }
+    return total;
+  }, 0);
+
+  const remainingBudget = budget - totalTransactions;
+
+  foundBudget.budget = budget;
+  foundBudget.name = name;
+  foundBudget.remainingBudget = remainingBudget;
+
+  foundBudget.updatedAt = Date.now();
+  await foundBudget.save();
 
   res.redirect(`/budget/${budgetId}`);
 };
@@ -90,53 +99,69 @@ module.exports.deleteBudget = async (req, res, next) => {
   const { budgetId } = req.params;
 
   const foundBudget = await Budget.findById(budgetId);
-  const expenseIds = foundBudget.expenses;
 
-  await Expense.deleteMany({ _id: { $in: expenseIds } });
+  if (!foundBudget) {
+    return res.status(404).json({ error: "Budget not found" });
+  };
+
   await Budget.findByIdAndDelete(budgetId);
   await User.findByIdAndUpdate(req.user._id, { $pull: { budgets: budgetId } });
   res.redirect("/budget");
 };
 
-// ADD NEW EXPENSE TO A BUDGET
-module.exports.addNewExpense = async (req, res, next) => {
+// ADD NEW TRANSACTION TO A BUDGET
+module.exports.addTransaction = async (req, res, next) => {
   const { budgetId } = req.params;
-  const newExpense = new Expense({
-    date: req.body.date,
-    description: req.body.description,
-    expense: req.body.expense
-  });
-
-  const expenseAmount = req.body.expense;
-  const savedExpense = await newExpense.save();
   const foundBudget = await Budget.findById(budgetId);
 
-  foundBudget.expenses.push(savedExpense);
-  foundBudget.remainingBudget -= expenseAmount;
+  const { transactionDate, transactionDescription, transactionAmount, transactionType } = req.body;
+  const newTransaction = { transactionDate, transactionDescription, transactionAmount, transactionType };
+
+  foundBudget.transactions.push(newTransaction);
+
+  if (transactionType === "expense") {
+    foundBudget.remainingBudget -= parseFloat(transactionAmount);
+  } else if (transactionType === "revenue") {
+    foundBudget.remainingBudget += parseFloat(transactionAmount);
+  };
+
   foundBudget.updatedAt = Date.now();
   await foundBudget.save();
   res.redirect(`/budget/${foundBudget._id}`);
 };
 
-// DELETE EXPENSE FROM A BUDGET
-module.exports.deleteExpenseFromBudget = async (req, res, next) => {
-  const { budgetId, expenseId } = req.params;
+// DELETE TRANSACTION FROM A BUDGET
+module.exports.deleteTransaction = async (req, res, next) => {
+  const { budgetId, transactionId } = req.params;
   const foundBudget = await Budget.findById(budgetId);
-  const expense = await Expense.findById(expenseId);
-  const expenseAmount = expense.expense;
-  const expenseIndex = foundBudget.expenses.indexOf(expenseId); // Check if the item exists in the list's items array
 
-  if (expenseIndex !== -1) {
-    foundBudget.expenses.splice(expenseIndex, 1);// Remove the item from the list's items array
-    foundBudget.remainingBudget += expenseAmount;
-    foundBudget.updatedAt = Date.now();
-    await foundBudget.save();
-    await Expense.findByIdAndDelete(expenseId);
-    res.redirect(`/budget/${budgetId}`);
+  if (!foundBudget) {
+    return res.status(404).render("pages/404");
+  };
 
-  } else {
-    res.status(404).render("pages/404");
+  // Find the index of the transaction within the transactions array
+  const transactionIndex = foundBudget.transactions.findIndex(
+    transaction => transaction._id.equals(transactionId)
+  );
+
+  // Get the type and amount of the transaction being deleted
+  const { transactionType, transactionAmount } = foundBudget.transactions[transactionIndex];
+
+  // Remove the transaction from the transactions array
+  foundBudget.transactions.splice(transactionIndex, 1);
+
+  // Recalculate the remaining budget based on the type of the deleted transaction
+  if (transactionType === "expense") {
+    foundBudget.remainingBudget += transactionAmount; // Add the amount back to the remaining budget
+  } else if (transactionType === "revenue") {
+    foundBudget.remainingBudget -= transactionAmount; // Subtract the amount from the remaining budget
   }
+
+  // Save the updated budget
+  await foundBudget.save();
+
+  // Redirect to the budget page or send a success response
+  res.redirect(`/budget/${budgetId}`);
 };
 
 

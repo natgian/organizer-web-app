@@ -1,12 +1,17 @@
-const addExpenseBtn = document.getElementById("add-expense-btn");
+const addTransactionBtn = document.getElementById("add-transaction-btn");
 const newItemContainer = document.querySelector(".new-item-container");
-const inputExpenseDate = document.querySelector("#expense-date");
-const inputExpenseDescription = document.querySelector("#expense-description");
-const inputExpenseAmount = document.querySelector("#expense-amount");
+const inputTransactionDate = document.querySelector("#transactionDate");
+const inputTransactionDescription = document.querySelector("#transactionDescription");
+const inputTransactionAmount = document.querySelector("#transactionAmount");
 const currentDate = new Date().toISOString().split("T")[0];
 
-addExpenseBtn.addEventListener("click", () => {
+addTransactionBtn.addEventListener("click", () => {
   newItemContainer.style.display = "block";
-  inputExpenseDate.focus();
-  inputExpenseDate.value = currentDate;
+  inputTransactionDate.focus();
+  inputTransactionDate.value = currentDate;
 });
+
+// CLOSE TRANSACTION FORM //
+function closeTransactionForm() {
+  newItemContainer.style.display = "none";
+};

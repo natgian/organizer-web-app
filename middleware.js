@@ -3,7 +3,7 @@ const Note = require("./models/note");
 const { Budget } = require("./models/budget");
 const { Project } = require("./models/project");
 const Calendar = require("./models/calendar");
-const { listSchema, itemSchema, userSchema, noteSchema, budgetSchema, expenseSchema, calendarSchema, projectSchema, todoSchema, projectBudgetSchema, projectBudgetTransactionSchema } = require("./validationSchemas");
+const { listSchema, itemSchema, userSchema, noteSchema, budgetSchema, transactionSchema, calendarSchema, projectSchema, todoSchema, projectBudgetSchema, projectBudgetTransactionSchema } = require("./validationSchemas");
 
 module.exports.storeReturnTo = (req, res, next) => {
   if (req.session.returnTo) {
@@ -120,9 +120,9 @@ module.exports.validateBudget = async (req, res, next) => {
 };
 
 // VALIDATE BUDGET TRANSACTION
-module.exports.validateExpense = async (req, res, next) => {
+module.exports.validateTransaction = async (req, res, next) => {
   const budgetId = req.params.budgetId;
-  const { error } = expenseSchema.validate(req.body);
+  const { error } = transactionSchema.validate(req.body);
   if (error) {
     const msg = error.details.map(element => element.message).join(",");
     req.flash("error", msg);

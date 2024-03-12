@@ -247,7 +247,7 @@
             </table>
 
             <!-- Add Transaction Button -->
-            <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe hinzufügen"><svg
+            <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe/Einnahme hinzufügen"><svg
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
@@ -279,7 +279,7 @@
                 </label>
                 <label for="projectTransactionAmount">
                   <input type="number" name="projectTransactionAmount" id="projectTransactionAmount" class="input"
-                    placeholder="Betrag..." step="any" required>
+                    placeholder="Betrag..." step="any" max="100000000" required>
                 </label>
                 <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
               </form>

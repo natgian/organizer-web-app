@@ -7,7 +7,7 @@ const budgetController = require("../controllers/budgetController");
 
 // Utilities
 const catchAsync = require("../utilities/catchAsync");
-const { isLoggedIn, isAuthor, validateBudget, validateExpense } = require("../middleware");
+const { isLoggedIn, isAuthor, validateBudget, validateTransaction } = require("../middleware");
 
 // Routes
 // -- RENDER BUDGET INDEX PAGE
@@ -23,7 +23,7 @@ router.post("/", isLoggedIn, validateBudget, catchAsync(budgetController.createB
 router.get("/:budgetId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.showBudget));
 
 // -- DELETE EXPENSE FROM A BUDGET
-router.delete("/:budgetId/expenses/:expenseId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteExpenseFromBudget));
+router.delete("/:budgetId/transactions/:transactionId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteTransaction));
 
 // -- RENDER BUDGET EDIT PAGE
 router.get("/:budgetId/bearbeiten", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.renderEditBudget));
@@ -34,10 +34,8 @@ router.put("/:budgetId", isLoggedIn, isAuthor("budget"), validateBudget, catchAs
 // -- DELETE A BUDGET
 router.delete("/:budgetId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteBudget));
 
-// -- ADD NEW EXPENSE TO A BUDGET
-router.post("/:budgetId", isLoggedIn, validateExpense, catchAsync(budgetController.addNewExpense));
+// -- ADD NEW TRANSACTION TO A BUDGET
+router.post("/:budgetId/transaction", isLoggedIn, validateTransaction, catchAsync(budgetController.addTransaction));
 
-// -- GET BUDGET PDF
-// router.get("/:budgetId/download-pdf", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.createPDF));
 
 module.exports = router;

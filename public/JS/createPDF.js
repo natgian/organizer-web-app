@@ -58,6 +58,7 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
       if (cells.length === 2) {
         const description = cells[0].querySelector(".expense-description").textContent.trim();
         const amount = cells[1].textContent.trim();
+        console.log(amount);
         const date = cells[0].querySelector(".expense-date").textContent.trim();
         extractedData.push([date, description, amount]);
       }
@@ -88,7 +89,7 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     // CREATION DATE:
     const creationDate = new Date().toLocaleString();
     doc.setFontSize(8);
-    doc.text(creationDate, 15, y);
+    doc.text(`Generiert: ${creationDate}`, 15, y);
 
     // Save the PDF document
     doc.save(`${budgetName}-Budget.pdf`);

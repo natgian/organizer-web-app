@@ -165,9 +165,9 @@ module.exports.addProjectBudgetTransaction = async (req, res, next) => {
   projectBudget.projectTransactions.push(newTransaction);
 
   if (projectTransactionType === "expense") {
-    projectBudget.remainingProjectBudget -= parseInt(projectTransactionAmount, 10);
+    projectBudget.remainingProjectBudget -= parseFloat(projectTransactionAmount);
   } else if (projectTransactionType === "revenue") {
-    projectBudget.remainingProjectBudget += parseInt(projectTransactionAmount, 10);
+    projectBudget.remainingProjectBudget += parseFloat(projectTransactionAmount);
   };
   await projectBudget.save();
 
