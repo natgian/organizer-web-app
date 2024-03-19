@@ -1547,7 +1547,7 @@ td {
   text-align: right;
 }
 
-.expense-date {
+.transaction-date {
   font-size: 0.75rem;
   color: var(--muted-text-color);
 }
@@ -1764,7 +1764,7 @@ td {
   }
 
   /* BUDGET */
-  .expense-date {
+  .transaction-date {
     font-size: 0.875rem;
   }
 

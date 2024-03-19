@@ -17,7 +17,7 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     };
 
     // BUDGET TITLE:
-    const budgetName = document.querySelector(".subtitle-specific").textContent.trim();
+    const budgetName = document.querySelector(".pdf-title").textContent.trim();
     doc.setFontStyle("bold");
     doc.setFontSize(24);
     doc.text(budgetName, 15, 20);
@@ -51,15 +51,15 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
 
     // GETTING DATA FOR THE TABLE:
     // Extract the data from the HTML content
-    const expensesTable = document.querySelector("#pdf .transactions-table");
+    const expensesTable = document.querySelector(".transactions-table");
     const extractedData = [];
     expensesTable.querySelectorAll("tr").forEach(row => {
       const cells = row.querySelectorAll("td");
       if (cells.length === 2) {
-        const description = cells[0].querySelector(".expense-description").textContent.trim();
+        const description = cells[0].querySelector(".transaction-description").textContent.trim();
         const amount = cells[1].textContent.trim();
         console.log(amount);
-        const date = cells[0].querySelector(".expense-date").textContent.trim();
+        const date = cells[0].querySelector(".transaction-date").textContent.trim();
         extractedData.push([date, description, amount]);
       }
     });
@@ -92,7 +92,7 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     doc.text(`Generiert: ${creationDate}`, 15, y);
 
     // Save the PDF document
-    doc.save(`${budgetName}-Budget.pdf`);
+    doc.save(`${budgetName}.pdf`);
 
   } catch (error) {
     console.error('Error generating PDF:', error);
