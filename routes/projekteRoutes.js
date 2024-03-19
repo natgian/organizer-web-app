@@ -49,7 +49,7 @@ router.delete("/:projectId/aufgaben/:todoId", isLoggedIn, isAuthor("project"), c
 // -- DELETE ALL TODOS FROM A TODO-LIST
 router.delete("/:projectId/aufgaben", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteAllTodos));
 
-// DELETE A BUDGET EXPENSE
+// DELETE A BUDGET TRANSACTION
 router.delete("/:projectId/budget/transaction/:transactionId", isLoggedIn, isAuthor("project"), catchAsync(projekteController.deleteProjectBudgetTransaction));
 
 // DELETE A BUDGET

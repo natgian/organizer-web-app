@@ -449,6 +449,7 @@ fieldset {
   align-items: center;
   gap: 0.5em;
   width: 100%;
+  font-size: var(--small-font-size);
   color: var(--primary-color);
   background-color: transparent;
   cursor: pointer;

@@ -1,5 +1,8 @@
-// Function to create PDF
-document.getElementById("download-pdf").addEventListener("click", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+  const element = document.getElementById("download-pdf");
+  if (element) {
+    // Function to create PDF
+element.addEventListener("click", async () => {
   try {
 
     // Create a new jsPDF instance
@@ -58,7 +61,6 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
       if (cells.length === 2) {
         const description = cells[0].querySelector(".transaction-description").textContent.trim();
         const amount = cells[1].textContent.trim();
-        console.log(amount);
         const date = cells[0].querySelector(".transaction-date").textContent.trim();
         extractedData.push([date, description, amount]);
       }
@@ -98,3 +100,6 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     console.error('Error generating PDF:', error);
   }
 });
+  }
+});
+

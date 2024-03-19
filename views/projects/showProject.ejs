@@ -91,234 +91,245 @@
 
         <!-- TODOS -->
         <section class="wrapper medium-dark-wrapper" id="todo-section">
-          <h2 class="subtitle-specific">Aufgaben</h2>
 
-          <div class="add-item-container">
-            <!-- Button to open "Add Todo" form -->
-            <button class="round-btn" id="add-todo-btn" aria-label="Aufgabe hinzufügen"><svg
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-                <path fill="currentColor"
-                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg>Aufgabe hinzufügen</button>
-
-            <!-- Add Todo form -->
-            <div class="new-item-container">
-              <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
-                <input type="text" name="text" id="todo-input" placeholder="Aufgabe hier eingeben..." class="input"
-                  required>
-                <button class="rectangle-btn" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
-              </form>
-              <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen"
-                onclick="closeToDoForm()">Abbrechen</button>
-            </div>
-          </div>
-
-          <!-- Todos list -->
-          <ul class="items-ul">
-            <% foundProject.todos.forEach((todo) => { %>
-            <div class="listen-item">
-              <li class="<%= todo.completed ? "completed" : "" %>">
-                <label for="todo-checkbox-<%=todo._id %>" class="checkbox-label">
-                  <input type="checkbox" id="todo-checkbox-<%=todo._id %>" class="todo-checkbox"
-                    <% if (todo.completed) { %> checked <% } %>
-                    onchange="toggleCompleted('<%= foundProject._id %>', '<%= todo._id %>')" />
-                  <span class="custom-checkbox"></span>
-                  <span class="todo-text overflow-wrap-anywhere"><%= todo.text %></span>
-                </label>
-              </li>
-              <div class="listen-buttons-wrapper">
-                <!-- share Todo with Whatsapp button -->
-                <button class="delete-edit-btn" aria-label="Aufgabe mit Whatsapp teilen"
-                  title="Mit Whatsapp teilen (funktioniert nur sofern Whatsapp auf dem Gerät installiert ist)"><a
-                    href="whatsapp://send?text=Es wurde eine Aufgabe zum Projekt %22<%=foundProject.name%>%22 hinzugefügt:%0A%0A *<%=todo.text%>*"
-                    data-action="share/whatsapp/share" target="_blank" class="delete-edit-btn"><svg
-                      xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                      <path fill="currentColor"
-                        d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23c-1.48 0-2.93-.39-4.19-1.15l-.3-.17l-3.12.82l.83-3.04l-.2-.32a8.188 8.188 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31c-.22.25-.87.86-.87 2.07c0 1.22.89 2.39 1 2.56c.14.17 1.76 2.67 4.25 3.73c.59.27 1.05.42 1.41.53c.59.19 1.13.16 1.56.1c.48-.07 1.46-.6 1.67-1.18c.21-.58.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27c-.25-.14-1.47-.74-1.69-.82c-.23-.08-.37-.12-.56.12c-.16.25-.64.81-.78.97c-.15.17-.29.19-.53.07c-.26-.13-1.06-.39-2-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.12-.24-.01-.39.11-.5c.11-.11.27-.29.37-.44c.13-.14.17-.25.25-.41c.08-.17.04-.31-.02-.43c-.06-.11-.56-1.35-.77-1.84c-.2-.48-.4-.42-.56-.43c-.14 0-.3-.01-.47-.01" />
-                    </svg></a></button>
-                <!-- delete Todo button -->
-                <form action="/projekte/<%=foundProject._id%>/aufgaben/<%=todo._id%>?_method=DELETE" method="POST"
-                  class="flex">
-                  <button class="delete-edit-btn" aria-label="Aufgabe löschen" title="Aufgabe löschen"><svg
-                      xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                      <path fill="currentColor"
-                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                    </svg>
-                  </button>
-                </form>
-              </div>
-            </div>
-            <% }); %>
-          </ul>
-
+          <!-- TODOS BUTTONS TOOLBAR -->
           <% if (foundProject.todos.length > 0) { %>
-          <form action="/projekte/<%=foundProject._id%>/aufgaben?_method=DELETE" method="POST">
-            <button class="remove-all-btn mt-2" aria-label="Alle Aufgaben löschen">Alle Aufgaben löschen</button>
-          </form>
-          <% } %>
-        </section>
-
-        <!-- BUDGET -->
-        <section class="wrapper medium-dark-wrapper" id="budget-section">
-
-          <!-- BUTTON TOOLBAR-->
-          <% if (foundProject.projectbudget) { %>
           <div class="listen-buttons-wrapper">
             <!-- PDF Button -->
-            <button id="download-pdf" class="delete-edit-btn flex-right" title="PDF herunterladen">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z" />
-              </svg>
-            </button>
-            <!-- Delete Budget Button -->
-            <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST" class="flex">
-              <button class="delete-edit-btn" aria-label="Budget löschen" title="Budget löschen"><svg
+            <!-- <button id="download-pdf" class="delete-edit-btn flex-right" title="PDF herunterladen">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z" />
+                          </svg>
+                        </button> -->
+            <form action="/projekte/<%=foundProject._id%>/aufgaben?_method=DELETE" method="POST">
+              <button class="delete-edit-btn" aria-label="Alle Aufgaben löschen" title="Alle Aufgaben löschen"><svg
                   xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                   <path fill="currentColor"
                     d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                 </svg></button>
             </form>
-            <!-- Edit Budget Button -->
-            <button class="delete-edit-btn" id="edit-budget-btn" aria-label="Budget editieren"
-              title="Budget bearbeiten">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-              </svg>
-            </button>
           </div>
           <% } %>
 
-          <h2 class="subtitle-specific">Budget</h2>
+      <h2 class="subtitle-specific">Aufgaben</h2>
 
-          <div class="add-item-container">
-            <% if (!foundProject.projectbudget) { %>
-            <!-- Button to open "Add Budget" form -->
-            <button class="round-btn" id="add-budget-btn" aria-label="Budget hinzufügen"><svg
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-                <path fill="currentColor"
-                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg>Budget erstellen</button>
-            <!-- Add Budget form -->
-            <form action="/projekte/<%= foundProject._id %>/budget" method="POST">
-              <div class="new-item-container" id="new-projectbudget-container">
-                <input type="number" name="projectBudget" id="projectbudget-input"
-                  placeholder="Budgetbetrag hier eingeben..." class="input" step="any" required>
-                <button class="rectangle-btn" aria-label="Budget erstellen">Erstellen</button>
-              </div>
-            </form>
-            <% } else {%>
-            <!-- Edit Budget Form -->
-            <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>"
-              method="POST" class="mt-2">
-              <div class="new-item-container" id="edit-projectbudget-container">
-                <label for="edit-projectbudget-input" class="input-label">Budgetbetrag:</label><br>
-                <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
-                  placeholder="Budgetbetrag hier eingeben..."
-                  value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>
-                <button class="rectangle-btn" aria-label="Budget speichern">Speichern</button>
-              </div>
-            </form>
-            <!-- Budget Table -->
-            <table class="budget-table mt-2 mb-1">
-              <tr>
-                <th class="table-align-left bold">Budget</th>
-                <th class="table-align-right bold">Verbleibend</th>
-              </tr>
-              <tr>
-                <td id="budget" class="table-align-left">CHF <%= foundProject.projectbudget.projectBudget.toFixed(2) %>
-                </td>
-                <td id="remainingBudget"
-                  class="table-align-right <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">
-                  CHF
-                  <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) %></td>
-              </tr>
-            </table>
+      <div class="add-item-container">
+        <!-- Button to open "Add Todo" form -->
+        <button class="round-btn" id="add-todo-btn" aria-label="Aufgabe hinzufügen"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+            <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+          </svg>Aufgabe hinzufügen</button>
 
-            <!-- Transactions-Table -->
-            <table class="transactions-table mt-1">
-              <tr>
-                <th class="table-align-left bold">Beschreibung</th>
-                <th class="table-align-right bold">Betrag</th>
-              </tr>
-
-              <% foundProject.projectbudget.projectTransactions.forEach((transaction) => { %>
-              <tr>
-                <td class="table-align-left table-border">
-                  <div class="transaction-description"><%= transaction.projectTransactionDescription %></div>
-                  <div class="transaction-date"><%= formatDate(transaction.projectTransactionDate) %></div>
-                </td>
-                <td class="table-align-right table-align-top table-border">
-                  <%= transaction.projectTransactionType === "revenue" ? "+" : "-" %> CHF <%= transaction.projectTransactionAmount.toFixed(2)%>
-                  &nbsp;
-                  <form action="/projekte/<%=foundProject._id%>/budget/transaction/<%=transaction._id%>?_method=DELETE"
-                    method="POST" class="transaction-delete-form">
-                    <button class="delete-edit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                          d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                      </svg></button>
-                  </form>
-                </td>
-              </tr>
-              <% }) %>
-            </table>
-
-            <!-- Add Transaction Button -->
-            <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe/Einnahme hinzufügen"><svg
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-                <path fill="currentColor"
-                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg> Ausgabe / Einnahme hinzufügen
-            </button>
-
-            <!-- Add Transaction Form -->
-            <div class="new-item-container" id="new-transaction-container">
-              <form action="/projekte/<%=foundProject._id%>/budget/transaction" method="POST">
-
-                <div class="radio-input-container">
-                  <label class="radio-input">
-                    <input type="radio" name="projectTransactionType" value="expense" checked>
-                    Ausgabe
-                  </label>
-                  <label class="radio-input">
-                    <input type="radio" name="projectTransactionType" value="revenue">
-                    Einnahme
-                  </label>
-                </div>
-
-                <label for="projectTransactionDate">
-                  <input type="date" name="projectTransactionDate" id="projectTransactionDate" class="input"
-                    max="9999-12-31" required>
-                </label>
-                <label for="projectTransactionDescription">
-                  <input type="text" name="projectTransactionDescription" placeholder="Beschreibung..."
-                    id="projectTransactionDescription" class="input" required>
-                </label>
-                <label for="projectTransactionAmount">
-                  <input type="number" name="projectTransactionAmount" id="projectTransactionAmount" class="input"
-                    placeholder="Betrag..." step="any" max="100000000" required>
-                </label>
-                <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
-              </form>
-              <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
-                onclick="closeTransactionForm()">Abbrechen</button>
-            </div>
-
-            <% } %>
-          </div>
-        </section>
-
-        <!-- link to go back -->
-        <div class="text-center">
-          <a href="/projekte" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-              height="24" viewBox="0 0 24 24" class="page-navigation-svg">
-              <g transform="rotate(180 12 12)">
-                <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
-              </g>
-            </svg>Alle Projekte</a>
+        <!-- Add Todo form -->
+        <div class="new-item-container">
+          <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
+            <input type="text" name="text" id="todo-input" placeholder="Aufgabe hier eingeben..." class="input"
+              required>
+            <button class="rectangle-btn" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
+          </form>
+          <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen"
+            onclick="closeToDoForm()">Abbrechen</button>
         </div>
+      </div>
+
+      <!-- Todos list -->
+      <ul class="items-ul mb-2">
+        <% foundProject.todos.forEach((todo) => { %>
+        <div class="listen-item">
+          <li class="<%= todo.completed ? "completed" : "" %>">
+            <label for="todo-checkbox-<%=todo._id %>" class="checkbox-label">
+              <input type="checkbox" id="todo-checkbox-<%=todo._id %>" class="todo-checkbox" <% if (todo.completed) { %>
+                checked <% } %> onchange="toggleCompleted('<%= foundProject._id %>', '<%= todo._id %>')" />
+              <span class="custom-checkbox"></span>
+              <span class="todo-text overflow-wrap-anywhere"><%= todo.text %></span>
+            </label>
+          </li>
+          <div class="listen-buttons-wrapper">
+            <!-- share Todo with Whatsapp button -->
+            <button class="delete-edit-btn" aria-label="Aufgabe mit Whatsapp teilen"
+              title="Mit Whatsapp teilen (funktioniert nur sofern Whatsapp auf dem Gerät installiert ist)"><a
+                href="whatsapp://send?text=Es wurde eine Aufgabe zum Projekt %22<%=foundProject.name%>%22 hinzugefügt:%0A%0A *<%=todo.text%>*"
+                data-action="share/whatsapp/share" target="_blank" class="delete-edit-btn"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23c-1.48 0-2.93-.39-4.19-1.15l-.3-.17l-3.12.82l.83-3.04l-.2-.32a8.188 8.188 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31c-.22.25-.87.86-.87 2.07c0 1.22.89 2.39 1 2.56c.14.17 1.76 2.67 4.25 3.73c.59.27 1.05.42 1.41.53c.59.19 1.13.16 1.56.1c.48-.07 1.46-.6 1.67-1.18c.21-.58.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27c-.25-.14-1.47-.74-1.69-.82c-.23-.08-.37-.12-.56.12c-.16.25-.64.81-.78.97c-.15.17-.29.19-.53.07c-.26-.13-1.06-.39-2-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.12-.24-.01-.39.11-.5c.11-.11.27-.29.37-.44c.13-.14.17-.25.25-.41c.08-.17.04-.31-.02-.43c-.06-.11-.56-1.35-.77-1.84c-.2-.48-.4-.42-.56-.43c-.14 0-.3-.01-.47-.01" />
+                </svg></a></button>
+            <!-- delete Todo button -->
+            <form action="/projekte/<%=foundProject._id%>/aufgaben/<%=todo._id%>?_method=DELETE" method="POST"
+              class="flex">
+              <button class="delete-edit-btn" aria-label="Aufgabe löschen" title="Aufgabe löschen"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+        <% }); %>
+      </ul>
+      </section>
+
+      <!-- BUDGET -->
+      <section class="wrapper medium-dark-wrapper" id="budget-section">
+
+        <!-- BUDGET BUTTONS TOOLBAR -->
+        <% if (foundProject.projectbudget) { %>
+        <div class="listen-buttons-wrapper">
+          <!-- PDF Button -->
+          <button id="download-pdf" class="delete-edit-btn flex-right" title="PDF herunterladen">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z" />
+            </svg>
+          </button>
+          <!-- Delete Budget Button -->
+          <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST" class="flex">
+            <button class="delete-edit-btn" aria-label="Budget löschen" title="Budget löschen"><svg
+                xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+              </svg></button>
+          </form>
+          <!-- Edit Budget Button -->
+          <button class="delete-edit-btn" id="edit-budget-btn" aria-label="Budget editieren" title="Budget bearbeiten">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+            </svg>
+          </button>
+        </div>
+        <% } %>
+
+        <h2 class="subtitle-specific">Budget</h2>
+
+        <div class="add-item-container">
+          <% if (!foundProject.projectbudget) { %>
+          <!-- Button to open "Add Budget" form -->
+          <button class="round-btn" id="add-budget-btn" aria-label="Budget hinzufügen"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+            </svg>Budget erstellen</button>
+          <!-- Add Budget form -->
+          <form action="/projekte/<%= foundProject._id %>/budget" method="POST">
+            <div class="new-item-container" id="new-projectbudget-container">
+              <input type="number" name="projectBudget" id="projectbudget-input"
+                placeholder="Budgetbetrag hier eingeben..." class="input" step="any" required>
+              <button class="rectangle-btn" aria-label="Budget erstellen">Erstellen</button>
+            </div>
+          </form>
+          <% } else {%>
+          <!-- Edit Budget Form -->
+          <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>"
+            method="POST" class="mt-2">
+            <div class="new-item-container" id="edit-projectbudget-container">
+              <label for="edit-projectbudget-input" class="input-label">Budgetbetrag:</label><br>
+              <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
+                placeholder="Budgetbetrag hier eingeben..."
+                value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>
+              <button class="rectangle-btn" aria-label="Budget speichern">Speichern</button>
+            </div>
+          </form>
+
+          <!-- Budget Table -->
+          <table class="budget-table mt-2 mb-1">
+            <tr>
+              <th class="table-align-left bold">Budget</th>
+              <th class="table-align-right bold">Verbleibend</th>
+            </tr>
+            <tr>
+              <td id="budget" class="table-align-left">CHF <%= foundProject.projectbudget.projectBudget.toFixed(2) %>
+              </td>
+              <td id="remainingBudget"
+                class="table-align-right <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) >= 0 ? "positive-remaining-budget" : "negative-remaining-budget" %>">
+                CHF
+                <%= foundProject.projectbudget.remainingProjectBudget.toFixed(2) %></td>
+            </tr>
+          </table>
+
+          <!-- Add Transaction Button -->
+          <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe/Einnahme hinzufügen"><svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+            </svg> Transaktion hinzufügen
+          </button>
+          <!-- Add Transaction Form -->
+          <div class="new-item-container" id="new-transaction-container">
+            <form action="/projekte/<%=foundProject._id%>/budget/transaction" method="POST">
+
+              <div class="radio-input-container">
+                <label class="radio-input">
+                  <input type="radio" name="projectTransactionType" value="expense" checked>
+                  Ausgabe
+                </label>
+                <label class="radio-input">
+                  <input type="radio" name="projectTransactionType" value="revenue">
+                  Einnahme
+                </label>
+              </div>
+
+              <label for="projectTransactionDate">
+                <input type="date" name="projectTransactionDate" id="projectTransactionDate" class="input"
+                  max="9999-12-31" required>
+              </label>
+              <label for="projectTransactionDescription">
+                <input type="text" name="projectTransactionDescription" placeholder="Beschreibung..."
+                  id="projectTransactionDescription" class="input" required>
+              </label>
+              <label for="projectTransactionAmount">
+                <input type="number" name="projectTransactionAmount" id="projectTransactionAmount" class="input"
+                  placeholder="Betrag..." step="any" max="100000000" required>
+              </label>
+              <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
+            </form>
+            <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
+              onclick="closeTransactionForm()">Abbrechen</button>
+          </div>
+
+          <!-- Transactions-Table -->
+          <table class="transactions-table mt-1 mb-2">
+            <tr>
+              <th class="table-align-left bold">Beschreibung</th>
+              <th class="table-align-right bold">Betrag</th>
+            </tr>
+
+            <% foundProject.projectbudget.projectTransactions.forEach((transaction) => { %>
+            <tr>
+              <td class="table-align-left table-border">
+                <div class="transaction-description"><%= transaction.projectTransactionDescription %></div>
+                <div class="transaction-date"><%= formatDate(transaction.projectTransactionDate) %></div>
+              </td>
+              <td class="table-align-right table-align-top table-border">
+                <%= transaction.projectTransactionType === "revenue" ? "+" : "-" %> CHF
+                <%= transaction.projectTransactionAmount.toFixed(2)%>
+                &nbsp;
+                <form action="/projekte/<%=foundProject._id%>/budget/transaction/<%=transaction._id%>?_method=DELETE"
+                  method="POST" class="transaction-delete-form">
+                  <button class="delete-edit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
+                      width="20" height="20" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                    </svg></button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </table>
+
+          <% } %>
+        </div>
+      </section>
+
+      <!-- link to go back -->
+      <div class="text-center">
+        <a href="/projekte" class="page-navigation-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" class="page-navigation-svg">
+            <g transform="rotate(180 12 12)">
+              <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
+            </g>
+          </svg>Alle Projekte</a>
+      </div>
 
     </main>
 

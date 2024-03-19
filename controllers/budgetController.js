@@ -75,9 +75,9 @@ module.exports.editBudget = async (req, res, next) => {
 
   const totalTransactions = foundBudget.transactions.reduce((total, transaction) => {
     if (transaction.transactionType === "expense") {
-      return total + parseFloat(transaction.transactionAmount, 10); 
+      return total + parseFloat(transaction.transactionAmount, 10);
     } else if (transaction.transactionType === "revenue") {
-      return total - parseFloat(transaction.transactionAmount, 10); 
+      return total - parseFloat(transaction.transactionAmount, 10);
     }
     return total;
   }, 0);
@@ -155,7 +155,7 @@ module.exports.deleteTransaction = async (req, res, next) => {
     foundBudget.remainingBudget += transactionAmount; // Add the amount back to the remaining budget
   } else if (transactionType === "revenue") {
     foundBudget.remainingBudget -= transactionAmount; // Subtract the amount from the remaining budget
-  }
+  };
 
   // Save the updated budget
   await foundBudget.save();
@@ -163,6 +163,27 @@ module.exports.deleteTransaction = async (req, res, next) => {
   // Redirect to the budget page or send a success response
   res.redirect(`/budget/${budgetId}`);
 };
+
+// DELETE ALL TRANSACTIONS FROM A BUDGET
+module.exports.deleteAllTransactions = async (req, res, next) => {
+  const { budgetId } = req.params;
+
+  const foundBudget = await Budget.findById(budgetId);
+  if (!foundBudget) {
+    return res.status(404).render("pages/404");
+  };
+
+  foundBudget.transactions = [];
+  console.log(foundBudget.transactions);
+  foundBudget.remainingBudget = foundBudget.budget;
+  console.log(foundBudget.remainingBudget);
+
+  await foundBudget.save();
+
+  res.redirect(`/budget/${budgetId}`);
+};
+
+
 
 
 

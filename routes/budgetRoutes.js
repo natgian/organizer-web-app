@@ -22,7 +22,10 @@ router.post("/", isLoggedIn, validateBudget, catchAsync(budgetController.createB
 // -- RENDER BUDGET SHOW PAGE
 router.get("/:budgetId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.showBudget));
 
-// -- DELETE EXPENSE FROM A BUDGET
+// -- DELETE ALL TRANSACTIONS FROM A BUDGET
+router.put("/:budgetId/deleteAllTransactions", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteAllTransactions));
+
+// -- DELETE TRANSACTION FROM A BUDGET
 router.delete("/:budgetId/transactions/:transactionId", isLoggedIn, isAuthor("budget"), catchAsync(budgetController.deleteTransaction));
 
 // -- RENDER BUDGET EDIT PAGE
