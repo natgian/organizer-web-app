@@ -38,31 +38,34 @@
 
         <!-- flash message -->
         <% if(error && error.length) {%>
-          <div class="alert alert-error" role="alert">
+        <div class="alert alert-error" role="alert">
           <%= error %>
         </div>
         <% } else if(success){ %>
-          <div class="" role="alert">
-            <%= success %>
-          </div>
-          <% } %>
+        <div class="" role="alert">
+          <%= success %>
+        </div>
+        <% } %>
 
         <h1 class="title">Kalender</h1>
 
-             <!-- Searchbar -->
-             <form action="/kalender/suchen" role="search" method="POST">
-              <label for="searchbar">
-              <input type="search" name="searchTerm" id="searchbar" placeholder="Eintrag suchen..." class="search-input container"
-                aria-label="Search">
-              </label>
-            </form>
+        <!-- Searchbar -->
+        <form action="/kalender/suchen" role="search" method="POST">
+          <label for="searchbar">
+            <input type="search" name="searchTerm" id="searchbar" placeholder="Eintrag suchen..."
+              class="search-input container" aria-label="Search">
+          </label>
+        </form>
 
-         <!-- Add new calendar event button -->
-         <button class="round-btn mb-05" id="add-button" aria-label="Kalendereintrag hinzufügen"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-          height="24" viewBox="0 0 20 20">
-          <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-        </svg>Eintrag hinzufügen</button>
+        <!-- Add new calendar event button -->
+        <div class="flex-center">
+        <button class="round-btn mt-05" id="add-button" aria-label="Kalendereintrag hinzufügen"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+            <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+          </svg>Eintrag hinzufügen</button>
+        </div>
 
+        <!-- CALENDAR DISPLAY: -->
         <div class="calendar-wrapper medium-dark-wrapper">
           <div id="calendar-header" class="bold">
             <!-- back button -->
@@ -95,6 +98,7 @@
 
         </div>
 
+        <!-- EVENTS DISPLAY -->
         <div id="events-container"></div>
 
     </main>

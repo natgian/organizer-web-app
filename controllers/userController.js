@@ -30,7 +30,11 @@ module.exports.registerUser = async (req, res, next) => {
 
 // RENDER LOGIN PAGE
 module.exports.renderLoginPage = (req, res) => {
-  res.render("users/login");
+  if (req.isAuthenticated()) {
+    res.redirect("/home");
+  } else {
+    res.render("users/login");
+  };  
 };
 
 // LOGIN

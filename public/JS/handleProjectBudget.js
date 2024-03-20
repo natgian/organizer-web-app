@@ -47,3 +47,8 @@ function closeTransactionForm() {
   newTransactionContainer.style.display = "none";
 };
 
+// CLOSE BUDGET FORM //
+function closeBudgetForm() {
+  newProjectBudgetContainer.style.display = "none";
+};
+

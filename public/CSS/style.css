@@ -443,12 +443,59 @@ fieldset {
   background-color: var(--main-text-color)
 }
 
+.dropleft {
+  position: relative;
+}
+
+.dropleft-menu {
+  position: absolute;
+  right: 1.8em;
+  top: 0.75em;
+  font-size: var(--small-font-size);
+  background-color: rgba(26,26,26, 0.9);
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.dropleft-menu li {
+  padding: 1em 2.5em 1em 0.5em;
+  white-space: nowrap;
+}
+
+.dropleft-menu li:not(:last-child) {
+  border-bottom: 2px solid var(--light-dark-color);
+}
+
+.dropleft-menu-item svg {
+  margin: 0 0.5em;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.dropleft.active > .delete-edit-btn + .dropleft-menu {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.dropleft-icon-container {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .round-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-  width: 100%;
   font-size: var(--small-font-size);
   color: var(--primary-color);
   background-color: transparent;
@@ -1047,6 +1094,7 @@ button#toggle-password:active {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 0.5em;
 }
 
 .profile-overview-wrapper {
@@ -1403,20 +1451,24 @@ button#toggle-password:active {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 1em;
+  padding: 0.5em;
   margin: 1em 0;
   border-radius: 15px;
   background-color: var(--medium-dark-color);
 }
 
 .listen-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   list-style: none;
   gap: 1em;
   cursor: pointer;
   border: none;
 }
 
-.listen-name a {
+.listen-link {
   color: var(--main-text-color);
   font-size: 1rem;
 }
@@ -1466,6 +1518,11 @@ button#toggle-password:active {
 
 .new-item-container {
   display: none;
+}
+
+.add-item-container {
+  display: flex;
+  flex-direction: column;
 }
 
 /*---------*/

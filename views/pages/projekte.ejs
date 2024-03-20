@@ -43,40 +43,66 @@
         <div class="no-bg-wrapper">
 
           <!-- Create new project button -->
-          <a href="/projekte/neues-projekt" class="round-btn mb-05"><svg xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" viewBox="0 0 20 20">
-            <path fill="currentColor"
-              d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-          </svg>Projekt erstellen</a>
+          <a href="/projekte/neues-projekt" class="round-btn mb-05"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" viewBox="0 0 20 20">
+              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
+            </svg>Projekt erstellen</a>
 
+          <!-- PROJECTS: -->
           <ul>
             <% for(let project of projects) { %>
             <div class="listen">
-
               <div class="list-wrapper">
-                <li class="listen-name"><a href="/projekte/<%= project._id%>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path fill="<%= project.color %>" d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
-                </svg>&nbsp<%= project.name %></a></li>
 
-                <div class="listen-buttons-wrapper">
-                  <form action="/projekte/<%=project._id%>?_method=DELETE" method="POST" class="flex">
-                    <button class="delete-edit-btn" title="Projekt löschen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                          d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                      </svg></button>
-                  </form>
+                <li class="listen-name">
 
-                  <button class="delete-edit-btn inline-block-svg" title="Projekt bearbeiten">
-                    <a href="/projekte/<%=project._id%>/bearbeiten">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                          d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-                      </svg></a>
-                  </button>
-                </div>
+                  <a href="/projekte/<%= project._id%>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      viewBox="0 0 24 24">
+                      <path fill="<%= project.color %>"
+                        d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
+                    </svg>&nbsp<%= project.name %></a>
+
+                  <!-- TOOLBAR MENU: -->
+                  <div class="dropleft" data-dropleft>
+                    <!-- Toolbar List Button -->
+                    <button class="delete-edit-btn" data-dropleft-button>
+                      <div class="dropleft-icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+                          <path fill="currentColor"
+                            d="M12 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2" />
+                        </svg>
+                      </div>
+                    </button>
+                    <!-- Toolbar List: -->
+                    <ul class="dropleft-menu">
+                      <!-- Delete Project Button -->
+                      <li class="dropleft-menu-item">
+                        <form action="/projekte/<%=project._id%>?_method=DELETE" method="POST" class="flex">
+                          <button class="delete-edit-btn" title="Projekt löschen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                              <path fill="currentColor"
+                                d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                            </svg>
+                            <span>Projekt löschen</span>
+                          </button>
+                        </form>
+                      </li>
+                      <!-- Edit Project Button -->
+                      <li class="dropleft-menu-item">
+                        <a href="/projekte/<%=project._id%>/bearbeiten" class="delete-edit-btn"
+                          title="Projekt bearbeiten">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                              d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+                          </svg>
+                          <span>Projekt bearbeiten</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                </li>
               </div>
-
             </div>
             <% } %>
           </ul>
@@ -87,6 +113,7 @@
     <%- include("../partials/footer") %>
   </div>
 
+  <script src="/JS/dropleftMenu.js"></script>
 </body>
 
 </html>

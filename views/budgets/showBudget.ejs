@@ -52,30 +52,54 @@
 
         <div class="wrapper medium-dark-wrapper" id="pdf">
 
-          <!-- BUTTON TOOLBAR -->
-          <div class="listen-buttons-wrapper">
-            <!-- PDF Button -->
-            <button id="download-pdf" class="delete-edit-btn flex-right" title="PDF herunterladen">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z" />
-              </svg>
-            </button>
-            <!-- Delete All Budget Transactions Button -->
-            <form action="/budget/<%=foundBudget._id%>/deleteAllTransactions?_method=PUT" method="POST" class="flex">
-              <button class="delete-edit-btn" aria-label="Alle Transaktionen löschen"
-                title="Alle Transaktionen löschen"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                  viewBox="0 0 24 24">
+          <!-- TOOLBAR MENU -->
+          <div class="dropleft flex-right" data-dropleft>
+            <!-- Toolbar Menu Button -->
+            <button class="delete-edit-btn" data-dropleft-button>
+              <div class="dropleft-icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                   <path fill="currentColor"
-                    d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                </svg></button>
-            </form>
-            <!-- Edit Button -->
-            <a href="/budget/<%=foundBudget._id%>/bearbeiten" class="delete-edit-btn flex-right" title="Budget ändern">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-              </svg></a>
+                    d="M12 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2" />
+                </svg>
+              </div>
+            </button>
+            <!-- Toolbar Menu List -->
+            <ul class="dropleft-menu">
+              <!-- Create PDF Button -->
+              <li class="dropleft-menu-item">
+                <button id="download-pdf" class="delete-edit-btn" title="PDF herunterladen">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z" />
+                  </svg>
+                  <span>PDF herunterladen</span>
+                </button>
+              </li>
+              <!-- Delete All Budget Transactions Button -->
+              <li class="dropleft-menu-item">
+                <form action="/budget/<%=foundBudget._id%>/deleteAllTransactions?_method=PUT" method="POST">
+                  <button class="delete-edit-btn" aria-label="Alle Transaktionen löschen"
+                    title="Alle Transaktionen löschen">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                    </svg>
+                    <span>Alle Transaktionen löschen</span>
+                  </button>
+                </form>
+              </li>
+              <!-- Edit Budget Button -->
+              <li class="dropleft-menu-item">
+                <a href="/budget/<%=foundBudget._id%>/bearbeiten" class="delete-edit-btn" title="Budget bearbeiten" aria-label="Budget bearbeiten">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+                  </svg>
+                  <span>Budget bearbeiten</span>
+                </a>
+              </li>
+            </ul>
           </div>
 
           <!-- Budget Title -->
@@ -144,7 +168,7 @@
           </div>
 
           <!-- Transactions-Table -->
-          <table class="transactions-table mt-1">
+          <table class="transactions-table mt-1 mb-1">
             <tr>
               <th class="table-align-left bold">Beschreibung</th>
               <th class="table-align-right bold">Betrag</th>
@@ -157,9 +181,7 @@
                 <div class="transaction-date"><%= formatDate(transaction.transactionDate) %></div>
               </td>
               <td class="table-align-right table-align-top table-border">
-                <%= transaction.transactionType === "revenue" ? "+" : "-" %> CHF
-                <%= transaction.transactionAmount.toFixed(2) %>
-                &nbsp;
+                <%= transaction.transactionType === "revenue" ? "+" : "-" %> CHF &nbsp;<%= transaction.transactionAmount.toFixed(2) %>
                 <form action="/budget/<%= foundBudget._id%>/transactions/<%=transaction._id%>?_method=DELETE"
                   method="POST" class="transaction-delete-form">
                   <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -192,6 +214,7 @@
   </div>
 
   <script src="/JS/displayExpenseInput.js"></script>
+  <script src="/JS/dropleftMenu.js"></script>
   <script src="/JS/createPDF.js"></script>
 </body>
 

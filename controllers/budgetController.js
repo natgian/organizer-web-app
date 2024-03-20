@@ -66,7 +66,7 @@ module.exports.renderEditBudget = async (req, res, next) => {
 // EDIT A BUDGET
 module.exports.editBudget = async (req, res, next) => {
   const { budgetId } = req.params;
-  const { budget, name } = req.body;
+  const { budget, name, color } = req.body;
   const foundBudget = await Budget.findById(budgetId);
 
   if (!foundBudget) {
@@ -85,8 +85,15 @@ module.exports.editBudget = async (req, res, next) => {
   const remainingBudget = budget - totalTransactions;
 
   foundBudget.budget = budget;
-  foundBudget.name = name;
   foundBudget.remainingBudget = remainingBudget;
+
+  if (name !== foundBudget.name) {
+    foundBudget.name = name;
+  };
+
+  if (color !== undefined && color !== foundBudget.color) {
+    foundBudget.color = color;
+  };
 
   foundBudget.updatedAt = Date.now();
   await foundBudget.save();
@@ -174,9 +181,7 @@ module.exports.deleteAllTransactions = async (req, res, next) => {
   };
 
   foundBudget.transactions = [];
-  console.log(foundBudget.transactions);
   foundBudget.remainingBudget = foundBudget.budget;
-  console.log(foundBudget.remainingBudget);
 
   await foundBudget.save();
 
