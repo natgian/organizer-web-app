@@ -1,6 +1,6 @@
 {
-    "name": "MyOrganizer",
-    "short_name": "MyOrganizer",
+    "name": "MeinOrganizer",
+    "short_name": "MeiOrganizer",
     "icons": [
         {
             "src": "/assets/android-chrome-192x192.png",

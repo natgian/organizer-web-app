@@ -165,7 +165,7 @@ module.exports.sendResetPasswordEmail = async (req, res, next) => {
   const mailOptions = {
     from: "info@natgian.com",
     to: user.email,
-    subject: "MyOrganizer - Passwort zurücksetzen",
+    subject: "MeinOrganizer - Passwort zurücksetzen",
     text: `Du erhältst diese Nachricht, weil das Zurücksetzen des Passworts für dein Konto beantragt wurde.\n\n` +
     `Bitte klicke auf den folgenden Link oder füge diesen in deinen Browser ein, um den Vorgang abzuschliessen:\n\n` +
     `http://${req.headers.host}/reset/${resetToken}\n\n` +

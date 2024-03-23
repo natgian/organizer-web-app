@@ -156,7 +156,7 @@ app.post("/kontakt", async (req, res) => {
   const mailOptions = {
     from: "info@natgian.com",
     to: "info@natgian.com",
-    subject: `MyOrganizer - Nachricht von ${name}`,
+    subject: `MeinOrganizer - Nachricht von ${name}`,
     text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`
   };
 
