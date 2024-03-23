@@ -226,7 +226,6 @@ fieldset {
 .timer-container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
   max-width: 500px;
   margin: 1.25em auto 2em auto;
   border-radius: 15px;
@@ -1496,6 +1495,7 @@ button#toggle-password:active {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   list-style: none;
   padding: 1.25em 0;
   border-bottom: 1px solid var(--light-color);
