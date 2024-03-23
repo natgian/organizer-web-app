@@ -450,7 +450,7 @@ fieldset {
 .dropleft-menu {
   z-index: 999;
   position: absolute;
-  right: 1.2em;
+  right: 1.5em;
   top: 0.5em;
   font-size: var(--small-font-size);
   background-color: rgba(26,26,26, 0.9);
