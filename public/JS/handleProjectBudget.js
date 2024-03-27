@@ -52,3 +52,7 @@ function closeBudgetForm() {
   newProjectBudgetContainer.style.display = "none";
 };
 
+function closeChangeBudgetForm() {
+  editProjectBudgetContainer.style.display = "none";
+};
+

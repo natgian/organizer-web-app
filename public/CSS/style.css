@@ -143,6 +143,11 @@ a {
   outline: none;
 }
 
+button,
+a {
+  cursor: pointer;
+}
+
 textarea {
   resize: vertical;
 }
@@ -223,7 +228,8 @@ fieldset {
 
 .wrapper,
 .card-wrapper,
-.timer-container {
+.timer-container,
+.datenschutz-wrapper {
   display: flex;
   flex-direction: column;
   max-width: 500px;
@@ -339,6 +345,10 @@ fieldset {
 /*-------------*/
 /* DATENSCHUTZ */
 /*-------------*/
+
+.datenschutz-wrapper {
+  gap: 1em;
+}
 
 .datenschutz-link {
   text-decoration: underline;
@@ -585,6 +595,41 @@ fieldset {
   background-color: var(--error-message);
   color: var(--dark-color);
   border-color: var(--dark-color);
+}
+
+.submit-btn {
+  position: relative;
+}
+
+.button-text {
+  transition: all 0.2s;
+}
+
+.button-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2rem;
+  height: 2rem;
+  border: 5px solid transparent;
+  border-top-color: inherit;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  } 
+  to {
+    transform: rotate(1turn)
+  }
+}
+
+.button-loading .button-text {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .remove-all-btn {
@@ -1802,7 +1847,8 @@ td {
 }
 
 @media only screen and (min-width:768px) {
-  .wrapper {
+  .wrapper,
+  .datenschutz-wrapper {
     max-width: 1000px;
     margin: 2em auto;
     border-radius: 15px;

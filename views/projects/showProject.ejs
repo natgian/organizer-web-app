@@ -145,18 +145,21 @@
 
           <div class="add-item-container">
             <!-- Button to open "Add Todo" form -->
-            <button class="round-btn mt-1 mb-1" id="add-todo-btn" aria-label="Aufgabe hinzufügen"><svg
+            <button type="submit" class="round-btn mt-1 mb-1" id="add-todo-btn" aria-label="Aufgabe hinzufügen"><svg
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
                 <path fill="currentColor"
                   d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-              </svg>Aufgabe hinzufügen</button>
+              </svg>Aufgabe hinzufügen</span>
+            </button>
 
             <!-- Add Todo form -->
             <div class="new-item-container">
               <form action="/projekte/<%= foundProject._id %>/aufgaben" method="POST">
                 <input type="text" name="text" id="todo-input" placeholder="Aufgabe hier eingeben..." class="input"
                   required>
-                <button class="rectangle-btn" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
+                <button type="submit" class="rectangle-btn submit-btn" aria-label="Aufgabe hinzufügen">
+                  <span class="button-text">Hinzufügen</span>
+                </button>
               </form>
               <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen"
                 onclick="closeToDoForm()">Abbrechen</button>
@@ -193,12 +196,12 @@
                   <!-- Delete Todo button -->
                   <li class="dropleft-menu-item">
                     <form action="/projekte/<%=foundProject._id%>/aufgaben/<%=todo._id%>?_method=DELETE" method="POST">
-                      <button class="delete-edit-btn" aria-label="Aufgabe löschen" title="Aufgabe löschen">
+                      <button type="submit" class="delete-edit-btn submit-btn" aria-label="Aufgabe löschen" title="Aufgabe löschen">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                           <path fill="currentColor"
                             d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                         </svg>
-                        <span>Aufgabe löschen</span>
+                        <span class="button-text" >Aufgabe löschen</span>
                       </button>
                     </form>
                   </li>
@@ -251,39 +254,30 @@
                     <span>PDF herunterladen</span>
                   </button>
                 </li>
+                <!-- Edit Budget Button -->
+                <li class="dropleft-menu-item">
+                  <button class="delete-edit-btn" id="edit-budget-btn" aria-label="Budget bearbeiten" title="Budget bearbeiten">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
+                    </svg>
+                    <span>Budget bearbeiten</span>
+                  </button>
+               </li>
                  <!-- Delete Budget Button -->
                 <li class="dropleft-menu-item">
                   <form action="/projekte/<%=foundProject._id%>/budget?_method=DELETE" method="POST">
-                    <button class="delete-edit-btn" aria-label="Budget löschen" title="Budget löschen"><svg
+                    <button type="submit" class="delete-edit-btn submit-btn" aria-label="Budget löschen" title="Budget löschen"><svg
                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                         <path fill="currentColor"
                           d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                       </svg>
-                      <span>Budget löschen</span>
+                      <span class="button-text">Budget löschen</span>
                     </button>
                   </form>
                 </li>
-                <!-- Edit Budget Button -->
-                <li class="dropleft-menu-item">
-                  <button class="delete-edit-btn" id="edit-budget-btn" aria-label="Budget bearbeiten"
-                  title="Budget bearbeiten">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-                  </svg>
-                  <span>Budget bearbeiten</span>
-                </button>
-                </li>
               </ul> 
             </div>
-
-
-          <div class="listen-buttons-wrapper">
-  
-
-            <!-- Edit Budget Button -->
-
-          </div>
           <% } %>
 
           <h2 class="subtitle-specific">Budget</h2>
@@ -301,7 +295,9 @@
               <form action="/projekte/<%= foundProject._id %>/budget" method="POST">
               <input type="number" name="projectBudget" id="projectbudget-input"
                 placeholder="Budgetbetrag hier eingeben..." class="input" step="any" required>
-              <button class="rectangle-btn" aria-label="Budget erstellen">Erstellen</button>
+              <button type="submit" class="rectangle-btn submit-btn" aria-label="Budget erstellen">
+                <span class="button-text">Erstellen</span>
+              </button>
               </form>
               <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen"
                 onclick="closeBudgetForm()">Abbrechen</button>
@@ -309,16 +305,22 @@
 
             <% } else {%>
             <!-- Edit Budget Form -->
-            <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>"
-              method="POST" class="mt-2">
+
               <div class="new-item-container" id="edit-projectbudget-container">
-                <label for="edit-projectbudget-input" class="input-label">Budgetbetrag:</label><br>
-                <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
+                <form action="/projekte/<%= foundProject._id %>/budget/bearbeiten/<%=foundProject.projectbudget._id  %>"
+                  method="POST" class="mt-2">
+                  <label for="edit-projectbudget-input" class="input-label">Budgetbetrag:</label><br>
+                  <input type="number" name="newProjectBudget" id="edit-projectbudget-input"
                   placeholder="Budgetbetrag hier eingeben..."
                   value="<%=foundProject.projectbudget.projectBudget.toFixed(2)%>" class="input" step="any" required>
-                <button class="rectangle-btn" aria-label="Budget speichern">Speichern</button>
+                  <button type="submit" class="rectangle-btn submit-btn" aria-label="Budget speichern">
+                    <span class="button-text">Speichern</span>
+                  </button>
+                </form>
+                <button class="rectangle-secondary-btn mt-1" aria-label="Abbrechen"
+                onclick="closeChangeBudgetForm()">Abbrechen</button>
               </div>
-            </form>
+
 
             <!-- Budget Table -->
             <table class="budget-table mt-2 mb-1">
@@ -370,7 +372,9 @@
                   <input type="number" name="projectTransactionAmount" id="projectTransactionAmount" class="input"
                     placeholder="Betrag..." step="any" max="100000000" required>
                 </label>
-                <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
+                <button type="submit" class="rectangle-btn submit-btn" aria-label="Transaktion hinzufügen">
+                  <span class="button-text">Hinzufügen</span>
+                </button>
               </form>
               <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
                 onclick="closeTransactionForm()">Abbrechen</button>
@@ -394,8 +398,8 @@
                   &nbsp;
                   <form action="/projekte/<%=foundProject._id%>/budget/transaction/<%=transaction._id%>?_method=DELETE"
                     method="POST" class="transaction-delete-form">
-                    <button class="delete-edit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20" viewBox="0 0 24 24">
+                    <button type="submit" class="delete-edit-btn submit-btn" aria-label="Ausgabe löschen"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="20" height="20" viewBox="0 0 24 24" class="button-text">
                         <path fill="currentColor"
                           d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                       </svg></button>
@@ -425,8 +429,9 @@
   </div>
 
   <script src="/JS/dropleftMenu.js"></script>
-  <script src="/JS/handleToDos.js"></script>
   <script src="/JS/handleProjectBudget.js"></script>
+  <script src="/JS/handleToDos.js"></script>
+  <script src="/JS/loadingSpinner.js"></script>
   <script src="/JS/createPDF.js"></script>
 </body>
 

@@ -75,20 +75,6 @@
                   <span>PDF herunterladen</span>
                 </button>
               </li>
-              <!-- Delete All Budget Transactions Button -->
-              <li class="dropleft-menu-item">
-                <form action="/budget/<%=foundBudget._id%>/deleteAllTransactions?_method=PUT" method="POST">
-                  <button class="delete-edit-btn" aria-label="Alle Transaktionen löschen"
-                    title="Alle Transaktionen löschen">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                      viewBox="0 0 24 24">
-                      <path fill="currentColor"
-                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                    </svg>
-                    <span>Alle Transaktionen löschen</span>
-                  </button>
-                </form>
-              </li>
               <!-- Edit Budget Button -->
               <li class="dropleft-menu-item">
                 <a href="/budget/<%=foundBudget._id%>/bearbeiten" class="delete-edit-btn" title="Budget bearbeiten" aria-label="Budget bearbeiten">
@@ -99,6 +85,22 @@
                   <span>Budget bearbeiten</span>
                 </a>
               </li>
+              <% if (foundBudget.transactions.length > 0) { %>
+              <!-- Delete All Budget Transactions Button -->
+              <li class="dropleft-menu-item">
+                <form action="/budget/<%=foundBudget._id%>/deleteAllTransactions?_method=PUT" method="POST">
+                  <button type="submit" class="delete-edit-btn submit-btn" aria-label="Alle Transaktionen löschen"
+                    title="Alle Transaktionen löschen">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
+                    </svg>
+                    <span class="button-text">Alle Transaktionen löschen</span>
+                  </button>
+                </form>
+              </li>
+                <% } %>
             </ul>
           </div>
 
@@ -161,7 +163,9 @@
                 <input type="number" name="transactionAmount" id="transactionAmount" class="input"
                   placeholder="Betrag..." step="any" max="100000000" required>
               </label>
-              <button class="rectangle-btn" aria-label="Transaktion hinzufügen">Hinzufügen</button>
+              <button type="submit" class="rectangle-btn submit-btn" aria-label="Transaktion hinzufügen">
+                <span class="button-text">Hinzufügen</span>
+              </button>
             </form>
             <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
               onclick="closeTransactionForm()">Abbrechen</button>
@@ -215,6 +219,7 @@
 
   <script src="/JS/displayExpenseInput.js"></script>
   <script src="/JS/dropleftMenu.js"></script>
+  <script src="/JS/loadingSpinner.js"></script>
   <script src="/JS/createPDF.js"></script>
 </body>
 

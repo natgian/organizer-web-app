@@ -100,14 +100,16 @@
               </svg>Eintrag hinzufügen</button>
             </div>
 
-            <form action="/listen/<%= foundList._id %>" method="POST">
               <div class="new-item-container">
+                <form action="/listen/<%= foundList._id %>" method="POST">
                 <input type="text" name="text" placeholder="Hier eingeben..." class="input" required>
-                <button class="rectangle-btn">Hinzufügen</button>
+                <button type="submit" class="rectangle-btn submit-btn">
+                  <span class="button-text">Hinzufügen</span>
+                </button>
+                </form>
                 <button class="rectangle-secondary-btn mt-1" aria-label="abbrechen"
-                  onclick="closeInputForm()">Abbrechen</button>
+                onclick="closeInputForm()">Abbrechen</button>
               </div>
-            </form>
 
           </div>
 
@@ -116,8 +118,8 @@
             <div class="listen-item">
               <li class="overflow-wrap-anywhere"><%= item.text %></li>
               <form action="/listen/<%=foundList._id%>/items/<%=item._id%>?_method=DELETE" method="POST" class="flex">
-                <button class="delete-edit-btn" aria-label="Eintrag löschen" title="Eintrag löschen"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <button type="submit" class="delete-edit-btn submit-btn" aria-label="Eintrag löschen" title="Eintrag löschen"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="button-text">
                     <path fill="currentColor"
                       d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
                   </svg>
@@ -146,6 +148,7 @@
     <%- include("../partials/footer") %>
   </div>
 
+  <script src="/JS/loadingSpinner.js"></script>
   <script src="/JS/displayItemInput.js"></script>
   <script src="/JS/dropleftMenu.js"></script>
 </body>
