@@ -19,8 +19,13 @@ element.addEventListener("click", async () => {
       y += amount;
     };
 
+    const sanitizeString = (input) => {
+      return input.replace(/[^\x20-\x7E]/g, ''); // Removes characters outside the printable ASCII range
+    };
+
     // BUDGET TITLE:
-    const budgetName = document.querySelector(".pdf-title").textContent.trim();
+    let budgetName = document.querySelector(".pdf-title").textContent.trim();
+    budgetName = sanitizeString(budgetName); // Sanitize the input string
     doc.setFontStyle("bold");
     doc.setFontSize(24);
     doc.text(budgetName, 15, 20);
