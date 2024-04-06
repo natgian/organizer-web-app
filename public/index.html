@@ -71,11 +71,15 @@
         <a href="/kontakt" class="footer-link">Kontakt</a>
         <a href="/datenschutz" class="footer-link">Datenschutzerklärung</a>
       </div>
-      <p class="mt-1">Copyright © 2013 - <a href="https://www.natgian.com/" target="_blank">natgian.com</a></p>
+      <p class="mt-1">Copyright © <span id="currentYear"></span> - <a href="https://www.natgian.com/de" target="_blank">natgian.com</a></p>
     </footer>
   </div>
 
   <script src="./JS/cookies.js"></script>
+  <script>
+    const currentYear = new Date().getFullYear();
+    document.getElementById("currentYear").innerHTML = currentYear;
+  </script>
 </body>
 
 </html>
