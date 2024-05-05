@@ -1,10 +1,10 @@
-if(process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
-};
+}
 
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -14,7 +14,7 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const nodemailer = require("nodemailer");
-const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
+const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
 // const dbURL = "mongodb://127.0.0.1:27017/taskmanagerApp";
 const session = require("express-session");
 const MongoDBStore = require("connect-mongo");
@@ -28,12 +28,12 @@ const projekteRoutes = require("./routes/projekteRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 // Connecting Mongoose to MongoDB database
-main().catch(err => console.log(err));
+main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(dbURL);
   console.log("Connected to MongoDB database");
-};
+}
 
 // Setting the view engine and path
 app.set("view engine", "ejs");
@@ -56,11 +56,11 @@ const store = MongoDBStore.create({
   mongoUrl: dbURL,
   touchAfter: 24 * 60 * 60, // time period in seconds, saying to be updated only one time in a period of 24 hours
   crypto: {
-    secret: secret
-  }
+    secret: secret,
+  },
 });
 
-store.on("error", function(err) {
+store.on("error", function (err) {
   console.log("SESSION STORE ERROR", err);
 });
 
@@ -72,11 +72,11 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // secure: true 
+    secure: true
     // "secure: true" --> says that this cookie should only work over https. ACTIVATE IT FOR DEPLOYMENT (not before, since localhost is not https)
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
 };
 
 app.use(session(sessionConfig));
@@ -84,7 +84,9 @@ app.use(session(sessionConfig));
 // Passport
 app.use(passport.initialize());
 app.use(passport.session()); // must be used AFTER sessions
-passport.use(new LocalStrategy({ usernameField: "email" }, User.authenticate()));
+passport.use(
+  new LocalStrategy({ usernameField: "email" }, User.authenticate())
+);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -144,20 +146,20 @@ app.post("/kontakt", async (req, res) => {
   const { name, email, message } = req.body;
 
   const transporter = nodemailer.createTransport({
-    host: "mail.infomaniak.com",
+    host: process.env.HOST,
     port: 465,
     secure: true,
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PW
-    }
+      pass: process.env.EMAIL_PW,
+    },
   });
 
   const mailOptions = {
-    from: "info@natgian.com",
-    to: "info@natgian.com",
+    from: process.env.EMAIL,
+    to: process.env.EMAIL,
     subject: `MeinOrganizer - Nachricht von ${name}`,
-    text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`
+    text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`,
   };
 
   await transporter.sendMail(mailOptions);
@@ -169,7 +171,7 @@ app.post("/kontakt", async (req, res) => {
 // Error Handler for other errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).render("pages/error", {err: err});
+  res.status(500).render("pages/error", { err: err });
 });
 
 // General Error Handler for undefined routes
@@ -181,5 +183,3 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
   console.log(`LISTENING ON PORT ${PORT}`);
 });
-
-

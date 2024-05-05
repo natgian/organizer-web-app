@@ -9,7 +9,7 @@ const crypto = require("crypto");
 // RENDER REGISTRATION PAGE
 module.exports.renderRegisterPage = (req, res) => {
   res.render("users/registration");
-}
+};
 
 // REGISTER A NEW USER
 module.exports.registerUser = async (req, res, next) => {
@@ -17,7 +17,7 @@ module.exports.registerUser = async (req, res, next) => {
     const { username, email, password } = req.body;
     const newUser = new User({ email, username });
     const registeredUser = await User.register(newUser, password);
-    req.login(registeredUser, err => {
+    req.login(registeredUser, (err) => {
       if (err) return next(err);
       // req.flash("success", "Erfolgreich registriert!");
       res.redirect("/home");
@@ -34,7 +34,7 @@ module.exports.renderLoginPage = (req, res) => {
     res.redirect("/home");
   } else {
     res.render("users/login");
-  };  
+  }
 };
 
 // LOGIN
@@ -61,12 +61,12 @@ module.exports.renderUserAccount = async (req, res, next) => {
   if (userId !== loggedInUser.toString()) {
     // User is not authorized to view this profile
     return res.status(403).render("pages/403"); //
-  };
+  }
 
   const foundUser = await User.findById(userId);
   if (!foundUser) {
     return res.status(404).render("pages/404");
-  };
+  }
   res.render("users/profile", { foundUser });
 };
 
@@ -85,9 +85,11 @@ module.exports.editUser = async (req, res, next) => {
   if (userId !== loggedInUser.toString()) {
     // User is not authorized to view this profile
     return res.status(403).render("pages/403"); //
-  };
+  }
 
-  const foundUser = await User.findByIdAndUpdate(userId, req.body, { runValidators: true });
+  const foundUser = await User.findByIdAndUpdate(userId, req.body, {
+    runValidators: true,
+  });
   res.redirect(`/benutzerkonto/${foundUser._id}`);
 };
 
@@ -95,7 +97,7 @@ module.exports.editUser = async (req, res, next) => {
 module.exports.renderChangePassword = async (req, res, next) => {
   const { userId } = req.params;
   const foundUser = await User.findById(userId);
-  res.render("users/changePassword", { foundUser});
+  res.render("users/changePassword", { foundUser });
 };
 
 // -- EDIT PASSWORD
@@ -105,19 +107,19 @@ module.exports.changePassword = async (req, res, next) => {
   if (!foundUser) {
     req.flash("error", "Benutzer nicht gefunden");
     return res.redirect("/home");
-  };
+  }
 
   foundUser.authenticate(req.body.oldPassword, async (err, valid) => {
     if (err || !valid) {
       req.flash("error", "Das alte Passwort ist nicht korrekt.");
       return res.redirect(`/benutzerkonto/${foundUser._id}/passwort`);
-    };
+    }
 
     foundUser.setPassword(req.body.newPassword, async () => {
       await foundUser.save();
       req.flash("success", "Passwort wurde erfolgreich geändert.");
       res.redirect(`/benutzerkonto/${foundUser._id}`);
-    });  
+    });
   });
 };
 
@@ -133,19 +135,18 @@ module.exports.renderSentMailConfirmation = (req, res) => {
 
 // -- SEND RESET PASSWORD EMAIL TO USER
 module.exports.sendResetPasswordEmail = async (req, res, next) => {
-    
   const { error } = userEmailSchema.validate(req.body); // Validate the email input
-    if (error) {
-      req.flash("error", "Bitte gibt eine gültige E-Mail Adresse ein.");
-      return res.redirect("/passwort-vergessen");
-      // return res.render("pages/error", { err: error.details[0].message });
-    };
-    
+  if (error) {
+    req.flash("error", "Bitte gibt eine gültige E-Mail Adresse ein.");
+    return res.redirect("/passwort-vergessen");
+    // return res.render("pages/error", { err: error.details[0].message });
+  }
+
   const user = await User.findOne({ email: req.body.email }); // Find the user by email
-    if(!user) {
-      req.flash("error", "Kein Benutzer mit dieser E-Mail gefunden.");
-      return res.redirect("/passwort-vergessen");
-    }
+  if (!user) {
+    req.flash("error", "Kein Benutzer mit dieser E-Mail gefunden.");
+    return res.redirect("/passwort-vergessen");
+  }
 
   const resetToken = crypto.randomBytes(32).toString("hex"); // Generate a reset token
   user.resetPasswordToken = resetToken; // Set the reset token in the user's document
@@ -153,23 +154,24 @@ module.exports.sendResetPasswordEmail = async (req, res, next) => {
   await user.save();
 
   const transporter = nodemailer.createTransport({
-    host: "mail.infomaniak.com",
+    host: process.env.HOST,
     port: 465,
     secure: true,
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PW
-    }
+      pass: process.env.EMAIL_PW,
+    },
   });
 
   const mailOptions = {
-    from: "info@natgian.com",
+    from: process.env.EMAIL,
     to: user.email,
     subject: "MeinOrganizer - Passwort zurücksetzen",
-    text: `Du erhältst diese Nachricht, weil das Zurücksetzen des Passworts für dein Konto beantragt wurde.\n\n` +
-    `Bitte klicke auf den folgenden Link oder füge diesen in deinen Browser ein, um den Vorgang abzuschliessen:\n\n` +
-    `http://${req.headers.host}/reset/${resetToken}\n\n` +
-    `Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail und dein Passwort bleibt unverändert.\n`
+    text:
+      `Du erhältst diese Nachricht, weil das Zurücksetzen des Passworts für dein Konto beantragt wurde.\n\n` +
+      `Bitte klicke auf den folgenden Link oder füge diesen in deinen Browser ein, um den Vorgang abzuschliessen:\n\n` +
+      `http://${req.headers.host}/reset/${resetToken}\n\n` +
+      `Wenn du dies nicht angefordert hast, ignoriere bitte diese E-Mail und dein Passwort bleibt unverändert.\n`,
   };
 
   await transporter.sendMail(mailOptions);
@@ -204,17 +206,20 @@ module.exports.resetPassword = async (req, res, next) => {
   if (!user) {
     req.flash("error", "Link ist ungültig oder abgelaufen.");
     return res.redirect("/passwort-vergessen");
-  };
+  }
 
   // Ensure the new password and the confirmation match
   if (req.body.password !== req.body.confirm) {
     req.flash("error", "Passwörter stimmen nicht überein.");
     return res.redirect(`/reset/${req.params.token}`);
-  };
+  }
   // Use the setPassword method from passport-local-mongoose to hash new password
   user.setPassword(req.body.password, async (err) => {
     if (err) {
-      req.flash("error", "Ein Fehler ist unterlaufen. Bitte versuche es erneut.");
+      req.flash(
+        "error",
+        "Ein Fehler ist unterlaufen. Bitte versuche es erneut."
+      );
       return res.render("resetPassword", { token: req.params.token });
     }
     // Clear the resetPasswordToken and resetPasswordExpires
@@ -227,18 +232,16 @@ module.exports.resetPassword = async (req, res, next) => {
     // Log in the user
     req.logIn(user, (err) => {
       if (err) {
-        req.flash("error", "Ein Fehler ist unterlaufen. Bitte versuche es erneut.");
+        req.flash(
+          "error",
+          "Ein Fehler ist unterlaufen. Bitte versuche es erneut."
+        );
         return res.redirect(`/reset/${req.params.token}`);
       }
 
-       // Redirect to the user's profile or any desired location
-       req.flash("success", "Dein Passwort wurde erfolgreich geändert.");
-       return res.redirect("/home");
+      // Redirect to the user's profile or any desired location
+      req.flash("success", "Dein Passwort wurde erfolgreich geändert.");
+      return res.redirect("/home");
     });
   });
 };
-
-
-
-
-
