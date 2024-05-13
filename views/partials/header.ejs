@@ -1,54 +1,87 @@
 <header class="main-header">
   <nav class="container navbar">
     <ul class="main-nav">
-
       <% if (loggedInUser) { %>
 
       <!-- LOGOUT-BUTTON -->
       <li>
         <a href="/logout" class="main-nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+          >
             <g transform="rotate(180 12 12)">
-              <path fill="currentColor"
-                d="m17 8l-1.4 1.4l1.6 1.6H9v2h8.2l-1.6 1.6L17 16l4-4l-4-4M5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5Z" />
-            </g>
-          </svg>Logout</a>
+              <path
+                fill="currentColor"
+                d="m17 8l-1.4 1.4l1.6 1.6H9v2h8.2l-1.6 1.6L17 16l4-4l-4-4M5 5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h7v-2H5V5Z"
+              />
+            </g></svg
+          >Logout</a
+        >
       </li>
 
-            <!-- USER-PROFILE-BUTTON -->
-            <li>
-              <a href="/benutzerkonto/<%=loggedInUser._id%>" class="main-nav-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10Z" />
-                </svg>Profil</a>
-            </li>
+      <!-- USER-PROFILE-BUTTON -->
+      <li>
+        <a href="/benutzerkonto/<%=loggedInUser._id%>" class="main-nav-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10Z"
+            /></svg
+          >Profil</a
+        >
+      </li>
 
       <% } else { %>
       <li>
         <a href="/login" class="main-nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-            <path fill="currentColor"
-              d="M19 3H5c-1.11 0-2 .89-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-8.92 12.58L11.5 17l5-5l-5-5l-1.42 1.41L12.67 11H3v2h9.67l-2.59 2.58Z" />
-          </svg>Login</a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 3H5c-1.11 0-2 .89-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-8.92 12.58L11.5 17l5-5l-5-5l-1.42 1.41L12.67 11H3v2h9.67l-2.59 2.58Z"
+            /></svg
+          >Login</a
+        >
       </li>
       <% } %>
 
       <!-- HOME-BUTTON -->
       <li>
         <a href="/home" class="main-nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z" />
-          </svg>Home</a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"
+            /></svg
+          >Home</a
+        >
       </li>
-
     </ul>
   </nav>
 
   <button id="scrollToTopButton">
-    <img src="/images/arrow-up-thick.svg" alt="button to scroll to the top of the page">
+    <img
+      src="/images/arrow-up-thick.svg"
+      alt="button to scroll to the top of the page"
+    />
   </button>
-
 </header>
 
 <script defer src="/JS/scrollToTop.js"></script>

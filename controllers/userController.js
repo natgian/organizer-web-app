@@ -33,7 +33,8 @@ module.exports.renderLoginPage = (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/home");
   } else {
-    res.render("users/login");
+    const loggedInUser = req.user;
+    res.render("users/login", { loggedInUser });
   }
 };
 
