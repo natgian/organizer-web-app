@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const express = require("express");
-const sslRedirect = require("express-sslify");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require("path");
@@ -20,11 +19,6 @@ const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
 const session = require("express-session");
 const MongoDBStore = require("connect-mongo");
 
-// Redirect HTTP requests to HTTPS in production
-if (process.env.NODE_ENV === "production") {
-  app.use(sslRedirect.HTTPS({ trustProtoHeader: true }));
-}
-
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
 const budgetRoutes = require("./routes/budgetRoutes");
@@ -39,6 +33,10 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(dbURL);
   console.log("Connected to MongoDB database");
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1); // trust first proxy
 }
 
 // Setting the view engine and path
@@ -78,7 +76,7 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // secure: true,
+    secure: true,
     // "secure: true" --> says that this cookie should only work over https. ACTIVATE IT FOR DEPLOYMENT (not before, since localhost is not https)
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
