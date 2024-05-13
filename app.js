@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const express = require("express");
+const sslRedirect = require("express-sslify");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require("path");
@@ -18,6 +19,11 @@ const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
 
 const session = require("express-session");
 const MongoDBStore = require("connect-mongo");
+
+// Redirect HTTP requests to HTTPS in production
+if (process.env.NODE_ENV === "production") {
+  app.use(sslRedirect.HTTPS({ trustProtoHeader: true }));
+}
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
