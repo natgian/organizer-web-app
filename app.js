@@ -35,6 +35,7 @@ async function main() {
   console.log("Connected to MongoDB database");
 }
 
+// Express configuration to trust the first proxy server
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1); // trust first proxy
 }
