@@ -17,8 +17,8 @@
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
@@ -71,7 +71,7 @@ svg {
   --dark-color: #050505;
   --input-bg-color: #1a1a1a;
   --semi-dark-color: #424242;
-  --medium-dark-color: #2A2A2A;
+  --medium-dark-color: #2a2a2a;
   --light-dark-color: #4a4a4a;
   --light-color: #777777;
   --light-background: #dfdfdf;
@@ -82,7 +82,7 @@ svg {
   --primary-color-active: #01574f;
   --primary-color-disabled: #0d5450;
   /* Complementary */
-  --comp-color-one: #F9F871;
+  --comp-color-one: #f9f871;
   --comp-color-two: #fda76d;
   --comp-color-three: #6ae79c;
   --comp-color-four: #3a9ddf;
@@ -94,7 +94,7 @@ svg {
   --navigation-color: #afafaf;
 
   /* FONTS: */
-  --main-font: 'Montserrat', sans-serif;
+  --main-font: "Montserrat", sans-serif;
 
   --main-font-size: clamp(1rem, 3vw, 1.25rem);
   --small-font-size: clamp(0.875rem, 3vw, 1rem);
@@ -254,7 +254,6 @@ fieldset {
   justify-content: center;
   gap: 2em;
   padding: 1em 0;
-
 }
 
 .text-center {
@@ -416,7 +415,6 @@ fieldset {
   justify-content: center;
   padding: 1em;
   height: fit-content;
-
 }
 
 .alert-error {
@@ -449,7 +447,7 @@ fieldset {
 
 #scrollToTopButton:active,
 #scrollToTopButton:hover {
-  background-color: var(--main-text-color)
+  background-color: var(--main-text-color);
 }
 
 .dropleft {
@@ -462,7 +460,7 @@ fieldset {
   right: 1.5em;
   top: 0.5em;
   font-size: var(--small-font-size);
-  background-color: rgba(26,26,26, 0.9);
+  background-color: rgba(26, 26, 26, 0.9);
   width: auto;
   border-radius: 10px;
   box-shadow: 0 2px 15px 0 rgba(255, 255, 255, 0.1);
@@ -585,7 +583,8 @@ fieldset {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease,
+    border-color 0.3s ease;
 }
 
 .rectangle-secondary-btn:hover,
@@ -621,9 +620,9 @@ fieldset {
 @keyframes button-loading-spinner {
   from {
     transform: rotate(0turn);
-  } 
+  }
   to {
-    transform: rotate(1turn)
+    transform: rotate(1turn);
   }
 }
 
@@ -642,7 +641,8 @@ fieldset {
   border: 1px solid var(--dark-color);
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease,
+    transform 0.2s ease, border-color 0.3s ease;
 }
 
 .remove-all-btn:hover,
@@ -707,7 +707,7 @@ fieldset {
 }
 
 /* Style for the selected color option */
-.color-option input[type="radio"]:checked+div {
+.color-option input[type="radio"]:checked + div {
   border: 3px solid var(--title-text-color);
 }
 
@@ -880,11 +880,11 @@ fieldset {
 
 @keyframes loading {
   from {
-    transform: rotate(0turn)
+    transform: rotate(0turn);
   }
 
   to {
-    transform: rotate(1turn)
+    transform: rotate(1turn);
   }
 }
 
@@ -955,8 +955,6 @@ fieldset {
   font-size: 1rem;
   margin: 0.5em 0;
 }
-
-
 
 /*----------------------------------*/
 /* LOGIN & SIGN UP & RESET PASSWORD */
@@ -1029,7 +1027,7 @@ fieldset {
   border: 2px solid var(--light-color);
 }
 
-.login-input:focus~.form-label {
+.login-input:focus ~ .form-label {
   color: var(--primary-color);
 }
 
@@ -1117,7 +1115,7 @@ button#toggle-password:active {
   border: 2px solid var(--primary-color-active);
 }
 
-.contact-input:focus~.contact-label {
+.contact-input:focus ~ .contact-label {
   color: var(--primary-color);
 }
 
@@ -1129,7 +1127,6 @@ button#toggle-password:active {
 .contact-input:active {
   border: 2px solid var(--primary-color);
 }
-
 
 /*---------*/
 /* PROFILE */
@@ -1546,7 +1543,7 @@ button#toggle-password:active {
   border-bottom: 1px solid var(--light-color);
 }
 
-.listen-item>form {
+.listen-item > form {
   flex-shrink: 0;
 }
 
@@ -1750,11 +1747,11 @@ td {
   opacity: 0;
 }
 
-.todo-checkbox:checked+.custom-checkbox::after {
+.todo-checkbox:checked + .custom-checkbox::after {
   opacity: 1;
 }
 
-.todo-checkbox:checked+.custom-checkbox {
+.todo-checkbox:checked + .custom-checkbox {
   border: 2px solid var(--light-dark-color);
 }
 
@@ -1798,7 +1795,7 @@ td {
 /* MEDIA QUERIES */
 /*---------------*/
 
-@media only screen and (min-width:415px) {
+@media only screen and (min-width: 415px) {
   .home-btn {
     width: 10rem;
     height: 10rem;
@@ -1821,7 +1818,7 @@ td {
   }
 }
 
-@media only screen and (min-width:640px) {
+@media only screen and (min-width: 640px) {
   .remove-all-btn {
     width: 50%;
     margin-left: 25%;
@@ -1846,7 +1843,7 @@ td {
   }
 }
 
-@media only screen and (min-width:768px) {
+@media only screen and (min-width: 768px) {
   .wrapper,
   .datenschutz-wrapper {
     max-width: 1000px;
@@ -1912,7 +1909,7 @@ td {
   }
 }
 
-@media only screen and (min-width:724px) {
+@media only screen and (min-width: 724px) {
   .notes-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
