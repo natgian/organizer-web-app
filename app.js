@@ -77,7 +77,7 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // secure: true,
+    secure: true,
     // "secure: true" --> says that this cookie should only work over https. ACTIVATE IT FOR DEPLOYMENT (not before, since localhost is not https)
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -148,28 +148,35 @@ app.get("/nachricht-versendet", (req, res) => {
 });
 // Send contact form
 app.post("/kontakt", async (req, res) => {
-  const { name, email, message } = req.body;
+  try {
+    const { name, email, message } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PW,
-    },
-  });
+    const transporter = nodemailer.createTransport({
+      host: process.env.HOST,
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PW,
+      },
+    });
 
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: process.env.EMAIL,
-    subject: `MeinOrganizer - Nachricht von ${name}`,
-    text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`,
-  };
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: process.env.EMAIL,
+      subject: `MeinOrganizer - Nachricht von ${name}`,
+      text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`,
+    };
 
-  await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
-  res.redirect("/nachricht-versendet");
+    res.redirect("/nachricht-versendet");
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res
+      .status(500)
+      .send("There was an issue sending your message. Please try again later.");
+  }
 });
 
 // ERROR HANDLING
