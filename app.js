@@ -162,8 +162,8 @@ app.post("/kontakt", async (req, res) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL,
-      to: process.env.EMAIL,
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
       subject: `MeinOrganizer - Nachricht von ${name}`,
       text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`,
     };
