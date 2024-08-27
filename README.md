@@ -9,13 +9,13 @@ Whether you're tracking your daily to-dos, planning projects, or managing your e
 
 ## Features
 
-- Projects: Organize and track projects
-- Budgets: Track and manage your finances
-- Notes: Create, edit and search your personal notes
-- Calendar: Enter and search appointments in the calendar
-- Timer: Increase your productivity with the pomodor focus timer
-- Lists: Create lists
-- Responsive, works any device (desktop, tablet, mobile), internet connection needed
+- **Projects**: Organize and track projects
+- **Budgets**: Track and manage your finances
+- **Notes**: Create, edit and search your personal notes
+- **Calendar**: Enter and search appointments in the calendar
+- **Timer**: Increase your productivity with the pomodor focus timer
+- **Lists**: Create lists
+- **Responsive Design**: Enjoy a seamless experience across all devices
 
 ## Technologies Used
 
