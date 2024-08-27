@@ -1,9 +1,8 @@
 # MeinOrganizer: Your Personal Organizer
 
-![MeinOrganizer Desktop Table Mobile Mockup](./images/meinorganizer_dekstop-tablet-mobile.png)
+![MeinOrganizer Desktop Table Mobile Mockup](./public/images/meinorganizer_dekstop-tablet-mobile.png)
 
 **MeiOrganizer** is a web application designed to help you manage your personal projects, notes, lists, and budgets.
-
 Whether you're tracking your daily to-dos, planning projects, or managing your expenses, MeinOrganizer provides a seamless and intuitive interface to keep everything organized.
 
 **IMPORTANT: The app is in german**
@@ -60,4 +59,4 @@ The timer function currently stops working correctly if the browser tab is inact
 For questions or feedback, please contact:
 
 - Email: <info@natgian.com>
-- GitHub: [Link](https://github.com/natgian)
+- GitHub: [natgian](https://github.com/natgian)
