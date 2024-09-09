@@ -4,7 +4,9 @@ const formatDate = require("../utilities/formatDate");
 
 // RENDER BUDGET PAGE
 module.exports.renderBudgetPage = async (req, res, next) => {
-  const budgets = await Budget.find({ user: req.user._id }).sort({ updatedAt: -1 }).populate("user");
+  const budgets = await Budget.find({ user: req.user._id })
+    .sort({ updatedAt: -1 })
+    .populate("user");
   res.render("pages/budget", { budgets });
 };
 
@@ -30,27 +32,27 @@ module.exports.createBudget = async (req, res, next) => {
 module.exports.showBudget = async (req, res, next) => {
   const { budgetId } = req.params;
   try {
-    const foundBudget = await Budget.findById(budgetId)
-      .populate({
-        path: "user",
-        populate: { path: "budgets" }
-      });
+    const foundBudget = await Budget.findById(budgetId).populate({
+      path: "user",
+      populate: { path: "budgets" },
+    });
     if (!foundBudget) {
       res.status(404).render("pages/404");
-    }
-    else {
+    } else {
+      foundBudget.transactions.sort(
+        (a, b) => a.transactionDate - b.transactionDate
+      ); // Sort the transactions by date (oldest first)
+
       if (req.user && req.user._id.equals(foundBudget.user._id)) {
         res.render("budgets/showBudget", { foundBudget, formatDate });
       } else {
         res.status(403).render("pages/403");
       }
     }
-  }
-  catch (err) {
+  } catch (err) {
     if (err.name === "CastError") {
       res.status(404).render("pages/404");
-    }
-    else {
+    } else {
       res.status(500).render("pages/error");
     }
   }
@@ -71,16 +73,19 @@ module.exports.editBudget = async (req, res, next) => {
 
   if (!foundBudget) {
     return res.status(404).render("pages/404");
-  };
+  }
 
-  const totalTransactions = foundBudget.transactions.reduce((total, transaction) => {
-    if (transaction.transactionType === "expense") {
-      return total + parseFloat(transaction.transactionAmount, 10);
-    } else if (transaction.transactionType === "revenue") {
-      return total - parseFloat(transaction.transactionAmount, 10);
-    }
-    return total;
-  }, 0);
+  const totalTransactions = foundBudget.transactions.reduce(
+    (total, transaction) => {
+      if (transaction.transactionType === "expense") {
+        return total + parseFloat(transaction.transactionAmount, 10);
+      } else if (transaction.transactionType === "revenue") {
+        return total - parseFloat(transaction.transactionAmount, 10);
+      }
+      return total;
+    },
+    0
+  );
 
   const remainingBudget = budget - totalTransactions;
 
@@ -89,11 +94,11 @@ module.exports.editBudget = async (req, res, next) => {
 
   if (name !== foundBudget.name) {
     foundBudget.name = name;
-  };
+  }
 
   if (color !== undefined && color !== foundBudget.color) {
     foundBudget.color = color;
-  };
+  }
 
   foundBudget.updatedAt = Date.now();
   await foundBudget.save();
@@ -109,7 +114,7 @@ module.exports.deleteBudget = async (req, res, next) => {
 
   if (!foundBudget) {
     return res.status(404).json({ error: "Budget not found" });
-  };
+  }
 
   await Budget.findByIdAndDelete(budgetId);
   await User.findByIdAndUpdate(req.user._id, { $pull: { budgets: budgetId } });
@@ -121,8 +126,18 @@ module.exports.addTransaction = async (req, res, next) => {
   const { budgetId } = req.params;
   const foundBudget = await Budget.findById(budgetId);
 
-  const { transactionDate, transactionDescription, transactionAmount, transactionType } = req.body;
-  const newTransaction = { transactionDate, transactionDescription, transactionAmount, transactionType };
+  const {
+    transactionDate,
+    transactionDescription,
+    transactionAmount,
+    transactionType,
+  } = req.body;
+  const newTransaction = {
+    transactionDate,
+    transactionDescription,
+    transactionAmount,
+    transactionType,
+  };
 
   foundBudget.transactions.push(newTransaction);
 
@@ -130,7 +145,7 @@ module.exports.addTransaction = async (req, res, next) => {
     foundBudget.remainingBudget -= parseFloat(transactionAmount);
   } else if (transactionType === "revenue") {
     foundBudget.remainingBudget += parseFloat(transactionAmount);
-  };
+  }
 
   foundBudget.updatedAt = Date.now();
   await foundBudget.save();
@@ -144,15 +159,16 @@ module.exports.deleteTransaction = async (req, res, next) => {
 
   if (!foundBudget) {
     return res.status(404).render("pages/404");
-  };
+  }
 
   // Find the index of the transaction within the transactions array
-  const transactionIndex = foundBudget.transactions.findIndex(
-    transaction => transaction._id.equals(transactionId)
+  const transactionIndex = foundBudget.transactions.findIndex((transaction) =>
+    transaction._id.equals(transactionId)
   );
 
   // Get the type and amount of the transaction being deleted
-  const { transactionType, transactionAmount } = foundBudget.transactions[transactionIndex];
+  const { transactionType, transactionAmount } =
+    foundBudget.transactions[transactionIndex];
 
   // Remove the transaction from the transactions array
   foundBudget.transactions.splice(transactionIndex, 1);
@@ -162,7 +178,7 @@ module.exports.deleteTransaction = async (req, res, next) => {
     foundBudget.remainingBudget += transactionAmount; // Add the amount back to the remaining budget
   } else if (transactionType === "revenue") {
     foundBudget.remainingBudget -= transactionAmount; // Subtract the amount from the remaining budget
-  };
+  }
 
   // Save the updated budget
   await foundBudget.save();
@@ -178,7 +194,7 @@ module.exports.deleteAllTransactions = async (req, res, next) => {
   const foundBudget = await Budget.findById(budgetId);
   if (!foundBudget) {
     return res.status(404).render("pages/404");
-  };
+  }
 
   foundBudget.transactions = [];
   foundBudget.remainingBudget = foundBudget.budget;
@@ -187,9 +203,3 @@ module.exports.deleteAllTransactions = async (req, res, next) => {
 
   res.redirect(`/budget/${budgetId}`);
 };
-
-
-
-
-
-

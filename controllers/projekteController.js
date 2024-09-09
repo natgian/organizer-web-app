@@ -2,9 +2,11 @@ const { Project, Todo, ProjectBudget } = require("../models/project");
 const User = require("../models/user");
 const formatDate = require("../utilities/formatDate");
 
-// RENDER PROJEKTE PAGE
+// RENDER PROJECT PAGE
 module.exports.renderProjektePage = async (req, res, next) => {
-  const projects = await Project.find({ user: req.user._id }).sort({ updatedAt: -1 }).populate("user");
+  const projects = await Project.find({ user: req.user._id })
+    .sort({ updatedAt: -1 })
+    .populate("user");
   res.render("pages/projekte", { projects });
 };
 
@@ -31,15 +33,25 @@ module.exports.showProject = async (req, res, next) => {
     const foundProject = await Project.findById(projectId)
       .populate({
         path: "user",
-        populate: { path: "projects" }
+        populate: { path: "projects" },
       })
       .populate("todos")
       .populate("projectbudget");
 
     if (!foundProject) {
       res.status(404).render("pages/404");
-    }
-    else {
+    } else {
+      // Ensure the projectbudget is populated and projectTransactions exist
+      if (
+        foundProject.projectbudget &&
+        foundProject.projectbudget.projectTransactions
+      ) {
+        // Sort the projectTransactions by date (oldest first)
+        foundProject.projectbudget.projectTransactions.sort(
+          (a, b) => a.projectTransactionDate - b.projectTransactionDate
+        );
+      }
+
       if (req.user && req.user._id.equals(foundProject.user._id)) {
         // Calculate the todo counts
         const completedCount = await Todo.countDocuments({
@@ -50,17 +62,20 @@ module.exports.showProject = async (req, res, next) => {
           project: projectId,
           completed: false,
         });
-        res.render("projects/showProject", { foundProject, formatDate, completedCount, openCount });
+        res.render("projects/showProject", {
+          foundProject,
+          formatDate,
+          completedCount,
+          openCount,
+        });
       } else {
         res.status(403).render("pages/403");
       }
     }
-  }
-  catch (err) {
+  } catch (err) {
     if (err.name === "CastError") {
       res.status(404).render("pages/404");
-    }
-    else {
+    } else {
       res.status(500).render("pages/error");
     }
   }
@@ -91,7 +106,7 @@ module.exports.toggleTodoCompletion = async (req, res, next) => {
   // check if there is a todo
   if (!foundTodo) {
     return res.status(404).send("Aufgabe nicht gefunden.");
-  };
+  }
   // Toggle completion state
   foundTodo.completed = !foundTodo.completed;
   await foundTodo.save();
@@ -99,8 +114,14 @@ module.exports.toggleTodoCompletion = async (req, res, next) => {
   foundProject.updatedAt = Date.now();
   await foundProject.save();
   // Get the updated count of completed and open todos
-  const completedCount = await Todo.countDocuments({ project: req.params.projectId, completed: true });
-  const openCount = await Todo.countDocuments({ project: req.params.projectId, completed: false });
+  const completedCount = await Todo.countDocuments({
+    project: req.params.projectId,
+    completed: true,
+  });
+  const openCount = await Todo.countDocuments({
+    project: req.params.projectId,
+    completed: false,
+  });
   // Send the updated counts as JSON response
   res.json({ success: true, todo: foundTodo, completedCount, openCount });
 };
@@ -112,8 +133,7 @@ module.exports.updateTodoCount = async (req, res, next) => {
 
   if (!foundProject) {
     res.status(404).render("pages/404");
-  }
-  else {
+  } else {
     if (req.user && req.user._id.equals(foundProject.user._id)) {
       // Calculate the todo counts
       const completedCount = await Todo.countDocuments({
@@ -136,7 +156,10 @@ module.exports.addProjectBudget = async (req, res, next) => {
   const { projectId } = req.params;
   const { projectBudget } = req.body;
 
-  const newProjectBudget = new ProjectBudget({ projectBudget, remainingProjectBudget: projectBudget });
+  const newProjectBudget = new ProjectBudget({
+    projectBudget,
+    remainingProjectBudget: projectBudget,
+  });
 
   await newProjectBudget.save();
 
@@ -144,7 +167,7 @@ module.exports.addProjectBudget = async (req, res, next) => {
 
   if (!foundProject) {
     return res.status(404).send("Project nicht gefunden");
-  };
+  }
 
   foundProject.projectbudget = newProjectBudget._id;
   foundProject.updatedAt = Date.now();
@@ -156,19 +179,35 @@ module.exports.addProjectBudget = async (req, res, next) => {
 // ADD PROJECT BUDGET TRANSACTION
 module.exports.addProjectBudgetTransaction = async (req, res, next) => {
   const { projectId } = req.params;
-  const foundProject = await Project.findById(projectId).populate("projectbudget");
+  const foundProject = await Project.findById(projectId).populate(
+    "projectbudget"
+  );
   const projectBudget = foundProject.projectbudget;
 
-  const { projectTransactionDate, projectTransactionDescription, projectTransactionAmount, projectTransactionType } = req.body;
-  const newTransaction = { projectTransactionDate, projectTransactionDescription, projectTransactionAmount, projectTransactionType };
+  const {
+    projectTransactionDate,
+    projectTransactionDescription,
+    projectTransactionAmount,
+    projectTransactionType,
+  } = req.body;
+  const newTransaction = {
+    projectTransactionDate,
+    projectTransactionDescription,
+    projectTransactionAmount,
+    projectTransactionType,
+  };
 
   projectBudget.projectTransactions.push(newTransaction);
 
   if (projectTransactionType === "expense") {
-    projectBudget.remainingProjectBudget -= parseFloat(projectTransactionAmount);
+    projectBudget.remainingProjectBudget -= parseFloat(
+      projectTransactionAmount
+    );
   } else if (projectTransactionType === "revenue") {
-    projectBudget.remainingProjectBudget += parseFloat(projectTransactionAmount);
-  };
+    projectBudget.remainingProjectBudget += parseFloat(
+      projectTransactionAmount
+    );
+  }
   await projectBudget.save();
 
   foundProject.updatedAt = Date.now();
@@ -187,7 +226,11 @@ module.exports.renderEditProject = async (req, res, next) => {
 // EDIT A PROJECT
 module.exports.editProject = async (req, res, next) => {
   const { projectId } = req.params;
-  const foundProject = await Project.findByIdAndUpdate(projectId, { ...req.body, updatedAt: Date.now() }, { runValidators: true });
+  const foundProject = await Project.findByIdAndUpdate(
+    projectId,
+    { ...req.body, updatedAt: Date.now() },
+    { runValidators: true }
+  );
   res.redirect(`/projekte/${foundProject._id}`);
 };
 
@@ -198,10 +241,14 @@ module.exports.editProjectBudget = async (req, res, next) => {
   const foundProject = await Project.findById(projectId);
   const foundProjectBudget = await ProjectBudget.findById(budgetId);
   // getting the total of all expenses in the budget:
-  const totalTransactions = foundProjectBudget.projectTransactions.reduce((total, transaction) => total + transaction.projectTransactionAmount, 0);
+  const totalTransactions = foundProjectBudget.projectTransactions.reduce(
+    (total, transaction) => total + transaction.projectTransactionAmount,
+    0
+  );
 
   foundProjectBudget.projectBudget = newProjectBudget;
-  foundProjectBudget.remainingProjectBudget = newProjectBudget - totalTransactions;
+  foundProjectBudget.remainingProjectBudget =
+    newProjectBudget - totalTransactions;
 
   await foundProjectBudget.save();
 
@@ -222,10 +269,12 @@ module.exports.deleteProject = async (req, res, next) => {
 
   if (projectBudget) {
     await ProjectBudget.findByIdAndDelete(projectbudgetId);
-  };
+  }
 
   await Todo.deleteMany({ _id: { $in: todoIds } });
-  await User.findByIdAndUpdate(req.user._id, { $pull: { projects: projectId } });
+  await User.findByIdAndUpdate(req.user._id, {
+    $pull: { projects: projectId },
+  });
 
   await Project.findByIdAndDelete(projectId);
   res.redirect("/projekte");
@@ -239,14 +288,14 @@ module.exports.deleteTodoFromTodos = async (req, res, next) => {
   const todoIndex = foundProject.todos.indexOf(todoId); // Check if the todo exists in the project's todos array
 
   if (todoIndex !== -1) {
-    foundProject.todos.splice(todoIndex, 1);// Remove the todo from the project's todos array
+    foundProject.todos.splice(todoIndex, 1); // Remove the todo from the project's todos array
     foundProject.updatedAt = Date.now();
     await foundProject.save();
     await Todo.findByIdAndDelete(todoId);
     res.redirect(`/projekte/${projectId}#todo-section`);
   } else {
     res.status(404).render("pages/404");
-  };
+  }
 };
 
 // DELETE ALL TODOS FROM A TODO-LIST
@@ -266,20 +315,26 @@ module.exports.deleteAllTodos = async (req, res, next) => {
 // DELETE TRANSACTION FROM BUDGET
 module.exports.deleteProjectBudgetTransaction = async (req, res, next) => {
   const { projectId, transactionId } = req.params;
-  const foundProject = await Project.findById(projectId).populate("projectbudget");
+  const foundProject = await Project.findById(projectId).populate(
+    "projectbudget"
+  );
   const projectBudget = foundProject.projectbudget;
 
   const transactionIndex = projectBudget.projectTransactions.findIndex(
-    (transaction) => transaction._id.equals(transactionId));
+    (transaction) => transaction._id.equals(transactionId)
+  );
 
   if (transactionIndex !== -1) {
-    const deletedTransaction = projectBudget.projectTransactions[transactionIndex];
+    const deletedTransaction =
+      projectBudget.projectTransactions[transactionIndex];
 
     if (deletedTransaction.projectTransactionType === "expense") {
-      projectBudget.remainingProjectBudget += deletedTransaction.projectTransactionAmount;
+      projectBudget.remainingProjectBudget +=
+        deletedTransaction.projectTransactionAmount;
     } else if (deletedTransaction.projectTransactionType === "revenue") {
-      projectBudget.remainingProjectBudget -= deletedTransaction.projectTransactionAmount;
-    };
+      projectBudget.remainingProjectBudget -=
+        deletedTransaction.projectTransactionAmount;
+    }
 
     projectBudget.projectTransactions.splice(transactionIndex, 1);
 
@@ -289,7 +344,7 @@ module.exports.deleteProjectBudgetTransaction = async (req, res, next) => {
     res.redirect(`/projekte/${projectId}#budget-section`);
   } else {
     res.status(404).render("pages/404");
-  };
+  }
 };
 
 // DELETE A PROJECT BUDGET
@@ -304,5 +359,3 @@ module.exports.deleteProjectBudget = async (req, res, next) => {
   await foundProject.save();
   res.redirect(`/projekte/${projectId}`);
 };
-
-
