@@ -2,7 +2,7 @@
 
 ![MeinOrganizer Desktop Table Mobile Mockup](./public/images/meinorganizer_dekstop-tablet-mobile.png)
 
-**MeiOrganizer** is a web application designed to help you manage your personal projects, notes, lists, and budgets.
+**MeinOrganizer** is a web application designed to help you manage your personal projects, notes, lists, and budgets.
 Whether you're tracking your daily to-dos, planning projects, or managing your expenses, MeinOrganizer provides a seamless and intuitive interface to keep everything organized.
 
 **IMPORTANT: The app is in german**
@@ -13,7 +13,7 @@ Whether you're tracking your daily to-dos, planning projects, or managing your e
 - **Budgets**: Track and manage your finances
 - **Notes**: Create, edit and search your personal notes
 - **Calendar**: Enter and search appointments in the calendar
-- **Timer**: Increase your productivity with the pomodor focus timer
+- **Timer**: Increase your productivity with the pomodoro focus timer
 - **Lists**: Create lists
 - **Responsive Design**: Enjoy a seamless experience across all devices
 
