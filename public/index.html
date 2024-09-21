@@ -1,85 +1,139 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nathalie Giancaspro" />
+    <meta
+      name="description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta
+      property="og:title"
+      content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta property="og:url" content="https://meinorganizer.app" />
+    <meta
+      property="og:image"
+      content="https://meinorganizer.app/images/MeinOrganizer_Logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/assets/safari-pinned-tab.svg"
+      color="#03dac5"
+    />
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="https://meinorganizer.app"
+    />
+    <meta name="application-name" content="MeinOrganizer" />
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <title>MeinOrganizer</title>
+    <link rel="canonical" href="https://meinorganizer.app" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Nathalie Giancaspro">
-  <meta name="description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:title" content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert">
-  <meta property="og:type" content="website">
-  <meta property="og:description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:url" content="https://meinorganizer.app">
-  <meta property="og:image" content="https://meinorganizer.app/images/MeinOrganizer_Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="manifest" href="/assets/site.webmanifest">
-  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#03dac5">
-  <meta name="msapplication-TileColor" content="#121212">
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-title" content="https://meinorganizer.app">
-  <meta name="application-name" content="MeinOrganizer">
-  <link rel="stylesheet" href="/CSS/style.css">
-  <title>MeinOrganizer</title>
-  <link rel="canonical" href="https://meinorganizer.app">
-</head>
-
-<body>
-
-  <!-- Cookie message -->
-  <div id="cookies">
-    <div class="medium-dark-wrapper">
-      <div class="cookies">
-        <p>Diese Website verwendet Cookies, um das bestmögliche Nutzererlebnis zu bieten. Beim Weitersurfen auf dieser
-          Website erklärst du dich mit den Datenschutzbestimmungen einverstanden. <a href="/datenschutz"
-            class="datenschutz-link">Datenschutzerklärung</a></p>
-        <button class="agree-btn">OK</button>
+  <body>
+    <!-- Cookie message -->
+    <div id="cookies">
+      <div class="medium-dark-wrapper">
+        <div class="cookies">
+          <p>
+            Diese Website verwendet Cookies, um das bestmögliche Nutzererlebnis
+            zu bieten. Beim Weitersurfen auf dieser Website erklärst du dich mit
+            den Datenschutzbestimmungen einverstanden.
+            <a href="/datenschutz" class="datenschutz-link"
+              >Datenschutzerklärung</a
+            >
+          </p>
+          <button class="agree-btn">OK</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="index-main-layout">
-    <div class="container">
+    <div class="index-main-layout">
+      <div class="container">
+        <div class="index-wrapper">
+          <img
+            src="./images/MeinOrganizer_Logo.png"
+            alt="MeinOrganizer logo"
+            class="logo"
+          />
+          <h1 class="title">MeinOrganizer</h1>
+          <p>Mit dieser Anwendung kannst du spielend einfach:</p>
+          <ul>
+            <li class="index-list">
+              <span class="bold">Listen</span> erstellen
+            </li>
+            <li class="index-list">
+              <span class="bold">Notizen</span> festhalten
+            </li>
+            <li class="index-list">
+              <span class="bold">Budgets</span> verwalten
+            </li>
+            <li class="index-list">
+              <span class="bold">Projekte</span> organisieren
+            </li>
+            <li class="index-list">
+              <span class="bold">Termine</span> in den Kalender eintragen
+            </li>
+            <li class="index-list">
+              <span class="bold">Produktivität</span> steigern mit dem
+              Fokus-Timer
+            </li>
+          </ul>
+          <p class="mt-1">Vereinfache dein Leben und bleibe organisiert!</p>
 
-      <div class="index-wrapper">
-        <img src="./images/MeinOrganizer_Logo.png" alt="MeinOrganizer logo" class="logo">
-        <h1 class="title">MeinOrganizer</h1>
-        <p>Mit dieser Anwendung kannst du spielend einfach:</p>
-        <ul>
-          <li class="index-list"><span class="bold">Listen</span> erstellen</li>
-          <li class="index-list"><span class="bold">Notizen</span> festhalten</li>
-          <li class="index-list"><span class="bold">Budgets</span> verwalten</li>
-          <li class="index-list"><span class="bold">Projekte</span> organisieren</li>
-          <li class="index-list"><span class="bold">Termine</span> in den Kalender eintragen</li>
-          <li class="index-list"><span class="bold">Produktivität</span> steigern mit dem Fokus-Timer</li>
-        </ul>
-        <p class="mt-1">Vereinfache dein Leben und bleibe organisiert!</p>
-
-        <a href="/login" class="rectangle-btn-card text-center">Anmelden</a>
-
+          <a href="/login" class="rectangle-btn-card text-center">Anmelden</a>
+          <a href="/demo-login" class="rectangle-secondary-btn text-center"
+            >Demo</a
+          >
+        </div>
       </div>
+
+      <footer class="footer-container">
+        <div class="footer-links-container">
+          <a href="/kontakt" class="footer-link">Kontakt</a>
+          <a href="/datenschutz" class="footer-link">Datenschutzerklärung</a>
+        </div>
+        <p class="mt-1">
+          Copyright © <span id="currentYear"></span> -
+          <a href="https://www.natgian.com/de" target="_blank">natgian.com</a>
+        </p>
+      </footer>
     </div>
 
-    <footer class="footer-container">
-      <div class="footer-links-container">
-        <a href="/kontakt" class="footer-link">Kontakt</a>
-        <a href="/datenschutz" class="footer-link">Datenschutzerklärung</a>
-      </div>
-      <p class="mt-1">Copyright © <span id="currentYear"></span> - <a href="https://www.natgian.com/de" target="_blank">natgian.com</a></p>
-    </footer>
-  </div>
-
-  <script src="./JS/cookies.js"></script>
-  <script>
-    const currentYear = new Date().getFullYear();
-    document.getElementById("currentYear").innerHTML = currentYear;
-  </script>
-</body>
-
+    <script src="./JS/cookies.js"></script>
+    <script>
+      const currentYear = new Date().getFullYear();
+      document.getElementById("currentYear").innerHTML = currentYear;
+    </script>
+  </body>
 </html>

@@ -87,7 +87,8 @@
               </div>
             </fieldset>
 
-            <button type="submit" class="rectangle-btn-card submit-btn mb-1">
+            <!-- prettier-ignore -->
+            <button type="submit" class="<%= foundUser && foundUser.isDemo ? "rectangle-btn-card-disabled" : "rectangle-btn-card" %> submit-btn mb-1" <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> >
               <span class="button-text">Speichern</span>
             </button>
           </form>

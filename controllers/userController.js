@@ -1,8 +1,5 @@
 const User = require("../models/user");
-const List = require("../models/list");
 const { userEmailSchema } = require("../validationSchemas");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
@@ -44,6 +41,27 @@ module.exports.loginUser = (req, res, next) => {
   res.redirect(redirectUrl);
 };
 
+// LOGIN DEMO USER
+module.exports.loginDemoUser = async (req, res, next) => {
+  try {
+    const demoUser = await User.findOne({ isDemo: true });
+
+    if (!demoUser) {
+      return res.status(404).send("Demo User nicht gefunden");
+    }
+
+    req.login(demoUser, (err) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.redirect("/home");
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // LOGOUT
 module.exports.logoutUser = (req, res, next) => {
   req.logout(function (err) {
@@ -80,6 +98,10 @@ module.exports.renderEditUser = async (req, res, next) => {
 
 // -- EDIT USER PROFILE
 module.exports.editUser = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { userId } = req.params;
   const loggedInUser = req.user._id;
 
@@ -103,6 +125,10 @@ module.exports.renderChangePassword = async (req, res, next) => {
 
 // -- EDIT PASSWORD
 module.exports.changePassword = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const foundUser = await User.findById(req.params.userId);
 
   if (!foundUser) {
@@ -126,7 +152,7 @@ module.exports.changePassword = async (req, res, next) => {
 
 // -- RENDER FORGOT PASSWORD PAGE
 module.exports.renderForgotPassword = (req, res) => {
-  res.render("users/forgotPassword");
+  res.render("users/forgotPassword", { foundUser: req.user });
 };
 
 // -- RENDER SENT MAIL CONFIRMATION PAGE

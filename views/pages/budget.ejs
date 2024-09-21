@@ -1,120 +1,196 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nathalie Giancaspro" />
+    <meta
+      name="description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta
+      property="og:title"
+      content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta property="og:url" content="https://meinorganizer.app" />
+    <meta
+      property="og:image"
+      content="https://meinorganizer.app/images/MeinOrganizer_Logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/assets/safari-pinned-tab.svg"
+      color="#03dac5"
+    />
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="https://meinorganizer.app"
+    />
+    <meta name="application-name" content="MeinOrganizer" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <title>Budgets</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Nathalie Giancaspro">
-  <meta name="description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:title" content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert">
-  <meta property="og:type" content="website">
-  <meta property="og:description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:url" content="https://meinorganizer.app">
-  <meta property="og:image" content="https://meinorganizer.app/images/MeinOrganizer_Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="manifest" href="/assets/site.webmanifest">
-  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#03dac5">
-  <meta name="msapplication-TileColor" content="#121212">
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-title" content="https://meinorganizer.app">
-  <meta name="application-name" content="MeinOrganizer">
-  <link rel="stylesheet" href="../CSS/style.css">
-  <title>Budgets</title>
-</head>
+  <body>
+    <div class="main-layout">
+      <%- include("../partials/header") %>
 
-<body>
+      <main>
+        <div class="container">
+          <h1 class="title">Budgets</h1>
 
-  <div class="main-layout">
-
-    <%- include("../partials/header") %>
-
-    <main>
-      <div class="container">
-
-        <h1 class="title">Budgets</h1>
-
-        <div class="no-bg-wrapper">
-
-          <!-- Create Budget Button -->
-          <a href="/budget/neues-budget" class="round-btn mb-05"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-              height="24" viewBox="0 0 20 20">
-              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-            </svg>Budget erstellen</a>
-
-          <!-- BUDGETS -->
-          <ul>
-            <% for(let budget of budgets) { %>
-            <div class="listen">
-              <div class="list-wrapper">
-
-                <li class="listen-name">
-                  <a href="/budget/<%= budget._id %>" class="listen-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path fill="<%= budget.color %>"
-                        d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4H7m0 6v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2Z" />
-                    </svg><%= budget.name %>
-                  </a>
-
-                  <!-- TOOLBAR MENU -->
-                  <div class="dropleft flex-right" data-dropleft>
-                    <!-- Toolbar Menu Button -->
-                    <button class="delete-edit-btn" data-dropleft-button>
-                      <div class="dropleft-icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-                          <path fill="currentColor"
-                            d="M12 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2" />
-                        </svg>
-                      </div>
-                    </button>
-                    <!-- Toolbar Menu List -->
-                    <ul class="dropleft-menu">
-                      <!-- Edit Budget Button -->
-                      <li class="dropleft-menu-item">
-                        <a href="/budget/<%=budget._id%>/bearbeiten" class="delete-edit-btn"
-                          aria-label="Budget bearbeiten" title="Budget bearbeiten">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                              d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-                          </svg>
-                          <span>Budget bearbeiten</span>
-                        </a>
-                      </li>
-                      <!-- Delete Budget Button -->
-                      <li class="dropleft-menu-item">
-                        <form action="/budget/<%=budget._id%>?_method=DELETE" method="POST">
-                          <button type="submit" class="delete-edit-btn submit-btn" aria-label="Budget löschen" title="Budget löschen">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                              <path fill="currentColor"
-                                d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
-                            </svg>
-                            <span class="button-text">Budget löschen</span>
-                          </button>
-                        </form>
-                      </li>
-                    </ul>
-                  </div>
-
-                </li>
-              </div>
+          <div class="no-bg-wrapper">
+            <!-- Create Budget Button -->
+            <div class="flex-center">
+              <a href="/budget/neues-budget" class="round-btn mb-05"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z"
+                  />
+                </svg>
+                Budget erstellen
+              </a>
             </div>
-            <% } %>
-          </ul>
+            <!-- BUDGETS -->
+            <ul>
+              <% for(let budget of budgets) { %>
+              <div class="listen">
+                <div class="list-wrapper">
+                  <li class="listen-name">
+                    <a href="/budget/<%= budget._id %>" class="listen-link">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="<%= budget.color %>"
+                          d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4H7m0 6v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2Z"
+                        /></svg
+                      ><%= budget.name %>
+                    </a>
+
+                    <!-- TOOLBAR MENU -->
+                    <div class="dropleft flex-right" data-dropleft>
+                      <!-- Toolbar Menu Button -->
+                      <button class="delete-edit-btn" data-dropleft-button>
+                        <div class="dropleft-icon-container">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fill="currentColor"
+                              d="M12 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                      <!-- Toolbar Menu List -->
+                      <ul class="dropleft-menu">
+                        <!-- Edit Budget Button -->
+                        <li class="dropleft-menu-item">
+                          <a
+                            href="/budget/<%=budget._id%>/bearbeiten"
+                            class="delete-edit-btn"
+                            aria-label="Budget bearbeiten"
+                            title="Budget bearbeiten"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z"
+                              />
+                            </svg>
+                            <span>Budget bearbeiten</span>
+                          </a>
+                        </li>
+                        <!-- Delete Budget Button -->
+                        <li class="dropleft-menu-item">
+                          <form
+                            action="/budget/<%=budget._id%>?_method=DELETE"
+                            method="POST"
+                          >
+                            <!-- prettier-ignore -->
+                            <button
+                              type="submit"
+                              class="<%= foundUser && foundUser.isDemo ? "delete-edit-btn-disabled" : delete-edit-btn  %> submit-btn"
+                              aria-label="Budget löschen"
+                              title="Budget löschen"
+                              <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> 
+                              >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  fill="currentColor"
+                                  d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z"
+                                />
+                              </svg>
+                              <span class="button-text">Budget löschen</span>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </div>
+              </div>
+              <% } %>
+            </ul>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <%- include("../partials/footer") %>
-  </div>
+      <%- include("../partials/footer") %>
+    </div>
 
-  <script src="/JS/dropleftMenu.js"></script>
-  <script src="/JS/loadingSpinner.js"></script>
-</body>
-
+    <script src="/JS/dropleftMenu.js"></script>
+    <script src="/JS/loadingSpinner.js"></script>
+  </body>
 </html>

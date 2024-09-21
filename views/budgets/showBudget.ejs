@@ -89,8 +89,11 @@
               <!-- Delete All Budget Transactions Button -->
               <li class="dropleft-menu-item">
                 <form action="/budget/<%=foundBudget._id%>/deleteAllTransactions?_method=PUT" method="POST">
-                  <button type="submit" class="delete-edit-btn submit-btn" aria-label="Alle Transaktionen löschen"
-                    title="Alle Transaktionen löschen">
+                  <!-- prettier-ignore -->
+                  <button type="submit" class="<%= foundUser && foundUser.isDemo ? "delete-edit-btn-disabled" : "delete-edit-btn" %> submit-btn" aria-label="Alle Transaktionen löschen"
+                    title="Alle Transaktionen löschen"
+                    <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> 
+                    >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                       viewBox="0 0 24 24">
                       <path fill="currentColor"
@@ -131,11 +134,13 @@
           </table>
 
           <!-- Add Transaction Button -->
+          <div class="flex-center">
           <button class="round-btn mt-1" id="add-transaction-btn" aria-label="Ausgabe/Einnahme hinzufügen"><svg
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
               <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
             </svg> Transaktion hinzufügen
           </button>
+          </div>
 
           <!-- Add Transaction Form -->
           <div class="new-item-container" id="new-transaction-container">
@@ -163,7 +168,8 @@
                 <input type="number" name="transactionAmount" id="transactionAmount" class="input"
                   placeholder="Betrag..." step="any" max="100000000" required>
               </label>
-              <button type="submit" class="rectangle-btn submit-btn" aria-label="Transaktion hinzufügen">
+              <!-- prettier-ignore -->
+              <button type="submit" class="<%= foundUser && foundUser.isDemo ? "rectangle-btn-card-disabled" : "rectangle-btn" %> submit-btn" aria-label="Transaktion hinzufügen" <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> >
                 <span class="button-text">Hinzufügen</span>
               </button>
             </form>
@@ -188,7 +194,10 @@
                 <%= transaction.transactionType === "revenue" ? "+" : "-" %> CHF &nbsp;<%= transaction.transactionAmount.toFixed(2) %>
                 <form action="/budget/<%= foundBudget._id%>/transactions/<%=transaction._id%>?_method=DELETE"
                   method="POST" class="transaction-delete-form">
-                  <button class="delete-edit-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                  <!-- prettier-ignore -->
+                  <button class="<%= foundUser && foundUser.isDemo ? "delete-edit-btn-disabled" : "delete-edit-btn" %>" title="Transaktion löschen" aria-label="Transaktion löschen" <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> 
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                       viewBox="0 0 24 24">
                       <path fill="currentColor"
                         d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />

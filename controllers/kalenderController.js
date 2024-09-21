@@ -2,7 +2,6 @@ const Calendar = require("../models/calendar");
 const User = require("../models/user");
 const formatDate = require("../utilities/formatDate");
 
-
 // RENDER NEW CALENDAR EVENT PAGE
 module.exports.renderNewEvent = (req, res, next) => {
   const errorMessage = req.flash("error");
@@ -16,7 +15,7 @@ module.exports.createEvent = async (req, res, next) => {
 
   if (eventData.reccurence === "yearly") {
     // If present, set the recurrence to 'yearly'
-    eventData.recurrence = 'yearly';
+    eventData.recurrence = "yearly";
 
     // Create entries for the next 5 years
     for (let i = 0; i < 10; i++) {
@@ -30,7 +29,7 @@ module.exports.createEvent = async (req, res, next) => {
       const newEvent = new Calendar({
         ...eventData,
         startDate: newStartDate,
-        endDate: newEndDate
+        endDate: newEndDate,
       });
 
       await newEvent.save();
@@ -49,7 +48,7 @@ module.exports.createEvent = async (req, res, next) => {
     await req.user.save();
   }
 
-  res.redirect('/kalender');
+  res.redirect("/kalender");
 };
 
 // LOAD CALENDAR EVENTS
@@ -65,6 +64,10 @@ module.exports.renderCalendarPage = async (req, res, next) => {
 
 // DELETE A CALENDAR EVENT
 module.exports.deleteEvent = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const eventId = req.params.eventId;
   await Calendar.findByIdAndDelete(eventId);
   await User.findByIdAndUpdate(req.user._id, { $pull: { calendar: eventId } });
@@ -95,10 +98,10 @@ module.exports.searchEventSubmit = async (req, res, next) => {
 
   if (searchResults.length === 0) {
     req.flash("info", "Keine Einträge gefunden");
-  };
-  res.render("calendar/searchCalendarEvent", { searchResults, formatDate, filteredSearchTerm });
+  }
+  res.render("calendar/searchCalendarEvent", {
+    searchResults,
+    formatDate,
+    filteredSearchTerm,
+  });
 };
-
-
-
-

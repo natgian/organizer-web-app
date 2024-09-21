@@ -7,16 +7,20 @@ module.exports.renderProjektePage = async (req, res, next) => {
   const projects = await Project.find({ user: req.user._id })
     .sort({ updatedAt: -1 })
     .populate("user");
-  res.render("pages/projekte", { projects });
+  res.render("pages/projekte", { projects, foundUser: req.user });
 };
 
 // RENDER NEW PROJECT PAGE
 module.exports.renderNewProject = (req, res, next) => {
-  res.render("projects/newProject");
+  res.render("projects/newProject", { foundUser: req.user });
 };
 
 // CREATE A NEW PROJECT
 module.exports.createProject = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const newProject = new Project(req.body);
   newProject.user = req.user._id;
   await newProject.save();
@@ -67,6 +71,7 @@ module.exports.showProject = async (req, res, next) => {
           formatDate,
           completedCount,
           openCount,
+          foundUser: req.user,
         });
       } else {
         res.status(403).render("pages/403");
@@ -83,6 +88,10 @@ module.exports.showProject = async (req, res, next) => {
 
 // ADD NEW PROJECT TODO
 module.exports.addNewProjectTodo = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
 
   const newToDo = new Todo({ text: req.body.text, project: projectId });
@@ -153,6 +162,10 @@ module.exports.updateTodoCount = async (req, res, next) => {
 
 // ADD NEW PROJECT BUDGET
 module.exports.addProjectBudget = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
   const { projectBudget } = req.body;
 
@@ -178,6 +191,10 @@ module.exports.addProjectBudget = async (req, res, next) => {
 
 // ADD PROJECT BUDGET TRANSACTION
 module.exports.addProjectBudgetTransaction = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
   const foundProject = await Project.findById(projectId).populate(
     "projectbudget"
@@ -220,11 +237,15 @@ module.exports.addProjectBudgetTransaction = async (req, res, next) => {
 module.exports.renderEditProject = async (req, res, next) => {
   const { projectId } = req.params;
   const foundProject = await Project.findById(projectId);
-  res.render("projects/editProject", { foundProject });
+  res.render("projects/editProject", { foundProject, foundUser: req.user });
 };
 
 // EDIT A PROJECT
 module.exports.editProject = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
   const foundProject = await Project.findByIdAndUpdate(
     projectId,
@@ -236,6 +257,10 @@ module.exports.editProject = async (req, res, next) => {
 
 // EDIT A PROJECT BUDGET
 module.exports.editProjectBudget = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId, budgetId } = req.params;
   const { newProjectBudget } = req.body;
   const foundProject = await Project.findById(projectId);
@@ -260,6 +285,10 @@ module.exports.editProjectBudget = async (req, res, next) => {
 
 // DELETE A PROJECT
 module.exports.deleteProject = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
 
   const foundProject = await Project.findById(projectId);
@@ -282,6 +311,10 @@ module.exports.deleteProject = async (req, res, next) => {
 
 //  DELETE TODO FROM A TODO-LIST
 module.exports.deleteTodoFromTodos = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId, todoId } = req.params;
 
   const foundProject = await Project.findById(projectId);
@@ -300,6 +333,10 @@ module.exports.deleteTodoFromTodos = async (req, res, next) => {
 
 // DELETE ALL TODOS FROM A TODO-LIST
 module.exports.deleteAllTodos = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
 
   const foundProject = await Project.findById(projectId);
@@ -314,6 +351,10 @@ module.exports.deleteAllTodos = async (req, res, next) => {
 
 // DELETE TRANSACTION FROM BUDGET
 module.exports.deleteProjectBudgetTransaction = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId, transactionId } = req.params;
   const foundProject = await Project.findById(projectId).populate(
     "projectbudget"
@@ -349,6 +390,10 @@ module.exports.deleteProjectBudgetTransaction = async (req, res, next) => {
 
 // DELETE A PROJECT BUDGET
 module.exports.deleteProjectBudget = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { projectId } = req.params;
   const foundProject = await Project.findById(projectId);
   const projectBudget = foundProject.projectbudget;

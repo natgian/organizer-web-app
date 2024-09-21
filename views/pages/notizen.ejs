@@ -1,118 +1,166 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nathalie Giancaspro" />
+    <meta
+      name="description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta
+      property="og:title"
+      content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta property="og:url" content="https://meinorganizer.app" />
+    <meta
+      property="og:image"
+      content="https://meinorganizer.app/images/MeinOrganizer_Logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/assets/safari-pinned-tab.svg"
+      color="#03dac5"
+    />
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="https://meinorganizer.app"
+    />
+    <meta name="application-name" content="MeinOrganizer" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <title>Notizen</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Nathalie Giancaspro">
-  <meta name="description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:title" content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert">
-  <meta property="og:type" content="website">
-  <meta property="og:description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:url" content="https://meinorganizer.app">
-  <meta property="og:image" content="https://meinorganizer.app/images/MeinOrganizer_Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="manifest" href="/assets/site.webmanifest">
-  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#03dac5">
-  <meta name="msapplication-TileColor" content="#121212">
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-title" content="https://meinorganizer.app">
-  <meta name="application-name" content="MeinOrganizer">
-  <link rel="stylesheet" href="../CSS/style.css">
-  <title>Notizen</title>
-</head>
+  <body>
+    <div class="main-layout">
+      <%- include("../partials/header") %>
 
-<body>
+      <main>
+        <div class="container">
+          <!-- flash message -->
+          <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert"><%= error %></div>
+          <% } else if(success && success.length){ %>
+          <div class="alert alert-success" role="alert"><%= success %></div>
+          <% } %>
 
-  <div class="main-layout">
+          <h1 class="title">Notizen</h1>
 
-    <%- include("../partials/header") %>
+          <!-- Searchbar -->
+          <form action="/notizen/suchen" role="search" method="POST">
+            <label for="searchbar">
+              <input
+                type="search"
+                name="searchTerm"
+                id="searchbar"
+                placeholder="Notiz suchen..."
+                class="search-input container mb-2"
+                aria-label="Search"
+              />
+            </label>
+          </form>
 
-    <main>
-      <div class="container">
+          <!-- Add new note button -->
+          <div class="flex-center">
+            <a href="/notizen/neue-notiz" class="round-btn mb-05"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill="currentColor"
+                  d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z"
+                /></svg
+              >Notiz erstellen</a
+            >
+          </div>
 
-        <!-- flash message -->
-        <% if(error && error.length) {%>
-        <div class="alert alert-error" role="alert">
-          <%= error %>
-        </div>
-        <% } else if(success && success.length){ %>
-        <div class="alert alert-success" role="alert">
-          <%= success %>
-        </div>
-        <% } %>
+          <div class="notes-container mt-2">
+            <% notes.forEach(note => { %>
+            <a href="/notizen/<%=note._id %>" class="note-link">
+              <div class="note-wrapper">
+                <h2 class="note-title"><%= note.title %></h2>
+                <p class="note-body"><%= note.body %></p>
+              </div>
+            </a>
+            <% }); %>
+          </div>
 
-        <h1 class="title">Notizen</h1>
-
-        <!-- Searchbar -->
-        <form action="/notizen/suchen" role="search" method="POST">
-          <label for="searchbar">
-            <input type="search" name="searchTerm" id="searchbar" placeholder="Notiz suchen..."
-              class="search-input container mb-2" aria-label="Search">
-          </label>
-        </form>
-
-        <!-- Add new note button -->
-        <a href="/notizen/neue-notiz" class="round-btn mb-05"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-              height="24" viewBox="0 0 20 20">
-              <path fill="currentColor" d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20a10 10 0 0 1 0 20z" />
-            </svg>Notiz erstellen</a>
-
-        <div class="notes-container mt-2">
-             <% notes.forEach(note => { %>
-          <a href="/notizen/<%=note._id %>" class="note-link">
-            <div class="note-wrapper">
-              <h2 class="note-title"><%= note.title %></h2>
-              <p><%= note.body %></p>
-            </div>
-          </a>
-          <% }); %>
-        </div>
-
-        <% if (pages > 1) { %>
-        <!-- Pagination Links -->
-        <div class="container pagination-wrapper text-center mt-2">
-          <% if (currentPage > 1) { %>
+          <% if (pages > 1) { %>
+          <!-- Pagination Links -->
+          <div class="container pagination-wrapper text-center mt-2">
+            <% if (currentPage > 1) { %>
             <a href="?page=<%= currentPage - 1 %>" class="pagination-arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
                 <g transform="rotate(180 12 12)">
-                  <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
+                  <path
+                    fill="currentColor"
+                    d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"
+                  />
                 </g>
               </svg>
             </a>
-          <% } %>
-        
-          <% for (let i = 1; i <= pages; i++) { %>
-            <% if (i === currentPage) { %>
-              <span class="active-page"><%= i %></span>
+            <% } %> <% for (let i = 1; i <= pages; i++) { %> <% if (i ===
+            currentPage) { %>
+            <span class="active-page"><%= i %></span>
             <% } else { %>
-              <a href="?page=<%= i %>" class="pagination"><%= i %></a>
-            <% } %>
-          <% } %>
-        
-          <% if (currentPage < pages) { %>
+            <a href="?page=<%= i %>" class="pagination"><%= i %></a>
+            <% } %> <% } %> <% if (currentPage < pages) { %>
             <a href="?page=<%= currentPage + 1 %>" class="pagination-arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6l-1.41-1.42Z"
+                />
               </svg>
             </a>
+            <% } %>
+          </div>
           <% } %>
         </div>
-        <% } %>
+      </main>
 
-      </div>
-    </main>
-
-    <%- include("../partials/footer") %>
-  </div>
-
-</body>
-
+      <%- include("../partials/footer") %>
+    </div>
+  </body>
 </html>

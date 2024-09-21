@@ -92,7 +92,9 @@
               </div>
             </fieldset>
 
-            <button type="submit" class="rectangle-btn mb-1 submit-btn" aria-label="Speichern">
+            <!-- prettier-ignore -->
+            <button type="submit" class="<%= foundUser && foundUser.isDemo ? "rectangle-btn-card-disabled" : "rectangle-btn"  %> mb-1 submit-btn" aria-label="Speichern" 
+              <% if (foundUser && foundUser.isDemo) {%>disabled<% } %>>
               <span class="button-text">Speichern</span>
             </button>
           </form>

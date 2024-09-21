@@ -7,16 +7,20 @@ module.exports.renderBudgetPage = async (req, res, next) => {
   const budgets = await Budget.find({ user: req.user._id })
     .sort({ updatedAt: -1 })
     .populate("user");
-  res.render("pages/budget", { budgets });
+  res.render("pages/budget", { budgets, foundUser: req.user });
 };
 
 // RENDER NEW BUDGET PAGE
 module.exports.renderNewBudget = (req, res, next) => {
-  res.render("budgets/newBudget");
+  res.render("budgets/newBudget", { foundUser: req.user });
 };
 
 // CREATE A NEW BUDGET
 module.exports.createBudget = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const newBudgetData = req.body;
   newBudgetData.user = req.user._id;
   newBudgetData.remainingBudget = newBudgetData.budget;
@@ -44,7 +48,11 @@ module.exports.showBudget = async (req, res, next) => {
       ); // Sort the transactions by date (oldest first)
 
       if (req.user && req.user._id.equals(foundBudget.user._id)) {
-        res.render("budgets/showBudget", { foundBudget, formatDate });
+        res.render("budgets/showBudget", {
+          foundBudget,
+          formatDate,
+          foundUser: req.user,
+        });
       } else {
         res.status(403).render("pages/403");
       }
@@ -62,11 +70,15 @@ module.exports.showBudget = async (req, res, next) => {
 module.exports.renderEditBudget = async (req, res, next) => {
   const { budgetId } = req.params;
   const foundBudget = await Budget.findById(budgetId);
-  res.render("budgets/editBudget", { foundBudget });
+  res.render("budgets/editBudget", { foundBudget, foundUser: req.user });
 };
 
 // EDIT A BUDGET
 module.exports.editBudget = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { budgetId } = req.params;
   const { budget, name, color } = req.body;
   const foundBudget = await Budget.findById(budgetId);
@@ -108,6 +120,10 @@ module.exports.editBudget = async (req, res, next) => {
 
 // DELETE A BUDGET
 module.exports.deleteBudget = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { budgetId } = req.params;
 
   const foundBudget = await Budget.findById(budgetId);
@@ -123,6 +139,10 @@ module.exports.deleteBudget = async (req, res, next) => {
 
 // ADD NEW TRANSACTION TO A BUDGET
 module.exports.addTransaction = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { budgetId } = req.params;
   const foundBudget = await Budget.findById(budgetId);
 
@@ -154,6 +174,10 @@ module.exports.addTransaction = async (req, res, next) => {
 
 // DELETE TRANSACTION FROM A BUDGET
 module.exports.deleteTransaction = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { budgetId, transactionId } = req.params;
   const foundBudget = await Budget.findById(budgetId);
 
@@ -189,6 +213,10 @@ module.exports.deleteTransaction = async (req, res, next) => {
 
 // DELETE ALL TRANSACTIONS FROM A BUDGET
 module.exports.deleteAllTransactions = async (req, res, next) => {
+  if (req.user && req.user.username === "Demo User") {
+    return res.status(403).render("pages/403");
+  }
+
   const { budgetId } = req.params;
 
   const foundBudget = await Budget.findById(budgetId);

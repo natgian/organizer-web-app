@@ -60,7 +60,10 @@
                 value="<%=foundUser.username%>" pattern="[a-zA-Z0-9 ]+" title="Bitte nur alphanumerische Zeichen und Leerzeichen eingeben" minlength="2">
             </div>
 
-            <button class="rectangle-btn-card mb-1">Speichern</button>
+            <button class="<%= foundUser && foundUser.isDemo ? "rectangle-btn-card-disabled" : "rectangle-btn-card" %> mb-1" 
+        <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> >
+    Speichern
+</button>
             <a href="/benutzerkonto/<%=foundUser._id%>" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
           </form>
         </div>

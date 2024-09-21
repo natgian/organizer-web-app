@@ -21,37 +21,76 @@ const { storeReturnTo } = require("../middleware");
 router.get("/registration", userController.renderRegisterPage);
 
 // -- REGISTER A NEW USER
-router.post("/registration", validateUser, catchAsync(userController.registerUser));
+router.post(
+  "/registration",
+  validateUser,
+  catchAsync(userController.registerUser)
+);
 
 // -- RENDER LOGIN PAGE
 router.get("/login", userController.renderLoginPage);
 
 // -- LOGIN A USER
-router.post("/login", storeReturnTo, passport.authenticate("local", { failureFlash: true, failureRedirect: "/login", failureMessage: true }), userController.loginUser);
+router.post(
+  "/login",
+  storeReturnTo,
+  passport.authenticate("local", {
+    failureFlash: true,
+    failureRedirect: "/login",
+    failureMessage: true,
+  }),
+  userController.loginUser
+);
+
+// -- LOGIN DEMO USER
+router.get("/demo-login", userController.loginDemoUser);
 
 // -- LOGOUT A USER
 router.get("/logout", userController.logoutUser);
 
 // -- RENDER USER PROFILE PAGE
-router.get("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.renderUserAccount));
+router.get(
+  "/benutzerkonto/:userId",
+  isLoggedIn,
+  catchAsync(userController.renderUserAccount)
+);
 
 // -- RENDER USER EDIT PAGE
-router.get("/benutzerkonto/:userId/bearbeiten", isLoggedIn, catchAsync(userController.renderEditUser));
+router.get(
+  "/benutzerkonto/:userId/bearbeiten",
+  isLoggedIn,
+  catchAsync(userController.renderEditUser)
+);
 
 // -- EDIT A USER
-router.put("/benutzerkonto/:userId", isLoggedIn, catchAsync(userController.editUser));
+router.put(
+  "/benutzerkonto/:userId",
+  isLoggedIn,
+  catchAsync(userController.editUser)
+);
 
 // -- RENDER PASSWORD EDIT PAGE
-router.get("/benutzerkonto/:userId/passwort", isLoggedIn, catchAsync(userController.renderChangePassword));
+router.get(
+  "/benutzerkonto/:userId/passwort",
+  isLoggedIn,
+  catchAsync(userController.renderChangePassword)
+);
 
 // -- EDIT PASSWORD
-router.post("/benutzerkonto/:userId/passwort", isLoggedIn, catchAsync(userController.changePassword));
+router.post(
+  "/benutzerkonto/:userId/passwort",
+  isLoggedIn,
+  catchAsync(userController.changePassword)
+);
 
 // -- RENDER FORGOT PASSWORD PAGE
 router.get("/passwort-vergessen", userController.renderForgotPassword);
 
 // -- SEND RESET PASSWORD EMAIL TO USER
-router.post("/passwort-vergessen", catchAsync(userController.sendResetPasswordEmail));
+router.post(
+  "/passwort-vergessen",
+  catchAsync(userController.sendResetPasswordEmail)
+);
 
 // -- RENDER SENT MAIL PAGE
 router.get("/email-versendet", userController.renderSentMailConfirmation);
@@ -62,6 +101,4 @@ router.get("/reset/:token", catchAsync(userController.renderResetPassword));
 // -- RESET PASSWORD
 router.post("/reset/:token", catchAsync(userController.resetPassword));
 
-
 module.exports = router;
-

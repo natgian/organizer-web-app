@@ -32,7 +32,9 @@
         <div class="wrapper medium-dark-wrapper">
 
           <form action="/notizen/<%= foundNote._id%>?_method=DELETE" method="POST" class="flex-right">
-            <button type="submit" class="delete-edit-btn submit-btn" title="Notiz löschen"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+            <!-- prettier-ignore -->
+            <button type="submit" class="<%= foundUser && foundUser.isDemo ? "delete-edit-btn-disabled" : "delete-edit-btn" %> submit-btn" title="Notiz löschen" aria-label="Notiz löschen" <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20"
                 height="20" viewBox="0 0 24 24" class="inline-svg button-text" title="Notiz löschen">
                 <path fill="currentColor"
                   d="M7 21q-.825 0-1.413-.588T5 19V6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h4q0-.425.288-.713T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5q0 .425-.288.713T19 6v13q0 .825-.588 1.413T17 21H7Zm5-7.1l1.9 1.9q.275.275.7.275t.7-.275q.275-.275.275-.7t-.275-.7l-1.9-1.9l1.9-1.9q.275-.275.275-.7t-.275-.7q-.275-.275-.7-.275t-.7.275L12 11.1l-1.9-1.9q-.275-.275-.7-.275t-.7.275q-.275.275-.275.7t.275.7l1.9 1.9l-1.9 1.9q-.275.275-.275.7t.275.7q.275.275.7.275t.7-.275l1.9-1.9Z" />
@@ -53,7 +55,8 @@
                 class="card-input textarea" required><%=foundNote.body %></textarea>
             </label>
 
-            <button type="submit" class="rectangle-btn submit-btn mb-1">
+            <!-- prettier-ignore -->
+            <button type="submit" class="<%= foundUser && foundUser.isDemo ? "rectangle-btn-card-disabled" : "rectangle-btn" %> submit-btn mb-1" <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> >
               <span class="button-text">Speichern</span>
             </button>
           </form>

@@ -427,6 +427,11 @@ fieldset {
   color: var(--dark-color);
 }
 
+.alert-info {
+  background-color: var(--comp-color-one);
+  color: var(--dark-color);
+}
+
 /*-------------------------*/
 /* BUTTONS, LINKS & INPUTS */
 /*-------------------------*/
@@ -460,7 +465,7 @@ fieldset {
   right: 1.5em;
   top: 0.5em;
   font-size: var(--small-font-size);
-  background-color: rgba(26, 26, 26, 0.9);
+  background-color: rgba(26, 26, 26, 0.95);
   width: auto;
   border-radius: 10px;
   box-shadow: 0 2px 15px 0 rgba(255, 255, 255, 0.1);
@@ -500,6 +505,7 @@ fieldset {
 }
 
 .round-btn {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -530,6 +536,12 @@ fieldset {
   border: none;
   cursor: pointer;
 }
+.delete-edit-btn-disabled {
+  color: var(--primary-color-disabled);
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
 
 .delete-btn-dark {
   color: var(--dark-color);
@@ -557,6 +569,18 @@ fieldset {
   border: none;
   border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.rectangle-btn-card-disabled {
+  width: 100%;
+  background-color: var(--primary-color-disabled);
+  color: var(--dark-color);
+  font-weight: bold;
+  padding: 0.625em;
+  margin-top: 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: default;
 }
 
 .rectangle-btn:hover,
@@ -1566,6 +1590,7 @@ button#toggle-password:active {
 .add-item-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /*---------*/
@@ -1580,7 +1605,7 @@ button#toggle-password:active {
 }
 
 .note-wrapper {
-  height: 100px;
+  height: 125px;
   width: 100%;
   background-color: var(--medium-dark-color);
   border-radius: 15px;
@@ -1812,9 +1837,14 @@ td {
   .event-searchresult {
     max-width: 500px;
   }
+
   .dropleft-menu li {
     padding: 1em 2.5em 1em 0.5em;
     white-space: nowrap;
+  }
+
+  .round-btn {
+    width: 70%;
   }
 }
 
@@ -1858,6 +1888,7 @@ td {
 
   .rectangle-btn,
   .rectangle-secondary-btn,
+  .rectangle-btn-card-disabled,
   .input,
   .input-label {
     width: 50%;

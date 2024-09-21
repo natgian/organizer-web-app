@@ -4,12 +4,12 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   resetPasswordToken: {
     type: String,
@@ -17,24 +17,38 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpires: {
     type: Date,
   },
-  lists: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "List"
-  }],
-  notes: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Note"
-  }],
-  budgets: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Budget"
-  }],
-  calendar: [{
-    type: mongoose.Schema.Types.ObjectId,
-  }],
-  projects: [{
-    type: mongoose.Schema.Types.ObjectId,
-  }]
+  lists: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "List",
+    },
+  ],
+  notes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Note",
+    },
+  ],
+  budgets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Budget",
+    },
+  ],
+  calendar: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
+  projects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
+  isDemo: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Adding a field for username/email and password to the schema

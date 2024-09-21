@@ -1,132 +1,209 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nathalie Giancaspro" />
+    <meta
+      name="description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta
+      property="og:title"
+      content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta property="og:url" content="https://meinorganizer.app" />
+    <meta
+      property="og:image"
+      content="https://meinorganizer.app/images/MeinOrganizer_Logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/assets/safari-pinned-tab.svg"
+      color="#03dac5"
+    />
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="https://meinorganizer.app"
+    />
+    <meta name="application-name" content="MeinOrganizer" />
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <title>Benutzerkonto</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Nathalie Giancaspro">
-  <meta name="description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:title" content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert">
-  <meta property="og:type" content="website">
-  <meta property="og:description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:url" content="https://meinorganizer.app">
-  <meta property="og:image" content="https://meinorganizer.app/images/MeinOrganizer_Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="manifest" href="/assets/site.webmanifest">
-  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#03dac5">
-  <meta name="msapplication-TileColor" content="#121212">
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-title" content="https://meinorganizer.app">
-  <meta name="application-name" content="MeinOrganizer">
-  <link rel="stylesheet" href="../CSS/style.css">
-  <title>Benutzerkonto</title>
-</head>
+  <body>
+    <div class="main-layout">
+      <%- include("../partials/header") %>
 
-<body>
-
-  <div class="main-layout">
-
-    <%- include("../partials/header") %>
-
-    <main>
-      <div class="container">
-
-        <% if(error && error.length) {%>
-        <div class="alert alert-error" role="alert">
-          <%= error %>
-        </div>
-        <% } else if(success && success.length){ %>
-        <div class="alert alert-success mb-1" role="alert">
-          <%= success %>
-        </div>
-        <% } %>
-
-        <h1 class="title">Profil</h1>
-
-        <div class="card-wrapper">
-
-          <span class="bold">Benutzername:</span>
-          <div class="list-wrapper">
-            <div class="profile-wrapper">
-              <span><%= foundUser.username %></span>
-              <button class="delete-edit-btn inline-block-svg" aria-label="Benutzername ändern" title="Benutzername ändern">
-                <a href="/benutzerkonto/<%= foundUser._id %>/bearbeiten">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-                  </svg></a>
-              </button>
-            </div>
+      <main>
+        <div class="container">
+          <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert"><%= error %></div>
+          <% } else if(success && success.length){ %>
+          <div class="alert alert-success mb-1" role="alert">
+            <%= success %>
           </div>
+          <% } %>
 
-          <span class="bold">Email:</span>
-          <div class="list-wrapper">
-            <div class="profile-wrapper">
-              <span><%= foundUser.email %></span>
+          <h1 class="title">Profil</h1>
+
+          <div class="card-wrapper">
+            <span class="bold">Benutzername:</span>
+            <div class="list-wrapper">
+              <div class="profile-wrapper">
+                <span><%= foundUser.username %></span>
+                <button
+                  class="delete-edit-btn inline-block-svg"
+                  aria-label="Benutzername ändern"
+                  title="Benutzername ändern"
+                >
+                  <a href="/benutzerkonto/<%= foundUser._id %>/bearbeiten">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z"
+                      /></svg
+                  ></a>
+                </button>
+              </div>
             </div>
-          </div>
 
-          <span class="bold">Passwort:</span>
-          <div class="list-wrapper">
-            <div class="profile-wrapper">
-              <span>......................</span>
-              <button class="delete-edit-btn inline-block-svg" aria-label="Passwort ändern" title="Passwort ändern">
-                <a href="/benutzerkonto/<%= foundUser._id %>/passwort">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z" />
-                  </svg></a>
-              </button>
+            <span class="bold">Email:</span>
+            <div class="list-wrapper">
+              <div class="profile-wrapper">
+                <span><%= foundUser.email %></span>
+              </div>
             </div>
+
+            <span class="bold">Passwort:</span>
+            <div class="list-wrapper">
+              <div class="profile-wrapper">
+                <span>......................</span>
+                <button
+                  class="delete-edit-btn inline-block-svg"
+                  aria-label="Passwort ändern"
+                  title="Passwort ändern"
+                >
+                  <a href="/benutzerkonto/<%= foundUser._id %>/passwort">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="m14.06 9l.94.94L5.92 19H5v-.92L14.06 9m3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75Z"
+                      /></svg
+                  ></a>
+                </button>
+              </div>
+            </div>
+
+            <ul class="profile-overview-wrapper mt-2">
+              <li class="flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="inline-block-svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"
+                  ></path></svg
+                >&nbsp;&nbsp;Projekte:&nbsp;&nbsp;<a href="/projekte"
+                  ><%=foundUser.projects.length %></a
+                >
+              </li>
+              <li class="flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="inline-block-svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5s1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5S5.5 6.83 5.5 6S4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5s1.5-.68 1.5-1.5s-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"
+                  ></path></svg
+                >&nbsp;&nbsp;Listen:&nbsp;&nbsp;<a href="/listen"
+                  ><%=foundUser.lists.length%></a
+                >
+              </li>
+              <li class="flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="inline-block-svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M16.84 2.73c-.39 0-.77.15-1.07.44l-2.12 2.12l5.3 5.31l2.12-2.1c.6-.61.6-1.56 0-2.14L17.9 3.17c-.3-.29-.68-.44-1.06-.44M12.94 6l-8.1 8.11l2.56.28l.18 2.29l2.28.17l.29 2.56l8.1-8.11m-14 3.74L2.5 21.73l6.7-1.79l-.24-2.16l-2.31-.17l-.18-2.32"
+                  ></path></svg
+                >&nbsp;&nbsp;Notizen:&nbsp;&nbsp;<a href="/notizen"
+                  ><%=foundUser.notes.length%></a
+                >
+              </li>
+              <li class="flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="inline-block-svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4H7m0 6v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2Z"
+                  ></path></svg
+                >&nbsp;&nbsp;Budgets:&nbsp;&nbsp;<a href="/budget"
+                  ><%=foundUser.budgets.length%></a
+                >
+              </li>
+            </ul>
           </div>
-
-          <ul class="profile-overview-wrapper mt-2">
-            <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                class="inline-block-svg">
-                <path fill="currentColor"
-                  d="M10 4H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"></path>
-              </svg>&nbsp;&nbsp;Projekte:&nbsp;&nbsp;<a href="/projekte"><%=foundUser.projects.length %></a>
-            </li>
-            <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                class="inline-block-svg">
-                <path fill="currentColor"
-                  d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5s1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5S5.5 6.83 5.5 6S4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5s1.5-.68 1.5-1.5s-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z">
-                </path>
-              </svg>&nbsp;&nbsp;Listen:&nbsp;&nbsp;<a href="/listen"><%=foundUser.lists.length%></a>
-            </li>
-            <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                class="inline-block-svg">
-                <path fill="currentColor"
-                  d="M16.84 2.73c-.39 0-.77.15-1.07.44l-2.12 2.12l5.3 5.31l2.12-2.1c.6-.61.6-1.56 0-2.14L17.9 3.17c-.3-.29-.68-.44-1.06-.44M12.94 6l-8.1 8.11l2.56.28l.18 2.29l2.28.17l.29 2.56l8.1-8.11m-14 3.74L2.5 21.73l6.7-1.79l-.24-2.16l-2.31-.17l-.18-2.32">
-                </path>
-              </svg>&nbsp;&nbsp;Notizen:&nbsp;&nbsp;<a href="/notizen"><%=foundUser.notes.length%></a>
-            </li>
-            <li class="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                class="inline-block-svg">
-                <path fill="currentColor"
-                  d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 2v4h10V4H7m0 6v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2Z">
-                </path>
-              </svg>&nbsp;&nbsp;Budgets:&nbsp;&nbsp;<a href="/budget"><%=foundUser.budgets.length%></a>
-            </li>
-          </ul>
-
-
-
         </div>
-      </div>
-    </main>
+      </main>
 
-    <%- include("../partials/footer") %>
-  </div>
-
-
-</body>
-
+      <%- include("../partials/footer") %>
+    </div>
+  </body>
 </html>
