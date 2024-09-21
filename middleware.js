@@ -3,7 +3,19 @@ const Note = require("./models/note");
 const { Budget } = require("./models/budget");
 const { Project } = require("./models/project");
 const Calendar = require("./models/calendar");
-const { listSchema, itemSchema, userSchema, noteSchema, budgetSchema, transactionSchema, calendarSchema, projectSchema, todoSchema, projectBudgetSchema, projectBudgetTransactionSchema } = require("./validationSchemas");
+const {
+  listSchema,
+  itemSchema,
+  userSchema,
+  noteSchema,
+  budgetSchema,
+  transactionSchema,
+  calendarSchema,
+  projectSchema,
+  todoSchema,
+  projectBudgetSchema,
+  projectBudgetTransactionSchema,
+} = require("./validationSchemas");
 
 module.exports.storeReturnTo = (req, res, next) => {
   if (req.session.returnTo) {
@@ -56,7 +68,7 @@ module.exports.isAuthor = (resourceType) => {
 module.exports.validateUser = async (req, res, next) => {
   const { error } = userSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect("/registration");
   }
@@ -67,7 +79,7 @@ module.exports.validateUser = async (req, res, next) => {
 module.exports.validateProject = async (req, res, next) => {
   const { error } = projectSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect("/projekte/neues-projekt");
   }
@@ -78,7 +90,7 @@ module.exports.validateProject = async (req, res, next) => {
 module.exports.validateList = async (req, res, next) => {
   const { error } = listSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect("/listen/neue-liste");
   }
@@ -90,7 +102,7 @@ module.exports.validateItem = async (req, res, next) => {
   const listId = req.params.listId;
   const { error } = itemSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect(`/listen/${listId}`);
   }
@@ -101,7 +113,7 @@ module.exports.validateItem = async (req, res, next) => {
 module.exports.validateNote = async (req, res, next) => {
   const { error } = noteSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect("/notizen/neue-notiz");
   }
@@ -112,7 +124,7 @@ module.exports.validateNote = async (req, res, next) => {
 module.exports.validateBudget = async (req, res, next) => {
   const { error } = budgetSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect("/budget/neues-budget");
   }
@@ -124,7 +136,7 @@ module.exports.validateTransaction = async (req, res, next) => {
   const budgetId = req.params.budgetId;
   const { error } = transactionSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect(`/budget/${budgetId}`);
   }
@@ -135,7 +147,7 @@ module.exports.validateTransaction = async (req, res, next) => {
 module.exports.validateCalendar = async (req, res, next) => {
   const { error } = calendarSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect("/kalender/neuer-eintrag");
   }
@@ -147,7 +159,7 @@ module.exports.validateTodo = async (req, res, next) => {
   const projectId = req.params.projectId;
   const { error } = todoSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect(`/projekte/${projectId}`);
   }
@@ -159,7 +171,7 @@ module.exports.validateProjectBudget = async (req, res, next) => {
   const projectId = req.params.projectId;
   const { error } = projectBudgetSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect(`/projekte/${projectId}`);
   }
@@ -171,7 +183,7 @@ module.exports.validateProjectBudgetTransaction = async (req, res, next) => {
   const projectId = req.params.projectId;
   const { error } = projectBudgetTransactionSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(element => element.message).join(",");
+    const msg = error.details.map((element) => element.message).join(",");
     req.flash("error", msg);
     return res.redirect(`/projekte/${projectId}`);
   }

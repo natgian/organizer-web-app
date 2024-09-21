@@ -5,7 +5,7 @@ const extension = (joi) => ({
   type: "string",
   base: joi.string(),
   messages: {
-    "string.escapeHTML": "{{#label}} darf kein HTML enthalten!"
+    "string.escapeHTML": "{{#label}} darf kein HTML enthalten!",
   },
   rules: {
     escapeHTML: {
@@ -13,64 +13,55 @@ const extension = (joi) => ({
         const clean = sanitizeHtml(value, {
           allowedTags: [],
           allowedAttributes: {},
+          textFilter: (text) => {
+            return text.replace(/&amp;/g, "&").replace(/&eacute;/g, "é");
+          },
         });
-        if (clean !== value) return helpers.error("string.escapeHTML", {value})
+        if (clean !== value)
+          return helpers.error("string.escapeHTML", { value });
         return clean;
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 const Joi = BaseJoi.extend(extension);
 
 const listSchema = Joi.object({
   name: Joi.string().required().escapeHTML(),
-  color: Joi.string().required()
+  color: Joi.string().required(),
 });
 
 const projectSchema = Joi.object({
   name: Joi.string().required().escapeHTML(),
   description: Joi.string().escapeHTML().allow(""),
-  color: Joi.string().required()
+  color: Joi.string().required(),
 });
 
 const itemSchema = Joi.object({
-  text: Joi.string().required().escapeHTML()
+  text: Joi.string().required().escapeHTML(),
 });
 
 const userSchema = Joi.object({
-  username: Joi.string()
-  .alphanum()
-  .min(2)
-  .max(20)
-  .required()
-  .escapeHTML(),
-  email: Joi.string()
-  .email()
-  .required()
-  .escapeHTML(),
-  password: Joi.string()
-  .required()
-  .escapeHTML()
+  username: Joi.string().alphanum().min(2).max(20).required().escapeHTML(),
+  email: Joi.string().email().required().escapeHTML(),
+  password: Joi.string().required().escapeHTML(),
 });
 
 const userEmailSchema = Joi.object({
-  email: Joi.string()
-  .email()
-  .required()
-  .escapeHTML()
+  email: Joi.string().email().required().escapeHTML(),
 });
 
 const noteSchema = Joi.object({
   title: Joi.string().required().escapeHTML(),
-  body: Joi.string().required().escapeHTML()
+  body: Joi.string().required().escapeHTML(),
 });
 
 const transactionSchema = Joi.object({
   transactionDate: Joi.date().required(),
   transactionDescription: Joi.string().required().escapeHTML(),
   transactionAmount: Joi.number().required(),
-  transactionType: Joi.string().required()
+  transactionType: Joi.string().required(),
 });
 
 const budgetSchema = Joi.object({
@@ -78,7 +69,7 @@ const budgetSchema = Joi.object({
   color: Joi.string(),
   budget: Joi.number().required(),
   remainingBudget: Joi.number(),
-  transactions: Joi.array().items(transactionSchema)
+  transactions: Joi.array().items(transactionSchema),
 });
 
 const calendarSchema = Joi.object({
@@ -88,26 +79,26 @@ const calendarSchema = Joi.object({
   color: Joi.string().required(),
   startEventTime: Joi.string().allow(""),
   endEventTime: Joi.string().allow(""),
-  reccurence: Joi.when('yearly', {
+  reccurence: Joi.when("yearly", {
     is: true,
-    then: Joi.string().valid('yearly').required(),
-    otherwise: Joi.string().optional()
-  })
+    then: Joi.string().valid("yearly").required(),
+    otherwise: Joi.string().optional(),
+  }),
 });
 
 const todoSchema = Joi.object({
-  text: Joi.string().required().escapeHTML()
+  text: Joi.string().required().escapeHTML(),
 });
 
 const projectBudgetSchema = Joi.object({
-  projectBudget: Joi.number().required()
+  projectBudget: Joi.number().required(),
 });
 
 const projectBudgetTransactionSchema = Joi.object({
   projectTransactionDate: Joi.date().required(),
   projectTransactionDescription: Joi.string().required().escapeHTML(),
   projectTransactionAmount: Joi.number().required(),
-  projectTransactionType: Joi.string().required()
+  projectTransactionType: Joi.string().required(),
 });
 
 module.exports = {
@@ -122,9 +113,5 @@ module.exports = {
   calendarSchema,
   todoSchema,
   projectBudgetSchema,
-  projectBudgetTransactionSchema
+  projectBudgetTransactionSchema,
 };
-
-
-
-
