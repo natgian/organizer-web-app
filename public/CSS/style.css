@@ -1906,14 +1906,14 @@ td {
     margin: 4em auto;
   }
 
-  .rectangle-btn,
+  /* .rectangle-btn,
   .rectangle-secondary-btn,
   .rectangle-btn-card-disabled,
   .input,
   .input-label {
     width: 50%;
     margin-left: 25%;
-  }
+  } */
 
   /* PROJEKTE */
   #projectdescription {
