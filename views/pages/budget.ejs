@@ -156,7 +156,7 @@
                             <!-- prettier-ignore -->
                             <button
                               type="submit"
-                              class="<%= foundUser && foundUser.isDemo ? "delete-edit-btn-disabled" : delete-edit-btn  %> submit-btn"
+                              class="<%= foundUser && foundUser.isDemo ? "delete-edit-btn-disabled" : "delete-edit-btn"  %> submit-btn"
                               aria-label="Budget löschen"
                               title="Budget löschen"
                               <% if (foundUser && foundUser.isDemo) { %>disabled<% } %> 
