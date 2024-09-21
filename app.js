@@ -134,6 +134,11 @@ app.get("/timer", isLoggedIn, (req, res) => {
 app.get("/404", (req, res) => {
   res.status(404).render("pages/404");
 });
+
+// Error Not Allowed
+app.get("/403", (req, res) => {
+  res.status(403).render("pages/403");
+});
 // Privacy Policy
 app.get("/datenschutz", (req, res) => {
   res.render("pages/datenschutz");
