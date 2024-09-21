@@ -557,6 +557,26 @@ fieldset {
   color: var(--primary-color-hover);
 }
 
+.demo-btn {
+  width: 100%;
+  background-color: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.625em;
+  margin-top: 1em;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.demo-btn:hover,
+.demo-btn:focus {
+  background-color: var(--comp-color-one);
+  /* color: var(--main-font); */
+}
+
 .rectangle-btn,
 .rectangle-btn-card {
   width: 100%;
