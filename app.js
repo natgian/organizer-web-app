@@ -74,12 +74,12 @@ const sessionConfig = {
   name: "session",
   secret: secret,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
     secure: true,
     // "secure: true" --> says that this cookie should only work over https. ACTIVATE IT FOR DEPLOYMENT (not before, since localhost is not https)
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // Expires in 7 days
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
