@@ -1,133 +1,205 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Nathalie Giancaspro" />
+    <meta
+      name="description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta
+      property="og:title"
+      content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
+    />
+    <meta property="og:url" content="https://meinorganizer.app" />
+    <meta
+      property="og:image"
+      content="https://meinorganizer.app/images/MeinOrganizer_Logo.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/assets/safari-pinned-tab.svg"
+      color="#03dac5"
+    />
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="https://meinorganizer.app"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="MeinOrganizer" />
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <title>Neuen Kalendereintrag erstellen</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Nathalie Giancaspro">
-  <meta name="description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:title" content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert">
-  <meta property="og:type" content="website">
-  <meta property="og:description"
-    content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer.">
-  <meta property="og:url" content="https://meinorganizer.app">
-  <meta property="og:image" content="https://meinorganizer.app/images/MeinOrganizer_Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="manifest" href="/assets/site.webmanifest">
-  <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#03dac5">
-  <meta name="msapplication-TileColor" content="#121212">
-  <meta name="theme-color" content="#121212">
-  <meta name="apple-mobile-web-app-title" content="https://meinorganizer.app">
-  <meta name="application-name" content="MeinOrganizer">
-  <link rel="stylesheet" href="/CSS/style.css">
-  <title>Neuen Kalendereintrag erstellen</title>
-</head>
+  <body>
+    <div class="main-layout">
+      <%- include("../partials/header") %>
 
-<body>
+      <main>
+        <div class="container">
+          <!-- flash message -->
+          <% if(error && error.length) {%>
+          <div class="alert alert-error" role="alert"><%= error %></div>
+          <% } else if(success && success.length){ %>
+          <div class="alert alert-success" role="alert"><%= success %></div>
+          <% } %>
 
-  <div class="main-layout">
+          <div class="card-wrapper medium-dark-wrapper">
+            <h1 class="subtitle">Eintrag erstellen</h1>
 
-    <%- include("../partials/header") %>
+            <form action="/kalender" method="POST" class="mt-2">
+              <fieldset class="mb-1">
+                <legend class="bold">Titel:</legend>
+                <input
+                  type="text"
+                  name="title"
+                  id="event-title"
+                  placeholder="Titel..."
+                  class="card-input mb-1"
+                  autofocus
+                  required
+                />
+              </fieldset>
 
+              <fieldset class="date-inputs-container mb-1">
+                <legend class="bold">Beginn:</legend>
+                <input
+                  type="date"
+                  name="startDate"
+                  id="startEventDate"
+                  class="inline-input"
+                  max="9999-12-31"
+                  required
+                />
+                <input
+                  type="time"
+                  name="startEventTime"
+                  id="startEventTime"
+                  class="inline-input mb-1"
+                />
+              </fieldset>
 
-    <main>
+              <fieldset>
+                <legend class="bold">Ende:</legend>
+                <input
+                  type="date"
+                  name="endDate"
+                  id="endEventDate"
+                  class="inline-input"
+                  max="9999-12-31"
+                  required
+                />
+                <input
+                  type="time"
+                  name="endEventTime"
+                  id="endEventTime"
+                  class="inline-input"
+                />
+              </fieldset>
 
-      <div class="container">
+              <label for="yearly">
+                <input
+                  type="checkbox"
+                  name="reccurence"
+                  id="yearly"
+                  value="yearly"
+                />
+                Jährlich
+              </label>
 
-        <!-- flash message -->
-        <% if(error && error.length) {%>
-        <div class="alert alert-error" role="alert">
-          <%= error %>
+              <fieldset class="color-options-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  class="inline-block-svg list-icon"
+                  id="list-icon"
+                >
+                  <path
+                    fill="#F9F871"
+                    d="M9 10v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2m2-7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V1h2v2h8V1h2v2h1m0 16V8H5v11h14M9 14v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2Z"
+                  />
+                </svg>
+                <legend class="mb-1 text-center bold">Wähle eine Farbe:</legend>
+                <div class="color-options-color-wrapper">
+                  <label class="color-option">
+                    <input
+                      type="radio"
+                      name="color"
+                      value="#F9F871"
+                      checked
+                      hidden
+                    />
+                    <div class="color-option comp-color-one"></div>
+                  </label>
+                  <label class="color-option">
+                    <input type="radio" name="color" value="#fda76d" hidden />
+                    <div class="color-option comp-color-two"></div>
+                  </label>
+                  <label class="color-option">
+                    <input type="radio" name="color" value="#6ae79c" hidden />
+                    <div class="color-option comp-color-three"></div>
+                  </label>
+                  <label class="color-option">
+                    <input type="radio" name="color" value="#3a9ddf" hidden />
+                    <div class="color-option comp-color-four"></div>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button type="submit" class="rectangle-btn-card submit-btn mb-1">
+                <span class="button-text">Speichern</span>
+              </button>
+              <a href="/kalender" class="rectangle-secondary-btn-card width-100"
+                >Abbrechen</a
+              >
+            </form>
+          </div>
         </div>
-        <% } else if(success && success.length){ %>
-        <div class="alert alert-success" role="alert">
-          <%= success %>
-        </div>
-        <% } %>
+      </main>
 
-        <div class="card-wrapper medium-dark-wrapper">
-          <h1 class="subtitle">Eintrag erstellen</h1>
+      <%- include("../partials/footer") %>
+    </div>
 
-          <form action="/kalender" method="POST" class="mt-2">
-
-            <fieldset class="mb-1">
-              <legend class="bold">Titel:</legend>
-              <input type="text" name="title" id="event-title" placeholder="Titel..." class="card-input mb-1" autofocus
-                required>
-            </fieldset>
-
-            <fieldset class="date-inputs-container mb-1">
-              <legend class="bold">Beginn:</legend>
-              <input type="date" name="startDate" id="startEventDate" class="inline-input" max="9999-12-31" required>
-              <input type="time" name="startEventTime" id="startEventTime" class="inline-input mb-1">
-            </fieldset>
-
-            <fieldset>
-              <legend class="bold">Ende:</legend>
-              <input type="date" name="endDate" id="endEventDate" class="inline-input" max="9999-12-31" required>
-              <input type="time" name="endEventTime" id="endEventTime" class="inline-input">
-            </fieldset>
-
-            <label for="yearly">
-              <input type="checkbox" name="reccurence" id="yearly" value="yearly"> Jährlich
-            </label>
-
-            <fieldset class="color-options-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
-                class="inline-block-svg list-icon" id="list-icon">
-                <path fill="#F9F871"
-                  d="M9 10v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2m2-7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1V1h2v2h8V1h2v2h1m0 16V8H5v11h14M9 14v2H7v-2h2m4 0v2h-2v-2h2m4 0v2h-2v-2h2Z" />
-              </svg>
-              <legend class="mb-1 text-center bold">Wähle eine Farbe:</legend>
-              <div class="color-options-color-wrapper">
-                <label class="color-option">
-                  <input type="radio" name="color" value="#F9F871" checked hidden>
-                  <div class="color-option comp-color-one"></div>
-                </label>
-                <label class="color-option">
-                  <input type="radio" name="color" value="#fda76d" hidden>
-                  <div class="color-option comp-color-two"></div>
-                </label>
-                <label class="color-option">
-                  <input type="radio" name="color" value="#6ae79c" hidden>
-                  <div class="color-option comp-color-three"></div>
-                </label>
-                <label class="color-option">
-                  <input type="radio" name="color" value="#3a9ddf" hidden>
-                  <div class="color-option comp-color-four"></div>
-                </label>
-              </div>
-            </fieldset>
-
-            <button type="submit" class="rectangle-btn-card submit-btn mb-1">
-              <span class="button-text">Speichern</span>
-            </button>
-            <a href="/kalender" class="rectangle-secondary-btn-card width-100">Abbrechen</a>
-          </form>
-        </div>
-
-      </div>
-    </main>
-
-    <%- include("../partials/footer") %>
-  </div>
-
-  <script>
-    const storedDate = localStorage.getItem("selectedDate");
-    const inputStartDate = document.getElementById("startEventDate");
-    const inputEndDate = document.getElementById("endEventDate");
-    inputStartDate.value = storedDate;
-    inputEndDate.value = storedDate;
-    localStorage.removeItem("selectedDate");
-  </script>
-  <script src="../JS/updateSVGColor.js"></script>
-  <script src="/JS/loadingSpinner.js"></script>
-</body>
-
+    <script>
+      const storedDate = localStorage.getItem("selectedDate");
+      const inputStartDate = document.getElementById("startEventDate");
+      const inputEndDate = document.getElementById("endEventDate");
+      inputStartDate.value = storedDate;
+      inputEndDate.value = storedDate;
+      localStorage.removeItem("selectedDate");
+    </script>
+    <script src="../JS/updateSVGColor.js"></script>
+    <script src="/JS/loadingSpinner.js"></script>
+  </body>
 </html>
