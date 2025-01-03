@@ -627,8 +627,7 @@ fieldset {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease,
-    border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
 
 .rectangle-secondary-btn:hover,
@@ -685,8 +684,8 @@ fieldset {
   border: 1px solid var(--dark-color);
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease,
-    transform 0.2s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease, transform 0.2s ease,
+    border-color 0.3s ease;
 }
 
 .remove-all-btn:hover,
@@ -1622,6 +1621,11 @@ button#toggle-password:active {
   flex-direction: column;
   gap: 1em;
   justify-content: center;
+}
+
+.no-result {
+  padding: 1rem;
+  text-align: center;
 }
 
 .note-wrapper {
