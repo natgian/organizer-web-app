@@ -89,9 +89,7 @@ app.use(session(sessionConfig));
 // Passport
 app.use(passport.initialize());
 app.use(passport.session()); // must be used AFTER sessions
-passport.use(
-  new LocalStrategy({ usernameField: "email" }, User.authenticate())
-);
+passport.use(new LocalStrategy({ usernameField: "email" }, User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -178,9 +176,7 @@ app.post("/kontakt", async (req, res) => {
     res.redirect("/nachricht-versendet");
   } catch (error) {
     console.error("Error sending email:", error);
-    res
-      .status(500)
-      .send("There was an issue sending your message. Please try again later.");
+    res.status(500).send("There was an issue sending your message. Please try again later.");
   }
 });
 
