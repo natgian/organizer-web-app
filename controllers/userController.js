@@ -3,7 +3,7 @@ const { userEmailSchema } = require("../validationSchemas");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const verifyTurnstile = require("../utilities/verifyTurnstile");
-const siteKey = process.env.CLOUFLARE_SITE_KEY;
+const siteKey = process.env.CLOUDFLARE_SITE_KEY;
 
 // RENDER REGISTRATION PAGE
 module.exports.renderRegisterPage = (req, res) => {
