@@ -102,7 +102,7 @@
               </fieldset>
 
               <!-- Cloudflare  Turnstile-->
-              <div class="cf-turnstile mt-1" id="turnstile-container" data-sitekey="<%= site_key %>" data-size="normal" data-language="auto" data-theme="dark"></div>
+              <div class="cf-turnstile mt-1" data-sitekey="<%= site_key %>" data-size="normal" data-language="auto" data-theme="dark"></div>
 
               <button class="rectangle-btn-card mb-1 mt-2" type="submit">Registrieren</button>
             </form>
@@ -125,5 +125,11 @@
     </div>
     <script src="./JS/togglePassword.js"></script>
     <script src="./JS/cookies.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tokenInput = document.querySelector('input[name="cf-turnstile-response"]');
+        console.log("Turnstile token input exists?", !!tokenInput);
+      });
+    </script>
   </body>
 </html>

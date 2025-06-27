@@ -1,6 +1,14 @@
 async function verifyTurnstile(token, ip) {
   const secret = process.env.CLOUDFLARE_SECRET_KEY;
 
+  if (!secret) {
+    throw new Error("Cloudflare secret key is missing.");
+  }
+
+  if (!token) {
+    throw new Error("Captcha token is missing.");
+  }
+
   // Validate the token by calling the "/siteverify" API
   const formData = new URLSearchParams();
   formData.append("secret", secret);
@@ -19,10 +27,12 @@ async function verifyTurnstile(token, ip) {
     const data = await response.json();
 
     if (!data.success) {
-      throw new Error("Captcha failed");
+      console.error("Cloudflare Turnstile validation failed:", data);
+      throw new Error(`Captcha failed: ${data["error-codes"]?.join(", ") || "Unknown error"}`);
     }
     return true;
   } catch (error) {
+    console.error("Turnstile verification error:", error);
     throw new Error("Error during captcha validation");
   }
 }

@@ -27,7 +27,10 @@ module.exports.registerUser = async (req, res, next) => {
     });
   } catch (e) {
     req.flash("error", e.message);
-    res.redirect("/registration");
+    res.status(400).render("users/registration", {
+      site_key: process.env.CLOUDFLARE_SITE_KEY,
+      error: e.message,
+    });
   }
 };
 
