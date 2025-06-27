@@ -87,24 +87,24 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-// telling the app to use Helmet (security)
-app.use(helmet());
+// // telling the app to use Helmet (security)
+// app.use(helmet());
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'", // Nur temporär für Entwicklung
-        "https://challenges.cloudflare.com",
-      ],
-      frameSrc: ["https://challenges.cloudflare.com"],
-      childSrc: ["https://challenges.cloudflare.com"],
-      manifestSrc: ["'self'"], // Manifest erlauben
-    },
-  })
-);
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       scriptSrc: [
+//         "'self'",
+//         "'unsafe-inline'", // Nur für Entwicklung, später durch nonce/hash ersetzen
+//         "https://challenges.cloudflare.com",
+//       ],
+//       frameSrc: ["https://challenges.cloudflare.com"],
+//       childSrc: ["https://challenges.cloudflare.com"],
+//       manifestSrc: ["'self'"],
+//     },
+//   })
+// );
 
 // Passport
 app.use(passport.initialize());
