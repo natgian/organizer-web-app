@@ -9,54 +9,29 @@
       name="description"
       content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
     />
-    <meta
-      property="og:title"
-      content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert"
-    />
+    <meta property="og:title" content="MeinOrganizer - Vereinfache dein Leben und bleibe organisiert" />
     <meta property="og:type" content="website" />
     <meta
       property="og:description"
       content="MeinOrganizer - mit dieser Web App kannst du Listen erstellen, Notizen festhalten, Budgets verwalten, Projekte organisieren, Termine in den Kalender eintragen und deine Produktivität steigern mit dem Pomodoro Fokus-Timer."
     />
     <meta property="og:url" content="https://meinorganizer.app" />
-    <meta
-      property="og:image"
-      content="https://meinorganizer.app/images/MeinOrganizer_Logo.png"
-    />
+    <meta property="og:image" content="https://meinorganizer.app/images/MeinOrganizer_Logo.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/favicon-16x16.png"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
     <link rel="manifest" href="/assets/site.webmanifest" />
-    <link
-      rel="mask-icon"
-      href="/assets/safari-pinned-tab.svg"
-      color="#03dac5"
-    />
+    <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#03dac5" />
     <meta name="msapplication-TileColor" content="#121212" />
     <meta name="theme-color" content="#121212" />
-    <meta
-      name="apple-mobile-web-app-title"
-      content="https://meinorganizer.app"
-    />
+    <meta name="apple-mobile-web-app-title" content="https://meinorganizer.app" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="MeinOrganizer" />
     <link rel="stylesheet" href="../CSS/style.css" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <title>Kontaktformular</title>
   </head>
 
@@ -85,45 +60,24 @@
             </p>
             <form action="/kontakt" method="POST" onsubmit="displayLoader()">
               <fieldset class="input-container">
-                <input
-                  type="text"
-                  id="contact-name"
-                  name="name"
-                  autocomplete="name"
-                  required
-                  class="contact-input"
-                />
+                <input type="text" id="contact-name" name="name" autocomplete="name" required class="contact-input" />
                 <label for="name" class="contact-label">Name</label>
               </fieldset>
 
               <fieldset class="input-container">
-                <input
-                  type="email"
-                  id="contact-email"
-                  name="email"
-                  autocomplete="email"
-                  required
-                  class="contact-input"
-                />
+                <input type="email" id="contact-email" name="email" autocomplete="email" required class="contact-input" />
                 <label for="email" class="contact-label">E-Mail</label>
               </fieldset>
 
               <fieldset class="input-container">
-                <textarea
-                  name="message"
-                  id="message"
-                  cols="50"
-                  rows="10"
-                  required
-                  placeholder="Hier Nachricht eingeben..."
-                  class="contact-input textarea"
-                ></textarea>
+                <textarea name="message" id="message" cols="50" rows="10" required placeholder="Hier Nachricht eingeben..." class="contact-input textarea"></textarea>
                 <label for="message" class="contact-label">Nachricht</label>
               </fieldset>
 
-              <button type="submit" class="rectangle-btn-card">
-                Nachricht senden
-              </button>
+              <!-- Cloudflare  Turnstile-->
+              <div class="cf-turnstile mt-1" data-sitekey="<%= site_key %>" data-size="normal" data-language="auto" data-theme="dark"></div>
+
+              <button type="submit" class="rectangle-btn-card">Nachricht senden</button>
             </form>
           </div>
         </div>

@@ -15,6 +15,8 @@ const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const nodemailer = require("nodemailer");
 const helmet = require("helmet");
+const verifyTurnstile = require("./utilities/verifyTurnstile");
+const siteKey = process.env.CLOUDFLARE_SITE_KEY.trim();
 const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
 
 const session = require("express-session");
@@ -37,9 +39,11 @@ async function main() {
 }
 
 // Express configuration to trust the first proxy server
-if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1); // trust first proxy
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.set("trust proxy", 1); // trust first proxy
+// }
+
+app.set("trust proxy", 1); // trust first proxy
 
 // Setting the view engine and path
 app.set("view engine", "ejs");
@@ -87,24 +91,18 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-// // telling the app to use Helmet (security)
-// app.use(helmet());
-
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'"],
-//       scriptSrc: [
-//         "'self'",
-//         "'unsafe-inline'", // Nur für Entwicklung, später durch nonce/hash ersetzen
-//         "https://challenges.cloudflare.com",
-//       ],
-//       frameSrc: ["https://challenges.cloudflare.com"],
-//       childSrc: ["https://challenges.cloudflare.com"],
-//       manifestSrc: ["'self'"],
-//     },
-//   })
-// );
+// telling the app to use Helmet (security)
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com"],
+      frameSrc: ["https://challenges.cloudflare.com"],
+      childSrc: ["https://challenges.cloudflare.com"],
+      manifestSrc: ["'self'"],
+    },
+  })
+);
 
 // Passport
 app.use(passport.initialize());
@@ -163,7 +161,7 @@ app.get("/datenschutz", (req, res) => {
 });
 // Contact
 app.get("/kontakt", (req, res) => {
-  res.render("pages/contact");
+  res.render("pages/contact", { site_key: siteKey });
 });
 // Mail sent
 app.get("/nachricht-versendet", (req, res) => {
@@ -171,28 +169,29 @@ app.get("/nachricht-versendet", (req, res) => {
 });
 // Send contact form
 app.post("/kontakt", async (req, res) => {
+  const { name, email, message, "cf-turnstile-response": token } = req.body;
+  const ip = req.headers["cf-connecting-ip"];
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.HOST,
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PW,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER,
+    subject: `MeinOrganizer - Nachricht von ${name}`,
+    text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`,
+  };
+
   try {
-    const { name, email, message } = req.body;
-
-    const transporter = nodemailer.createTransport({
-      host: process.env.HOST,
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PW,
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: `MeinOrganizer - Nachricht von ${name}`,
-      text: `Es wurde folgende Nachricht von ${email} über das Kontaktformular gesendet:\n\n ${message}`,
-    };
-
+    await verifyTurnstile(token, ip);
     await transporter.sendMail(mailOptions);
-
     res.redirect("/nachricht-versendet");
   } catch (error) {
     console.error("Error sending email:", error);
