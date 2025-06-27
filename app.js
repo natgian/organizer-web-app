@@ -14,6 +14,7 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const nodemailer = require("nodemailer");
+const helmet = require("helmet");
 const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
 
 const session = require("express-session");
@@ -85,6 +86,25 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
+
+// telling the app to use Helmet (security)
+app.use(helmet());
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'", // Nur temporär für Entwicklung
+        "https://challenges.cloudflare.com",
+      ],
+      frameSrc: ["https://challenges.cloudflare.com"],
+      childSrc: ["https://challenges.cloudflare.com"],
+      manifestSrc: ["'self'"], // Manifest erlauben
+    },
+  })
+);
 
 // Passport
 app.use(passport.initialize());
