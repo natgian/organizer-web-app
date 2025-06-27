@@ -2,17 +2,23 @@ const User = require("../models/user");
 const { userEmailSchema } = require("../validationSchemas");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+const verifyTurnstile = require("../utilities/verifyTurnstile");
+const siteKey = process.env.CLOUFLARE_SITE_KEY;
 
 // RENDER REGISTRATION PAGE
 module.exports.renderRegisterPage = (req, res) => {
-  res.render("users/registration");
+  res.render("users/registration", { site_key: siteKey });
 };
 
 // REGISTER A NEW USER
 module.exports.registerUser = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, "cf-turnstile-response": token } = req.body;
+    const ip = req.headers["cf-connecting-ip"];
     const newUser = new User({ email, username });
+
+    await verifyTurnstile(token, ip);
+
     const registeredUser = await User.register(newUser, password);
     req.login(registeredUser, (err) => {
       if (err) return next(err);
@@ -243,10 +249,7 @@ module.exports.resetPassword = async (req, res, next) => {
   // Use the setPassword method from passport-local-mongoose to hash new password
   user.setPassword(req.body.password, async (err) => {
     if (err) {
-      req.flash(
-        "error",
-        "Ein Fehler ist unterlaufen. Bitte versuche es erneut."
-      );
+      req.flash("error", "Ein Fehler ist unterlaufen. Bitte versuche es erneut.");
       return res.render("resetPassword", { token: req.params.token });
     }
     // Clear the resetPasswordToken and resetPasswordExpires
@@ -259,10 +262,7 @@ module.exports.resetPassword = async (req, res, next) => {
     // Log in the user
     req.logIn(user, (err) => {
       if (err) {
-        req.flash(
-          "error",
-          "Ein Fehler ist unterlaufen. Bitte versuche es erneut."
-        );
+        req.flash("error", "Ein Fehler ist unterlaufen. Bitte versuche es erneut.");
         return res.redirect(`/reset/${req.params.token}`);
       }
 
