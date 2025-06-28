@@ -34,13 +34,15 @@ To get a local copy of the project up and running, follow these steps:
 3. Create a .env file in the root directory and add the following variables:
 
 ```
-NODE_ENV=production
 EMAIL_USER=your_email
 EMAIL_PW=your_email_password
 HOST=your_email_host
 EMAIL=your_email
 DB_URL=your_mongodb_connection_string
 secret=your_secret
+CLOUDFLARE_SITE_KEY=your_site_key
+CLOUDFLARE_SECRET_KEY=your_secret_key
+
 ```
 
 4. Start the server: `npm start`
