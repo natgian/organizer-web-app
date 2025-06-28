@@ -52,9 +52,9 @@
       <main>
         <!-- flash message -->
         <% if(error && error.length) {%>
-        <div class="alert alert-error" role="alert"><%= error %></div>
+        <div class="alert alert-error flash-message" role="alert"><%= error %></div>
         <% } else if(success && success.length){ %>
-        <div class="alert alert-success" role="alert"><%= success %></div>
+        <div class="alert alert-success flash-message" role="alert"><%= success %></div>
         <% } %>
 
         <div class="form-container">
