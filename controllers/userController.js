@@ -3,7 +3,7 @@ const { userEmailSchema } = require("../validationSchemas");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const verifyTurnstile = require("../utilities/verifyTurnstile");
-const siteKey = process.env.CLOUDFLARE_SITE_KEY;
+const siteKey = process.env.CLOUDFLARE_SITE_KEY.trim();
 
 // RENDER REGISTRATION PAGE
 module.exports.renderRegisterPage = (req, res) => {
@@ -18,17 +18,17 @@ module.exports.registerUser = async (req, res, next) => {
     const newUser = new User({ email, username });
 
     await verifyTurnstile(token, ip);
-
     const registeredUser = await User.register(newUser, password);
+
     req.login(registeredUser, (err) => {
       if (err) return next(err);
-      // req.flash("success", "Erfolgreich registriert!");
+      req.flash("success", "Erfolgreich registriert!");
       res.redirect("/home");
     });
   } catch (e) {
     req.flash("error", e.message);
     res.status(400).render("users/registration", {
-      site_key: process.env.CLOUDFLARE_SITE_KEY,
+      site_key: siteKey,
       error: e.message,
     });
   }

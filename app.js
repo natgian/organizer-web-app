@@ -71,7 +71,7 @@ const store = MongoDBStore.create({
 });
 
 store.on("error", function (err) {
-  console.log("SESSION STORE ERROR", err);
+  console.error("SESSION STORE ERROR", err);
 });
 
 const sessionConfig = {
@@ -96,7 +96,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com"],
+      scriptSrc: ["'self'", "https://challenges.cloudflare.com"],
       frameSrc: ["https://challenges.cloudflare.com"],
       childSrc: ["https://challenges.cloudflare.com"],
       manifestSrc: ["'self'"],

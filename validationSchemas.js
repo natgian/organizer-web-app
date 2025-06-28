@@ -17,8 +17,7 @@ const extension = (joi) => ({
             return text.replace(/&amp;/g, "&").replace(/&eacute;/g, "é");
           },
         });
-        if (clean !== value)
-          return helpers.error("string.escapeHTML", { value });
+        if (clean !== value) return helpers.error("string.escapeHTML", { value });
         return clean;
       },
     },
@@ -46,6 +45,7 @@ const userSchema = Joi.object({
   username: Joi.string().alphanum().min(2).max(20).required().escapeHTML(),
   email: Joi.string().email().required().escapeHTML(),
   password: Joi.string().required().escapeHTML(),
+  "cf-turnstile-response": Joi.string().required(),
 });
 
 const userEmailSchema = Joi.object({

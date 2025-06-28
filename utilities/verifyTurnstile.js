@@ -1,5 +1,5 @@
 async function verifyTurnstile(token, ip) {
-  const secret = process.env.CLOUDFLARE_SECRET_KEY;
+  const secret = process.env.CLOUDFLARE_SECRET_KEY.trim();
 
   if (!secret) {
     throw new Error("Cloudflare secret key is missing.");
@@ -14,8 +14,6 @@ async function verifyTurnstile(token, ip) {
   formData.append("secret", secret);
   formData.append("response", token);
   if (ip) formData.append("remoteip", ip);
-
-  console.log(formData);
 
   try {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
