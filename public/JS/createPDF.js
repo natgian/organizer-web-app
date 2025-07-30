@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // BUDGET TITLE:
-        let budgetName = document
-          .querySelector(".pdf-title")
-          .textContent.trim();
+        let budgetName = document.querySelector(".pdf-title").textContent.trim();
         budgetName = sanitizeString(budgetName); // Sanitize the input string
         doc.setFontStyle("bold");
         doc.setFontSize(24);
@@ -50,12 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.setFontSize(14);
         doc.text("Verbleibend:", 150, y - 10);
         addSpacing(10);
-        const remainingBudgetElement = document
-          .querySelector("#remainingBudget")
-          .textContent.trim();
-        const remainingBudget = parseFloat(
-          remainingBudgetElement.replace("CHF", "").trim()
-        );
+        const remainingBudgetElement = document.querySelector("#remainingBudget").textContent.trim();
+        const remainingBudget = parseFloat(remainingBudgetElement.replace("CHF", "").trim());
         if (remainingBudget >= 0) {
           doc.setTextColor(0, 128, 0); // Green color
         } else {
@@ -74,13 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
         expensesTable.querySelectorAll("tr").forEach((row) => {
           const cells = row.querySelectorAll("td");
           if (cells.length === 2) {
-            const description = cells[0]
-              .querySelector(".transaction-description")
-              .textContent.trim();
+            const description = cells[0].querySelector(".transaction-description").textContent.trim();
             const amount = cells[1].textContent.trim();
-            const date = cells[0]
-              .querySelector(".transaction-date")
-              .textContent.trim();
+            const date = cells[0].querySelector(".transaction-date").textContent.trim();
             extractedData.push([date, description, amount]);
           }
         });

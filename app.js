@@ -96,10 +96,11 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://challenges.cloudflare.com"],
+      scriptSrc: ["'self'", "https://challenges.cloudflare.com", "https://cdnjs.cloudflare.com"],
       frameSrc: ["https://challenges.cloudflare.com"],
       childSrc: ["https://challenges.cloudflare.com"],
       manifestSrc: ["'self'"],
+      scriptSrcAttr: ["'unsafe-inline'"],
     },
   })
 );
