@@ -6,7 +6,6 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require("path");
-const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -16,11 +15,13 @@ const mongoSanitize = require("express-mongo-sanitize");
 const nodemailer = require("nodemailer");
 const helmet = require("helmet");
 const verifyTurnstile = require("./utilities/verifyTurnstile");
-const siteKey = process.env.CLOUDFLARE_SITE_KEY.trim();
+const siteKey = process.env.CLOUDFLARE_SITE_KEY?.trim() || "";
 const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/taskmanagerApp";
 
 const session = require("express-session");
-const MongoDBStore = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
+const { createWebCryptoAdapter } = require("connect-mongo");
+const mongoose = require("mongoose");
 
 // Requiring routes
 const listenRoutes = require("./routes/listenRoutes");
@@ -62,12 +63,12 @@ app.use(mongoSanitize());
 // Sessions
 const secret = process.env.SECRET || "thisismysecret";
 
-const store = MongoDBStore.create({
+const store = MongoStore.create({
   mongoUrl: dbURL,
   touchAfter: 24 * 60 * 60, // time period in seconds, saying to be updated only one time in a period of 24 hours
-  crypto: {
+  cryptoAdapter: createWebCryptoAdapter({
     secret: secret,
-  },
+  }),
 });
 
 store.on("error", function (err) {
@@ -102,7 +103,7 @@ app.use(
       manifestSrc: ["'self'"],
       scriptSrcAttr: ["'unsafe-inline'"],
     },
-  })
+  }),
 );
 
 // Passport
