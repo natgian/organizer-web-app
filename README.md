@@ -7,6 +7,8 @@ Whether you're tracking your daily to-dos, planning projects, or managing your e
 
 **IMPORTANT: The app is in german**
 
+👉 Live Demo: https://meinorganizer.app
+
 ## Features
 
 - **Projects**: Organize and track projects
