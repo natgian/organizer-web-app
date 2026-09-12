@@ -1,0 +1,271 @@
+/*------ */
+/* RESET */
+/*------ */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*-------------------------------*/
+/* CUSTOM PROPERTIES (Variables) */
+/*-------------------------------*/
+:root {
+  /* COLORS: */
+  /* Surfaces */
+  --dark-color: #050505;
+  --input-bg-color: #1a1a1a;
+  --semi-dark-color: #424242;
+  --medium-dark-color: #2a2a2a;
+  --light-dark-color: #4a4a4a;
+  --light-color: #777777;
+  --light-background: #dfdfdf;
+  --error-message: #e76e7a;
+  /* Primary */
+  --primary-color: #03c4b1;
+  --primary-color-hover: #028376;
+  --primary-color-active: #01574f;
+  --primary-color-disabled: #0d5450;
+  /* Complementary */
+  --comp-color-one: #f9f871;
+  --comp-color-two: #fda76d;
+  --comp-color-three: #6ae79c;
+  --comp-color-four: #3a9ddf;
+  /* Text */
+  --main-text-color: #dbdbdb;
+  --muted-text-color: #999999;
+  --title-text-color: #f8f8f8;
+  --subtitle-text-color: #ededed;
+  --navigation-color: #afafaf;
+
+  /* FONTS: */
+  --main-font: "Montserrat", sans-serif;
+
+  --main-font-size: clamp(1rem, 3vw, 1.25rem);
+  --small-font-size: clamp(0.875rem, 3vw, 1rem);
+  --title-fs: clamp(1.875rem, 3vw + 1rem, 3.25rem);
+  --subtitle-fs: clamp(1.5rem, 3vw, 2rem);
+  --subtitle-specific-fs: clamp(1.25rem, 3vw, 1.5rem);
+}
+
+/*--------*/
+/* GLOBAL */
+/*--------*/
+
+body {
+  font-family: var(--main-font);
+  font-size: 100%;
+  font-weight: 300;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  background-color: var(--dark-color);
+  color: var(--main-text-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--primary-color-hover);
+}
+
+::placeholder {
+  color: var(--light-color);
+}
+
+li {
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+fieldset,
+a {
+  outline: none;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+}
+
+fieldset {
+  border: none;
+}
+
+.radio-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1em;
+}
+
+.radio-input {
+  cursor: pointer;
+}
+
+/*----------*/
+/* HEADINGS */
+/*----------*/
+
+.title {
+  font-size: var(--title-fs);
+  font-weight: bold;
+  text-align: center;
+  color: var(--title-text-color);
+}
+
+.subtitle {
+  font-size: var(--subtitle-fs);
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5em;
+  color: var(--subtitle-text-color);
+}
+
+.subtitle-specific {
+  font-size: var(--subtitle-specific-fs);
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5em;
+  color: var(--subtitle-text-color);
+}
+
+.subtitle-specific-notcentered {
+  font-size: var(--subtitle-specific-fs);
+  font-weight: bold;
+  padding: 0.5em 0;
+  color: var(--subtitle-text-color);
+}
+
+.note-title {
+  font-size: (--main-font-size);
+  font-weight: bold;
+  padding: 0.5em 0;
+  color: var(--subtitle-text-color);
+}
+
+.user {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/*---------*/
+/* UTILITY */
+/*---------*/
+
+.mb-05 {
+  margin-bottom: 0.5em;
+}
+
+.mb-1 {
+  margin-bottom: 1em;
+}
+
+.mb-2 {
+  margin-bottom: 2em;
+}
+
+.mb-3 {
+  margin-bottom: 3em;
+}
+
+.mt-05 {
+  margin-top: 0.5em;
+}
+
+.mt-1 {
+  margin-top: 1em;
+}
+
+.mt-2 {
+  margin-top: 2em;
+}
+
+.mt-3 {
+  margin-top: 3em;
+}
+
+.mt-4 {
+  margin-top: 4em;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.width-100 {
+  display: block;
+}
+
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+}
+
+.inline-svg {
+  display: inline-block;
+  vertical-align: text-bottom;
+}

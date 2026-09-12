@@ -1,0 +1,595 @@
+/*--------*/
+/* ALERTS */
+/*--------*/
+
+.alert {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+  height: fit-content;
+}
+
+.alert-error {
+  background-color: var(--error-message);
+  color: var(--dark-color);
+}
+
+.alert-success {
+  background-color: var(--comp-color-three);
+  color: var(--dark-color);
+}
+
+.alert-info {
+  background-color: var(--comp-color-one);
+  color: var(--dark-color);
+}
+
+/*---------*/
+/* BUTTONS */
+/*---------*/
+
+#scrollToTopButton {
+  display: none;
+  position: fixed;
+  right: 2em;
+  bottom: 3em;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--navigation-color);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+#scrollToTopButton:active,
+#scrollToTopButton:hover {
+  background-color: var(--main-text-color);
+}
+
+.round-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  font-size: var(--small-font-size);
+  color: var(--primary-color);
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0.875em;
+}
+
+.round-with-text-btn {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  color: var(--primary-color);
+  width: 100%;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0.5em 0;
+}
+
+.delete-edit-btn {
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.delete-edit-btn-disabled {
+  color: var(--primary-color-disabled);
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+.delete-btn-dark {
+  color: var(--dark-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.round-btn:hover,
+.round-btn:focus,
+.delete-edit-btn:hover,
+.delete-edit-btn:focus {
+  color: var(--primary-color-hover);
+}
+
+.demo-btn {
+  width: 100%;
+  background-color: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.625em;
+  margin-top: 1em;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.demo-btn:hover,
+.demo-btn:focus {
+  background-color: var(--comp-color-one);
+  /* color: var(--main-font); */
+}
+
+.rectangle-btn,
+.rectangle-btn-card {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--dark-color);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.625em;
+  margin-top: 1em;
+  border: none;
+  border-radius: 10px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.rectangle-btn-card-disabled {
+  width: 100%;
+  background-color: var(--primary-color-disabled);
+  color: var(--dark-color);
+  font-weight: bold;
+  padding: 0.625em;
+  margin-top: 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: default;
+}
+
+.rectangle-btn:hover,
+.rectangle-btn:focus,
+.rectangle-btn-card:hover,
+.rectangle-btn-card:focus {
+  background-color: var(--primary-color-hover);
+  color: var(--main-font);
+}
+
+.rectangle-btn:active {
+  background-color: var(--primary-color-active);
+  color: var(--light-background);
+}
+
+.rectangle-secondary-btn,
+.rectangle-secondary-btn-card {
+  width: 100%;
+  background-color: var(--dark-color);
+  color: var(--primary-color);
+  font-weight: bold;
+  text-align: center;
+  padding: 0.625em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease,
+    border-color 0.3s ease;
+}
+
+.rectangle-secondary-btn:hover,
+.rectangle-secondary-btn:focus,
+.rectangle-secondary-btn-card:hover,
+.rectangle-secondary-btn-card:focus {
+  background-color: var(--error-message);
+  color: var(--dark-color);
+  border-color: var(--dark-color);
+}
+
+.submit-btn {
+  position: relative;
+}
+
+.button-text {
+  transition: all 0.2s;
+}
+
+.button-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2rem;
+  height: 2rem;
+  border: 5px solid transparent;
+  border-top-color: inherit;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.button-loading .button-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.remove-all-btn {
+  width: 100%;
+  background-color: var(--dark-color);
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 0.825em;
+  border: 1px solid var(--dark-color);
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    font-weight 0.3s ease,
+    transform 0.2s ease,
+    border-color 0.3s ease;
+}
+
+.remove-all-btn:hover,
+.remove-all-btn:focus {
+  background-color: var(--error-message);
+  color: var(--dark-color);
+  font-weight: bold;
+  border-color: var(--dark-color);
+}
+
+.agree-btn {
+  border: 1px solid var(--light-dark-color);
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.625em;
+  margin: 0 1em;
+  border-radius: 10px;
+}
+
+/*---------------------*/
+/* DROPDOWN / DROPLEFT */
+/*---------------------*/
+
+.dropleft {
+  position: relative;
+}
+
+.dropleft-menu {
+  z-index: 999;
+  position: absolute;
+  right: 1.5em;
+  top: 0.5em;
+  font-size: var(--small-font-size);
+  background-color: rgba(26, 26, 26, 0.95);
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition:
+    opacity 150ms ease-in-out,
+    transform 150ms ease-in-out;
+}
+
+.dropleft-menu li {
+  padding: 1.5em 2.5em 1.5em 0.5em;
+  white-space: nowrap;
+}
+
+.dropleft-menu li:not(:last-child) {
+  border-bottom: 1px solid var(--light-dark-color);
+}
+
+.dropleft-menu-item svg {
+  margin: 0 0.5em;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.dropleft.active > .delete-edit-btn + .dropleft-menu {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.dropleft-icon-container {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/*-------*/
+/* LINKS */
+/*-------*/
+
+.page-navigation-link {
+  color: var(--navigation-color);
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  vertical-align: bottom;
+}
+
+.page-navigation-link:hover,
+.page-navigation-link:focus {
+  color: var(--primary-color-hover);
+}
+
+.page-navigation-svg {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.active-page {
+  border-radius: 5px;
+  border: solid 2px var(--primary-color);
+  padding: 0.5em 1em;
+}
+
+.pagination {
+  color: var(--main-text-color);
+  padding: 0.5em 1em;
+}
+
+.pagination-arrow {
+  padding: 0.5em 0;
+  color: var(--navigation-color);
+}
+
+.note-link {
+  color: var(--main-color);
+  transition: transform 0.2s ease;
+}
+
+.note-link:hover,
+.note-link:focus {
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  color: var(--main-text-color);
+  transform: scale(1.02);
+}
+
+/*--------*/
+/* INPUTS */
+/*--------*/
+
+/* Style for the colored squares */
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.color-options-color-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+/* Style for the selected color option */
+.color-option input[type="radio"]:checked + div {
+  border: 3px solid var(--title-text-color);
+}
+
+/* CSS classes for different colors */
+.comp-color-one {
+  background-color: var(--comp-color-one);
+}
+
+.comp-color-two {
+  background-color: var(--comp-color-two);
+}
+
+.comp-color-three {
+  background-color: var(--comp-color-three);
+}
+
+.comp-color-four {
+  background-color: var(--comp-color-four);
+}
+
+input[type="date"],
+input[type="time"] {
+  /* Removes the standard native styling */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1);
+}
+
+.input,
+.card-input {
+  width: 100%;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 0.5em 0;
+  color: var(--main-text-color);
+  background-color: var(--input-bg-color);
+  /* border: none; */
+  border: 2px solid var(--semi-dark-color);
+}
+
+.input:focus,
+.input:active,
+.card-input:focus,
+.card-input:active,
+input[type="time"]:focus,
+input[type="time"]:active,
+input[type="time"]:focus-within,
+input[type="time"]:focus-visible,
+input[type="date"]:focus,
+input[type="date"]:active,
+input[type="date"]:focus-within,
+input[type="date"]:focus-visible {
+  border: 2px solid var(--primary-color);
+}
+
+.input::placeholder,
+.card-input::placeholder {
+  color: var(--muted-text-color);
+}
+
+.inline-input {
+  border-radius: 10px;
+  padding: 1em;
+  margin: 0.5em 0;
+  color: var(--main-text-color);
+  background-color: var(--semi-dark-color);
+  border: none;
+}
+
+.textarea {
+  white-space: pre-line;
+}
+
+.search-input {
+  width: 100%;
+  display: block;
+  margin: 1em auto;
+  border-radius: 10px;
+  padding: 0.625em 0.875em;
+  color: var(--dark-color);
+}
+
+.calendar-input-label {
+  margin-bottom: 2em;
+}
+
+/*--------*/
+/* LOADER */
+/*--------*/
+
+.loader {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(51, 51, 51, 0.6);
+  transition:
+    opacity 0.75s,
+    visibility 0.75s;
+}
+
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader::after {
+  content: "";
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 10px solid var(--light-background);
+  border-top-color: var(--primary-color-hover);
+  -webkit-animation: loading 0.75s ease infinite;
+  animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@-webkit-keyframes loading {
+  from {
+    -webkit-transform: rotate(0turn);
+  }
+
+  to {
+    -webkit-transform: rotate(1turn);
+  }
+}
+
+/*--------*/
+/* ALERTS */
+/*--------*/
+
+.cookies {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  margin: 1.25em auto 0 auto;
+}
+
+#cookies {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: none;
+}
+
+/*---------------*/
+/* MEDIA QUERIES */
+/*---------------*/
+
+@media only screen and (min-width: 415px) {
+  .search-input {
+    max-width: 500px;
+  }
+
+  .dropleft-menu li {
+    padding: 1em 2.5em 1em 0.5em;
+    white-space: nowrap;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .remove-all-btn {
+    width: 50%;
+    margin-left: 25%;
+  }
+}
