@@ -472,7 +472,9 @@ fieldset {
   opacity: 0;
   pointer-events: none;
   transform: translateX(10px);
-  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  transition:
+    opacity 150ms ease-in-out,
+    transform 150ms ease-in-out;
 }
 
 .dropleft-menu li {
@@ -568,7 +570,10 @@ fieldset {
   margin-top: 1em;
   border: 1px solid var(--primary-color);
   border-radius: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .demo-btn:hover,
@@ -588,7 +593,10 @@ fieldset {
   margin-top: 1em;
   border: none;
   border-radius: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .rectangle-btn-card-disabled {
@@ -627,7 +635,11 @@ fieldset {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease,
+    border-color 0.3s ease;
 }
 
 .rectangle-secondary-btn:hover,
@@ -684,7 +696,11 @@ fieldset {
   border: 1px solid var(--dark-color);
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease, transform 0.2s ease,
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    font-weight 0.3s ease,
+    transform 0.2s ease,
     border-color 0.3s ease;
 }
 
@@ -769,6 +785,15 @@ fieldset {
 
 .comp-color-four {
   background-color: var(--comp-color-four);
+}
+
+input[type="date"] {
+  /* 1. Entfernt das native Apple-Standard-Styling */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .input,
@@ -902,7 +927,9 @@ fieldset {
   align-items: center;
   justify-content: center;
   background: rgb(51, 51, 51, 0.6);
-  transition: opacity 0.75s, visibility 0.75s;
+  transition:
+    opacity 0.75s,
+    visibility 0.75s;
 }
 
 .loader-hidden {
